@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+/*
+ * Identité visuelle EcocarVHU (proposition) :
+ * anthracite + surfaces claires + vert "réemploi". Contrastes AA vérifiés
+ * pour le texte courant (vert foncé sur blanc, vert clair sur anthracite).
+ */
+@theme {
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --color-ink: #1b1f23;
+  --color-ink-2: #2a3036;
+  --color-ink-3: #3b434b;
+  --color-muted: #59626b;
+  --color-line: #dfe3e0;
+  --color-surface: #f4f6f2;
+  --color-paper: #ffffff;
+
+  --color-brand: #17803d;
+  --color-brand-dark: #0f5a2b;
+  --color-brand-deep: #0a3d1d;
+  --color-brand-bright: #3fd17a;
+  --color-brand-soft: #e6f4ea;
+
+  --color-signal: #f4c430;
+  --color-danger: #b42318;
+  --color-danger-soft: #fdecea;
+  --color-warn-soft: #fff6d6;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* Focus visible, net et cohérent sur tous les éléments interactifs. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-signal);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Numéro de téléphone "3D" : extrusion obtenue par ombres empilées,
+ * sans image ni JavaScript. Lisible, sélectionnable, cliquable.
+ */
+.phone-3d {
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: var(--color-brand-bright);
+  text-shadow:
+    1px 1px 0 #2a9d5c,
+    2px 2px 0 #23864e,
+    3px 3px 0 #1c6f40,
+    4px 4px 0 #155832,
+    5px 5px 0 #0e4124,
+    6px 6px 10px rgb(0 0 0 / 0.45);
+  transition: transform 0.15s ease, text-shadow 0.15s ease;
+}
+
+.phone-3d--light {
+  color: var(--color-brand);
+  text-shadow:
+    1px 1px 0 #136a33,
+    2px 2px 0 #10592b,
+    3px 3px 0 #0d4823,
+    4px 4px 0 #0a3a1c,
+    5px 5px 8px rgb(0 0 0 / 0.25);
+}
+
+a:hover > .phone-3d,
+a:focus-visible > .phone-3d {
+  transform: translate(-1px, -1px);
+}
+
+/* Bouton d'appel flottant (mobile). */
+.call-fab {
+  box-shadow:
+    0 6px 0 var(--color-brand-deep),
+    0 10px 24px rgb(0 0 0 / 0.35);
+}
+
+.call-fab:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 2px 0 var(--color-brand-deep),
+    0 6px 14px rgb(0 0 0 / 0.3);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .call-fab__ring {
+    animation: call-ring 2.8s ease-out infinite;
+  }
+}
+
+@keyframes call-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgb(63 209 122 / 0.55);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 18px rgb(63 209 122 / 0);
+  }
+}
+
+/* Texte éditorial */
+.prose-eco p,
+.prose-eco ul,
+.prose-eco ol {
+  margin-block: 0.85em;
+  line-height: 1.65;
+}
+.prose-eco ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose-eco ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+.prose-eco li + li {
+  margin-top: 0.35em;
+}
+.prose-eco h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-top: 2rem;
+  line-height: 1.2;
+}
+.prose-eco h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+}
+.prose-eco a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Variante compacte (en-tête) : extrusion plus courte pour rester nette. */
+.phone-3d--sm {
+  text-shadow:
+    1px 1px 0 #23864e,
+    2px 2px 0 #155832,
+    3px 3px 4px rgb(0 0 0 / 0.4);
+}

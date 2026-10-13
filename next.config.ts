@@ -1,0 +1,39 @@
+import type { NextConfig } from "next";
+
+const siteEnv = process.env.SITE_ENV?.trim().toLowerCase();
+const isProduction = siteEnv === "production";
+
+const nextConfig: NextConfig = {
+  cacheComponents: true,
+  partialPrefetching: true,
+  poweredByHeader: false,
+  turbopack: {
+    rules: {
+      "*.css": {
+        loaders: ["@tailwindcss/turbopack"],
+        as: "*.css",
+      },
+    },
+  },
+  async headers() {
+    const security = [
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      { key: "X-Frame-Options", value: "SAMEORIGIN" },
+      { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+    ];
+    return [
+      {
+        source: "/:path*",
+        // Hors production : noindex sur toutes les réponses (pages, images, fichiers).
+        headers: isProduction ? security : [...security, { key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      {
+        source: "/api/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex" }],
+      },
+    ];
+  },
+};
+
+export default nextConfig;
