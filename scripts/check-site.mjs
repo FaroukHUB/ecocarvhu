@@ -29,13 +29,15 @@ const CORE_PATHS = [
   "/confidentialite",
   "/conditions",
 ];
-const DRAFT_PATHS = [
+const SECTOR_PATHS = [
   "/zones-intervention/paca",
   "/zones-intervention/marseille",
   "/zones-intervention/aubagne",
   "/zones-intervention/la-ciotat",
   "/zones-intervention/cassis",
   "/zones-intervention/nice",
+];
+const DRAFT_PATHS = [
   "/zones-intervention/monaco",
   "/conseils",
   "/conseils/documents-remise-vehicule",
@@ -80,7 +82,7 @@ function analyse(path, html) {
 async function main() {
   const allLinks = new Set();
 
-  const pagesToCheck = EXPECT === "production" ? CORE_PATHS : [...CORE_PATHS, ...DRAFT_PATHS];
+  const pagesToCheck = EXPECT === "production" ? [...CORE_PATHS, ...SECTOR_PATHS] : [...CORE_PATHS, ...SECTOR_PATHS, ...DRAFT_PATHS];
   for (const path of pagesToCheck) {
     const { status, body } = await get(path);
     if (status !== 200) {

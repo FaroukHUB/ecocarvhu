@@ -7,11 +7,12 @@ import type { Sector } from "./types";
  * vérification (voir docs/CONTENT-VALIDATION.md).
  */
 
-const NOT_CONFIRMED = {
+/** Statuts confirmés par le porteur de projet le 13/10/2026 (région PACA + 5 villes). */
+const CONFIRMED = {
   targeted: true,
-  serviceConfirmed: false,
-  contentVerified: false,
-  publicationApproved: false,
+  serviceConfirmed: true,
+  contentVerified: true,
+  publicationApproved: true,
 } as const;
 
 const CITY_MISSING = [
@@ -29,7 +30,7 @@ export const sectors: Sector[] = [
     kind: "region",
     locative: "en Provence-Alpes-Côte d'Azur",
     postalCodes: [],
-    status: { ...NOT_CONFIRMED },
+    status: { ...CONFIRMED },
     seo: {
       title: "Enlèvement d'épave gratuit en PACA : épaviste dans les 6 départements",
       description:
@@ -93,7 +94,7 @@ export const sectors: Sector[] = [
       "13001", "13002", "13003", "13004", "13005", "13006", "13007", "13008",
       "13009", "13010", "13011", "13012", "13013", "13014", "13015", "13016",
     ],
-    status: { ...NOT_CONFIRMED },
+    status: { ...CONFIRMED },
     seo: {
       title: "Enlèvement d'épave gratuit à Marseille : épaviste Marseille (13)",
       description:
@@ -155,7 +156,7 @@ export const sectors: Sector[] = [
     locative: "à Aubagne",
     department: { code: "13", name: "Bouches-du-Rhône" },
     postalCodes: ["13400"],
-    status: { ...NOT_CONFIRMED },
+    status: { ...CONFIRMED },
     seo: {
       title: "Enlèvement d'épave gratuit à Aubagne (13400) : épaviste Aubagne",
       description:
@@ -206,7 +207,7 @@ export const sectors: Sector[] = [
     locative: "à La Ciotat",
     department: { code: "13", name: "Bouches-du-Rhône" },
     postalCodes: ["13600"],
-    status: { ...NOT_CONFIRMED },
+    status: { ...CONFIRMED },
     seo: {
       title: "Enlèvement d'épave gratuit à La Ciotat (13600) : épaviste La Ciotat",
       description:
@@ -254,7 +255,7 @@ export const sectors: Sector[] = [
     locative: "à Cassis",
     department: { code: "13", name: "Bouches-du-Rhône" },
     postalCodes: ["13260"],
-    status: { ...NOT_CONFIRMED },
+    status: { ...CONFIRMED },
     seo: {
       title: "Enlèvement d'épave gratuit à Cassis (13260) : épaviste Cassis",
       description:
@@ -302,7 +303,7 @@ export const sectors: Sector[] = [
     locative: "à Nice",
     department: { code: "06", name: "Alpes-Maritimes" },
     postalCodes: ["06000", "06100", "06200", "06300"],
-    status: { ...NOT_CONFIRMED },
+    status: { ...CONFIRMED },
     seo: {
       title: "Enlèvement d'épave gratuit à Nice : épaviste Nice (06)",
       description:

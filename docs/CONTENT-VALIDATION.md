@@ -66,16 +66,18 @@ Le mot « agréé » n'apparaît que dans l'encart du partenaire, conformément 
 
 ## 5. Statut des secteurs
 
+> 13/10/2026 : le porteur de projet a confirmé le service et autorisé la publication de la région PACA et des 5 villes. Monaco reste un brouillon séparé. Les éléments listés dans la colonne « Ce qui manque » restent utiles pour enrichir ces pages.
+
 Statuts : **C** = cible souhaitée · **S** = service confirmé · **V** = contenu vérifié · **P** = publication autorisée.
 
 | Secteur | C | S | V | P | Ce qui manque |
 |---|---|---|---|---|---|
-| PACA (région) | ✔ | ✘ | ✘ | ✘ | Départements et communes réellement desservis, centre de destination, conditions par zone |
-| Marseille | ✔ | ✘ | ✘ | ✘ | Service confirmé et délais, moyens (sous-sols, hauteur), centre de destination, conditions, matière locale vérifiée |
-| Aubagne | ✔ | ✘ | ✘ | ✘ | Idem + confirmation de l'hypothèse « Auban = Aubagne » |
-| La Ciotat | ✔ | ✘ | ✘ | ✘ | Idem Marseille |
-| Cassis | ✔ | ✘ | ✘ | ✘ | Idem Marseille |
-| Nice | ✔ | ✘ | ✘ | ✘ | Idem + organisation propre aux Alpes-Maritimes |
+| PACA (région) | ✔ | ✔ | ✔ | ✔ | Départements et communes réellement desservis, centre de destination, conditions par zone |
+| Marseille | ✔ | ✔ | ✔ | ✔ | Service confirmé et délais, moyens (sous-sols, hauteur), centre de destination, conditions, matière locale vérifiée |
+| Aubagne | ✔ | ✔ | ✔ | ✔ | Idem + confirmation de l'hypothèse « Auban = Aubagne » |
+| La Ciotat | ✔ | ✔ | ✔ | ✔ | Idem Marseille |
+| Cassis | ✔ | ✔ | ✔ | ✔ | Idem Marseille |
+| Nice | ✔ | ✔ | ✔ | ✔ | Idem + organisation propre aux Alpes-Maritimes |
 | Monaco | ✔ | ✘ | ✘ | ✘ | Procédures monégasques actuelles, prise en charge d'un véhicule monégasque par un centre français, conditions d'intervention sur le territoire, décision commerciale |
 | Var, Vaucluse, 04, 05 (départements) | ✔ | ✘ | — | — | Pas de page dédiée : section de la page PACA |
 

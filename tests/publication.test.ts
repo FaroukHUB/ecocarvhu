@@ -86,7 +86,9 @@ describe("routes dynamiques (vrai 404)", async () => {
   const { isKnownDynamicPath } = await import("@/lib/routes");
   it("reconnaît les segments existants et refuse les autres", () => {
     expect(isKnownDynamicPath("/zones-intervention/marseille", PREVIEW)).toBe(true);
-    expect(isKnownDynamicPath("/zones-intervention/marseille", PROD)).toBe(false);
+    expect(isKnownDynamicPath("/zones-intervention/marseille", PROD)).toBe(true);
+    expect(isKnownDynamicPath("/zones-intervention/monaco", PREVIEW)).toBe(true);
+    expect(isKnownDynamicPath("/zones-intervention/monaco", PROD)).toBe(false);
     expect(isKnownDynamicPath("/zones-intervention/ville-inconnue", PREVIEW)).toBe(false);
     expect(isKnownDynamicPath("/zones-intervention/marseille/x", PREVIEW)).toBe(false);
     expect(isKnownDynamicPath("/conseils/inconnu", PREVIEW)).toBe(false);
