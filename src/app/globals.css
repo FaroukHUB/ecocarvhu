@@ -23,6 +23,10 @@
   --color-brand-soft: #e6f4ea;
 
   --color-signal: #f4c430;
+  --color-mint: #e9f6ee;
+  --color-mint-2: #d2eedc;
+  --color-sun: #fff4cc;
+  --color-sun-2: #ffe8a3;
   --color-danger: #b42318;
   --color-danger-soft: #fdecea;
   --color-warn-soft: #fff6d6;
@@ -164,4 +168,133 @@ body {
   color: var(--color-brand);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+
+/* ------------------------------------------------------------------ */
+/* Ambiances de sections                                               */
+/* ------------------------------------------------------------------ */
+
+/* Fond vert clair avec trame de points discrète */
+.bg-mint-dots {
+  background-color: var(--color-mint);
+  background-image: radial-gradient(rgb(23 128 61 / 0.12) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+/* Fond vert de marque, dégradé et halo lumineux */
+.bg-brand-glow {
+  background:
+    radial-gradient(ellipse at 85% 0%, rgb(63 209 122 / 0.35), transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgb(10 61 29 / 0.6), transparent 60%),
+    linear-gradient(135deg, #17803d 0%, #0f5a2b 100%);
+}
+
+/* Fond anthracite avec quadrillage léger */
+.bg-ink-grid {
+  background-color: var(--color-ink);
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Fond jaune chaud */
+.bg-sun-soft {
+  background: linear-gradient(180deg, var(--color-sun) 0%, #fffaf0 100%);
+}
+
+/* Barre de couleur sous les titres de section */
+.title-bar::after {
+  content: "";
+  display: block;
+  width: 4rem;
+  height: 0.35rem;
+  margin-top: 0.85rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-brand-bright), var(--color-signal));
+}
+
+/* Cartes : légère élévation au survol (pointeur fin uniquement) */
+@media (hover: hover) {
+  .lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -18px rgb(15 90 43 / 0.45);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Animations d'apparition au défilement (CSS seul, sans JavaScript)   */
+/* Navigateurs sans "animation-timeline" : contenu affiché normalement. */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+    .reveal-left {
+      animation: reveal-left linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+    .reveal-zoom {
+      animation: reveal-zoom linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 65%;
+    }
+  }
+
+  /* Petite pulsation de confirmation (réponse enregistrée) */
+  .pop {
+    animation: pop 0.35s ease-out;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes reveal-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.4;
+  }
+  60% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
 }

@@ -16,7 +16,7 @@ export function CallBand({
   placement: string;
 }) {
   return (
-    <section aria-label="Nous appeler" className="relative overflow-hidden bg-ink text-white">
+    <section aria-label="Nous appeler" className="relative overflow-hidden bg-ink-grid text-white">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand/30 blur-3xl"

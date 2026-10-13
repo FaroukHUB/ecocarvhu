@@ -7,14 +7,14 @@ import type { FaqItem } from "@/content/sectors/types";
  */
 export function Faq({ items, headingId }: { items: FaqItem[]; headingId?: string }) {
   return (
-    <div className="divide-y divide-line rounded-2xl border border-line bg-paper" aria-labelledby={headingId}>
+    <div className="space-y-3" aria-labelledby={headingId}>
       {items.map((item) => (
-        <details key={item.q} className="group px-5 py-1 sm:px-6">
+        <details key={item.q} className="group rounded-2xl bg-paper px-5 py-1 shadow-sm ring-1 ring-black/5 transition open:shadow-md open:ring-brand/30 sm:px-6">
           <summary className="flex cursor-pointer list-none items-start justify-between gap-4 py-4 text-left text-[1.05rem] font-bold [&::-webkit-details-marker]:hidden">
             <h3 className="font-bold">{item.q}</h3>
             <span
               aria-hidden="true"
-              className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface text-brand transition-transform group-open:rotate-45"
+              className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-lg font-bold text-white transition-transform group-open:rotate-45 group-open:bg-signal group-open:text-ink"
             >
               +
             </span>

@@ -14,12 +14,18 @@ export function Section({
 }: {
   children: React.ReactNode;
   className?: string;
-  tone?: "paper" | "surface" | "ink";
+  tone?: "paper" | "surface" | "ink" | "mint" | "brand" | "sun";
   id?: string;
   labelledBy?: string;
 }) {
-  const toneClass =
-    tone === "surface" ? "bg-surface" : tone === "ink" ? "bg-ink text-white" : "bg-paper";
+  const toneClass = {
+    paper: "bg-paper",
+    surface: "bg-surface",
+    ink: "bg-ink-grid text-white",
+    mint: "bg-mint-dots",
+    brand: "bg-brand-glow text-white",
+    sun: "bg-sun-soft",
+  }[tone];
   return (
     <section id={id} aria-labelledby={labelledBy} className={`${toneClass} py-14 sm:py-20 ${className}`}>
       <Container>{children}</Container>
@@ -27,13 +33,18 @@ export function Section({
   );
 }
 
-export function Eyebrow({ children, tone = "brand" }: { children: React.ReactNode; tone?: "brand" | "light" }) {
+/** Sur-titre en pastille colorée. */
+export function Eyebrow({ children, tone = "brand" }: { children: React.ReactNode; tone?: "brand" | "light" | "sun" }) {
+  const styles = {
+    brand: "bg-brand-soft text-brand-dark ring-brand/20",
+    light: "bg-white/10 text-brand-bright ring-white/20",
+    sun: "bg-sun-2 text-[#6b4f00] ring-[#c99a00]/30",
+  }[tone];
   return (
     <p
-      className={`text-sm font-bold uppercase tracking-[0.12em] ${
-        tone === "light" ? "text-brand-bright" : "text-brand"
-      }`}
+      className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] ring-1 sm:text-sm ${styles}`}
     >
+      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-current" />
       {children}
     </p>
   );
@@ -41,7 +52,7 @@ export function Eyebrow({ children, tone = "brand" }: { children: React.ReactNod
 
 export function H2({ id, children, className = "" }: { id?: string; children: React.ReactNode; className?: string }) {
   return (
-    <h2 id={id} className={`mt-2 text-[1.75rem] font-extrabold leading-tight tracking-tight sm:text-4xl ${className}`}>
+    <h2 id={id} className={`title-bar mt-3 text-[1.75rem] font-extrabold leading-tight tracking-tight sm:text-4xl ${className}`}>
       {children}
     </h2>
   );

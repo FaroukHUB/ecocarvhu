@@ -20,7 +20,8 @@ export function PageHero({
   phone?: boolean;
 }) {
   return (
-    <div className="bg-surface">
+    <div className="relative isolate overflow-hidden bg-mint-dots">
+      <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 -z-10 h-72 w-72 rounded-full bg-brand-bright/25 blur-3xl" />
       <Breadcrumbs items={crumbs} />
       <Container className="grid items-end gap-8 pb-12 pt-6 sm:pb-16 lg:grid-cols-[1.5fr_1fr]">
         <div>
