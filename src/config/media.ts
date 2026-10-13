@@ -29,9 +29,9 @@ export const photos: Record<
   }
 > = {
   hero: {
-    file: "hero",
-    alt: "",
-    brief: "Dépanneuse plateau chargeant une voiture hors d'usage, format paysage large (≥ 2000 px).",
+    file: "hero-desktop",
+    alt: "Une dépanneuse plateau charge une voiture sur une route surplombant Marseille et le Vieux-Port",
+    brief: "Dépanneuse plateau chargeant une voiture hors d'usage, format paysage large (≥ 1600 px).",
     illustrative: false,
   },
   enlevement: {
@@ -65,8 +65,22 @@ export function photoSrc(slot: PhotoSlot): string | null {
   return null;
 }
 
-/** Compatibilité avec le hero existant. */
+/**
+ * Hero : une image paysage pour ordinateur (`public/hero-desktop.*`) et une
+ * image portrait pour mobile (`public/hero-mobile.*`, facultative : à défaut,
+ * l'image ordinateur est recadrée).
+ */
 export const heroAlt = photos.hero.alt;
-export function heroImageSrc(): string | null {
-  return photoSrc("hero");
+
+function findPublic(base: string): string | null {
+  for (const ext of EXTENSIONS) {
+    if (fs.existsSync(path.join(process.cwd(), "public", base + ext))) return `/${base}${ext}`;
+  }
+  return null;
+}
+
+export function heroImages(): { desktop: string; mobile: string | null } | null {
+  const desktop = findPublic("hero-desktop");
+  if (!desktop) return null;
+  return { desktop, mobile: findPublic("hero-mobile") };
 }

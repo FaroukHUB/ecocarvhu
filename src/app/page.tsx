@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { company } from "@/config/company";
-import { heroAlt, heroImageSrc } from "@/config/media";
+import { heroImages } from "@/config/media";
 import { pages } from "@/content/pages";
 import { sources } from "@/content/regulatory";
 import {
@@ -23,7 +22,7 @@ import { ButtonLink, Container, Eyebrow, H2, Section } from "@/components/ui/pri
 import { CheckIcon, CoinsIcon, DocIcon, GearIcon, PhoneIcon, ShieldIcon, TruckIcon } from "@/components/ui/icons";
 import { Faq } from "@/components/ui/Faq";
 import { Photo, hasPhotoBlock } from "@/components/ui/Photo";
-import { HeroIllustration } from "@/components/sections/HeroIllustration";
+import { HeroBackground } from "@/components/sections/HeroBackground";
 import { VehicleCheck } from "@/components/sections/VehicleCheck";
 import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
 import { SectorList } from "@/components/sections/SectorList";
@@ -39,19 +38,23 @@ export const metadata = buildMetadata({
 });
 
 export default function HomePage() {
-  const heroSrc = heroImageSrc();
+  const hasHeroImage = Boolean(heroImages());
   const accessGuide = guideHref("enlevement-acces-difficile");
   const docsGuide = guideHref("documents-remise-vehicule");
   const refGuide = guideHref("identifier-reference-piece");
 
   return (
     <>
-      {/* A. Hero : enlèvement en priorité, pièce en second, rachat en entrée secondaire */}
+      {/* A. Hero : image plein cadre (paysage sur ordinateur, portrait sur mobile), voile léger, texte par-dessus */}
       <section className="relative isolate overflow-hidden bg-ink text-white">
-        {heroSrc ? (
+        {hasHeroImage ? (
           <>
-            <Image src={heroSrc} alt={heroAlt} fill priority sizes="100vw" className="-z-20 object-cover" />
-            <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/95 via-ink/75 to-ink/30" />
+            <HeroBackground />
+            {/* Voile : plus dense derrière le texte (haut en portrait, gauche en paysage) */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/10 portrait:bg-gradient-to-b portrait:from-ink/85 portrait:via-ink/50 portrait:to-ink/10"
+            />
           </>
         ) : (
           <div
@@ -60,61 +63,51 @@ export default function HomePage() {
           />
         )}
 
-        <Container className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1.4fr_1fr] lg:py-20">
-          <div>
+        <Container className="flex min-h-[calc(100svh-7rem)] flex-col justify-start pb-10 pt-10 md:min-h-[600px] md:justify-center md:py-20 lg:min-h-[680px]">
+          <div className="max-w-2xl [text-shadow:0_2px_12px_rgb(0_0_0/0.45)]">
             <Eyebrow tone="light">Épaviste · Pièces auto d&apos;occasion · PACA</Eyebrow>
-            <h1 className="mt-3 text-[2.2rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]">
+            <h1 className="mt-3 text-[2.3rem] font-extrabold leading-[1.04] tracking-tight sm:text-5xl lg:text-[3.6rem]">
               Enlèvement d&apos;épave gratuit{" "}
-              <span className="mt-1 block text-[0.62em] font-bold leading-tight text-white/90">
+              <span className="mt-1 block text-[0.6em] font-bold leading-tight text-white/95">
                 en Provence-Alpes-Côte d&apos;Azur
               </span>
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/85">
-              Votre véhicule hors d&apos;usage est enlevé <strong className="text-white">gratuitement</strong>{" "}
-              s&apos;il est complet et accessible, puis remis à un centre VHU partenaire. Vous connaissez les
-              conditions avant le déplacement.
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
+              Véhicule complet et accessible : nous l&apos;enlevons <strong className="text-white">gratuitement</strong>{" "}
+              et le remettons à un centre VHU partenaire. Conditions confirmées avant le déplacement.
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-6 grid gap-3 [text-shadow:none] sm:flex">
               <Link
                 href="/enlevement-epave#demande"
-                className="flex min-h-16 items-center gap-3 rounded-2xl bg-brand px-6 py-3.5 text-white shadow-[0_6px_0_var(--color-brand-deep)] transition hover:bg-brand-dark active:translate-y-1 active:shadow-[0_2px_0_var(--color-brand-deep)]"
+                className="flex min-h-14 items-center gap-3 rounded-2xl bg-brand px-5 py-3 text-white shadow-[0_6px_0_var(--color-brand-deep)] transition hover:bg-brand-dark active:translate-y-1 active:shadow-[0_2px_0_var(--color-brand-deep)] sm:px-6"
               >
-                <TruckIcon className="h-8 w-8 shrink-0" />
+                <TruckIcon className="h-7 w-7 shrink-0" />
                 <span className="text-lg font-extrabold leading-tight sm:whitespace-nowrap">Demander un enlèvement</span>
               </Link>
               <Link
                 href={pages.demandePiece.path}
-                className="flex min-h-16 items-center gap-3 rounded-2xl bg-white px-6 py-3.5 text-ink shadow-[0_6px_0_rgb(0_0_0/0.35)] transition hover:bg-brand-soft active:translate-y-1 active:shadow-[0_2px_0_rgb(0_0_0/0.35)]"
+                className="flex min-h-14 items-center gap-3 rounded-2xl bg-white/95 px-5 py-3 text-ink shadow-[0_6px_0_rgb(0_0_0/0.35)] backdrop-blur transition hover:bg-white active:translate-y-1 active:shadow-[0_2px_0_rgb(0_0_0/0.35)] sm:px-6"
               >
-                <GearIcon className="h-8 w-8 shrink-0 text-brand" />
+                <GearIcon className="h-7 w-7 shrink-0 text-brand" />
                 <span className="text-lg font-extrabold leading-tight sm:whitespace-nowrap">Trouver une pièce</span>
               </Link>
             </div>
 
-            <div className="mt-7 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+            <div className="mt-6 flex flex-col items-start gap-4 [text-shadow:none] sm:flex-row sm:items-center sm:gap-6">
               <PhoneBig placement="hero" size="lg" caption="Appel direct" />
               <Link
                 href={pages.rachat.path}
-                className="inline-flex items-center gap-2 font-semibold text-white underline decoration-brand-bright decoration-2 underline-offset-4 hover:text-brand-bright"
+                className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-ink/60 px-4 py-2 font-semibold text-white backdrop-blur hover:bg-ink/80"
               >
                 <CoinsIcon className="h-5 w-5 text-brand-bright" />
                 Faire étudier le rachat de mon véhicule
               </Link>
             </div>
           </div>
-
-          <div className="hidden lg:block">
-            {heroSrc ? null : (
-              <figure>
-                <HeroIllustration className="rounded-[28px] shadow-2xl ring-1 ring-white/10" />
-                <figcaption className="mt-2 text-right text-xs text-white/50">Illustration</figcaption>
-              </figure>
-            )}
-          </div>
         </Container>
 
-        <div className="border-t border-white/10 bg-black/20">
+        <div className="border-t border-white/10 bg-ink/70 backdrop-blur">
           <Container>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2 py-4 text-sm font-semibold text-white/90 md:grid-cols-4">
               {[

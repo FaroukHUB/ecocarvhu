@@ -86,13 +86,17 @@ Dans `src/content/sectors/data.ts`, chaque secteur a quatre statuts : `targeted`
 
 ## Image du hero (accueil)
 
-Le hero de l'accueil occupe toute la largeur. Pour y mettre votre image :
+Le hero de l'accueil occupe toute la largeur, avec une image de fond, un voile sombre et le texte par-dessus. Deux fichiers sont prévus dans `public/` :
 
-1. Déposez-la dans `public/` sous le nom `hero.jpg`, `hero.webp` ou `hero.png` : format paysage, au moins 2000 px de large, idéalement moins de 400 Ko.
-2. Renseignez un texte alternatif descriptif dans `heroAlt` (`src/config/media.ts`).
-3. Reconstruisez le site (ou poussez sur GitHub : Vercel redéploie automatiquement).
+- `hero-desktop.webp` (ou `.jpg`, `.png`) : image paysage, utilisée sur les écrans en mode paysage ;
+- `hero-mobile.webp` : image portrait, utilisée sur les écrans en mode portrait (téléphones, tablettes debout). Elle est facultative : sans elle, l'image paysage est recadrée.
 
-L'image est optimisée par `next/image`, chargée en priorité et recadrée automatiquement. Un voile sombre garantit la lisibilité du texte. Sans fichier, un fond dégradé s'affiche. N'utilisez que des photos réelles de l'entreprise ou correctement licenciées.
+Le texte alternatif se règle dans `src/config/media.ts` (`photos.hero.alt`).
+
+Pour la performance :
+- les images sont servies en AVIF ou WebP, en qualité 60 (invisible sous le voile) ;
+- une seule des deux images est téléchargée ;
+- elle est chargée en priorité (`fetchPriority="high"`).
 
 ## Photos de l'accueil
 

@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,
+  images: {
+    // 60 : image de fond du hero (sous un voile sombre) ; 75 : valeur par défaut.
+    qualities: [60, 75],
+    // AVIF en priorité (plus léger), WebP sinon.
+    formats: ["image/avif", "image/webp"],
+  },
   turbopack: {
     rules: {
       "*.css": {
