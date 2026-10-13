@@ -25,8 +25,8 @@ const page = await ctx.newPage();
 async function fillPickup(p) {
   await p.fill('[name="postalCode"]', "13005");
   await p.fill('[name="city"]', "Marseille");
-  await p.fill('[name="brand"]', "Peugeot");
-  await p.fill('[name="model"]', "206");
+  await p.selectOption('select[name="brand"]', "Peugeot");
+  await p.selectOption('select[name="model"]', "206");
   await p.check('[name="condition"][value="panne"]', { force: true });
   await p.click("button[type=submit]");
   await p.check('[name="wheels"][value="oui"]', { force: true });
@@ -61,8 +61,8 @@ check(!(await page.isVisible("text=Votre demande a été transmise")), "service 
 // 3. Fichier refusé (contenu non image renommé en .jpg)
 await page.goto(`${BASE}/demande-piece`, { waitUntil: "networkidle" });
 await page.waitForTimeout(3000);
-await page.fill('[name="brand"]', "Renault");
-await page.fill('[name="model"]', "Clio");
+await page.selectOption('select[name="brand"]', "Renault");
+await page.selectOption('select[name="model"]', "Clio");
 await page.click("button[type=submit]");
 await page.fill('[name="partName"]', "Alternateur");
 await page.setInputFiles('input[type=file]', {
@@ -76,6 +76,16 @@ await page.fill('[name="email"]', "client@test.invalid");
 await page.click("button[type=submit]");
 await page.waitForSelector('form [role="alert"]');
 check(/n'est pas une photo acceptée/.test((await page.textContent('form [role="alert"]')) ?? ""), "fichier non image refusé par le serveur");
+
+// 3 bis. Sélecteurs véhicule : « Autre marque » ouvre un champ libre envoyé sous le nom "brand"
+await page.goto(`${BASE}/rachat-vehicule`, { waitUntil: "networkidle" });
+check(await page.isDisabled('select[name="model"]'), "modèle désactivé tant que la marque n'est pas choisie");
+await page.selectOption('select[name="brand"]', "Dacia");
+const daciaModels = await page.locator('select[name="model"] option').allTextContents();
+check(daciaModels.includes("Sandero"), "modèles proposés selon la marque (Dacia → Sandero)");
+await page.selectOption('select[name="brandChoice"], select[name="brand"]', "__autre");
+check(await page.isVisible('input[name="brand"]'), "« Autre marque » ouvre un champ libre");
+check(await page.isVisible('input[name="model"]'), "modèle en champ libre si la marque est « Autre »");
 
 // 4. Succès simulé : affiché seulement sur réponse "accepted/sent"
 await page.route("**/api/demandes", (route) =>

@@ -151,6 +151,9 @@ export function SelectField({
   hint,
   defaultValue = "",
   placeholder = "Choisir…",
+  onValueChange,
+  submitName,
+  disabled,
 }: {
   name: string;
   label: string;
@@ -159,6 +162,11 @@ export function SelectField({
   hint?: string;
   defaultValue?: string;
   placeholder?: string;
+  /** Appelé à chaque changement de valeur. */
+  onValueChange?: (value: string) => void;
+  /** Nom envoyé au serveur s'il diffère de `name` (ex. choix « Autre » remplacé par un champ libre). */
+  submitName?: string;
+  disabled?: boolean;
 }) {
   const { id, error, clearError, errorId, hintId } = useField(name);
   return (
@@ -166,23 +174,41 @@ export function SelectField({
       <Label htmlFor={id} required={required}>
         {label}
       </Label>
-      <select
-        id={id}
-        name={name}
-        required={required}
-        defaultValue={defaultValue}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={describedBy(hint, error, hintId, errorId)}
-        onChange={() => error && clearError(name)}
-        className={`${inputBase} appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%231b1f23%22 stroke-width=%222%22><path d=%22M6 9l6 6 6-6%22/></svg>')] bg-[length:1.25rem] bg-[right_0.9rem_center] bg-no-repeat pr-10`}
-      >
-        <option value="">{placeholder}</option>
-        {options.map((o) => (
-          <option key={o.value} value={o.value}>
-            {o.label}
-          </option>
-        ))}
-      </select>
+      <div className="relative">
+        <select
+          id={id}
+          name={submitName ?? name}
+          required={required}
+          disabled={disabled}
+          defaultValue={defaultValue}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={describedBy(hint, error, hintId, errorId)}
+          onChange={(e) => {
+            if (error) clearError(name);
+            onValueChange?.(e.target.value);
+          }}
+          className={`${inputBase} appearance-none pr-11 disabled:cursor-not-allowed disabled:bg-surface disabled:text-muted`}
+        >
+          <option value="">{placeholder}</option>
+          {options.map((o) => (
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
+          ))}
+        </select>
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          className="pointer-events-none absolute right-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-2"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </div>
       <FieldMessages hint={hint} hintId={hintId} error={error} errorId={errorId} />
     </div>
   );

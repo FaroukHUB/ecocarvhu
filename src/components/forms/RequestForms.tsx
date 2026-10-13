@@ -5,7 +5,6 @@ import {
   ACCESS_OPTIONS,
   BUYBACK_DOC_OPTIONS,
   CONDITION_OPTIONS,
-  FUEL_OPTIONS,
   HOLDER_OPTIONS,
   MARSEILLE_ARRONDISSEMENTS,
   MECHANICAL_OPTIONS,
@@ -19,6 +18,7 @@ import {
 } from "@/lib/forms/options";
 import { ChoiceGroup, PhotoField, SelectField, TextArea, TextField } from "./fields";
 import { FormShell } from "./FormShell";
+import { VehicleFields } from "./VehicleFields";
 
 export interface FileLimitsProps {
   maxFileBytes: number;
@@ -121,11 +121,7 @@ export function PickupForm({
                   label="Précision sur l'emplacement"
                   hint="Quartier, nom de la résidence, zone d'activités… pas besoin du numéro de rue à ce stade."
                 />
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <TextField name="brand" label="Marque" required placeholder="ex. Peugeot" />
-                  <TextField name="model" label="Modèle" required placeholder="ex. 206" />
-                </div>
-                <TextField name="year" label="Année" inputMode="numeric" maxLength={4} pattern="[0-9]{4}" hint="Si vous la connaissez (carte grise, rubrique B)." />
+                <VehicleFields />
                 <ChoiceGroup name="condition" legend="État du véhicule" options={CONDITION_OPTIONS} required columns={4} />
                 <TextArea name="conditionDetail" label="Précision sur l'état" rows={2} placeholder="ex. choc avant, moteur cassé, immobilisé depuis 2 ans…" />
               </>
@@ -202,14 +198,7 @@ export function PartForm({ pagePath, limits }: { pagePath: string; limits: FileL
           title: "Votre véhicule",
           content: (
             <>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <TextField name="brand" label="Marque" required placeholder="ex. Renault" />
-                <TextField name="model" label="Modèle" required placeholder="ex. Clio III" />
-              </div>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <TextField name="year" label="Année" inputMode="numeric" maxLength={4} pattern="[0-9]{4}" />
-                <TextField name="engine" label="Motorisation" placeholder="ex. 1.5 dCi 85 ch, boîte manuelle" hint="Indispensable pour les pièces moteur et mécaniques." />
-              </div>
+              <VehicleFields showFuel showEngine />
               <TextField
                 name="plate"
                 label="Immatriculation"
@@ -276,14 +265,9 @@ export function BuybackForm({ pagePath, limits }: { pagePath: string; limits: Fi
           title: "Le véhicule",
           content: (
             <>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <TextField name="brand" label="Marque" required />
-                <TextField name="model" label="Modèle" required />
-              </div>
-              <div className="grid gap-5 sm:grid-cols-3">
-                <TextField name="year" label="Année" required inputMode="numeric" maxLength={4} pattern="[0-9]{4}" />
+              <VehicleFields yearRequired showFuel />
+              <div className="sm:max-w-xs">
                 <TextField name="mileage" label="Kilométrage" required inputMode="numeric" maxLength={9} placeholder="ex. 185000" />
-                <SelectField name="fuel" label="Énergie" options={FUEL_OPTIONS} />
               </div>
             </>
           ),

@@ -142,6 +142,7 @@ export const partSchema = z
     model: required(80, "Indiquez le modèle."),
     year,
     engine: optional(120),
+    fuel: optionalChoice(["essence", "diesel", "hybride", "electrique", "gpl", "autre"] as const),
     partName: optional(200),
     partDescription: optional(1500),
     oemRef: optional(80),
