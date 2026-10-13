@@ -26,10 +26,10 @@ export default function NotFound() {
       <p className="mt-4 max-w-xl text-lg text-ink-3">
         L&apos;adresse est peut-être incomplète. Voici les accès les plus utiles :
       </p>
-      <ul className="mt-6 grid max-w-2xl gap-3 sm:grid-cols-2">
+      <ul className="mt-6 grid max-w-2xl border-t border-ink/15 sm:grid-cols-2 sm:gap-x-8">
         {links.map((l) => (
           <li key={l.href}>
-            <Link href={l.href} className="block rounded-xl bg-surface px-4 py-3.5 font-bold hover:text-brand">
+            <Link href={l.href} className="block border-b border-ink/15 py-3.5 font-bold hover:text-brand">
               {l.label}
             </Link>
           </li>

@@ -32,19 +32,19 @@ export default function ConseilsPage() {
         phone={false}
       />
       <Section>
-        <ul className="grid gap-4 md:grid-cols-2">
+        <ul className="grid gap-x-12 md:grid-cols-2">
           {list.map((g) => (
             <li key={g.slug}>
               <Link
                 href={`/conseils/${g.slug}`}
-                className="flex h-full flex-col rounded-2xl bg-surface p-6 ring-1 ring-transparent hover:ring-brand"
+                className="group flex h-full flex-col border-t-2 border-ink/15 py-6 transition-colors hover:border-brand"
               >
                 {!isGuidePublished(g) ? (
                   <span className="mb-2 self-start rounded bg-signal px-1.5 py-0.5 text-[0.7rem] font-bold uppercase">
                     Brouillon
                   </span>
                 ) : null}
-                <h2 className="text-xl font-bold">{g.h1}</h2>
+                <h2 className="text-xl font-extrabold group-hover:text-brand">{g.h1}</h2>
                 <p className="mt-2 flex-1 text-ink-3">{g.summary}</p>
                 <span className="mt-4 inline-flex items-center gap-2 font-semibold text-brand">
                   Lire le guide <ArrowIcon className="h-4 w-4" />

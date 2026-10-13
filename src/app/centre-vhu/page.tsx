@@ -8,7 +8,7 @@ import { ButtonLink, Container, Eyebrow, H2, Notice, Section } from "@/component
 import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
 import { DocumentsChecklist } from "@/components/sections/DocumentsChecklist";
 import { CallBand } from "@/components/sections/CallBand";
-import { RecycleIcon } from "@/components/ui/icons";
+import { FeatureList } from "@/components/ui/FeatureList";
 
 const page = pages.centreVhu;
 
@@ -40,8 +40,8 @@ function RolesSection() {
     );
   }
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      <div className="rounded-2xl bg-paper p-6 ring-1 ring-line">
+    <div className="grid gap-10 md:grid-cols-2">
+      <div className="border-t-2 border-ink pt-5">
         <p className="text-sm font-bold uppercase tracking-wider text-brand">Notre rôle</p>
         <h3 className="mt-1 text-xl font-bold">{company.brandName}</h3>
         <ul className="mt-3 list-disc space-y-1.5 pl-5 text-ink-3">
@@ -50,7 +50,7 @@ function RolesSection() {
           <li>organiser l&apos;enlèvement et le transport vers le centre partenaire.</li>
         </ul>
       </div>
-      <div className="rounded-2xl bg-paper p-6 ring-1 ring-line">
+      <div className="border-t-2 border-ink pt-5">
         <p className="text-sm font-bold uppercase tracking-wider text-brand">Son rôle</p>
         <h3 className="mt-1 text-xl font-bold">
           {company.vhu.partner.name ?? "Le centre VHU partenaire"}
@@ -96,7 +96,7 @@ export default function CentreVhuPage() {
         </div>
       </Section>
 
-      <Section tone="surface" labelledBy="statut-title">
+      <Section tone="mint" labelledBy="statut-title">
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
             <Eyebrow>Cadre réglementaire</Eyebrow>
@@ -130,30 +130,22 @@ export default function CentreVhuPage() {
         </p>
       </Section>
 
-      <Section labelledBy="traitement-title">
-        <Eyebrow>Dans le centre VHU</Eyebrow>
+      <Section tone="ink" labelledBy="traitement-title">
+        <Eyebrow tone="light">Dans le centre VHU</Eyebrow>
         <H2 id="traitement-title">Ce que devient le véhicule</H2>
-        <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {treatment.map((t, i) => (
-            <li key={t.title} className="rounded-2xl bg-surface p-5">
-              <span className="flex items-center gap-2 text-sm font-bold text-brand">
-                <RecycleIcon className="h-5 w-5" /> Étape {i + 1}
-              </span>
-              <h3 className="mt-2 text-lg font-bold">{t.title}</h3>
-              <p className="mt-1.5 text-[0.95rem] text-ink-3">{t.text}</p>
-            </li>
-          ))}
-        </ol>
-        <p className="mt-6 text-ink-3">
+        <div className="mt-10">
+          <FeatureList items={treatment} numbered tone="dark" columns={4} />
+        </div>
+        <p className="mt-10 text-white/80">
           Les pièces de réemploi issues de ce démontage peuvent être recherchées via une{" "}
-          <Link href={pages.demandePiece.path} className="font-semibold text-brand underline">
+          <Link href={pages.demandePiece.path} className="font-semibold text-brand-bright underline">
             demande de pièce
           </Link>
           .
         </p>
       </Section>
 
-      <Section tone="surface" labelledBy="docs-title">
+      <Section labelledBy="docs-title">
         <Eyebrow>Documents</Eyebrow>
         <H2 id="docs-title">Ce qu&apos;il faut préparer, ce que vous recevez</H2>
         <div className="mt-8">

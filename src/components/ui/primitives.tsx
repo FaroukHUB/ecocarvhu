@@ -33,18 +33,12 @@ export function Section({
   );
 }
 
-/** Sur-titre en pastille colorée. */
+/** Sur-titre : petites capitales précédées d'un filet. */
 export function Eyebrow({ children, tone = "brand" }: { children: React.ReactNode; tone?: "brand" | "light" | "sun" }) {
-  const styles = {
-    brand: "bg-brand-soft text-brand-dark ring-brand/20",
-    light: "bg-white/10 text-brand-bright ring-white/20",
-    sun: "bg-sun-2 text-[#6b4f00] ring-[#c99a00]/30",
-  }[tone];
+  const color = { brand: "text-brand", light: "text-brand-bright", sun: "text-[#7a5b00]" }[tone];
   return (
-    <p
-      className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] ring-1 sm:text-sm ${styles}`}
-    >
-      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-current" />
+    <p className={`flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] sm:text-sm ${color}`}>
+      <span aria-hidden="true" className="h-px w-8 bg-current" />
       {children}
     </p>
   );
@@ -52,7 +46,7 @@ export function Eyebrow({ children, tone = "brand" }: { children: React.ReactNod
 
 export function H2({ id, children, className = "" }: { id?: string; children: React.ReactNode; className?: string }) {
   return (
-    <h2 id={id} className={`title-bar mt-3 text-[1.75rem] font-extrabold leading-tight tracking-tight sm:text-4xl ${className}`}>
+    <h2 id={id} className={`mt-3 text-[1.85rem] font-extrabold leading-[1.1] tracking-tight sm:text-[2.6rem] ${className}`}>
       {children}
     </h2>
   );
@@ -108,7 +102,7 @@ export function Notice({
 }) {
   return (
     <div
-      className={`rounded-xl border-l-4 p-4 text-[0.95rem] leading-relaxed ${
+      className={`rounded-md border-l-4 p-4 text-[0.95rem] leading-relaxed ${
         tone === "warn" ? "border-signal bg-warn-soft" : "border-brand bg-brand-soft"
       }`}
     >

@@ -7,6 +7,7 @@ import { guideHref } from "@/lib/publication";
 import { PageHero } from "@/components/sections/PageHero";
 import { ButtonLink, Container, Eyebrow, H2, Notice, Section } from "@/components/ui/primitives";
 import { Faq } from "@/components/ui/Faq";
+import { FeatureList } from "@/components/ui/FeatureList";
 import { RequestSteps } from "@/components/sections/RequestSteps";
 import { DocumentsChecklist } from "@/components/sections/DocumentsChecklist";
 import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
@@ -70,23 +71,18 @@ export default function EnlevementPage() {
       <Section labelledBy="situations-title">
         <Eyebrow>Situations prises en charge après étude</Eyebrow>
         <H2 id="situations-title">Quel véhicule pouvons-nous enlever ?</H2>
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-          {situations.map((s) => (
-            <li key={s.title} className="rounded-2xl bg-surface p-5">
-              <h3 className="text-lg font-bold">{s.title}</h3>
-              <p className="mt-1.5 text-ink-3">{s.text}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-10">
+          <FeatureList items={situations} columns={4} />
+        </div>
         <p className="mt-6 text-sm text-muted">
           Chaque situation est confirmée par l&apos;équipe : un enlèvement n&apos;est jamais garanti avant
           l&apos;étude de la demande.
         </p>
       </Section>
 
-      <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-surface py-14 sm:py-20">
+      <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-sun-soft py-14 sm:py-20">
         <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-          <div className="rounded-2xl bg-paper p-5 shadow-sm ring-1 ring-line sm:p-8">
+          <div className="rounded-md border border-ink/10 bg-paper p-5 sm:p-8">
             <H2 id="demande-title" className="!mt-0 mb-6">
               Demande d&apos;enlèvement gratuit
             </H2>
@@ -117,17 +113,17 @@ export default function EnlevementPage() {
         </Container>
       </section>
 
-      <Section labelledBy="gratuite-title">
-        <div className="grid gap-10 lg:grid-cols-2">
+      <Section tone="brand" labelledBy="gratuite-title">
+        <div className="grid gap-12 lg:grid-cols-2">
           <div>
-            <Eyebrow>Gratuité</Eyebrow>
+            <Eyebrow tone="light">Gratuité</Eyebrow>
             <H2 id="gratuite-title">Enlèvement d&apos;épave gratuit : les conditions</H2>
-            <div className="prose-eco mt-4 text-ink-3">
+            <div className="prose-eco mt-4 text-white/90">
               {freeOfChargeExplanation.map((p) => (
                 <p key={p}>{p}</p>
               ))}
             </div>
-            <p className="mt-4 text-sm text-muted">
+            <p className="mt-4 text-sm text-white/75">
               Sources :{" "}
               <a href={sources.f1468.url} className="underline" rel="noopener">
                 Service-Public.fr
@@ -140,10 +136,12 @@ export default function EnlevementPage() {
             </p>
           </div>
           <div>
-            <Eyebrow>Déroulement</Eyebrow>
+            <Eyebrow tone="light">Déroulement</Eyebrow>
             <H2>Les étapes</H2>
-            <div className="mt-6">
+            <div className="mt-8">
               <RequestSteps
+                tone="dark"
+                columns={2}
                 steps={[
                   { title: "Demande", text: "En ligne ou par téléphone." },
                   { title: "Vérification", text: "Accès, matériel, documents." },
@@ -156,7 +154,7 @@ export default function EnlevementPage() {
         </div>
       </Section>
 
-      <Section tone="surface" labelledBy="docs-title">
+      <Section labelledBy="docs-title">
         <Eyebrow>Documents</Eyebrow>
         <H2 id="docs-title">Les documents à préparer</H2>
         <div className="mt-8">
@@ -164,13 +162,13 @@ export default function EnlevementPage() {
         </div>
       </Section>
 
-      <Container className="py-14">
+      <Container className="pb-14">
         <PartnerCentreCard />
       </Container>
 
       <CallBand placement="enlevement-mid" formHref="#demande" />
 
-      <Section labelledBy="zones-title">
+      <Section tone="mint" labelledBy="zones-title">
         <Eyebrow>Secteurs</Eyebrow>
         <H2 id="zones-title">Où intervenons-nous ?</H2>
         <p className="mt-3 max-w-2xl text-ink-3">
@@ -182,7 +180,7 @@ export default function EnlevementPage() {
         </div>
       </Section>
 
-      <Section tone="surface" labelledBy="faq-title">
+      <Section labelledBy="faq-title">
         <H2 id="faq-title">Questions fréquentes sur l&apos;enlèvement</H2>
         <div className="mt-8">
           <Faq items={faq} />

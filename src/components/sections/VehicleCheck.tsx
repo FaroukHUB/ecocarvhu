@@ -71,7 +71,7 @@ export function VehicleCheck() {
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
       <form
-        className="space-y-4 rounded-3xl bg-paper p-5 shadow-xl ring-1 ring-black/5 sm:p-7"
+        className="space-y-4 rounded-lg border border-ink/10 bg-paper p-5 sm:p-7"
         onSubmit={(e) => e.preventDefault()}
       >
         <div>
@@ -135,7 +135,7 @@ export function VehicleCheck() {
         })}
       </form>
 
-      <div className="flex flex-col gap-5 rounded-3xl bg-ink p-5 text-white shadow-xl sm:p-7 lg:sticky lg:top-28 lg:self-start">
+      <div className="flex flex-col gap-5 rounded-lg bg-ink p-5 text-white sm:p-7 lg:sticky lg:top-28 lg:self-start">
         <div aria-live="polite">
           <p className="flex items-center gap-2 text-lg font-extrabold">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-bright text-ink">

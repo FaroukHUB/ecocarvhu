@@ -16,12 +16,8 @@ export function CallBand({
   placement: string;
 }) {
   return (
-    <section aria-label="Nous appeler" className="relative overflow-hidden bg-ink-grid text-white">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand/30 blur-3xl"
-      />
-      <Container className="relative grid items-center gap-8 py-12 md:grid-cols-[1.2fr_1fr] md:py-14">
+    <section aria-label="Nous appeler" className="bg-ink-grid text-white">
+      <Container className="grid items-center gap-8 py-12 md:grid-cols-[1.2fr_1fr] md:py-14">
         <div>
           <p className="text-2xl font-extrabold leading-tight sm:text-3xl">{title}</p>
           <p className="mt-3 max-w-xl text-white/80">{text}</p>

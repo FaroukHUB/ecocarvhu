@@ -38,11 +38,11 @@ export function PartnerCentreCard({ variant = "full" }: { variant?: "full" | "co
   return (
     <section
       aria-labelledby="partner-centre-title"
-      className="relative overflow-hidden rounded-2xl border-2 border-brand bg-paper shadow-[6px_6px_0_var(--color-brand-deep)]"
+      className="relative overflow-hidden rounded-xl border-l-4 border-brand bg-paper ring-1 ring-ink/10"
     >
       <div className="flex flex-col gap-6 p-6 sm:p-8 md:flex-row md:items-center">
-        <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-brand text-white shadow-[4px_4px_0_var(--color-brand-deep)]">
-          <ShieldIcon className="h-11 w-11" />
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand">
+          <ShieldIcon className="h-8 w-8" />
         </div>
         <div className="flex-1">
           <p className="text-sm font-bold uppercase tracking-wider text-brand">Centre VHU partenaire</p>
@@ -55,9 +55,9 @@ export function PartnerCentreCard({ variant = "full" }: { variant?: "full" | "co
             votre demande, la qualifie et organise l&apos;enlèvement.
           </p>
           {known.length ? (
-            <dl className="mt-5 grid gap-3 sm:grid-cols-3">
+            <dl className="mt-5 grid gap-4 sm:grid-cols-3">
               {known.map((r) => (
-                <div key={r.label} className="rounded-xl bg-surface px-4 py-3">
+                <div key={r.label} className="border-t border-ink/15 pt-3">
                   <dt className="text-xs font-semibold uppercase tracking-wide text-muted">{r.label}</dt>
                   <dd className="mt-1 font-bold">{r.value}</dd>
                 </div>

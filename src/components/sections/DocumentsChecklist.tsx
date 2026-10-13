@@ -1,19 +1,19 @@
 import { handoverDocuments, sources, specialCases } from "@/content/regulatory";
-import { DocIcon } from "@/components/ui/icons";
+import { CheckIcon, DocIcon } from "@/components/ui/icons";
 
 /** Documents à préparer + cas particuliers, avec la source officielle. */
 export function DocumentsChecklist({ showCases = true, headingLevel = 3 }: { showCases?: boolean; headingLevel?: 2 | 3 }) {
   const H = headingLevel === 2 ? "h2" : "h3";
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      <div className="rounded-2xl bg-paper p-6 ring-1 ring-line">
-        <H className="flex items-center gap-2 text-lg font-bold">
+    <div className="grid gap-x-12 gap-y-10 lg:grid-cols-2">
+      <div className="border-t-2 border-ink/15 pt-5">
+        <H className="flex items-center gap-2 text-xl font-extrabold">
           <DocIcon className="h-6 w-6 text-brand" /> À préparer pour le rendez-vous
         </H>
         <ul className="mt-4 space-y-4">
           {handoverDocuments.map((d) => (
             <li key={d.title} className="flex gap-3">
-              <span aria-hidden="true" className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-brand" />
+              <CheckIcon aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
               <div>
                 <p className="font-semibold">{d.title}</p>
                 <p className="mt-0.5 text-[0.95rem] text-ink-3">{d.detail}</p>
@@ -27,7 +27,7 @@ export function DocumentsChecklist({ showCases = true, headingLevel = 3 }: { sho
         </p>
       </div>
       {showCases ? (
-        <div className="rounded-2xl bg-paper p-6 ring-1 ring-line">
+        <div className="border-t-2 border-ink/15 pt-5">
           <H className="text-lg font-bold">Cas particuliers</H>
           <dl className="mt-4 space-y-4">
             {specialCases.map((c) => (

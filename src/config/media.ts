@@ -16,7 +16,7 @@ import path from "node:path";
  * correctement licenciées, jamais présentées à tort comme des photos maison.
  */
 
-export type PhotoSlot = "hero" | "enlevement" | "acces" | "pieces";
+export type PhotoSlot = "hero" | "enlevement" | "acces" | "pieces" | "rachat";
 
 export const photos: Record<
   PhotoSlot,
@@ -45,6 +45,12 @@ export const photos: Record<
     alt: "Une voiture immobilisée dans la cour d'une maison, vue depuis le portail ouvert entre deux piliers en pierre",
     illustrative: false,
     brief: "Un véhicule immobilisé dans un parking ou une cour, avec son accès visible (format 4:3).",
+  },
+  rachat: {
+    file: "accueil-rachat",
+    alt: "",
+    illustrative: false,
+    brief: "Un véhicule d'occasion examiné en vue d'un rachat : état, compteur, dommages (format 4:3).",
   },
   pieces: {
     file: "accueil-pieces",

@@ -7,7 +7,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { ButtonLink, Eyebrow, H2, Notice, Section } from "@/components/ui/primitives";
 import { Faq } from "@/components/ui/Faq";
 import { CallBand } from "@/components/sections/CallBand";
-import { CameraIcon, CheckIcon, DocIcon, GearIcon } from "@/components/ui/icons";
+import { FeatureList } from "@/components/ui/FeatureList";
 
 const page = pages.pieces;
 
@@ -22,9 +22,9 @@ const compat = [
 ];
 
 const ways = [
-  { icon: DocIcon, title: "Vous connaissez la référence", text: "Indiquez-la avec le véhicule : c'est la recherche la plus rapide." },
-  { icon: GearIcon, title: "Vous connaissez le nom de la pièce", text: "Précisez la motorisation et la position (côté, avant/arrière)." },
-  { icon: CameraIcon, title: "Vous ne savez pas comment elle s'appelle", text: "Décrivez le problème et envoyez une photo de l'emplacement." },
+  { title: "Vous connaissez la référence", text: "Indiquez-la avec le véhicule : c'est la recherche la plus rapide." },
+  { title: "Vous connaissez le nom de la pièce", text: "Précisez la motorisation et la position (côté, avant/arrière)." },
+  { title: "Vous ne savez pas comment elle s'appelle", text: "Décrivez le problème et envoyez une photo de l'emplacement." },
 ];
 
 const faq = [
@@ -67,31 +67,18 @@ export default function PiecesPage() {
       <Section labelledBy="ways-title">
         <Eyebrow>Trois façons de demander</Eyebrow>
         <H2 id="ways-title">Pas besoin d&apos;être mécanicien</H2>
-        <ul className="mt-8 grid gap-4 md:grid-cols-3">
-          {ways.map((w) => (
-            <li key={w.title} className="rounded-2xl bg-surface p-6">
-              <w.icon className="h-8 w-8 text-brand" />
-              <h3 className="mt-3 text-lg font-bold">{w.title}</h3>
-              <p className="mt-1.5 text-ink-3">{w.text}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-10">
+          <FeatureList items={ways} numbered columns={3} />
+        </div>
       </Section>
 
-      <Section tone="surface" labelledBy="familles-title">
+      <Section tone="mint" labelledBy="familles-title">
         <Eyebrow>Catégories</Eyebrow>
         <H2 id="familles-title">Familles de pièces</H2>
-        <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {partFamilies.map((f) => (
-            <li key={f.title} className="rounded-2xl bg-paper p-5 ring-1 ring-line">
-              <h3 className="flex items-center gap-2 text-lg font-bold">
-                <CheckIcon className="h-5 w-5 text-brand" /> {f.title}
-              </h3>
-              <p className="mt-1.5 text-[0.95rem] text-ink-3">{f.text}</p>
-            </li>
-          ))}
-        </ul>
-        <p className="mt-6 text-sm text-muted">
+        <div className="mt-10">
+          <FeatureList items={partFamilies} columns={3} />
+        </div>
+        <p className="mt-8 text-sm text-ink-3">
           Ces catégories décrivent les recherches possibles, pas un stock en ligne : la disponibilité est
           confirmée au cas par cas.
         </p>
@@ -102,9 +89,9 @@ export default function PiecesPage() {
           <div>
             <Eyebrow>Compatibilité</Eyebrow>
             <H2 id="compat-title">Les informations qui évitent une erreur</H2>
-            <dl className="mt-6 divide-y divide-line rounded-2xl ring-1 ring-line">
+            <dl className="mt-6 divide-y divide-ink/10 border-y border-ink/15">
               {compat.map((c) => (
-                <div key={c.title} className="grid gap-1 px-5 py-4 sm:grid-cols-[13rem_1fr]">
+                <div key={c.title} className="grid gap-1 py-4 sm:grid-cols-[13rem_1fr]">
                   <dt className="font-bold">{c.title}</dt>
                   <dd className="text-ink-3">{c.text}</dd>
                 </div>
@@ -135,7 +122,7 @@ export default function PiecesPage() {
         </div>
       </Section>
 
-      <Section tone="surface" labelledBy="faq-title">
+      <Section tone="sun" labelledBy="faq-title">
         <H2 id="faq-title">Questions fréquentes sur les pièces</H2>
         <div className="mt-8">
           <Faq items={faq} />

@@ -181,7 +181,7 @@ export function FormShell({
         ref={statusRef}
         tabIndex={-1}
         role="status"
-        className={`rounded-2xl border-2 p-6 sm:p-8 ${status.mode === "demo" ? "border-signal bg-warn-soft" : "border-brand bg-brand-soft"}`}
+        className={`rounded-md border-2 p-6 sm:p-8 ${status.mode === "demo" ? "border-signal bg-warn-soft" : "border-brand bg-brand-soft"}`}
       >
         {status.mode === "demo" ? (
           <>

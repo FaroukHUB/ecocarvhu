@@ -15,7 +15,7 @@ export function hasPhotoBlock(slot: PhotoSlot): boolean {
  */
 export function Photo({ slot, className = "" }: { slot: PhotoSlot; className?: string }) {
   const src = photoSrc(slot);
-  const frame = `relative aspect-[4/3] w-full overflow-hidden rounded-[28px] shadow-xl ring-1 ring-black/5 ${className}`;
+  const frame = `relative aspect-[4/3] w-full overflow-hidden rounded-md ${className}`;
 
   if (src) {
     return (

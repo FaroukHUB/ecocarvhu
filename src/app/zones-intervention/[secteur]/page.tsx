@@ -95,7 +95,7 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
           <Section labelledBy="services-title">
             <Eyebrow>Ce que vous pouvez demander</Eyebrow>
             <H2 id="services-title">Trois demandes possibles {sector.locative}</H2>
-            <ul className="mt-8 grid gap-4 md:grid-cols-3">
+            <ul className="mt-10 grid gap-x-10 gap-y-2 md:grid-cols-3">
               <ServiceCard
                 href="#demande"
                 icon={TruckIcon}
@@ -123,14 +123,14 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
             ) : null}
           </Section>
 
-          <Section tone="surface" labelledBy="acces-title">
+          <Section tone="mint" labelledBy="acces-title">
             <div className="grid gap-10 lg:grid-cols-2">
               <div>
                 <Eyebrow>Décrire le véhicule et son accès</Eyebrow>
                 <H2 id="acces-title">Ce qui permet une réponse fiable</H2>
                 <ul className="mt-6 space-y-3">
                   {sector.accessTips.map((t) => (
-                    <li key={t} className="flex gap-3 rounded-xl bg-paper p-4 ring-1 ring-line">
+                    <li key={t} className="flex gap-3 border-t border-ink/15 pt-3">
                       <span aria-hidden="true" className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-brand" />
                       <span className="text-ink-3">{t}</span>
                     </li>
@@ -157,9 +157,9 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
             <Section labelledBy="dep-title">
               <Eyebrow>Départements</Eyebrow>
               <H2 id="dep-title">Les six départements de la zone visée</H2>
-              <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <ul className="mt-8 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
                 {departments.map((d) => (
-                  <li key={d.code} className="rounded-xl bg-surface px-4 py-3.5">
+                  <li key={d.code} className="border-t border-ink/15 py-4">
                     <span className="font-bold">{d.name}</span> <span className="text-muted">({d.code})</span>
                     <p className="mt-0.5 text-sm text-muted">
                       {d.serviceConfirmed ? "Service confirmé" : "Faisabilité confirmée à chaque demande"}
@@ -170,21 +170,21 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
             </Section>
           ) : null}
 
-          <Section tone={sector.kind === "region" ? "surface" : "paper"} labelledBy="deroule-title">
-            <Eyebrow>Déroulement</Eyebrow>
+          <Section tone="ink" labelledBy="deroule-title">
+            <Eyebrow tone="light">Déroulement</Eyebrow>
             <H2 id="deroule-title">De la demande au certificat de destruction</H2>
-            <div className="mt-8">
-              <RequestSteps />
+            <div className="mt-10">
+              <RequestSteps tone="dark" />
             </div>
           </Section>
 
-          <Container className="py-6">
+          <Container className="py-14">
             <PartnerCentreCard />
           </Container>
 
-          <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-surface py-14 sm:py-20">
+          <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-sun-soft py-14 sm:py-20">
             <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-              <div className="rounded-2xl bg-paper p-5 shadow-sm ring-1 ring-line sm:p-8">
+              <div className="rounded-md border border-ink/10 bg-paper p-5 sm:p-8">
                 <H2 id="demande-title" className="!mt-0 mb-2">
                   Demande d&apos;enlèvement gratuit {sector.locative}
                 </H2>
@@ -202,7 +202,7 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
               </div>
               <aside className="space-y-5">
                 {sector.localFacts.length ? (
-                  <div className="rounded-2xl bg-paper p-5 ring-1 ring-line">
+                  <div className="border-t-2 border-ink pt-5">
                     <h3 className="font-bold">Repères pour ce secteur</h3>
                     <ul className="mt-3 space-y-3 text-[0.95rem]">
                       {sector.localFacts.map((f) => (
@@ -227,7 +227,7 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
           </Section>
 
           {sector.faq.length ? (
-            <Section tone="surface" labelledBy="faq-title">
+            <Section tone="mint" labelledBy="faq-title">
               <H2 id="faq-title">Questions fréquentes {sector.locative}</H2>
               <div className="mt-8">
                 <Faq items={sector.faq} />
@@ -241,26 +241,26 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
         <H2 id="liens-title" className="text-2xl sm:text-3xl">
           Voir aussi
         </H2>
-        <ul className="mt-5 flex flex-wrap gap-3">
+        <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
           <li>
-            <Link href={pages.zones.path} className="inline-flex rounded-full bg-surface px-4 py-2 font-semibold hover:text-brand">
+            <Link href={pages.zones.path} className="inline-flex border-b-2 border-brand/40 py-1 font-semibold hover:border-brand hover:text-brand">
               Toutes les zones d&apos;intervention
             </Link>
           </li>
           {related.map((s) => (
             <li key={s.slug}>
-              <Link href={sectorPath(s)} className="inline-flex rounded-full bg-surface px-4 py-2 font-semibold hover:text-brand">
+              <Link href={sectorPath(s)} className="inline-flex border-b-2 border-brand/40 py-1 font-semibold hover:border-brand hover:text-brand">
                 {s.kind === "region" ? s.name : `Enlèvement ${s.locative}`}
               </Link>
             </li>
           ))}
           <li>
-            <Link href={pages.enlevement.path} className="inline-flex rounded-full bg-surface px-4 py-2 font-semibold hover:text-brand">
+            <Link href={pages.enlevement.path} className="inline-flex border-b-2 border-brand/40 py-1 font-semibold hover:border-brand hover:text-brand">
               Enlèvement d&apos;épave
             </Link>
           </li>
           <li>
-            <Link href={pages.centreVhu.path} className="inline-flex rounded-full bg-surface px-4 py-2 font-semibold hover:text-brand">
+            <Link href={pages.centreVhu.path} className="inline-flex border-b-2 border-brand/40 py-1 font-semibold hover:border-brand hover:text-brand">
               Rôle du centre VHU
             </Link>
           </li>
@@ -285,9 +285,9 @@ function ServiceCard({
 }) {
   return (
     <li>
-      <Link href={href} className="block h-full rounded-2xl bg-surface p-6 ring-1 ring-transparent hover:ring-brand">
-        <Icon className="h-8 w-8 text-brand" />
-        <h3 className="mt-3 text-lg font-bold">{title}</h3>
+      <Link href={href} className="group block h-full border-t-2 border-ink/15 py-5 transition-colors hover:border-brand">
+        <Icon className="h-7 w-7 text-brand" />
+        <h3 className="mt-3 text-lg font-extrabold group-hover:text-brand">{title}</h3>
         <p className="mt-1.5 text-ink-3">{text}</p>
       </Link>
     </li>
@@ -301,7 +301,7 @@ function ForeignStateBody({ sector }: { sector: Sector }) {
         <H2 id="monaco-title">Des démarches différentes des démarches françaises</H2>
         <ul className="space-y-4">
           {sector.localFacts.map((f) => (
-            <li key={f.text} className="rounded-xl bg-surface p-4">
+            <li key={f.text} className="border-l-4 border-brand pl-4">
               <p className="text-ink-3">{f.text}</p>
               <p className="mt-1 text-xs text-muted">Source : {f.source}</p>
             </li>

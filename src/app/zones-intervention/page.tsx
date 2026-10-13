@@ -43,7 +43,7 @@ export default function ZonesPage() {
         </div>
       </Section>
 
-      <Section tone="surface" labelledBy="regles-title">
+      <Section tone="sun" labelledBy="regles-title">
         <H2 id="regles-title" className="text-2xl sm:text-3xl">
           Comment un secteur est annoncé
         </H2>

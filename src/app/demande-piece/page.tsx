@@ -28,9 +28,9 @@ export default function DemandePiecePage() {
           </p>
         }
       />
-      <section aria-label="Formulaire de demande de pièce" className="py-12 sm:py-16">
+      <section aria-label="Formulaire de demande de pièce" className="bg-sun-soft py-12 sm:py-16">
         <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-          <div className="rounded-2xl bg-paper p-5 shadow-sm ring-1 ring-line sm:p-8">
+          <div className="rounded-md border border-ink/10 bg-paper p-5 sm:p-8">
             <PartForm pagePath={page.path} limits={limits} />
           </div>
           <aside className="space-y-5">
