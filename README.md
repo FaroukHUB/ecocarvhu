@@ -94,6 +94,18 @@ Le hero de l'accueil occupe toute la largeur. Pour y mettre votre image :
 
 L'image est optimisée par `next/image`, chargée en priorité et recadrée automatiquement. Un voile sombre garantit la lisibilité du texte. Sans fichier, un fond dégradé s'affiche. N'utilisez que des photos réelles de l'entreprise ou correctement licenciées.
 
+## Photos de l'accueil
+
+En plus du hero, l'accueil prévoit trois emplacements photo au format 4:3, déclarés dans `src/config/media.ts` :
+
+| Emplacement | Fichier à déposer dans `public/` | Section |
+|---|---|---|
+| Enlèvement | `accueil-enlevement.jpg` (ou `.webp`, `.png`) | « Qui fait quoi » |
+| Accès | `accueil-acces.jpg` | « Quels véhicules faire enlever » |
+| Pièces | `accueil-pieces.jpg` | « Pièces auto d'occasion » |
+
+Sans fichier, un cadre « Photo à venir » s'affiche en prévisualisation et rien en production. Pour chaque photo ajoutée, renseignez son texte alternatif (`alt`) dans `src/config/media.ts`.
+
 ## Formulaires
 
 Il y a cinq parcours : enlèvement (3 étapes), pièce (3 étapes), rachat (3 étapes), professionnels et contact. Ils sont tous envoyés à `POST /api/demandes`.

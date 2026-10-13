@@ -22,6 +22,7 @@ import { PhoneBig } from "@/components/ui/PhoneBig";
 import { ButtonLink, Container, Eyebrow, H2, Section } from "@/components/ui/primitives";
 import { CheckIcon, CoinsIcon, DocIcon, GearIcon, PhoneIcon, ShieldIcon, TruckIcon } from "@/components/ui/icons";
 import { Faq } from "@/components/ui/Faq";
+import { Photo, hasPhotoBlock } from "@/components/ui/Photo";
 import { HeroIllustration } from "@/components/sections/HeroIllustration";
 import { VehicleCheck } from "@/components/sections/VehicleCheck";
 import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
@@ -134,7 +135,7 @@ export default function HomePage() {
 
       {/* B + E. Rôle d'EcocarVHU et déroulement */}
       <Section labelledBy="role-title">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+        <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <Eyebrow>Qui fait quoi</Eyebrow>
             <H2 id="role-title">Un interlocuteur pour préparer la prise en charge de votre véhicule</H2>
@@ -151,8 +152,9 @@ export default function HomePage() {
                 Comprendre le rôle du centre VHU
               </Link>
             </p>
+            <Photo slot="enlevement" className="mt-8" />
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid items-start gap-4 sm:grid-cols-2 lg:sticky lg:top-28">
             {roles.map((r) => (
               <div key={r.who} className="rounded-2xl bg-surface p-6">
                 <p className="text-sm font-bold uppercase tracking-wider text-brand">{r.who}</p>
@@ -200,13 +202,18 @@ export default function HomePage() {
 
       {/* C. Situations de véhicules */}
       <Section tone="surface" labelledBy="situations-title">
-        <Eyebrow>Véhicules hors d&apos;usage</Eyebrow>
-        <H2 id="situations-title">Quels véhicules faire enlever, et quoi nous indiquer</H2>
-        <p className="mt-3 max-w-3xl text-ink-3">
-          Chaque situation demande des informations différentes. Plus la description est précise, plus la
-          réponse est fiable. Une photo de l&apos;accès est souvent aussi utile qu&apos;une photo du véhicule :
-          elle montre si un camion plateau peut approcher.
-        </p>
+        <div className={hasPhotoBlock("acces") ? "grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]" : ""}>
+          <div>
+            <Eyebrow>Véhicules hors d&apos;usage</Eyebrow>
+            <H2 id="situations-title">Quels véhicules faire enlever, et quoi nous indiquer</H2>
+            <p className="mt-3 max-w-3xl text-ink-3">
+              Chaque situation demande des informations différentes. Plus la description est précise, plus la
+              réponse est fiable. Une photo de l&apos;accès est souvent aussi utile qu&apos;une photo du
+              véhicule : elle montre si un camion plateau peut approcher.
+            </p>
+          </div>
+          <Photo slot="acces" />
+        </div>
         <ul className="mt-8 grid gap-4 md:grid-cols-2">
           {situations.map((s) => (
             <li key={s.title} className="rounded-2xl bg-paper p-6 ring-1 ring-line">
@@ -302,14 +309,19 @@ export default function HomePage() {
 
       {/* F. Pièces auto d'occasion */}
       <Section labelledBy="pieces-title">
-        <Eyebrow>Pièces de réemploi</Eyebrow>
-        <H2 id="pieces-title">Pièces auto d&apos;occasion : la bonne pièce, vérifiée avant toute proposition</H2>
-        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-ink-3">
-          Une pièce d&apos;occasion n&apos;est utile que si elle correspond exactement à votre véhicule. La
-          même marque et le même modèle ne suffisent pas : l&apos;année, la motorisation, la finition et les
-          options changent souvent la pièce. Chaque demande est donc vérifiée (disponibilité, compatibilité,
-          état) avant de vous proposer quoi que ce soit.
-        </p>
+        <div className={hasPhotoBlock("pieces") ? "grid items-center gap-10 lg:grid-cols-[1fr_1.2fr]" : ""}>
+          <Photo slot="pieces" className="lg:order-first" />
+          <div className="order-first lg:order-none">
+            <Eyebrow>Pièces de réemploi</Eyebrow>
+            <H2 id="pieces-title">Pièces auto d&apos;occasion : la bonne pièce, vérifiée avant toute proposition</H2>
+            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-ink-3">
+              Une pièce d&apos;occasion n&apos;est utile que si elle correspond exactement à votre véhicule. La
+              même marque et le même modèle ne suffisent pas : l&apos;année, la motorisation, la finition et
+              les options changent souvent la pièce. Chaque demande est donc vérifiée (disponibilité,
+              compatibilité, état) avant de vous proposer quoi que ce soit.
+            </p>
+          </div>
+        </div>
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {partFamilies.map((f) => (
             <li key={f.title} className="rounded-2xl bg-surface p-5">
