@@ -30,7 +30,7 @@ export function PageHero({
           {actions ? <div className="mt-6 flex flex-wrap gap-3">{actions}</div> : null}
         </div>
         {phone ? (
-          <div className="rounded-2xl bg-ink px-6 py-5 lg:justify-self-end">
+          <div className="lg:justify-self-end">
             <PhoneBig placement="page-hero" size="md" caption="Appel direct" />
           </div>
         ) : null}

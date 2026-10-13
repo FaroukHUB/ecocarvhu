@@ -16,7 +16,7 @@ export function Header() {
       >
         Aller au contenu
       </a>
-      <div className="relative mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
+      <div className="relative mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:gap-4">
         <Logo />
         <nav aria-label="Navigation principale" className="hidden lg:block">
           <ul className="flex items-center gap-1">
@@ -38,34 +38,19 @@ export function Header() {
               href={tel}
               placement="header"
               ariaLabel={`Appeler le ${company.phone.value}`}
-              className="hidden items-center gap-2 rounded-xl bg-ink px-3.5 py-2 sm:inline-flex"
+              className="phone-key gap-2 px-3 py-2 sm:gap-2.5 sm:py-1.5 sm:pl-1.5 sm:pr-4"
             >
-              <PhoneIcon className="h-5 w-5 text-brand-bright" />
-              <span className="phone-3d phone-3d--sm text-xl">{company.phone.value}</span>
+              <span className="phone-key__icon hidden h-8 w-8 sm:inline-flex" aria-hidden="true">
+                <PhoneIcon className="h-4 w-4" />
+              </span>
+              <span className="whitespace-nowrap text-[0.9rem] font-extrabold tabular-nums sm:text-lg">
+                {company.phone.value}
+              </span>
             </CallLink>
           ) : null}
           <MobileNav items={mainNav} />
         </div>
       </div>
     </header>
-  );
-}
-
-/** Bandeau téléphone sous l'en-tête, visible sur mobile (le numéro est vu dès l'arrivée). */
-export function PhoneStrip() {
-  const tel = telHref();
-  if (!tel || !company.phone) return null;
-  return (
-    <div className="bg-ink sm:hidden">
-      <CallLink
-        href={tel}
-        placement="phone-strip"
-        ariaLabel={`Appeler le ${company.phone.value}`}
-        className="flex items-center justify-center gap-3 px-4 py-3"
-      >
-        <PhoneIcon className="h-6 w-6 text-brand-bright" />
-        <span className="phone-3d text-[1.9rem]">{company.phone.value}</span>
-      </CallLink>
-    </div>
   );
 }

@@ -35,7 +35,7 @@ export default function NotFound() {
           </li>
         ))}
       </ul>
-      <div className="mt-10 inline-block rounded-2xl bg-ink p-6">
+      <div className="mt-10">
         <PhoneBig placement="404" size="lg" />
       </div>
     </Container>

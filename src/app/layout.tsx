@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
 import { company, telHref } from "@/config/company";
 import { indexingAllowed, siteEnv, siteUrl } from "@/config/env";
-import { Header, PhoneStrip } from "@/components/layout/Header";
+import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CallFab } from "@/components/layout/CallFab";
 import { JsonLd } from "@/components/ui/primitives";
@@ -43,7 +43,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </div>
         ) : null}
         <Header />
-        <PhoneStrip />
         <main id="contenu" className="flex-1">
           {children}
         </main>

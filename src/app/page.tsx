@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { heroAlt, heroImageSrc } from "@/config/media";
 import { company } from "@/config/company";
 import { pages } from "@/content/pages";
 import { homeFaq, partFamilies } from "@/content/home";
@@ -7,7 +9,6 @@ import { PhoneBig } from "@/components/ui/PhoneBig";
 import { ButtonLink, Container, Eyebrow, H2, Section } from "@/components/ui/primitives";
 import { CoinsIcon, GearIcon, TruckIcon, CheckIcon } from "@/components/ui/icons";
 import { Faq } from "@/components/ui/Faq";
-import { HeroIllustration } from "@/components/sections/HeroIllustration";
 import { RequestSteps } from "@/components/sections/RequestSteps";
 import { VehicleCheck } from "@/components/sections/VehicleCheck";
 import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
@@ -24,63 +25,74 @@ export const metadata = buildMetadata({
 });
 
 export default function HomePage() {
+  const heroSrc = heroImageSrc();
   return (
     <>
-      {/* 1-4. Accroche, deux entrées dominantes, entrée secondaire, téléphone */}
-      <section className="relative overflow-hidden bg-surface">
-        <Container className="grid items-center gap-10 py-10 sm:py-14 lg:grid-cols-[1.15fr_1fr] lg:py-20">
-          <div>
-            <Eyebrow>Provence-Alpes-Côte d&apos;Azur</Eyebrow>
-            <h1 className="mt-3 text-[2.15rem] font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3rem]">
+      {/* 1-4. Hero pleine largeur : accroche, deux entrées dominantes, rachat, téléphone */}
+      <section className="relative isolate overflow-hidden bg-ink text-white">
+        {heroSrc ? (
+          <Image
+            src={heroSrc}
+            alt={heroAlt}
+            fill
+            priority
+            sizes="100vw"
+            className="-z-20 object-cover"
+          />
+        ) : (
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_80%_20%,#17803d_0%,transparent_55%),linear-gradient(135deg,#2a3036_0%,#1b1f23_60%)]"
+          />
+        )}
+        {/* Voile pour garantir la lisibilité du texte sur n'importe quelle photo */}
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/70 to-ink/30" />
+
+        <Container className="flex min-h-[calc(100svh-4rem)] flex-col justify-center py-14 sm:min-h-[600px] sm:py-20 lg:min-h-[680px]">
+          <div className="max-w-3xl">
+            <Eyebrow tone="light">Provence-Alpes-Côte d&apos;Azur</Eyebrow>
+            <h1 className="mt-3 text-[2.1rem] font-extrabold leading-[1.07] tracking-tight sm:text-5xl lg:text-[3.6rem]">
               {page.h1}
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-3">
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl">
               Véhicule en panne, accidenté ou hors d&apos;usage, pièce introuvable : dites-nous ce dont
-              vous avez besoin. Nous vérifions la faisabilité et vous confirmons les conditions{" "}
-              <strong className="text-ink">avant</strong> tout déplacement.
+              vous avez besoin. Les conditions sont confirmées <strong className="text-white">avant</strong>{" "}
+              tout déplacement.
             </p>
 
-            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/enlevement-epave#demande"
-                className="group flex min-h-20 items-center gap-4 rounded-2xl bg-brand px-5 py-4 text-white shadow-[0_6px_0_var(--color-brand-deep)] transition hover:bg-brand-dark active:translate-y-1 active:shadow-[0_2px_0_var(--color-brand-deep)]"
+                className="flex min-h-16 items-center gap-3 rounded-2xl bg-brand px-6 py-3.5 text-white shadow-[0_6px_0_var(--color-brand-deep)] transition hover:bg-brand-dark active:translate-y-1 active:shadow-[0_2px_0_var(--color-brand-deep)]"
               >
-                <TruckIcon className="h-9 w-9 shrink-0" />
-                <span>
-                  <span className="block text-lg font-extrabold leading-tight">Demander un enlèvement</span>
-                  <span className="text-sm text-white">Épave, panne, accident</span>
-                </span>
+                <TruckIcon className="h-8 w-8 shrink-0" />
+                <span className="text-lg font-extrabold leading-tight">Demander un enlèvement</span>
               </Link>
               <Link
                 href={pages.demandePiece.path}
-                className="group flex min-h-20 items-center gap-4 rounded-2xl bg-ink px-5 py-4 text-white shadow-[0_6px_0_#000] transition hover:bg-ink-2 active:translate-y-1 active:shadow-[0_2px_0_#000]"
+                className="flex min-h-16 items-center gap-3 rounded-2xl bg-white px-6 py-3.5 text-ink shadow-[0_6px_0_rgb(0_0_0/0.35)] transition hover:bg-brand-soft active:translate-y-1 active:shadow-[0_2px_0_rgb(0_0_0/0.35)]"
               >
-                <GearIcon className="h-9 w-9 shrink-0 text-brand-bright" />
-                <span>
-                  <span className="block text-lg font-extrabold leading-tight">Trouver une pièce</span>
-                  <span className="text-sm text-white/80">Même sans connaître son nom</span>
-                </span>
+                <GearIcon className="h-8 w-8 shrink-0 text-brand" />
+                <span className="text-lg font-extrabold leading-tight">Trouver une pièce</span>
               </Link>
             </div>
-            <p className="mt-4">
-              <Link href={pages.rachat.path} className="inline-flex items-center gap-2 font-semibold text-brand underline underline-offset-4 hover:text-brand-dark">
-                <CoinsIcon className="h-5 w-5" />
+
+            <div className="mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+              <PhoneBig placement="hero" size="lg" caption="Appel direct" />
+              <Link
+                href={pages.rachat.path}
+                className="inline-flex items-center gap-2 font-semibold text-white underline decoration-brand-bright decoration-2 underline-offset-4 hover:text-brand-bright"
+              >
+                <CoinsIcon className="h-5 w-5 text-brand-bright" />
                 Faire étudier le rachat de mon véhicule
               </Link>
-            </p>
-
-            <div className="mt-8 inline-block rounded-2xl bg-ink px-6 py-5">
-              <PhoneBig placement="hero" size="lg" caption="Appel direct" />
             </div>
-          </div>
-          <div className="hidden sm:block">
-            <HeroIllustration className="rounded-[28px] shadow-2xl" />
           </div>
         </Container>
       </section>
 
       {/* Encart partenariat centre VHU */}
-      <Container className="-mt-2 pt-12 sm:pt-16">
+      <Container className="pt-14 sm:pt-20">
         <PartnerCentreCard />
       </Container>
 

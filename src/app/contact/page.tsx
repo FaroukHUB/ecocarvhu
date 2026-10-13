@@ -46,7 +46,7 @@ export default function ContactPage() {
 
       <Container className="grid gap-10 py-14 lg:grid-cols-[1fr_1.3fr]">
         <div className="space-y-6">
-          <div className="rounded-2xl bg-ink p-6">
+          <div>
             <PhoneBig placement="contact" size="lg" caption="Téléphone" />
           </div>
           <dl className="space-y-4">

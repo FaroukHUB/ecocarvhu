@@ -71,7 +71,7 @@ export default async function ResultPage({ params }: PageProps<"/demande/resulta
       <div className="mt-6">
         <Notice tone={r.ok ? "info" : "warn"}>{r.text}</Notice>
       </div>
-      <div className="mt-8 rounded-2xl bg-ink p-6">
+      <div className="mt-8">
         <PhoneBig placement="result-page" size="lg" />
       </div>
       <div className="mt-8">

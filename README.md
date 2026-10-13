@@ -84,6 +84,16 @@ Il y a trois couches séparées : les **données** (`config/`, `content/`), l'**
 
 Dans `src/content/sectors/data.ts`, chaque secteur a quatre statuts : `targeted`, `serviceConfirmed`, `contentVerified` et `publicationApproved`. La page de secteur n'est indexable, présente dans le sitemap et liée depuis le site de production que si **les quatre** valent `true`. Le principe est le même pour les guides (`contentVerified` + `publicationApproved`). Le suivi se fait dans `docs/CONTENT-VALIDATION.md`.
 
+## Image du hero (accueil)
+
+Le hero de l'accueil occupe toute la largeur. Pour y mettre votre image :
+
+1. Déposez-la dans `public/` sous le nom `hero.jpg`, `hero.webp` ou `hero.png` : format paysage, au moins 2000 px de large, idéalement moins de 400 Ko.
+2. Renseignez un texte alternatif descriptif dans `heroAlt` (`src/config/media.ts`).
+3. Reconstruisez le site (ou poussez sur GitHub : Vercel redéploie automatiquement).
+
+L'image est optimisée par `next/image`, chargée en priorité et recadrée automatiquement. Un voile sombre garantit la lisibilité du texte. Sans fichier, un fond dégradé s'affiche. N'utilisez que des photos réelles de l'entreprise ou correctement licenciées.
+
 ## Formulaires
 
 Il y a cinq parcours : enlèvement (3 étapes), pièce (3 étapes), rachat (3 étapes), professionnels et contact. Ils sont tous envoyés à `POST /api/demandes`.
@@ -110,7 +120,7 @@ Ajoutez un cas dans `resolveTransport()` et `deliver()` (`src/lib/forms/transpor
 
 ## Téléphone, WhatsApp et contact
 
-- Le numéro `07 53 08 62 18` (fourni le 13/10/2026) est défini dans `src/config/company.ts`. Il est affiché en grand avec un effet relief en CSS pur : dans le bandeau mobile sous l'en-tête, l'en-tête sur ordinateur, l'accueil, les bandeaux d'appel, le pied de page et la page 404.
+- Le numéro `07 53 08 62 18` (fourni le 13/10/2026) est défini dans `src/config/company.ts`. Il prend la forme d'un **bouton d'appel en relief** (classe `.phone-key`, CSS pur), placé dans l'en-tête (mobile et ordinateur), le hero, les en-têtes de page, les bandeaux d'appel, le pied de page et la page 404.
 - Le **bouton d'appel flottant** (mobile, en bas à droite) s'efface pendant la saisie dans un formulaire, pour ne masquer ni les champs ni le clavier.
 - **WhatsApp** n'est pas affiché tant que `company.whatsapp` vaut `null`. Une fois renseigné, le lien `wa.me` ouvre une conversation. Il ne transmet aucun formulaire et ne confirme aucune réception.
 - Si le téléphone est retiré de la configuration, tous les boutons d'appel deviennent des liens vers `/contact`. Aucun faux lien n'est affiché.
