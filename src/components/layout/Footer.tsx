@@ -38,8 +38,7 @@ export function Footer() {
         <p className="mx-auto max-w-6xl px-4 py-5 pb-24 text-xs text-white/60 sm:pb-5">
           {company.brandName}
           {company.brandIsProvisional ? " (nom de marque provisoire)" : ""}
-          {company.legalName ? ` — ${company.legalName}` : ""}. Les illustrations du site ne sont pas des
-          photographies de l&apos;entreprise.
+          {company.legalName ? ` — ${company.legalName}` : ""}.
         </p>
       </div>
     </footer>
