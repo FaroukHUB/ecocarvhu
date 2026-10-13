@@ -114,3 +114,17 @@ Pour qu'une page de ville devienne réellement locale, il faudra ajouter :
   - le formulaire ;
   - les règles de circulation et de stationnement d'un véhicule de dépannage.
 - Vérifier aussi auprès du centre VHU partenaire s'il accepte les véhicules immatriculés à Monaco, et avec quels documents.
+
+
+## 7. Accueil enrichi : informations à confirmer
+
+L'accueil ne publie que des informations formulées comme vérifiées au cas par cas. Pour aller plus loin, il faudra fournir :
+
+- **Logo** : fourni par le porteur de projet et intégré dans l'en-tête et le pied de page (`public/logo-ecocarvhu.png`).
+- **Types de véhicules acceptés** (voitures, utilitaires, deux-roues, camping-cars, poids lourds) : non précisés sur le site tant qu'ils ne sont pas confirmés.
+- **Rachat** : types de véhicules étudiés et confirmation que le service est proposé.
+- **Professionnels** : modalités réelles (retrait, livraison, fréquence). Aucun tarif préférentiel ni délai prioritaire n'est annoncé.
+- **Interlocuteur identifié** : nom ou fonction à afficher, si vous le souhaitez.
+- **Photos réelles autorisées** (véhicule, camion, centre) : le hero utilise une illustration marquée « Illustration ». Une photo déposée dans `public/hero.*` la remplace.
+- **Centre partenaire** : seules les informations fournies s'affichent. Sinon, une phrase indique qu'elles seront publiées.
+- **Avis clients** : aucun n'est affiché. Le bloc `company.proofs` reste vide tant qu'il n'y a pas de preuve réelle et utilisable.

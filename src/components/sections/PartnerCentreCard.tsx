@@ -18,6 +18,9 @@ export function PartnerCentreCard({ variant = "full" }: { variant?: "full" | "co
     { label: "Délivré par", value: p.issuingAuthority },
   ];
 
+  // Seules les informations réellement fournies sont affichées (pas de série de « à venir »).
+  const known = rows.filter((r): r is { label: string; value: string } => Boolean(r.value));
+
   if (variant === "compact") {
     return (
       <div className="rounded-xl border border-white/15 bg-white/5 p-4 text-sm">
@@ -51,23 +54,20 @@ export function PartnerCentreCard({ variant = "full" }: { variant?: "full" | "co
             dépolluer, les démonter et délivrer le certificat de destruction. {company.brandName} reçoit
             votre demande, la qualifie et organise l&apos;enlèvement.
           </p>
-          <dl className="mt-5 grid gap-3 sm:grid-cols-3">
-            {rows.map((r) => (
-              <div key={r.label} className="rounded-xl bg-surface px-4 py-3">
-                <dt className="text-xs font-semibold uppercase tracking-wide text-muted">{r.label}</dt>
-                <dd className="mt-1 font-bold">
-                  {r.value ?? (
-                    <span className="inline-flex items-center rounded-md bg-warn-soft px-2 py-0.5 text-sm text-[#7a5b00]">
-                      à venir
-                    </span>
-                  )}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          {known.length ? (
+            <dl className="mt-5 grid gap-3 sm:grid-cols-3">
+              {known.map((r) => (
+                <div key={r.label} className="rounded-xl bg-surface px-4 py-3">
+                  <dt className="text-xs font-semibold uppercase tracking-wide text-muted">{r.label}</dt>
+                  <dd className="mt-1 font-bold">{r.value}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
           <p className="mt-4 text-sm text-muted">
-            Le numéro d&apos;agrément ou d&apos;enregistrement du centre sera publié dès sa
-            communication.{" "}
+            {known.length < rows.length
+              ? "La raison sociale et le numéro d'agrément du centre partenaire seront publiés ici dès leur communication. "
+              : null}
             <Link href="/centre-vhu" className="font-semibold text-brand underline underline-offset-2">
               Comprendre la prise en charge
             </Link>

@@ -44,7 +44,7 @@ export const pages: Record<PageKey, PageEntry> = {
     label: "Accueil",
     title: "Enlèvement d'épave gratuit en PACA — Épaviste | EcocarVHU",
     description:
-      "Enlèvement d'épave gratuit en Provence-Alpes-Côte d'Azur pour tout véhicule complet : voiture en panne, accidentée ou hors d'usage, remise à un centre VHU agréé partenaire. Pièces auto d'occasion.",
+      "Épaviste en PACA : enlèvement d'épave gratuit d'un véhicule complet et accessible, remis à un centre VHU partenaire. Pièces auto d'occasion vérifiées et étude de rachat.",
     h1: "Enlèvement d'épave gratuit en Provence-Alpes-Côte d'Azur",
     intent: "Navigation / choix du service",
     primaryQuery: "enlèvement épave PACA",

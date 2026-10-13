@@ -16,7 +16,7 @@ export function Header() {
       >
         Aller au contenu
       </a>
-      <div className="relative mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:gap-4">
+      <div className="relative mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between gap-2 px-4 sm:gap-4">
         <Logo />
         <nav aria-label="Navigation principale" className="hidden lg:block">
           <ul className="flex items-center gap-1">

@@ -1,20 +1,34 @@
+import Image from "next/image";
 import Link from "next/link";
 
-/** Logo provisoire : pictogramme "flèche de réemploi + roue" et mot-symbole. */
-export function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
+/**
+ * Logo EcocarVHU (fichier fourni par le porteur de projet : public/logo-ecocarvhu.png).
+ * Le logo a un fond blanc : sur fond sombre il est posé sur une pastille blanche.
+ */
+export function Logo({ tone = "dark", size = "header" }: { tone?: "dark" | "light"; size?: "header" | "footer" }) {
+  const img = size === "footer" ? "h-24 w-24" : "h-14 w-14";
   return (
     <Link
       href="/"
-      className="inline-flex items-center gap-2.5 font-extrabold tracking-tight no-underline"
+      className="inline-flex items-center gap-3 font-extrabold tracking-tight no-underline"
       aria-label="EcocarVHU, retour à l'accueil"
     >
-      <svg viewBox="0 0 40 40" className="h-8 w-8 shrink-0 sm:h-9 sm:w-9" aria-hidden="true">
-        <rect width="40" height="40" rx="10" fill="#17803d" />
-        <circle cx="20" cy="21" r="9" fill="none" stroke="#fff" strokeWidth="3.2" />
-        <circle cx="20" cy="21" r="3" fill="#fff" />
-        <path d="M11 9.5h12l-3.2-3.2M29 9.5" stroke="#3fd17a" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-      <span className={`text-lg leading-none sm:text-xl ${tone === "dark" ? "text-ink" : "text-white"}`}>
+      <span className={`shrink-0 overflow-hidden ${tone === "light" ? "rounded-2xl bg-white p-1.5" : ""}`}>
+        <Image
+          src="/logo-ecocarvhu.png"
+          alt=""
+          width={512}
+          height={512}
+          sizes={size === "footer" ? "96px" : "56px"}
+          priority={size === "header"}
+          className={img}
+        />
+      </span>
+      <span
+        className={`leading-none ${size === "footer" ? "text-2xl" : "hidden text-xl sm:inline"} ${
+          tone === "dark" ? "text-ink" : "text-white"
+        }`}
+      >
         Ecocar<span className={tone === "dark" ? "text-brand" : "text-brand-bright"}>VHU</span>
       </span>
     </Link>

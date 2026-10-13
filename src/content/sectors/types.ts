@@ -1,6 +1,8 @@
 export interface FaqItem {
   q: string;
   a: string;
+  /** Lien vers la page qui détaille la réponse (route existante uniquement). */
+  link?: { href: string; label: string };
 }
 
 /**

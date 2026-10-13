@@ -87,7 +87,7 @@ export default function PiecesPage() {
               <h3 className="flex items-center gap-2 text-lg font-bold">
                 <CheckIcon className="h-5 w-5 text-brand" /> {f.title}
               </h3>
-              <p className="mt-1.5 text-[0.95rem] text-ink-3">{f.items}</p>
+              <p className="mt-1.5 text-[0.95rem] text-ink-3">{f.text}</p>
             </li>
           ))}
         </ul>

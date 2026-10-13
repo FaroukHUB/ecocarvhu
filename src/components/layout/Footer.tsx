@@ -10,7 +10,7 @@ export function Footer() {
     <footer className="mt-auto bg-ink text-white/85">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[1.3fr_1fr_1fr]">
         <div className="space-y-5">
-          <Logo tone="light" />
+          <Logo tone="light" size="footer" />
           <p className="max-w-sm text-sm leading-relaxed text-white/75">
             Enlèvement de véhicules hors d&apos;usage, pièces auto d&apos;occasion et étude de rachat en
             Provence-Alpes-Côte d&apos;Azur. Chaque demande est confirmée par l&apos;équipe avant tout

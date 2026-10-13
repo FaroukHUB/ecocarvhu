@@ -172,3 +172,26 @@ Chaque page a un seul H1, une hiérarchie H2/H3 logique, un fil d'Ariane visible
 - Construire des partenariats locaux (garages, carrossiers, dépanneurs, assureurs) et obtenir des liens éditoriaux légitimes. Pas d'achat de liens.
 
 Aucun objectif de position, de trafic ou de nombre de demandes n'est promis.
+
+## 9. Accueil enrichi (mise à jour)
+
+**Intention dominante** : présenter l'offre EcocarVHU et générer des demandes en PACA. L'enlèvement est l'entrée principale, les pièces la seconde, le rachat une entrée secondaire.
+
+**Structure** (environ 2 500 mots visibles, sans viser de nombre de mots) :
+
+| Section | Titre | Lien principal |
+|---|---|---|
+| Hero | H1 « Enlèvement d'épave gratuit en Provence-Alpes-Côte d'Azur » + condition de gratuité dans le texte | `/enlevement-epave#demande`, `/demande-piece`, `/rachat-vehicule` |
+| Rôles + 4 étapes | « Un interlocuteur pour préparer la prise en charge de votre véhicule » | `/centre-vhu`, guide documents (si publié) |
+| Situations | « Quels véhicules faire enlever, et quoi nous indiquer » + cas à vérifier (sans clés, sans roues, sans carte grise) | guide accès difficile (si publié) |
+| Gratuité | « Enlèvement d'épave gratuit : à quelles conditions ? » + distinction remise au centre / collecte de la filière | Service-Public, ministère |
+| Questionnaire | « Préparez votre demande en 5 questions » (outil existant conservé) | formulaire d'enlèvement |
+| Pièces | « Pièces auto d'occasion : la bonne pièce, vérifiée avant toute proposition » | `/demande-piece`, `/pieces-auto-occasion`, guide référence (si publié) |
+| Rachat + Pros | « Rachat de véhicule : demander une étude » / « Garages, carrossiers, dépanneurs : vos demandes groupées » | `/rachat-vehicule`, `/professionnels` |
+| Région | « Épaviste en Provence-Alpes-Côte d'Azur : vérifiez votre commune » | `/zones-intervention` et secteurs, seulement s'ils sont visibles |
+| Confiance | « Des engagements que vous pouvez contrôler » + encart du centre partenaire | `/centre-vhu` |
+| FAQ | 9 questions, dont 6 avec un lien vers la page détaillée | pages de service |
+
+**Règles de maillage** :
+- Les liens vers les guides et les secteurs passent par `guideHref` et `SectorList`.
+- En production, aucun lien ne pointe vers un brouillon. C'est vérifié par `check:site` (12 liens internes, aucun vers `/conseils` ou une ville).

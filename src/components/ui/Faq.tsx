@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { FaqItem } from "@/content/sectors/types";
 
 /**
@@ -18,7 +19,14 @@ export function Faq({ items, headingId }: { items: FaqItem[]; headingId?: string
               +
             </span>
           </summary>
-          <p className="pb-5 leading-relaxed text-ink-3">{item.a}</p>
+          <p className={`leading-relaxed text-ink-3 ${item.link ? "pb-2" : "pb-5"}`}>{item.a}</p>
+          {item.link ? (
+            <p className="pb-5">
+              <Link href={item.link.href} className="font-semibold text-brand underline underline-offset-2">
+                {item.link.label}
+              </Link>
+            </p>
+          ) : null}
         </details>
       ))}
     </div>
