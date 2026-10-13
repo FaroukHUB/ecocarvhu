@@ -42,7 +42,7 @@ export function RequestSteps({
               x2="100"
               y2="1"
               className="flow"
-              stroke={dark ? "#9fe870" : "#0f7a45"}
+              stroke={dark ? "#25d366" : "#0f7a45"}
               strokeOpacity="0.6"
               strokeWidth="2"
               strokeDasharray="1.5 1.5"

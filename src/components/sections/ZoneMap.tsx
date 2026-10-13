@@ -16,8 +16,8 @@ export function ZoneMap({ className = "" }: { className?: string }) {
     <svg viewBox="0 0 400 300" className={className} aria-hidden="true" fill="none">
       <defs>
         <radialGradient id="zm-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#9fe870" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#9fe870" stopOpacity="0" />
+          <stop offset="0%" stopColor="#25d366" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#25d366" stopOpacity="0" />
         </radialGradient>
         <pattern id="zm-dots" width="14" height="14" patternUnits="userSpaceOnUse">
           <circle cx="1.5" cy="1.5" r="1.2" fill="#fff" fillOpacity="0.12" />
@@ -38,7 +38,7 @@ export function ZoneMap({ className = "" }: { className?: string }) {
           key={c.name}
           className="flow"
           d={`M${hub.x} ${hub.y} Q ${(hub.x + c.x) / 2} ${Math.min(hub.y, c.y) - 40} ${c.x} ${c.y}`}
-          stroke="#9fe870"
+          stroke="#25d366"
           strokeOpacity="0.7"
           strokeWidth="1.6"
           strokeDasharray="4 4"
@@ -52,10 +52,10 @@ export function ZoneMap({ className = "" }: { className?: string }) {
             cx={c.x}
             cy={c.y}
             r="8"
-            fill="#9fe870"
+            fill="#25d366"
             fillOpacity="0.45"
           />
-          <circle cx={c.x} cy={c.y} r={c.hub ? 6 : 4.5} fill="#9fe870" />
+          <circle cx={c.x} cy={c.y} r={c.hub ? 6 : 4.5} fill="#25d366" />
           <text
             x={c.x + (c.name === "Nice" || c.hub ? -12 : 10)}
             y={c.hub ? c.y + 4 : c.y - 10}

@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 /*
- * Identité visuelle EcocarVHU : vert forêt + vert lime (couleurs du logo),
+ * Identité visuelle EcocarVHU : vert forêt + vert WhatsApp (#25d366),
  * noir et blanc. Aucun jaune. Contrastes AA vérifiés :
- * vert #0f7a45 sur blanc, lime #9fe870 sur noir/forêt, texte noir sur lime.
+ * vert #0f7a45 sur blanc, vert #25d366 sur noir/forêt, texte noir sur ce vert.
  */
 @theme {
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
@@ -20,13 +20,13 @@
   --color-brand-dark: #0b5c34;
   --color-brand-deep: #073d24;
   --color-forest: #0a3524;
-  --color-brand-bright: #9fe870;
-  --color-lime: #9fe870;
-  --color-lime-2: #b9f193;
+  --color-brand-bright: #25d366;
+  --color-lime: #25d366;
+  --color-lime-2: #3ee07c;
   --color-brand-soft: #edf6f0;
 
   /* Anciens noms conservés, tous ramenés au vert / neutre (plus de jaune). */
-  --color-signal: #9fe870;
+  --color-signal: #25d366;
   --color-mint: #f4f7f5;
   --color-mint-2: #e6ede9;
   --color-sun: #f4f7f5;
@@ -72,7 +72,7 @@ body {
 }
 
 @layer components {
-  /* Bouton d'appel : pilule lime, pastille noire, halo doux. */
+  /* Bouton d'appel : pilule vert WhatsApp, pastille noire, halo doux. */
   .phone-key {
     display: inline-flex;
     align-items: center;
@@ -80,13 +80,13 @@ body {
     background: var(--color-lime);
     color: var(--color-ink);
     text-decoration: none;
-    box-shadow: 0 10px 30px -10px rgb(159 232 112 / 0.75);
+    box-shadow: 0 10px 30px -10px rgb(37 211 102 / 0.75);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   }
   .phone-key:hover {
     background: var(--color-lime-2);
     transform: translateY(-2px);
-    box-shadow: 0 16px 36px -12px rgb(159 232 112 / 0.9);
+    box-shadow: 0 16px 36px -12px rgb(37 211 102 / 0.9);
   }
   .phone-key:active {
     transform: translateY(0);
@@ -128,7 +128,7 @@ body {
   .btn-lime {
     background: var(--color-lime);
     color: var(--color-ink);
-    box-shadow: 0 10px 30px -12px rgb(159 232 112 / 0.9);
+    box-shadow: 0 10px 30px -12px rgb(37 211 102 / 0.9);
   }
   .btn-lime:hover {
     background: var(--color-lime-2);
@@ -183,7 +183,7 @@ body {
   }
   .card-dark:hover {
     transform: translateY(-4px);
-    border-color: rgb(159 232 112 / 0.45);
+    border-color: rgb(37 211 102 / 0.45);
     background: rgb(255 255 255 / 0.07);
   }
 
@@ -223,11 +223,11 @@ body {
 
 @keyframes call-ring {
   0% {
-    box-shadow: 0 0 0 0 rgb(159 232 112 / 0.7);
+    box-shadow: 0 0 0 0 rgb(37 211 102 / 0.7);
   }
   70%,
   100% {
-    box-shadow: 0 0 0 18px rgb(159 232 112 / 0);
+    box-shadow: 0 0 0 18px rgb(37 211 102 / 0);
   }
 }
 
@@ -279,7 +279,7 @@ body {
 .bg-ink-grid {
   background-color: var(--color-ink);
   background-image:
-    radial-gradient(60rem 30rem at 100% 0%, rgb(159 232 112 / 0.1), transparent 60%),
+    radial-gradient(60rem 30rem at 100% 0%, rgb(37 211 102 / 0.1), transparent 60%),
     linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
   background-size: auto, 48px 48px, 48px 48px;
@@ -287,14 +287,14 @@ body {
 .bg-brand-glow {
   background-color: var(--color-forest);
   background-image:
-    radial-gradient(50rem 28rem at 0% 100%, rgb(159 232 112 / 0.16), transparent 60%),
+    radial-gradient(50rem 28rem at 0% 100%, rgb(37 211 102 / 0.16), transparent 60%),
     radial-gradient(40rem 24rem at 100% 0%, rgb(15 122 69 / 0.55), transparent 65%);
 }
 
 .bg-hero-light {
   background-color: var(--color-surface);
   background-image:
-    radial-gradient(40rem 22rem at 95% 0%, rgb(159 232 112 / 0.35), transparent 60%),
+    radial-gradient(40rem 22rem at 95% 0%, rgb(37 211 102 / 0.35), transparent 60%),
     linear-gradient(rgb(11 19 16 / 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgb(11 19 16 / 0.04) 1px, transparent 1px);
   background-size: auto, 48px 48px, 48px 48px;
@@ -302,7 +302,7 @@ body {
 
 /* Texte en dégradé lime */
 .text-glow {
-  background: linear-gradient(90deg, #9fe870, #d4f7b8 50%, #9fe870);
+  background: linear-gradient(90deg, #25d366, #8ff0b4 50%, #25d366);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;

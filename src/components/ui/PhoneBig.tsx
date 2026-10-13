@@ -43,7 +43,7 @@ export function PhoneBig({
         </svg>
       </span>
       <span className="flex flex-col items-start leading-none">
-        {caption ? <span className={`${s.cap} font-semibold uppercase tracking-[0.14em] text-ink/65`}>{caption}</span> : null}
+        {caption ? <span className={`${s.cap} font-semibold uppercase tracking-[0.14em] text-ink/85`}>{caption}</span> : null}
         <span className={`${s.num} mt-1 whitespace-nowrap font-bold tracking-tight tabular-nums`}>
           {company.phone.value}
         </span>

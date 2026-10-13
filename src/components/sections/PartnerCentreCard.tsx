@@ -41,7 +41,7 @@ export function PartnerCentreCard({ variant = "full" }: { variant?: "full" | "co
       className="relative overflow-hidden rounded-3xl bg-brand-glow text-white"
     >
       <div className="flex flex-col gap-7 p-7 sm:p-10 md:flex-row md:items-center">
-        <div className="float draw flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-lime text-ink shadow-[0_20px_50px_-15px_rgb(159_232_112/0.7)]">
+        <div className="float draw flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-lime text-ink shadow-[0_20px_50px_-15px_rgb(37_211_102/0.7)]">
           <ShieldIcon className="h-10 w-10" />
         </div>
         <div className="flex-1">
