@@ -42,10 +42,10 @@ export const pages: Record<PageKey, PageEntry> = {
   home: {
     path: "/",
     label: "Accueil",
-    title: "EcocarVHU — Enlèvement d'épave et pièces auto d'occasion en PACA",
+    title: "Enlèvement d'épave gratuit en PACA — Épaviste | EcocarVHU",
     description:
-      "Demandez l'enlèvement d'un véhicule hors d'usage, en panne ou accidenté, ou une pièce auto d'occasion en Provence-Alpes-Côte d'Azur. Conditions confirmées avant tout déplacement.",
-    h1: "Enlèvement d'épave et pièces auto d'occasion en Provence-Alpes-Côte d'Azur",
+      "Enlèvement d'épave gratuit en Provence-Alpes-Côte d'Azur pour tout véhicule complet : voiture en panne, accidentée ou hors d'usage, remise à un centre VHU agréé partenaire. Pièces auto d'occasion.",
+    h1: "Enlèvement d'épave gratuit en Provence-Alpes-Côte d'Azur",
     intent: "Navigation / choix du service",
     primaryQuery: "enlèvement épave PACA",
     secondaryQueries: ["épaviste PACA", "pièces auto occasion PACA", "casse auto PACA"],
@@ -54,10 +54,10 @@ export const pages: Record<PageKey, PageEntry> = {
   enlevement: {
     path: "/enlevement-epave",
     label: "Enlèvement d'épave",
-    title: "Enlèvement d'épave et de véhicule hors d'usage en PACA",
+    title: "Enlèvement d'épave gratuit en PACA : épaviste partenaire d'un centre VHU agréé",
     description:
-      "Véhicule en panne, accidenté ou non roulant : décrivez son état et son accès en quelques étapes. L'équipe vérifie la faisabilité et confirme les conditions avant de se déplacer.",
-    h1: "Faire enlever une épave ou un véhicule hors d'usage",
+      "Enlèvement d'épave gratuit pour tout véhicule complet et accessible : voiture en panne, accidentée ou non roulante. Remise à un centre VHU agréé partenaire et certificat de destruction.",
+    h1: "Enlèvement d'épave gratuit",
     intent: "Transactionnelle : obtenir un enlèvement",
     primaryQuery: "enlèvement épave",
     secondaryQueries: [

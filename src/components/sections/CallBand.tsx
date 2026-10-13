@@ -3,10 +3,10 @@ import { ButtonLink, Container } from "@/components/ui/primitives";
 
 /** Bandeau d'appel : le numéro en grand, répété dans les pages, + accès au formulaire. */
 export function CallBand({
-  title = "Un véhicule à faire enlever, une pièce à trouver ?",
-  text = "Appelez directement ou envoyez votre demande en ligne : l'équipe vous rappelle pour confirmer les conditions.",
+  title = "Enlèvement d'épave gratuit : un appel suffit",
+  text = "Véhicule complet et accessible : l'enlèvement est gratuit. Appelez directement ou envoyez votre demande en ligne.",
   formHref = "/enlevement-epave#demande",
-  formLabel = "Faire ma demande en ligne",
+  formLabel = "Demander un enlèvement gratuit",
   placement,
 }: {
   title?: string;

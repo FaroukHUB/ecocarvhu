@@ -55,10 +55,18 @@ export default function HomePage() {
               {page.h1}
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl">
-              Véhicule en panne, accidenté ou hors d&apos;usage, pièce introuvable : dites-nous ce dont
-              vous avez besoin. Les conditions sont confirmées <strong className="text-white">avant</strong>{" "}
-              tout déplacement.
+              Voiture en panne, accidentée ou hors d&apos;usage : votre épaviste enlève{" "}
+              <strong className="text-white">gratuitement</strong> votre véhicule complet et le remet à un
+              centre VHU agréé partenaire. Pièces auto d&apos;occasion sur demande.
             </p>
+            <ul className="mt-6 flex flex-wrap gap-2 text-sm font-bold">
+              {["Enlèvement gratuit*", "Centre VHU agréé partenaire", "Certificat de destruction", "Toute la région PACA"].map((t) => (
+                <li key={t} className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 ring-1 ring-white/20">
+                  <CheckIcon className="h-4 w-4 text-brand-bright" />
+                  {t}
+                </li>
+              ))}
+            </ul>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -66,7 +74,7 @@ export default function HomePage() {
                 className="flex min-h-16 items-center gap-3 rounded-2xl bg-brand px-6 py-3.5 text-white shadow-[0_6px_0_var(--color-brand-deep)] transition hover:bg-brand-dark active:translate-y-1 active:shadow-[0_2px_0_var(--color-brand-deep)]"
               >
                 <TruckIcon className="h-8 w-8 shrink-0" />
-                <span className="text-lg font-extrabold leading-tight">Demander un enlèvement</span>
+                <span className="text-lg font-extrabold leading-tight">Demander un enlèvement gratuit</span>
               </Link>
               <Link
                 href={pages.demandePiece.path}
@@ -87,19 +95,18 @@ export default function HomePage() {
                 Faire étudier le rachat de mon véhicule
               </Link>
             </div>
+            <p className="mt-6 text-xs text-white/70">
+              *Véhicule complet (moteur, pot catalytique, batterie) et accessible dans des conditions normales.
+              Conditions confirmées avant le déplacement.
+            </p>
           </div>
         </Container>
       </section>
 
-      {/* Encart partenariat centre VHU */}
-      <Container className="pt-14 sm:pt-20">
-        <PartnerCentreCard />
-      </Container>
-
       {/* 5. Étapes */}
       <Section labelledBy="etapes-title">
         <Eyebrow>Comment ça marche</Eyebrow>
-        <H2 id="etapes-title">Une demande claire, des conditions confirmées avant le rendez-vous</H2>
+        <H2 id="etapes-title">Votre enlèvement d&apos;épave gratuit en 4 étapes</H2>
         <p className="mt-3 max-w-2xl text-ink-3">
           Rien n&apos;est engagé tant que vous n&apos;avez pas validé les conditions proposées.
         </p>
@@ -208,7 +215,12 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <CallBand placement="home-bottom" title="Le plus simple reste de nous appeler" />
+      {/* Encart partenariat centre VHU (placé en bas de page) */}
+      <Container className="pb-14 sm:pb-20">
+        <PartnerCentreCard />
+      </Container>
+
+      <CallBand placement="home-bottom" title="Enlèvement d'épave gratuit : appelez-nous" />
     </>
   );
 }

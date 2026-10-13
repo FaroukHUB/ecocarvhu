@@ -8,7 +8,7 @@ export interface NavItem {
 }
 
 export const mainNav: NavItem[] = [
-  { href: pages.enlevement.path, label: "Enlèvement" },
+  { href: pages.enlevement.path, label: "Enlèvement gratuit" },
   { href: pages.pieces.path, label: "Pièces d'occasion" },
   { href: pages.rachat.path, label: "Rachat" },
   { href: pages.pros.path, label: "Professionnels" },
@@ -22,7 +22,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
   {
     title: "Services",
     items: [
-      { href: pages.enlevement.path, label: "Enlèvement d'épave" },
+      { href: pages.enlevement.path, label: "Enlèvement d'épave gratuit" },
       { href: pages.centreVhu.path, label: "Centre VHU partenaire" },
       { href: pages.pieces.path, label: "Pièces auto d'occasion" },
       { href: pages.demandePiece.path, label: "Demande de pièce" },

@@ -31,10 +31,10 @@ export const sectors: Sector[] = [
     postalCodes: [],
     status: { ...NOT_CONFIRMED },
     seo: {
-      title: "Enlèvement d'épave et pièces d'occasion en Provence-Alpes-Côte d'Azur",
+      title: "Enlèvement d'épave gratuit en PACA : épaviste dans les 6 départements",
       description:
-        "Bouches-du-Rhône, Var, Alpes-Maritimes, Vaucluse, Alpes-de-Haute-Provence, Hautes-Alpes : demandez un enlèvement ou une pièce. La faisabilité est confirmée commune par commune.",
-      h1: "Enlèvement de véhicules et pièces d'occasion en Provence-Alpes-Côte d'Azur",
+        "Enlèvement d'épave gratuit dans les Bouches-du-Rhône, le Var, les Alpes-Maritimes, le Vaucluse, les Alpes-de-Haute-Provence et les Hautes-Alpes, pour tout véhicule complet.",
+      h1: "Enlèvement d'épave gratuit en Provence-Alpes-Côte d'Azur",
       intent: "Locale régionale : savoir si le service couvre sa commune",
       primaryQuery: "épaviste PACA",
       secondaryQueries: [
@@ -95,10 +95,10 @@ export const sectors: Sector[] = [
     ],
     status: { ...NOT_CONFIRMED },
     seo: {
-      title: "Enlèvement d'épave à Marseille : demande en ligne par arrondissement",
+      title: "Enlèvement d'épave gratuit à Marseille : épaviste Marseille (13)",
       description:
-        "Véhicule en panne, accidenté ou hors d'usage à Marseille : indiquez l'arrondissement, l'état et l'accès (rue, parking, sous-sol). Les conditions sont confirmées avant le déplacement.",
-      h1: "Enlèvement d'épave et de véhicule hors d'usage à Marseille",
+        "Enlèvement d'épave gratuit à Marseille pour tout véhicule complet : voiture en panne, accidentée ou hors d'usage, dans tous les arrondissements. Demande en ligne ou par téléphone.",
+      h1: "Enlèvement d'épave gratuit à Marseille",
       intent: "Locale transactionnelle : faire enlever un véhicule à Marseille",
       primaryQuery: "enlèvement épave Marseille",
       secondaryQueries: [
@@ -157,10 +157,10 @@ export const sectors: Sector[] = [
     postalCodes: ["13400"],
     status: { ...NOT_CONFIRMED },
     seo: {
-      title: "Enlèvement d'épave à Aubagne (13400) : véhicule en panne ou accidenté",
+      title: "Enlèvement d'épave gratuit à Aubagne (13400) : épaviste Aubagne",
       description:
-        "Faire enlever un véhicule hors d'usage à Aubagne : décrivez son état, ses clés, ses roues et l'accès. L'équipe confirme la faisabilité et les conditions avant le rendez-vous.",
-      h1: "Enlèvement de véhicule hors d'usage à Aubagne",
+        "Enlèvement d'épave gratuit à Aubagne pour tout véhicule complet : voiture en panne, accidentée ou hors d'usage. Demande en ligne ou par téléphone.",
+      h1: "Enlèvement d'épave gratuit à Aubagne",
       intent: "Locale transactionnelle : faire enlever un véhicule à Aubagne",
       primaryQuery: "enlèvement épave Aubagne",
       secondaryQueries: ["épaviste Aubagne", "enlèvement voiture Aubagne", "casse auto Aubagne pièces"],
@@ -208,10 +208,10 @@ export const sectors: Sector[] = [
     postalCodes: ["13600"],
     status: { ...NOT_CONFIRMED },
     seo: {
-      title: "Enlèvement d'épave à La Ciotat (13600) : demande et conditions",
+      title: "Enlèvement d'épave gratuit à La Ciotat (13600) : épaviste La Ciotat",
       description:
-        "Véhicule hors d'usage à La Ciotat : demande d'enlèvement en quelques étapes, avec l'état, l'accès et les documents. Conditions confirmées par l'équipe avant le rendez-vous.",
-      h1: "Enlèvement d'épave à La Ciotat",
+        "Enlèvement d'épave gratuit à La Ciotat pour tout véhicule complet : voiture en panne, accidentée ou immobilisée. Demande en ligne ou par téléphone.",
+      h1: "Enlèvement d'épave gratuit à La Ciotat",
       intent: "Locale transactionnelle : faire enlever un véhicule à La Ciotat",
       primaryQuery: "enlèvement épave La Ciotat",
       secondaryQueries: ["épaviste La Ciotat", "enlèvement voiture La Ciotat"],
@@ -256,10 +256,10 @@ export const sectors: Sector[] = [
     postalCodes: ["13260"],
     status: { ...NOT_CONFIRMED },
     seo: {
-      title: "Enlèvement de véhicule hors d'usage à Cassis (13260)",
+      title: "Enlèvement d'épave gratuit à Cassis (13260) : épaviste Cassis",
       description:
-        "Faire enlever une épave ou un véhicule en panne à Cassis : décrivez précisément l'accès et l'état du véhicule. La faisabilité et les conditions sont confirmées avant le déplacement.",
-      h1: "Enlèvement de véhicule hors d'usage à Cassis",
+        "Enlèvement d'épave gratuit à Cassis pour tout véhicule complet : voiture en panne, accidentée ou hors d'usage. Demande en ligne ou par téléphone.",
+      h1: "Enlèvement d'épave gratuit à Cassis",
       intent: "Locale transactionnelle : faire enlever un véhicule à Cassis",
       primaryQuery: "enlèvement épave Cassis",
       secondaryQueries: ["épaviste Cassis", "enlèvement voiture Cassis"],
@@ -304,10 +304,10 @@ export const sectors: Sector[] = [
     postalCodes: ["06000", "06100", "06200", "06300"],
     status: { ...NOT_CONFIRMED },
     seo: {
-      title: "Enlèvement d'épave à Nice : véhicule hors d'usage, en panne ou accidenté",
+      title: "Enlèvement d'épave gratuit à Nice : épaviste Nice (06)",
       description:
-        "Véhicule à faire enlever à Nice ou dans les Alpes-Maritimes : demande en ligne avec l'état, l'accès et les documents. Faisabilité et conditions confirmées avant tout déplacement.",
-      h1: "Enlèvement d'épave à Nice",
+        "Enlèvement d'épave gratuit à Nice et dans les Alpes-Maritimes pour tout véhicule complet : voiture en panne, accidentée ou hors d'usage. Demande en ligne ou par téléphone.",
+      h1: "Enlèvement d'épave gratuit à Nice",
       intent: "Locale transactionnelle : faire enlever un véhicule à Nice",
       primaryQuery: "enlèvement épave Nice",
       secondaryQueries: ["épaviste Nice", "enlèvement voiture Nice", "épaviste Alpes-Maritimes"],

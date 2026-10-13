@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { company } from "@/config/company";
 import { pages } from "@/content/pages";
 import { freeOfChargeExplanation, sources } from "@/content/regulatory";
 import { resolveFileLimits } from "@/lib/forms/files";
@@ -60,12 +59,12 @@ export default function EnlevementPage() {
         title={page.h1}
         lead={
           <p>
-            Décrivez le véhicule, son état et son accès en trois étapes. L&apos;équipe vérifie la
-            faisabilité et vous annonce les conditions avant de se déplacer : pas de surprise le jour
-            de l&apos;enlèvement.
+            Votre épave est enlevée gratuitement dès lors que le véhicule est complet (moteur, pot
+            catalytique, batterie) et accessible normalement. Décrivez-le en trois étapes : l&apos;équipe
+            confirme tout avant de se déplacer, sans surprise le jour de l&apos;enlèvement.
           </p>
         }
-        actions={<ButtonLink href="#demande">Commencer ma demande</ButtonLink>}
+        actions={<ButtonLink href="#demande">Demander mon enlèvement gratuit</ButtonLink>}
       />
 
       <Section labelledBy="situations-title">
@@ -89,7 +88,7 @@ export default function EnlevementPage() {
         <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
           <div className="rounded-2xl bg-paper p-5 shadow-sm ring-1 ring-line sm:p-8">
             <H2 id="demande-title" className="!mt-0 mb-6">
-              Demande d&apos;enlèvement
+              Demande d&apos;enlèvement gratuit
             </H2>
             <PickupForm pagePath={page.path} limits={limits} />
           </div>
@@ -121,13 +120,12 @@ export default function EnlevementPage() {
       <Section labelledBy="gratuite-title">
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
-            <Eyebrow>Gratuité : ce qui est vrai</Eyebrow>
-            <H2 id="gratuite-title">L&apos;enlèvement est-il gratuit ?</H2>
+            <Eyebrow>Gratuité</Eyebrow>
+            <H2 id="gratuite-title">Enlèvement d&apos;épave gratuit : les conditions</H2>
             <div className="prose-eco mt-4 text-ink-3">
               {freeOfChargeExplanation.map((p) => (
                 <p key={p}>{p}</p>
               ))}
-              {company.pickup.freeConditions ? <p className="font-semibold text-ink">{company.pickup.freeConditions}</p> : null}
             </div>
             <p className="mt-4 text-sm text-muted">
               Sources :{" "}

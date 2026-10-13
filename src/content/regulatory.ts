@@ -103,7 +103,7 @@ export const specialCases: SpecialCase[] = [
 export const freeOfChargeExplanation = [
   "La remise d'un véhicule complet (avec notamment son moteur, son pot catalytique et sa batterie) à un centre VHU est gratuite pour le détenteur.",
   "Depuis 2024, la filière des constructeurs (responsabilité élargie du producteur) organise aussi une collecte sans frais des véhicules complets sur leur lieu de détention, selon des conditions qui lui sont propres.",
-  "Le transport jusqu'au centre, lui, n'est pas automatiquement gratuit : il dépend notamment de l'état du véhicule, de son accès et de la distance. Les conditions de notre enlèvement vous sont annoncées avant le rendez-vous, jamais après.",
+  "Notre enlèvement d'épave est gratuit pour un véhicule complet et accessible dans des conditions normales. Véhicule incomplet ou accès particulier (sous-sol, sans roues…) : les conditions vous sont annoncées avant le rendez-vous, jamais après.",
 ];
 
 export const centreStatusExplanation = [

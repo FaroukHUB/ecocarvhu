@@ -11,8 +11,8 @@ export const partFamilies = [
 
 export const homeFaq: FaqItem[] = [
   {
-    q: "L'enlèvement de mon véhicule est-il gratuit ?",
-    a: "La remise d'un véhicule complet à un centre VHU est gratuite. Le transport dépend de l'état du véhicule, de son accès et de la distance : les conditions vous sont annoncées avant le rendez-vous, jamais après.",
+    q: "L'enlèvement de mon épave est-il vraiment gratuit ?",
+    a: "Oui, l'enlèvement est gratuit pour un véhicule complet (moteur, pot catalytique, batterie) et accessible dans des conditions normales. Pour un véhicule incomplet ou un accès particulier (sous-sol, sans roues…), les conditions vous sont annoncées avant le rendez-vous, jamais après.",
   },
   {
     q: "Est-ce que ma demande en ligne vaut rendez-vous ?",

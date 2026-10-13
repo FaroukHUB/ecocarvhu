@@ -99,8 +99,8 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
               <ServiceCard
                 href="#demande"
                 icon={TruckIcon}
-                title="Enlèvement de véhicule"
-                text="Épave, véhicule en panne, accidenté ou non roulant, remis au centre VHU partenaire."
+                title="Enlèvement d'épave gratuit"
+                text="Véhicule complet en panne, accidenté ou non roulant, enlevé gratuitement et remis au centre VHU agréé partenaire."
               />
               <ServiceCard
                 href={pages.demandePiece.path}
@@ -186,7 +186,7 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
             <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
               <div className="rounded-2xl bg-paper p-5 shadow-sm ring-1 ring-line sm:p-8">
                 <H2 id="demande-title" className="!mt-0 mb-2">
-                  Demande d&apos;enlèvement {sector.locative}
+                  Demande d&apos;enlèvement gratuit {sector.locative}
                 </H2>
                 <p className="mb-6 text-sm text-muted">
                   La commune est préremplie : modifiez-la si le véhicule se trouve ailleurs.

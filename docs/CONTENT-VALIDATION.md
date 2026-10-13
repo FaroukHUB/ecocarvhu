@@ -14,6 +14,7 @@
 | Villes citées | Marseille, Aubagne, La Ciotat, Cassis, Nice | Brief (« une idée ») | Cibles |
 | « Auban » | Interprété comme Aubagne (13400) | Hypothèse | **À confirmer** |
 | Monaco | Cible demandée, État distinct | Brief | Brouillon séparé |
+| Enlèvement gratuit | Gratuit pour un véhicule complet (moteur, pot catalytique, batterie) et accessible dans des conditions normales | Demande du porteur de projet (« gratuit » plus présent) ; condition reprise de la pratique du secteur | **Condition à confirmer** par l'entreprise |
 
 ## 2. Informations manquantes (rien n'a été inventé)
 

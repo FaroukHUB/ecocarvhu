@@ -102,7 +102,8 @@ export const company: CompanyConfig = {
     },
   },
   pickup: {
-    freeConditions: null,
+    freeConditions:
+      "Enlèvement gratuit pour un véhicule complet (moteur, pot catalytique, batterie) et accessible dans des conditions normales.",
     confirmedCapabilities: [],
   },
   host: null,
