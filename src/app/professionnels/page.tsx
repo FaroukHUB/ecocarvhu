@@ -3,6 +3,7 @@ import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/PageHero";
 import { ButtonLink, Container, Eyebrow, H2, Section } from "@/components/ui/primitives";
 import { FeatureList } from "@/components/ui/FeatureList";
+import { BuildingIcon, GearIcon, TruckIcon } from "@/components/ui/icons";
 import { ProForm } from "@/components/forms/RequestForms";
 import { CallBand } from "@/components/sections/CallBand";
 
@@ -45,13 +46,13 @@ export default function ProfessionnelsPage() {
         <Eyebrow>Ce que vous pouvez demander</Eyebrow>
         <H2 id="offres-title">Des demandes groupées, un seul interlocuteur</H2>
         <div className="mt-10">
-          <FeatureList items={offers} columns={3} />
+          <FeatureList items={offers.map((o, i) => ({ ...o, icon: [GearIcon, TruckIcon, BuildingIcon][i] }))} columns={3} />
         </div>
       </Section>
 
-      <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-mint-dots py-14 sm:py-20">
+      <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-surface py-14 sm:py-20">
         <Container className="max-w-3xl">
-          <div className="rounded-md border border-ink/10 bg-paper p-5 sm:p-8">
+          <div className="rounded-3xl border border-line bg-paper p-5 shadow-[0_30px_60px_-40px_rgb(11_19_16/0.35)] sm:p-9">
             <H2 id="demande-title" className="!mt-0 mb-6">
               Demande professionnelle
             </H2>

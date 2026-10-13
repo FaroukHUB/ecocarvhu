@@ -29,7 +29,7 @@ export function CallFab({ href, label }: { href: string; label: string }) {
       href={href}
       aria-label={label}
       onClick={() => track("call_click", { placement: "floating-button" })}
-      className={`call-fab call-fab__ring fixed bottom-5 right-4 z-40 flex h-16 w-16 items-center justify-center rounded-full bg-brand text-white transition-[opacity,transform] duration-200 sm:hidden ${
+      className={`call-fab call-fab__ring fixed bottom-5 right-4 z-40 flex h-16 w-16 items-center justify-center rounded-full bg-lime text-ink transition-[opacity,transform] duration-200 sm:hidden ${
         typing ? "pointer-events-none translate-y-24 opacity-0" : "opacity-100"
       }`}
     >

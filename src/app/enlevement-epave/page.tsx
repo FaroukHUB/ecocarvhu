@@ -8,6 +8,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { ButtonLink, Container, Eyebrow, H2, Notice, Section } from "@/components/ui/primitives";
 import { Faq } from "@/components/ui/Faq";
 import { FeatureList } from "@/components/ui/FeatureList";
+import { AlertIcon, GearIcon, MapPinIcon, TruckIcon } from "@/components/ui/icons";
 import { RequestSteps } from "@/components/sections/RequestSteps";
 import { DocumentsChecklist } from "@/components/sections/DocumentsChecklist";
 import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
@@ -72,7 +73,7 @@ export default function EnlevementPage() {
         <Eyebrow>Situations prises en charge après étude</Eyebrow>
         <H2 id="situations-title">Quel véhicule pouvons-nous enlever ?</H2>
         <div className="mt-10">
-          <FeatureList items={situations} columns={4} />
+          <FeatureList items={situations.map((s, i) => ({ ...s, icon: [GearIcon, AlertIcon, TruckIcon, MapPinIcon][i] }))} columns={4} />
         </div>
         <p className="mt-6 text-sm text-muted">
           Chaque situation est confirmée par l&apos;équipe : un enlèvement n&apos;est jamais garanti avant
@@ -80,9 +81,9 @@ export default function EnlevementPage() {
         </p>
       </Section>
 
-      <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-sun-soft py-14 sm:py-20">
+      <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-surface py-14 sm:py-20">
         <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-          <div className="rounded-md border border-ink/10 bg-paper p-5 sm:p-8">
+          <div className="rounded-3xl border border-line bg-paper p-5 shadow-[0_30px_60px_-40px_rgb(11_19_16/0.35)] sm:p-9">
             <H2 id="demande-title" className="!mt-0 mb-6">
               Demande d&apos;enlèvement gratuit
             </H2>

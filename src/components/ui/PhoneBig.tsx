@@ -23,7 +23,7 @@ export function PhoneBig({
   const href = telHref();
   if (!href || !company.phone) {
     return (
-      <Link href="/contact" className="inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-3 font-bold text-white">
+      <Link href="/contact" className="inline-flex items-center gap-2 btn btn-lime">
         Nous écrire
       </Link>
     );
@@ -43,8 +43,8 @@ export function PhoneBig({
         </svg>
       </span>
       <span className="flex flex-col items-start leading-none">
-        {caption ? <span className={`${s.cap} font-bold uppercase tracking-[0.14em] text-white/85`}>{caption}</span> : null}
-        <span className={`${s.num} mt-1 whitespace-nowrap font-extrabold tracking-tight tabular-nums`}>
+        {caption ? <span className={`${s.cap} font-semibold uppercase tracking-[0.14em] text-ink/65`}>{caption}</span> : null}
+        <span className={`${s.num} mt-1 whitespace-nowrap font-bold tracking-tight tabular-nums`}>
           {company.phone.value}
         </span>
       </span>

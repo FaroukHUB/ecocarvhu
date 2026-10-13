@@ -1,35 +1,40 @@
 @import "tailwindcss";
 
 /*
- * Identité visuelle EcocarVHU (proposition) :
- * anthracite + surfaces claires + vert "réemploi". Contrastes AA vérifiés
- * pour le texte courant (vert foncé sur blanc, vert clair sur anthracite).
+ * Identité visuelle EcocarVHU : vert forêt + vert lime (couleurs du logo),
+ * noir et blanc. Aucun jaune. Contrastes AA vérifiés :
+ * vert #0f7a45 sur blanc, lime #9fe870 sur noir/forêt, texte noir sur lime.
  */
 @theme {
-  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
 
-  --color-ink: #1b1f23;
-  --color-ink-2: #2a3036;
-  --color-ink-3: #3b434b;
-  --color-muted: #59626b;
-  --color-line: #dfe3e0;
-  --color-surface: #f4f6f2;
+  --color-ink: #0b1310;
+  --color-ink-2: #18211c;
+  --color-ink-3: #3c4741;
+  --color-muted: #5b6660;
+  --color-line: #e2e8e4;
+  --color-surface: #f4f7f5;
   --color-paper: #ffffff;
 
-  --color-brand: #17803d;
-  --color-brand-dark: #0f5a2b;
-  --color-brand-deep: #0a3d1d;
-  --color-brand-bright: #3fd17a;
-  --color-brand-soft: #e6f4ea;
+  --color-brand: #0f7a45;
+  --color-brand-dark: #0b5c34;
+  --color-brand-deep: #073d24;
+  --color-forest: #0a3524;
+  --color-brand-bright: #9fe870;
+  --color-lime: #9fe870;
+  --color-lime-2: #b9f193;
+  --color-brand-soft: #edf6f0;
 
-  --color-signal: #f4c430;
-  --color-mint: #e9f6ee;
-  --color-mint-2: #d2eedc;
-  --color-sun: #fff4cc;
-  --color-sun-2: #ffe8a3;
+  /* Anciens noms conservés, tous ramenés au vert / neutre (plus de jaune). */
+  --color-signal: #9fe870;
+  --color-mint: #f4f7f5;
+  --color-mint-2: #e6ede9;
+  --color-sun: #f4f7f5;
+  --color-sun-2: #e6ede9;
+  --color-warn-soft: #f4f7f5;
+
   --color-danger: #b42318;
   --color-danger-soft: #fdecea;
-  --color-warn-soft: #fff6d6;
 }
 
 html {
@@ -40,11 +45,17 @@ html {
 body {
   background: var(--color-paper);
   color: var(--color-ink);
+  font-feature-settings: "ss01";
+}
+
+::selection {
+  background: var(--color-lime);
+  color: var(--color-ink);
 }
 
 /* Focus visible, net et cohérent sur tous les éléments interactifs. */
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 3px solid var(--color-signal);
+  outline: 3px solid #1f9d5c;
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -60,63 +71,148 @@ body {
   }
 }
 
-/*
- * Bouton d'appel "3D" : une touche en relief (tranche pleine sous le bouton
- * + ombre portée). Le texte reste net : aucun text-shadow.
- */
 @layer components {
-.phone-key {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #1f9a4b 0%, var(--color-brand) 100%);
-  color: #fff;
-  text-decoration: none;
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.25),
-    0 6px 0 var(--color-brand-deep),
-    0 14px 28px rgb(0 0 0 / 0.28);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
-}
-.phone-key:hover {
-  filter: brightness(1.06);
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.25),
-    0 7px 0 var(--color-brand-deep),
-    0 18px 32px rgb(0 0 0 / 0.3);
-}
-.phone-key:active {
-  transform: translateY(5px);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.2),
-    0 1px 0 var(--color-brand-deep),
-    0 6px 12px rgb(0 0 0 / 0.25);
-}
-.phone-key__icon {
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: #fff;
-  color: var(--color-brand);
-  box-shadow: 0 3px 0 rgb(0 0 0 / 0.18);
-}
+  /* Bouton d'appel : pilule lime, pastille noire, halo doux. */
+  .phone-key {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background: var(--color-lime);
+    color: var(--color-ink);
+    text-decoration: none;
+    box-shadow: 0 10px 30px -10px rgb(159 232 112 / 0.75);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+  .phone-key:hover {
+    background: var(--color-lime-2);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px -12px rgb(159 232 112 / 0.9);
+  }
+  .phone-key:active {
+    transform: translateY(0);
+  }
+  .phone-key__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--color-ink);
+    color: var(--color-lime);
+  }
+
+  /* Boutons */
+  .btn {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.75rem 1.4rem;
+    font-weight: 700;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn:active {
+    transform: translateY(0);
+  }
+  .btn svg {
+    transition: transform 0.2s ease;
+  }
+  .btn:hover svg {
+    transform: translateX(3px);
+  }
+  .btn-lime {
+    background: var(--color-lime);
+    color: var(--color-ink);
+    box-shadow: 0 10px 30px -12px rgb(159 232 112 / 0.9);
+  }
+  .btn-lime:hover {
+    background: var(--color-lime-2);
+  }
+  .btn-ink {
+    background: var(--color-ink);
+    color: #fff;
+  }
+  .btn-ink:hover {
+    background: var(--color-ink-2);
+    box-shadow: 0 14px 30px -14px rgb(11 19 16 / 0.6);
+  }
+  .btn-outline {
+    border: 1.5px solid rgb(11 19 16 / 0.15);
+    background: #fff;
+    color: var(--color-ink);
+  }
+  .btn-outline:hover {
+    border-color: var(--color-ink);
+  }
+  .btn-glass {
+    border: 1px solid rgb(255 255 255 / 0.35);
+    background: rgb(255 255 255 / 0.12);
+    color: #fff;
+    backdrop-filter: blur(10px);
+  }
+  .btn-glass:hover {
+    background: rgb(255 255 255 / 0.2);
+  }
+
+  /* Cartes : bordure fine, légère élévation au survol. */
+  .card {
+    position: relative;
+    border-radius: 1.25rem;
+    border: 1px solid var(--color-line);
+    background: #fff;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgb(15 122 69 / 0.35);
+    box-shadow: 0 24px 48px -28px rgb(11 19 16 / 0.35);
+  }
+  .card-dark {
+    position: relative;
+    border-radius: 1.25rem;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    background: rgb(255 255 255 / 0.04);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .card-dark:hover {
+    transform: translateY(-4px);
+    border-color: rgb(159 232 112 / 0.45);
+    background: rgb(255 255 255 / 0.07);
+  }
+
+  /* Pastille d'icône */
+  .icon-tile {
+    display: inline-flex;
+    height: 3rem;
+    width: 3rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.9rem;
+    background: var(--color-ink);
+    color: var(--color-lime);
+    transition: transform 0.3s ease;
+  }
+  .card:hover .icon-tile,
+  .card-dark:hover .icon-tile {
+    transform: rotate(-6deg) scale(1.06);
+  }
+  .card-dark .icon-tile {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
 }
 
 /* Bouton d'appel flottant (mobile). */
 .call-fab {
-  box-shadow:
-    0 6px 0 var(--color-brand-deep),
-    0 10px 24px rgb(0 0 0 / 0.35);
-}
-
-.call-fab:active {
-  transform: translateY(4px);
-  box-shadow:
-    0 2px 0 var(--color-brand-deep),
-    0 6px 14px rgb(0 0 0 / 0.3);
+  box-shadow: 0 12px 30px -8px rgb(11 19 16 / 0.55);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -127,11 +223,11 @@ body {
 
 @keyframes call-ring {
   0% {
-    box-shadow: 0 0 0 0 rgb(63 209 122 / 0.55);
+    box-shadow: 0 0 0 0 rgb(159 232 112 / 0.7);
   }
   70%,
   100% {
-    box-shadow: 0 0 0 18px rgb(63 209 122 / 0);
+    box-shadow: 0 0 0 18px rgb(159 232 112 / 0);
   }
 }
 
@@ -172,24 +268,65 @@ body {
 
 
 /* ------------------------------------------------------------------ */
-/* Ambiances de sections : aplats de couleur, sans motifs ni halos      */
+/* Ambiances de sections                                               */
 /* ------------------------------------------------------------------ */
 .bg-mint-dots {
-  background-color: var(--color-mint);
+  background-color: var(--color-surface);
 }
-.bg-brand-glow {
-  background-color: #12693a;
+.bg-sun-soft {
+  background-color: var(--color-surface);
 }
 .bg-ink-grid {
   background-color: var(--color-ink);
+  background-image:
+    radial-gradient(60rem 30rem at 100% 0%, rgb(159 232 112 / 0.1), transparent 60%),
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: auto, 48px 48px, 48px 48px;
 }
-.bg-sun-soft {
-  background-color: var(--color-sun);
+.bg-brand-glow {
+  background-color: var(--color-forest);
+  background-image:
+    radial-gradient(50rem 28rem at 0% 100%, rgb(159 232 112 / 0.16), transparent 60%),
+    radial-gradient(40rem 24rem at 100% 0%, rgb(15 122 69 / 0.55), transparent 65%);
+}
+
+.bg-hero-light {
+  background-color: var(--color-surface);
+  background-image:
+    radial-gradient(40rem 22rem at 95% 0%, rgb(159 232 112 / 0.35), transparent 60%),
+    linear-gradient(rgb(11 19 16 / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(11 19 16 / 0.04) 1px, transparent 1px);
+  background-size: auto, 48px 48px, 48px 48px;
+}
+
+/* Texte en dégradé lime */
+.text-glow {
+  background: linear-gradient(90deg, #9fe870, #d4f7b8 50%, #9fe870);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Sur-titre : point lumineux qui pulse */
+.pulse-dot {
+  position: relative;
+  display: inline-flex;
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+/* Bandeau défilant */
+.marquee {
+  display: flex;
+  width: max-content;
 }
 
 /* ------------------------------------------------------------------ */
-/* Animations d'apparition au défilement (CSS seul, sans JavaScript)   */
-/* Navigateurs sans "animation-timeline" : contenu affiché normalement. */
+/* Animations (CSS seul). Sans "animation-timeline" : contenu affiché.  */
 /* ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
@@ -208,9 +345,43 @@ body {
       animation-timeline: view();
       animation-range: entry 0% entry 65%;
     }
+    /* Tracé progressif des icônes et illustrations SVG */
+    .draw :is(path, circle, ellipse, line, polyline, rect) {
+      stroke-dasharray: 240;
+      animation: draw linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 40%;
+    }
   }
 
-  /* Petite pulsation de confirmation (réponse enregistrée) */
+  .text-glow {
+    animation: shine 6s linear infinite;
+  }
+  .pulse-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: currentColor;
+    animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  .marquee {
+    animation: marquee 32s linear infinite;
+  }
+  .flow {
+    animation: flow 1.2s linear infinite;
+  }
+  .float {
+    animation: float 5s ease-in-out infinite;
+  }
+  .drive {
+    animation: drive 9s ease-in-out infinite;
+  }
+  .ping-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ping-svg 2.4s ease-out infinite;
+  }
   .pop {
     animation: pop 0.35s ease-out;
   }
@@ -219,7 +390,7 @@ body {
 @keyframes reveal-up {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -229,7 +400,7 @@ body {
 @keyframes reveal-left {
   from {
     opacity: 0;
-    transform: translateX(-14px);
+    transform: translateX(-24px);
   }
   to {
     opacity: 1;
@@ -239,11 +410,72 @@ body {
 @keyframes reveal-zoom {
   from {
     opacity: 0;
-    transform: scale(0.98);
+    transform: scale(0.94);
   }
   to {
     opacity: 1;
     transform: none;
+  }
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: 240;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+@keyframes ping-svg {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes drive {
+  0% {
+    left: 0%;
+  }
+  45%,
+  55% {
+    left: calc(100% - 2.5rem);
+  }
+  100% {
+    left: 0%;
   }
 }
 @keyframes pop {

@@ -22,14 +22,14 @@ export default function NotFound() {
   return (
     <Container className="py-16 sm:py-24">
       <p className="text-sm font-bold uppercase tracking-wider text-brand">Erreur 404</p>
-      <h1 className="mt-2 text-3xl font-extrabold sm:text-5xl">Cette page n&apos;existe pas (ou plus)</h1>
+      <h1 className="mt-2 text-3xl font-bold sm:text-5xl">Cette page n&apos;existe pas (ou plus)</h1>
       <p className="mt-4 max-w-xl text-lg text-ink-3">
         L&apos;adresse est peut-être incomplète. Voici les accès les plus utiles :
       </p>
-      <ul className="mt-6 grid max-w-2xl border-t border-ink/15 sm:grid-cols-2 sm:gap-x-8">
+      <ul className="mt-6 grid max-w-2xl gap-3 sm:grid-cols-2">
         {links.map((l) => (
           <li key={l.href}>
-            <Link href={l.href} className="block border-b border-ink/15 py-3.5 font-bold hover:text-brand">
+            <Link href={l.href} className="card block p-4 font-semibold">
               {l.label}
             </Link>
           </li>

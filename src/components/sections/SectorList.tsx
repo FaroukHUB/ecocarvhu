@@ -10,29 +10,32 @@ import { MapPinIcon } from "@/components/ui/icons";
  */
 export function SectorList({ tone = "light" }: { tone?: "light" | "dark" }) {
   const shown = visibleSectors().filter((s) => s.kind !== "foreign-state");
-  const line = tone === "dark" ? "border-white/15 hover:text-brand-bright" : "border-ink/10 hover:text-brand";
+  const line =
+    tone === "dark"
+      ? "border-white/10 bg-white/5 hover:border-lime/50"
+      : "border-line bg-white hover:border-brand/40 hover:shadow-[0_16px_30px_-20px_rgb(11_19_16/0.4)]";
 
   return (
     <div className="space-y-6">
       {shown.length ? (
-        <ul className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((s) => {
             const published = isSectorPublished(s.status);
             return (
               <li key={s.slug}>
                 <Link
                   href={sectorPath(s)}
-                  className={`flex h-full items-center justify-between gap-3 border-b py-3.5 font-semibold transition-colors ${line}`}
+                  className={`group flex h-full items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 font-semibold transition duration-300 hover:-translate-y-0.5 ${line}`}
                 >
                   <span className="flex items-center gap-2.5">
-                    <MapPinIcon className="h-5 w-5 shrink-0 text-brand-bright" />
+                    <MapPinIcon className={`h-5 w-5 shrink-0 ${tone === "dark" ? "text-lime" : "text-brand"}`} />
                     {s.name}
                     {s.department ? (
                       <span className={tone === "dark" ? "text-white/60" : "text-muted"}>({s.department.code})</span>
                     ) : null}
                   </span>
                   {!published ? (
-                    <span className="rounded bg-signal px-1.5 py-0.5 text-[0.7rem] font-bold uppercase text-ink">
+                    <span className="rounded-full bg-lime px-2 py-0.5 text-[0.7rem] font-bold uppercase text-ink">
                       Brouillon
                     </span>
                   ) : null}

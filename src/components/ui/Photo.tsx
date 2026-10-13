@@ -13,9 +13,9 @@ export function hasPhotoBlock(slot: PhotoSlot): boolean {
  * harmonieux. Sans fichier : cadre « photo à venir » en prévisualisation,
  * rien en production.
  */
-export function Photo({ slot, className = "" }: { slot: PhotoSlot; className?: string }) {
+export function Photo({ slot, className = "", flush = false }: { slot: PhotoSlot; className?: string; flush?: boolean }) {
   const src = photoSrc(slot);
-  const frame = `relative aspect-[4/3] w-full overflow-hidden rounded-md ${className}`;
+  const frame = `relative aspect-[4/3] w-full overflow-hidden ${flush ? "" : "rounded-3xl"} ${className}`;
 
   if (src) {
     return (
@@ -33,7 +33,7 @@ export function Photo({ slot, className = "" }: { slot: PhotoSlot; className?: s
 
   return (
     <div
-      className={`${frame} flex flex-col items-center justify-center gap-3 border-2 border-dashed border-brand/40 bg-[repeating-linear-gradient(135deg,#e6f4ea_0_14px,#f4f6f2_14px_28px)] p-6 text-center`}
+      className={`${frame} flex flex-col items-center justify-center gap-3 border-2 border-dashed border-ink/15 bg-surface p-6 text-center`}
       role="img"
       aria-label={`Emplacement photo à venir : ${photos[slot].brief}`}
     >

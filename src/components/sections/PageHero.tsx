@@ -20,12 +20,12 @@ export function PageHero({
   phone?: boolean;
 }) {
   return (
-    <div className="border-b border-ink/10 bg-mint-dots">
+    <div className="bg-hero-light relative overflow-hidden border-b border-ink/5">
       <Breadcrumbs items={crumbs} />
-      <Container className="grid items-end gap-8 pb-12 pt-6 sm:pb-16 lg:grid-cols-[1.5fr_1fr]">
+      <Container className="grid items-end gap-8 pb-14 pt-6 sm:pb-20 lg:grid-cols-[1.5fr_1fr]">
         <div>
           {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-          <h1 className="mt-3 text-[2rem] font-extrabold leading-[1.08] tracking-tight sm:text-5xl">{title}</h1>
+          <h1 className="mt-5 text-[2.2rem] font-bold leading-[1.04] tracking-[-0.04em] sm:text-[3.4rem]">{title}</h1>
           <div className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-3">{lead}</div>
           {actions ? <div className="mt-6 flex flex-wrap gap-3">{actions}</div> : null}
         </div>

@@ -39,7 +39,7 @@ export default function MentionsPage() {
       <h2>Propriété intellectuelle</h2>
       <p>
         Les textes, le logo et les illustrations du site sont la propriété de l&apos;éditeur, sauf mention
-        contraire. Les illustrations ne sont pas des photographies de l&apos;entreprise.
+        contraire.
       </p>
     </LegalPage>
   );

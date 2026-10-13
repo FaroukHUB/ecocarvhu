@@ -67,7 +67,7 @@ export default async function ResultPage({ params }: PageProps<"/demande/resulta
   if (!r) notFound();
   return (
     <Container className="max-w-3xl py-16">
-      <h1 className="text-3xl font-extrabold sm:text-4xl">{r.title}</h1>
+      <h1 className="text-3xl font-bold sm:text-4xl">{r.title}</h1>
       <div className="mt-6">
         <Notice tone={r.ok ? "info" : "warn"}>{r.text}</Notice>
       </div>

@@ -71,7 +71,7 @@ export function VehicleCheck() {
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
       <form
-        className="space-y-4 rounded-lg border border-ink/10 bg-paper p-5 sm:p-7"
+        className="space-y-3 rounded-3xl border border-line bg-paper p-5 shadow-[0_30px_60px_-40px_rgb(11_19_16/0.35)] sm:p-7"
         onSubmit={(e) => e.preventDefault()}
       >
         <div>
@@ -81,9 +81,9 @@ export function VehicleCheck() {
               {answered} / {total}
             </span>
           </div>
-          <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-mint-2" aria-hidden="true">
+          <div className="mt-2 h-2 overflow-hidden rounded-full bg-surface" aria-hidden="true">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-brand to-brand-bright transition-[width] duration-500"
+              className="h-full rounded-full bg-gradient-to-r from-brand to-lime transition-[width] duration-500"
               style={{ width: `${(answered / total) * 100}%` }}
             />
           </div>
@@ -93,13 +93,13 @@ export function VehicleCheck() {
           return (
             <fieldset
               key={q.key}
-              className={`rounded-2xl border-2 p-4 transition-colors ${done ? "border-brand/40 bg-mint" : "border-line bg-paper"}`}
+              className={`rounded-2xl border p-4 transition-colors duration-300 ${done ? "border-brand/30 bg-brand-soft" : "border-line bg-paper"}`}
             >
               <legend className="sr-only">{q.label}</legend>
               <p aria-hidden="true" className="flex items-center gap-3 font-bold">
                 <span
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-extrabold ${
-                    done ? "bg-brand text-white" : "bg-sun-2 text-[#6b4f00]"
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+                    done ? "bg-lime text-ink" : "bg-ink text-white"
                   }`}
                 >
                   {done ? <CheckIcon className="h-4 w-4" /> : i + 1}
@@ -122,7 +122,7 @@ export function VehicleCheck() {
                       />
                       <label
                         htmlFor={id}
-                        className="inline-flex min-h-11 cursor-pointer items-center rounded-xl border-2 border-line bg-paper px-4 text-[0.95rem] font-semibold transition hover:border-brand/50 peer-checked:border-brand peer-checked:bg-brand peer-checked:text-white peer-focus-visible:outline-3 peer-focus-visible:outline-signal"
+                        className="inline-flex min-h-11 cursor-pointer items-center rounded-full border border-ink/15 bg-paper px-4 text-[0.95rem] font-medium transition hover:border-ink/40 peer-checked:border-ink peer-checked:bg-ink peer-checked:text-white peer-focus-visible:outline-3 peer-focus-visible:outline-brand"
                       >
                         {o.label}
                       </label>
@@ -135,10 +135,10 @@ export function VehicleCheck() {
         })}
       </form>
 
-      <div className="flex flex-col gap-5 rounded-lg bg-ink p-5 text-white sm:p-7 lg:sticky lg:top-28 lg:self-start">
+      <div className="bg-ink-grid flex flex-col gap-5 rounded-3xl p-5 text-white sm:p-7 lg:sticky lg:top-28 lg:self-start">
         <div aria-live="polite">
-          <p className="flex items-center gap-2 text-lg font-extrabold">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-bright text-ink">
+          <p className="flex items-center gap-2 text-lg font-bold">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-lime text-ink">
               <CheckIcon className="h-4 w-4" />
             </span>
             Vos réponses
@@ -164,7 +164,7 @@ export function VehicleCheck() {
                   </div>
                 ))}
               </dl>
-              <p className="mt-3 flex items-center gap-2 rounded-xl bg-brand/30 px-3.5 py-2.5 text-sm font-semibold text-white">
+              <p className="mt-3 flex items-center gap-2 rounded-xl bg-lime/10 px-3.5 py-2.5 text-sm font-semibold text-white">
                 <CheckIcon className="h-4 w-4 shrink-0 text-brand-bright" />
                 Réponses enregistrées : elles seront reprises automatiquement dans votre demande d&apos;enlèvement.
               </p>
@@ -173,7 +173,7 @@ export function VehicleCheck() {
         </div>
 
         <div aria-live="polite">
-          <p className="text-lg font-extrabold">À signaler avant le déplacement</p>
+          <p className="text-lg font-bold">À signaler avant le déplacement</p>
           {items.length === 0 ? (
             <p className="mt-2 text-white/75">Les points utiles pour préparer l&apos;enlèvement s&apos;affichent ici.</p>
           ) : (
@@ -182,12 +182,12 @@ export function VehicleCheck() {
                 <li
                   key={it.text}
                   className={`flex gap-3 rounded-xl px-3.5 py-3 text-[0.95rem] leading-relaxed ${
-                    it.tone === "warn" ? "bg-signal/15 ring-1 ring-signal/40" : "bg-white/5"
+                    it.tone === "warn" ? "bg-lime/10 ring-1 ring-lime/35" : "bg-white/5"
                   }`}
                 >
                   <span
                     aria-hidden="true"
-                    className={`mt-1.5 h-3 w-3 shrink-0 rounded-full ${it.tone === "warn" ? "bg-signal" : "bg-brand-bright"}`}
+                    className={`mt-1.5 h-3 w-3 shrink-0 rounded-full ${it.tone === "warn" ? "bg-lime" : "bg-white/40"}`}
                   />
                   <span>
                     <span className="sr-only">{it.tone === "warn" ? "À signaler : " : "Bon à savoir : "}</span>
@@ -202,7 +202,7 @@ export function VehicleCheck() {
         <div className="mt-auto">
           <Link
             href="/enlevement-epave#demande"
-            className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-brand px-5 text-center font-bold text-white shadow-[0_4px_0_var(--color-brand-deep)] hover:bg-brand-dark sm:w-auto"
+            className="btn btn-lime w-full sm:w-auto"
           >
             {answered > 0 ? "Continuer ma demande avec ces réponses" : "Faire une demande d'enlèvement"}
           </Link>

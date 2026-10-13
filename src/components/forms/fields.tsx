@@ -6,7 +6,7 @@ import { CameraIcon } from "@/components/ui/icons";
 import { useFormCtx } from "./context";
 
 const inputBase =
-  "block w-full rounded-xl border-2 border-line bg-paper px-3.5 py-3 text-base text-ink placeholder:text-muted/70 hover:border-ink/25 focus:border-brand focus:outline-none aria-[invalid=true]:border-danger";
+  "block w-full rounded-xl border border-ink/15 bg-paper px-3.5 py-3 text-base text-ink placeholder:text-muted/70 hover:border-ink/25 focus:border-brand focus:outline-none focus:ring-4 focus:ring-lime/40 aria-[invalid=true]:border-danger";
 
 function useField(name: string) {
   const { errors, clearError, idPrefix } = useFormCtx();
@@ -263,7 +263,7 @@ export function ChoiceGroup({
               />
               <label
                 htmlFor={oid}
-                className={`flex h-full min-h-12 cursor-pointer flex-col justify-center rounded-xl border-2 bg-paper px-3.5 py-2.5 text-[0.95rem] font-semibold leading-snug peer-checked:border-brand peer-checked:bg-brand-soft peer-checked:text-brand-deep peer-focus-visible:outline peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-signal ${
+                className={`flex h-full min-h-12 cursor-pointer flex-col justify-center rounded-xl border-2 bg-paper px-3.5 py-2.5 text-[0.95rem] font-semibold leading-snug peer-checked:border-ink peer-checked:bg-ink peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand ${
                   error ? "border-danger" : "border-line"
                 }`}
               >

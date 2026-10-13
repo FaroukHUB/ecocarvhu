@@ -3,7 +3,7 @@ import { Container } from "./primitives";
 /** Bandeau des brouillons (visible uniquement hors production). */
 export function DraftBanner({ missing, label = "Brouillon non publié" }: { missing: string[]; label?: string }) {
   return (
-    <div className="border-b-2 border-signal bg-warn-soft" role="note">
+    <div className="border-b border-ink/10 bg-surface" role="note">
       <Container className="py-3 text-sm">
         <details>
           <summary className="cursor-pointer font-bold">

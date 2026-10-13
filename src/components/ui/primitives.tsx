@@ -22,23 +22,27 @@ export function Section({
     paper: "bg-paper",
     surface: "bg-surface",
     ink: "bg-ink-grid text-white",
-    mint: "bg-mint-dots",
+    mint: "bg-surface",
     brand: "bg-brand-glow text-white",
-    sun: "bg-sun-soft",
+    sun: "bg-surface",
   }[tone];
   return (
-    <section id={id} aria-labelledby={labelledBy} className={`${toneClass} py-14 sm:py-20 ${className}`}>
+    <section id={id} aria-labelledby={labelledBy} className={`${toneClass} py-16 sm:py-24 ${className}`}>
       <Container>{children}</Container>
     </section>
   );
 }
 
-/** Sur-titre : petites capitales précédées d'un filet. */
+/** Sur-titre : pastille avec point lumineux qui pulse. */
 export function Eyebrow({ children, tone = "brand" }: { children: React.ReactNode; tone?: "brand" | "light" | "sun" }) {
-  const color = { brand: "text-brand", light: "text-brand-bright", sun: "text-[#7a5b00]" }[tone];
+  const dark = tone === "light";
   return (
-    <p className={`flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] sm:text-sm ${color}`}>
-      <span aria-hidden="true" className="h-px w-8 bg-current" />
+    <p
+      className={`inline-flex items-center gap-2.5 rounded-full border px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] ${
+        dark ? "border-white/15 bg-white/5 text-white/85" : "border-ink/10 bg-white text-ink-3"
+      }`}
+    >
+      <span aria-hidden="true" className={`pulse-dot ${dark ? "text-lime" : "text-brand"}`} />
       {children}
     </p>
   );
@@ -46,7 +50,10 @@ export function Eyebrow({ children, tone = "brand" }: { children: React.ReactNod
 
 export function H2({ id, children, className = "" }: { id?: string; children: React.ReactNode; className?: string }) {
   return (
-    <h2 id={id} className={`mt-3 text-[1.85rem] font-extrabold leading-[1.1] tracking-tight sm:text-[2.6rem] ${className}`}>
+    <h2
+      id={id}
+      className={`mt-4 text-[1.9rem] font-bold leading-[1.08] tracking-[-0.03em] sm:text-[2.75rem] ${className}`}
+    >
       {children}
     </h2>
   );
@@ -64,16 +71,13 @@ export function ButtonLink({
   className?: string;
 }) {
   const styles = {
-    primary: "bg-brand text-white shadow-[0_4px_0_var(--color-brand-deep)] hover:bg-brand-dark",
-    secondary: "bg-ink text-white shadow-[0_4px_0_#000] hover:bg-ink-2",
-    ghost: "border-2 border-ink/15 bg-paper text-ink hover:border-brand hover:text-brand",
-    light: "bg-white text-ink shadow-[0_4px_0_rgb(0_0_0/0.35)] hover:bg-brand-soft",
+    primary: "btn-lime",
+    secondary: "btn-ink",
+    ghost: "btn-outline",
+    light: "btn-lime",
   }[variant];
   return (
-    <Link
-      href={href}
-      className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-5 py-3 text-base font-bold transition-colors active:translate-y-0.5 ${styles} ${className}`}
-    >
+    <Link href={href} className={`btn ${styles} ${className}`}>
       {children}
       <ArrowIcon className="h-5 w-5" />
     </Link>
@@ -102,11 +106,16 @@ export function Notice({
 }) {
   return (
     <div
-      className={`rounded-md border-l-4 p-4 text-[0.95rem] leading-relaxed ${
-        tone === "warn" ? "border-signal bg-warn-soft" : "border-brand bg-brand-soft"
+      className={`rounded-2xl border p-5 text-[0.95rem] leading-relaxed ${
+        tone === "warn" ? "border-ink/15 bg-surface" : "border-brand/20 bg-brand-soft"
       }`}
     >
-      {title ? <p className="mb-1 font-bold">{title}</p> : null}
+      {title ? (
+        <p className="mb-1 flex items-center gap-2 font-bold">
+          <span aria-hidden="true" className={`h-2 w-2 rounded-full ${tone === "warn" ? "bg-ink" : "bg-brand"}`} />
+          {title}
+        </p>
+      ) : null}
       {children}
     </div>
   );

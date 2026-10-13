@@ -23,13 +23,13 @@ export function PartnerCentreCard({ variant = "full" }: { variant?: "full" | "co
 
   if (variant === "compact") {
     return (
-      <div className="rounded-xl border border-white/15 bg-white/5 p-4 text-sm">
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm">
         <p className="flex items-center gap-2 font-bold text-white">
           <ShieldIcon className="h-5 w-5 text-brand-bright" />
           Partenariat avec un centre VHU agréé
         </p>
         <p className="mt-1.5 text-white/75">
-          N° d&apos;agrément : {p.agrementNumber ?? <span className="font-semibold text-signal">à venir</span>}
+          N° d&apos;agrément : {p.agrementNumber ?? <span className="font-semibold text-lime">à venir</span>}
         </p>
       </div>
     );
@@ -38,18 +38,18 @@ export function PartnerCentreCard({ variant = "full" }: { variant?: "full" | "co
   return (
     <section
       aria-labelledby="partner-centre-title"
-      className="relative overflow-hidden rounded-xl border-l-4 border-brand bg-paper ring-1 ring-ink/10"
+      className="relative overflow-hidden rounded-3xl bg-brand-glow text-white"
     >
-      <div className="flex flex-col gap-6 p-6 sm:p-8 md:flex-row md:items-center">
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand">
-          <ShieldIcon className="h-8 w-8" />
+      <div className="flex flex-col gap-7 p-7 sm:p-10 md:flex-row md:items-center">
+        <div className="float draw flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-lime text-ink shadow-[0_20px_50px_-15px_rgb(159_232_112/0.7)]">
+          <ShieldIcon className="h-10 w-10" />
         </div>
         <div className="flex-1">
-          <p className="text-sm font-bold uppercase tracking-wider text-brand">Centre VHU partenaire</p>
-          <h2 id="partner-centre-title" className="mt-1 text-2xl font-extrabold leading-tight sm:text-3xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lime">Centre VHU partenaire</p>
+          <h2 id="partner-centre-title" className="mt-2 text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
             Partenariat avec un centre VHU agréé
           </h2>
-          <p className="mt-2 max-w-2xl text-ink-3">
+          <p className="mt-3 max-w-2xl text-white/75">
             Les véhicules hors d&apos;usage sont remis à un centre VHU partenaire, seul habilité à les
             dépolluer, les démonter et délivrer le certificat de destruction. {company.brandName} reçoit
             votre demande, la qualifie et organise l&apos;enlèvement.
@@ -57,18 +57,18 @@ export function PartnerCentreCard({ variant = "full" }: { variant?: "full" | "co
           {known.length ? (
             <dl className="mt-5 grid gap-4 sm:grid-cols-3">
               {known.map((r) => (
-                <div key={r.label} className="border-t border-ink/15 pt-3">
-                  <dt className="text-xs font-semibold uppercase tracking-wide text-muted">{r.label}</dt>
+                <div key={r.label} className="border-t border-white/15 pt-3">
+                  <dt className="text-xs font-semibold uppercase tracking-wide text-white/60">{r.label}</dt>
                   <dd className="mt-1 font-bold">{r.value}</dd>
                 </div>
               ))}
             </dl>
           ) : null}
-          <p className="mt-4 text-sm text-muted">
+          <p className="mt-5 text-sm text-white/60">
             {known.length < rows.length
               ? "La raison sociale et le numéro d'agrément du centre partenaire seront publiés ici dès leur communication. "
               : null}
-            <Link href="/centre-vhu" className="font-semibold text-brand underline underline-offset-2">
+            <Link href="/centre-vhu" className="font-semibold text-lime underline underline-offset-2">
               Comprendre la prise en charge
             </Link>
           </p>

@@ -9,7 +9,7 @@ import { mainNav } from "./nav";
 export function Header() {
   const tel = telHref();
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/85">
+    <header className="sticky top-0 z-30 border-b border-ink/5 bg-paper/90 backdrop-blur-xl supports-[backdrop-filter]:bg-paper/75">
       <a
         href="#contenu"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-white"
@@ -24,7 +24,7 @@ export function Header() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="rounded-md px-3 py-2 text-[0.95rem] font-semibold text-ink-2 hover:bg-surface hover:text-brand"
+                  className="rounded-full px-3.5 py-2 text-[0.92rem] font-medium text-ink-2 transition-colors hover:bg-surface hover:text-ink"
                 >
                   {item.label}
                 </Link>
@@ -43,7 +43,7 @@ export function Header() {
               <span className="phone-key__icon hidden h-8 w-8 sm:inline-flex" aria-hidden="true">
                 <PhoneIcon className="h-4 w-4" />
               </span>
-              <span className="whitespace-nowrap text-[0.9rem] font-extrabold tabular-nums sm:text-lg">
+              <span className="whitespace-nowrap text-[0.9rem] font-bold tabular-nums sm:text-base">
                 {company.phone.value}
               </span>
             </CallLink>

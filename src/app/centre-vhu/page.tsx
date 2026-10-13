@@ -40,8 +40,8 @@ function RolesSection() {
     );
   }
   return (
-    <div className="grid gap-10 md:grid-cols-2">
-      <div className="border-t-2 border-ink pt-5">
+    <div className="grid gap-4 md:grid-cols-2">
+      <div className="card p-7">
         <p className="text-sm font-bold uppercase tracking-wider text-brand">Notre rôle</p>
         <h3 className="mt-1 text-xl font-bold">{company.brandName}</h3>
         <ul className="mt-3 list-disc space-y-1.5 pl-5 text-ink-3">
@@ -50,12 +50,12 @@ function RolesSection() {
           <li>organiser l&apos;enlèvement et le transport vers le centre partenaire.</li>
         </ul>
       </div>
-      <div className="border-t-2 border-ink pt-5">
-        <p className="text-sm font-bold uppercase tracking-wider text-brand">Son rôle</p>
+      <div className="card-dark bg-ink p-7 text-white">
+        <p className="text-sm font-bold uppercase tracking-wider text-lime">Son rôle</p>
         <h3 className="mt-1 text-xl font-bold">
           {company.vhu.partner.name ?? "Le centre VHU partenaire"}
         </h3>
-        <ul className="mt-3 list-disc space-y-1.5 pl-5 text-ink-3">
+        <ul className="mt-3 list-disc space-y-1.5 pl-5 text-white/75">
           <li>prendre en charge le véhicule hors d&apos;usage ;</li>
           <li>le dépolluer, le démonter et le faire recycler ;</li>
           <li>délivrer le certificat de destruction.</li>

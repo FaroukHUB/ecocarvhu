@@ -95,7 +95,7 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
           <Section labelledBy="services-title">
             <Eyebrow>Ce que vous pouvez demander</Eyebrow>
             <H2 id="services-title">Trois demandes possibles {sector.locative}</H2>
-            <ul className="mt-10 grid gap-x-10 gap-y-2 md:grid-cols-3">
+            <ul className="mt-10 grid gap-4 md:grid-cols-3">
               <ServiceCard
                 href="#demande"
                 icon={TruckIcon}
@@ -130,7 +130,7 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
                 <H2 id="acces-title">Ce qui permet une réponse fiable</H2>
                 <ul className="mt-6 space-y-3">
                   {sector.accessTips.map((t) => (
-                    <li key={t} className="flex gap-3 border-t border-ink/15 pt-3">
+                    <li key={t} className="flex gap-3 rounded-2xl border border-line bg-white p-4">
                       <span aria-hidden="true" className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-brand" />
                       <span className="text-ink-3">{t}</span>
                     </li>
@@ -157,9 +157,9 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
             <Section labelledBy="dep-title">
               <Eyebrow>Départements</Eyebrow>
               <H2 id="dep-title">Les six départements de la zone visée</H2>
-              <ul className="mt-8 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+              <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {departments.map((d) => (
-                  <li key={d.code} className="border-t border-ink/15 py-4">
+                  <li key={d.code} className="card p-5">
                     <span className="font-bold">{d.name}</span> <span className="text-muted">({d.code})</span>
                     <p className="mt-0.5 text-sm text-muted">
                       {d.serviceConfirmed ? "Service confirmé" : "Faisabilité confirmée à chaque demande"}
@@ -182,9 +182,9 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
             <PartnerCentreCard />
           </Container>
 
-          <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-sun-soft py-14 sm:py-20">
+          <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-surface py-14 sm:py-20">
             <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-              <div className="rounded-md border border-ink/10 bg-paper p-5 sm:p-8">
+              <div className="rounded-3xl border border-line bg-paper p-5 shadow-[0_30px_60px_-40px_rgb(11_19_16/0.35)] sm:p-9">
                 <H2 id="demande-title" className="!mt-0 mb-2">
                   Demande d&apos;enlèvement gratuit {sector.locative}
                 </H2>
@@ -202,7 +202,7 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
               </div>
               <aside className="space-y-5">
                 {sector.localFacts.length ? (
-                  <div className="border-t-2 border-ink pt-5">
+                  <div className="card p-6">
                     <h3 className="font-bold">Repères pour ce secteur</h3>
                     <ul className="mt-3 space-y-3 text-[0.95rem]">
                       {sector.localFacts.map((f) => (
@@ -241,26 +241,26 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
         <H2 id="liens-title" className="text-2xl sm:text-3xl">
           Voir aussi
         </H2>
-        <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
+        <ul className="mt-5 flex flex-wrap gap-2.5">
           <li>
-            <Link href={pages.zones.path} className="inline-flex border-b-2 border-brand/40 py-1 font-semibold hover:border-brand hover:text-brand">
+            <Link href={pages.zones.path} className="inline-flex rounded-full border border-line bg-white px-4 py-2 font-medium transition hover:-translate-y-0.5 hover:border-ink">
               Toutes les zones d&apos;intervention
             </Link>
           </li>
           {related.map((s) => (
             <li key={s.slug}>
-              <Link href={sectorPath(s)} className="inline-flex border-b-2 border-brand/40 py-1 font-semibold hover:border-brand hover:text-brand">
+              <Link href={sectorPath(s)} className="inline-flex rounded-full border border-line bg-white px-4 py-2 font-medium transition hover:-translate-y-0.5 hover:border-ink">
                 {s.kind === "region" ? s.name : `Enlèvement ${s.locative}`}
               </Link>
             </li>
           ))}
           <li>
-            <Link href={pages.enlevement.path} className="inline-flex border-b-2 border-brand/40 py-1 font-semibold hover:border-brand hover:text-brand">
+            <Link href={pages.enlevement.path} className="inline-flex rounded-full border border-line bg-white px-4 py-2 font-medium transition hover:-translate-y-0.5 hover:border-ink">
               Enlèvement d&apos;épave
             </Link>
           </li>
           <li>
-            <Link href={pages.centreVhu.path} className="inline-flex border-b-2 border-brand/40 py-1 font-semibold hover:border-brand hover:text-brand">
+            <Link href={pages.centreVhu.path} className="inline-flex rounded-full border border-line bg-white px-4 py-2 font-medium transition hover:-translate-y-0.5 hover:border-ink">
               Rôle du centre VHU
             </Link>
           </li>
@@ -285,9 +285,11 @@ function ServiceCard({
 }) {
   return (
     <li>
-      <Link href={href} className="group block h-full border-t-2 border-ink/15 py-5 transition-colors hover:border-brand">
-        <Icon className="h-7 w-7 text-brand" />
-        <h3 className="mt-3 text-lg font-extrabold group-hover:text-brand">{title}</h3>
+      <Link href={href} className="card group block h-full p-7">
+        <span className="icon-tile draw">
+          <Icon className="h-6 w-6" />
+        </span>
+        <h3 className="mt-5 text-lg font-semibold tracking-tight">{title}</h3>
         <p className="mt-1.5 text-ink-3">{text}</p>
       </Link>
     </li>
@@ -301,7 +303,7 @@ function ForeignStateBody({ sector }: { sector: Sector }) {
         <H2 id="monaco-title">Des démarches différentes des démarches françaises</H2>
         <ul className="space-y-4">
           {sector.localFacts.map((f) => (
-            <li key={f.text} className="border-l-4 border-brand pl-4">
+            <li key={f.text} className="card p-5">
               <p className="text-ink-3">{f.text}</p>
               <p className="mt-1 text-xs text-muted">Source : {f.source}</p>
             </li>

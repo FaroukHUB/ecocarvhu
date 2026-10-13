@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo } from "next/font/google";
+import { Geist } from "next/font/google";
 import { company, telHref } from "@/config/company";
 import { indexingAllowed, siteEnv, siteUrl } from "@/config/env";
 import { Header } from "@/components/layout/Header";
@@ -9,9 +9,9 @@ import { JsonLd } from "@/components/ui/primitives";
 import { organizationJsonLd } from "@/lib/seo";
 import "./globals.css";
 
-const archivo = Archivo({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-archivo",
+  variable: "--font-geist",
   display: "swap",
 });
 
@@ -35,10 +35,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   const tel = telHref();
   return (
-    <html lang="fr" className={`${archivo.variable} h-full antialiased`}>
+    <html lang="fr" className={`${geist.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
         {siteEnv !== "production" ? (
-          <div className="bg-signal px-4 py-1.5 text-center text-xs font-bold text-ink">
+          <div className="bg-ink px-4 py-1.5 text-center text-xs font-semibold text-white/80">
             Prévisualisation ({siteEnv}) — site non indexé, brouillons visibles
           </div>
         ) : null}

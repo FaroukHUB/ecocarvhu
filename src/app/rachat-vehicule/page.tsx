@@ -61,9 +61,9 @@ export default function RachatPage() {
         </div>
       </Section>
 
-      <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-sun-soft py-14 sm:py-20">
+      <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-surface py-14 sm:py-20">
         <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-          <div className="rounded-md border border-ink/10 bg-paper p-5 sm:p-8">
+          <div className="rounded-3xl border border-line bg-paper p-5 shadow-[0_30px_60px_-40px_rgb(11_19_16/0.35)] sm:p-9">
             <H2 id="demande-title" className="!mt-0 mb-6">
               Demande d&apos;étude de rachat
             </H2>

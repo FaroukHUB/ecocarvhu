@@ -10,7 +10,7 @@ export function Logo({ tone = "dark", size = "header" }: { tone?: "dark" | "ligh
   return (
     <Link
       href="/"
-      className="inline-flex items-center gap-3 font-extrabold tracking-tight no-underline"
+      className="inline-flex items-center gap-3 font-bold tracking-tight no-underline"
       aria-label="EcocarVHU, retour à l'accueil"
     >
       <span className={`shrink-0 overflow-hidden ${tone === "light" ? "rounded-2xl bg-white p-1.5" : ""}`}>

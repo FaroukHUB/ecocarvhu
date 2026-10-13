@@ -181,11 +181,11 @@ export function FormShell({
         ref={statusRef}
         tabIndex={-1}
         role="status"
-        className={`rounded-md border-2 p-6 sm:p-8 ${status.mode === "demo" ? "border-signal bg-warn-soft" : "border-brand bg-brand-soft"}`}
+        className={`rounded-3xl border-2 p-6 sm:p-8 ${status.mode === "demo" ? "border-ink/20 bg-surface" : "border-brand bg-brand-soft"}`}
       >
         {status.mode === "demo" ? (
           <>
-            <p className="text-xl font-extrabold">Mode démonstration : rien n&apos;a été transmis</p>
+            <p className="text-xl font-bold">Mode démonstration : rien n&apos;a été transmis</p>
             <p className="mt-2">
               Le formulaire a été validé, mais aucun service d&apos;envoi n&apos;est configuré sur cet
               environnement local. Aucune demande n&apos;a été envoyée à l&apos;entreprise.
@@ -193,7 +193,7 @@ export function FormShell({
           </>
         ) : (
           <>
-            <p className="flex items-center gap-2 text-xl font-extrabold text-brand-deep">
+            <p className="flex items-center gap-2 text-xl font-bold text-brand-deep">
               <CheckIcon className="h-7 w-7" /> {successTitle}
             </p>
             <p className="mt-2 leading-relaxed">{successText}</p>
@@ -234,7 +234,7 @@ export function FormShell({
               <li key={s.title} className="flex-1">
                 <span
                   aria-current={i === step ? "step" : undefined}
-                  className={`block h-1.5 rounded-full ${i <= step ? "bg-brand" : "bg-line"}`}
+                  className={`block h-1.5 rounded-full ${i <= step ? "bg-ink" : "bg-line"}`}
                 />
                 <span className={`mt-2 block text-xs font-semibold ${i === step ? "text-ink" : "text-muted"}`}>
                   <span className="sr-only">Étape {i + 1} sur {steps.length} : </span>
@@ -255,7 +255,7 @@ export function FormShell({
           >
             {multi ? (
               <legend className="contents">
-                <span data-step-title tabIndex={-1} className="mb-4 block text-xl font-extrabold focus:outline-none">
+                <span data-step-title tabIndex={-1} className="mb-4 block text-xl font-bold focus:outline-none">
                   {s.title}
                 </span>
               </legend>
@@ -278,7 +278,7 @@ export function FormShell({
             <button
               type="button"
               onClick={() => goTo(step - 1)}
-              className="min-h-12 rounded-xl border-2 border-line px-5 font-bold hover:border-ink/30"
+              className="btn btn-outline"
             >
               Retour
             </button>
@@ -288,7 +288,7 @@ export function FormShell({
           <button
             type="submit"
             disabled={status.kind === "sending"}
-            className="inline-flex min-h-13 items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3.5 text-lg font-bold text-white shadow-[0_4px_0_var(--color-brand-deep)] hover:bg-brand-dark disabled:cursor-wait disabled:opacity-70"
+            className="btn btn-lime min-h-13 px-7 text-lg disabled:cursor-wait disabled:opacity-70"
           >
             {status.kind === "sending" ? (
               <>

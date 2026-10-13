@@ -8,6 +8,7 @@ import { ButtonLink, Eyebrow, H2, Notice, Section } from "@/components/ui/primit
 import { Faq } from "@/components/ui/Faq";
 import { CallBand } from "@/components/sections/CallBand";
 import { FeatureList } from "@/components/ui/FeatureList";
+import { CameraIcon, DocIcon, GearIcon } from "@/components/ui/icons";
 
 const page = pages.pieces;
 
@@ -68,7 +69,7 @@ export default function PiecesPage() {
         <Eyebrow>Trois façons de demander</Eyebrow>
         <H2 id="ways-title">Pas besoin d&apos;être mécanicien</H2>
         <div className="mt-10">
-          <FeatureList items={ways} numbered columns={3} />
+          <FeatureList items={ways.map((w, i) => ({ ...w, icon: [DocIcon, GearIcon, CameraIcon][i] }))} columns={3} />
         </div>
       </Section>
 
@@ -89,9 +90,9 @@ export default function PiecesPage() {
           <div>
             <Eyebrow>Compatibilité</Eyebrow>
             <H2 id="compat-title">Les informations qui évitent une erreur</H2>
-            <dl className="mt-6 divide-y divide-ink/10 border-y border-ink/15">
+            <dl className="mt-6 divide-y divide-line overflow-hidden rounded-3xl border border-line bg-white">
               {compat.map((c) => (
-                <div key={c.title} className="grid gap-1 py-4 sm:grid-cols-[13rem_1fr]">
+                <div key={c.title} className="grid gap-1 px-6 py-4 transition-colors hover:bg-surface sm:grid-cols-[13rem_1fr]">
                   <dt className="font-bold">{c.title}</dt>
                   <dd className="text-ink-3">{c.text}</dd>
                 </div>

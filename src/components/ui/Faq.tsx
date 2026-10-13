@@ -7,14 +7,14 @@ import type { FaqItem } from "@/content/sectors/types";
  */
 export function Faq({ items, headingId }: { items: FaqItem[]; headingId?: string }) {
   return (
-    <div className="divide-y divide-ink/10 border-y border-ink/10" aria-labelledby={headingId}>
+    <div className="space-y-3" aria-labelledby={headingId}>
       {items.map((item) => (
-        <details key={item.q} className="group py-1">
-          <summary className="flex cursor-pointer list-none items-start justify-between gap-4 py-4 text-left text-[1.05rem] font-bold hover:text-brand [&::-webkit-details-marker]:hidden">
-            <h3 className="font-bold">{item.q}</h3>
+        <details key={item.q} className="group rounded-2xl border border-line bg-white px-5 transition-colors open:border-brand/40 hover:border-ink/25 sm:px-6">
+          <summary className="flex cursor-pointer list-none items-start justify-between gap-4 py-4 text-left text-[1.02rem] font-semibold [&::-webkit-details-marker]:hidden">
+            <h3 className="font-semibold tracking-tight">{item.q}</h3>
             <span
               aria-hidden="true"
-              className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-brand text-lg font-bold leading-none text-brand transition-transform group-open:rotate-45"
+              className="mt-px flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ink text-lg leading-none text-lime transition-transform duration-300 group-open:rotate-45 group-open:bg-lime group-open:text-ink"
             >
               +
             </span>

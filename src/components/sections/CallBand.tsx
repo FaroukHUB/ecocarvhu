@@ -19,7 +19,7 @@ export function CallBand({
     <section aria-label="Nous appeler" className="bg-ink-grid text-white">
       <Container className="grid items-center gap-8 py-12 md:grid-cols-[1.2fr_1fr] md:py-14">
         <div>
-          <p className="text-2xl font-extrabold leading-tight sm:text-3xl">{title}</p>
+          <p className="text-2xl font-bold leading-tight sm:text-3xl">{title}</p>
           <p className="mt-3 max-w-xl text-white/80">{text}</p>
           <div className="mt-6">
             <ButtonLink href={formHref} variant="light">
