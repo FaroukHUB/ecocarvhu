@@ -8,8 +8,9 @@ import { MapPinIcon } from "@/components/ui/icons";
  * production, les brouillons apparaissent avec un badge pour la recette.
  * Monaco (État distinct) n'est jamais mélangé aux secteurs de PACA.
  */
-export function SectorList({ tone = "light" }: { tone?: "light" | "dark" }) {
-  const shown = visibleSectors().filter((s) => s.kind !== "foreign-state");
+export function SectorList({ tone = "light", featuredOnly = false }: { tone?: "light" | "dark"; featuredOnly?: boolean }) {
+  // Listes courtes (accueil, page enlèvement) : secteurs mis en avant seulement ; la page des zones liste tout.
+  const shown = visibleSectors().filter((s) => s.kind !== "foreign-state" && (!featuredOnly || s.featured));
   const line =
     tone === "dark"
       ? "border-white/10 bg-white/5 hover:border-lime/50"

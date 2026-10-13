@@ -177,7 +177,7 @@ export default function EnlevementPage() {
           demande : la faisabilité est confirmée commune par commune.
         </p>
         <div className="mt-6">
-          <SectorList />
+          <SectorList featuredOnly />
         </div>
       </Section>
 

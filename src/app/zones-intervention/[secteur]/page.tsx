@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { pages } from "@/content/pages";
 import { departments, sectors } from "@/content/sectors/data";
-import type { Sector } from "@/content/sectors/types";
+import type { CityLocal, Sector } from "@/content/sectors/types";
 import { sources } from "@/content/regulatory";
 import { resolveFileLimits } from "@/lib/forms/files";
 import {
@@ -22,7 +22,8 @@ import { DocumentsChecklist } from "@/components/sections/DocumentsChecklist";
 import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
 import { CallBand } from "@/components/sections/CallBand";
 import { PickupForm } from "@/components/forms/RequestForms";
-import { CoinsIcon, GearIcon, TruckIcon } from "@/components/ui/icons";
+import { AlertIcon, CheckIcon, CoinsIcon, DocIcon, GearIcon, MapPinIcon, TruckIcon } from "@/components/ui/icons";
+import { FeatureList } from "@/components/ui/FeatureList";
 
 /** Toutes les pages de secteur sont pré-générées ; une page non rendable renvoie un vrai 404. */
 export function generateStaticParams() {
@@ -90,6 +91,8 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
 
       {isForeign ? (
         <ForeignStateBody sector={sector} />
+      ) : sector.local ? (
+        <CityBody sector={sector} local={sector.local} />
       ) : (
         <>
           <Section labelledBy="services-title">
@@ -319,5 +322,200 @@ function ForeignStateBody({ sector }: { sector: Sector }) {
         </Notice>
       </div>
     </Section>
+  );
+}
+
+/**
+ * Corps d'une page de ville : contenu propre à la commune (article, situations,
+ * conseils, FAQ) et ordre des sections variable selon la ville, pour que les
+ * pages locales ne soient pas des copies les unes des autres. Les informations
+ * communes (étapes, documents) sont résumées et renvoient aux pages dédiées.
+ */
+function CityBody({ sector, local }: { sector: Sector; local: CityLocal }) {
+  const v = local.variant;
+  const name = sector.name;
+
+  const guide = (tone: "paper" | "surface") => (
+    <Section key="guide" tone={tone} labelledBy="guide-title">
+      <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
+        <div className="reveal">
+          <Eyebrow>{["Bon à savoir", "Notre éclairage", "Le contexte local"][v - 1]}</Eyebrow>
+          <H2 id="guide-title">{local.guide.title}</H2>
+          <div className="prose-eco mt-5 text-lg text-ink-3">
+            {local.guide.paragraphs.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
+        </div>
+        <aside className="reveal space-y-4 lg:pt-16">
+          <div className="card p-6">
+            <p className="flex items-center gap-2 font-semibold">
+              <MapPinIcon className="h-5 w-5 text-brand" />
+              {name} en bref
+            </p>
+            <ul className="mt-3 space-y-3 text-[0.95rem]">
+              {sector.localFacts.map((f) => (
+                <li key={f.text}>
+                  <p className="text-ink-3">{f.text}</p>
+                  <p className="mt-0.5 text-xs text-muted">Source : {f.source}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {local.nearby.length ? (
+            <div className="card-dark bg-ink p-6 text-white">
+              <p className="font-semibold">Communes voisines</p>
+              <p className="mt-2 text-[0.95rem] text-white/75">
+                {local.nearby.join(" · ")}. Indiquez toujours la commune et le code postal exacts du véhicule.
+              </p>
+            </div>
+          ) : null}
+        </aside>
+      </div>
+    </Section>
+  );
+
+  const situations = (tone: "paper" | "surface") => (
+    <Section key="situations" tone={tone} labelledBy="situations-title">
+      <div className="reveal">
+        <Eyebrow>{["Cas fréquents", "Situations locales", "Exemples concrets"][v - 1]}</Eyebrow>
+        <H2 id="situations-title">{local.situations.title}</H2>
+      </div>
+      <div className="mt-10">
+        <FeatureList
+          columns={3}
+          items={local.situations.items.map((it, i) => ({
+            ...it,
+            icon: [[TruckIcon, AlertIcon, DocIcon], [AlertIcon, DocIcon, TruckIcon], [DocIcon, TruckIcon, AlertIcon]][v - 1][i],
+          }))}
+        />
+      </div>
+    </Section>
+  );
+
+  const access = (tone: "paper" | "surface") => (
+    <Section key="access" tone={tone} labelledBy="acces-title">
+      <div className="grid gap-10 lg:grid-cols-2">
+        <div className="reveal">
+          <Eyebrow>Décrire le véhicule et son accès</Eyebrow>
+          <H2 id="acces-title">
+            {[`Ce qui permet une réponse fiable ${sector.locative}`, `Les détails qui comptent ${sector.locative}`, `Avant d'écrire : l'accès ${sector.locative}`][v - 1]}
+          </H2>
+          <ul className="mt-6 space-y-3">
+            {sector.accessTips.map((t) => (
+              <li key={t} className="flex gap-3 rounded-2xl border border-line bg-white p-4">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-lime text-ink">
+                  <CheckIcon className="h-3 w-3" />
+                </span>
+                <span className="text-ink-3">{t}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="reveal card-dark bg-ink-grid self-start p-7 text-white">
+          <p className="text-lg font-semibold">Confirmé avec vous avant le rendez-vous</p>
+          <p className="mt-3 text-white/75">
+            Faisabilité, conditions (gratuité pour un véhicule complet et accessible), documents et date : rien
+            n&apos;est engagé sans votre accord, et la demande en ligne n&apos;autorise pas la destruction.
+          </p>
+          <p className="mt-4 text-sm text-white/60">
+            Déroulement complet :{" "}
+            <Link href={pages.enlevement.path} className="font-semibold text-lime underline">
+              enlèvement d&apos;épave
+            </Link>{" "}
+            · documents :{" "}
+            <Link href={`${pages.centreVhu.path}#docs-title`} className="font-semibold text-lime underline">
+              ce qu&apos;il faut préparer
+            </Link>
+          </p>
+        </div>
+      </div>
+    </Section>
+  );
+
+  const form = (
+    <section
+      key="form"
+      id="demande"
+      aria-labelledby="demande-title"
+      className="scroll-mt-20 bg-surface py-16 sm:py-24"
+    >
+      <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
+        <div className="rounded-3xl border border-line bg-paper p-5 shadow-[0_30px_60px_-40px_rgb(11_19_16/0.35)] sm:p-9">
+          <H2 id="demande-title" className="!mt-0 mb-2">
+            {[`Demande d'enlèvement ${sector.locative}`, `Votre demande pour ${name}`, `Faire enlever un véhicule ${sector.locative}`][v - 1]}
+          </H2>
+          <p className="mb-6 text-sm text-muted">
+            La commune est préremplie : modifiez-la si le véhicule se trouve ailleurs.
+          </p>
+          <PickupForm
+            pagePath={sectorPath(sector)}
+            sector={sector.slug}
+            defaultCity={sector.form.city}
+            defaultPostalCode={sector.form.postalCode}
+            askArrondissement={sector.form.askArrondissement}
+            limits={resolveFileLimits()}
+          />
+        </div>
+        <aside className="space-y-4 lg:pt-2">
+          <div className="card p-6">
+            <span className="icon-tile draw h-10 w-10">
+              <GearIcon className="h-5 w-5" />
+            </span>
+            <p className="mt-4 font-semibold">Une pièce à chercher, un véhicule à vendre ?</p>
+            <p className="mt-1.5 text-[0.95rem] text-ink-3">
+              Ce formulaire concerne l&apos;enlèvement. Pour une pièce ou une étude de rachat, utilisez le formulaire
+              dédié.
+            </p>
+            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-semibold">
+              <Link href={pages.demandePiece.path} className="text-brand underline">
+                Demande de pièce
+              </Link>
+              <Link href={pages.rachat.path} className="inline-flex items-center gap-1 text-brand underline">
+                <CoinsIcon className="h-4 w-4" />
+                Étude de rachat
+              </Link>
+            </p>
+          </div>
+        </aside>
+      </Container>
+    </section>
+  );
+
+  const faq = (tone: "paper" | "surface") =>
+    sector.faq.length ? (
+      <Section key="faq" tone={tone} labelledBy="faq-title">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr]">
+          <div className="reveal">
+            <Eyebrow>Questions fréquentes</Eyebrow>
+            <H2 id="faq-title">
+              {[`Vos questions ${sector.locative}`, `On nous demande souvent ${sector.locative}`, `Questions fréquentes ${sector.locative}`][v - 1]}
+            </H2>
+          </div>
+          <div className="reveal">
+            <Faq items={sector.faq} />
+          </div>
+        </div>
+      </Section>
+    ) : null;
+
+  const order = {
+    1: ["guide", "situations", "access", "form", "faq"],
+    2: ["situations", "form", "guide", "access", "faq"],
+    3: ["access", "guide", "situations", "form", "faq"],
+  }[v];
+
+  let i = 0;
+  return (
+    <>
+      {order.map((key) => {
+        if (key === "form") return form;
+        const tone = i++ % 2 === 0 ? "paper" : "surface";
+        if (key === "guide") return guide(tone);
+        if (key === "situations") return situations(tone);
+        if (key === "access") return access(tone);
+        return faq(tone);
+      })}
+    </>
   );
 }

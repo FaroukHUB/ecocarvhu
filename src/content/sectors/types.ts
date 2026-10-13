@@ -57,4 +57,19 @@ export interface Sector {
   missing: string[];
   /** Slugs de secteurs liés (maillage). */
   related: string[];
+  /** Mis en avant dans les listes courtes (accueil, page enlèvement). Les autres restent sur la page des zones. */
+  featured?: boolean;
+  /** Contenu propre à une page de ville (évite les pages trop semblables). */
+  local?: CityLocal;
+}
+
+export interface CityLocal {
+  /** Ordre des sections, pour que les pages ne suivent pas toutes le même plan. */
+  variant: 1 | 2 | 3;
+  /** Article propre à la commune : contexte d'accès, habitat, organisation. */
+  guide: { title: string; paragraphs: string[] };
+  /** Situations fréquentes formulées pour la commune. */
+  situations: { title: string; items: { title: string; text: string }[] };
+  /** Communes voisines (texte simple, sans promesse de service). */
+  nearby: string[];
 }

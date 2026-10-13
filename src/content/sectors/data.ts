@@ -7,23 +7,11 @@ import type { Sector } from "./types";
  * vérification (voir docs/CONTENT-VALIDATION.md).
  */
 
-/** Statuts confirmés par le porteur de projet le 13/10/2026 (région PACA + 5 villes). */
-const CONFIRMED = {
-  targeted: true,
-  serviceConfirmed: true,
-  contentVerified: true,
-  publicationApproved: true,
-} as const;
+import { CITY_MISSING, CONFIRMED } from "./shared";
+import { extraCities } from "./cities-extra";
+import { cityLocal } from "./local";
 
-const CITY_MISSING = [
-  "Confirmation écrite que l'enlèvement est assuré sur ce secteur (et dans quels délais habituels).",
-  "Moyens logistiques confirmés : plateau, treuil, véhicule sans roues, sous-sol (hauteur maximale).",
-  "Centre VHU de destination (raison sociale, numéro d'agrément/enregistrement).",
-  "Conditions tarifaires ou de gratuité réellement appliquées sur ce secteur.",
-  "Matière locale vérifiée : questions réellement reçues, contraintes d'accès observées lors d'interventions, photos autorisées.",
-];
-
-export const sectors: Sector[] = [
+const baseSectors: Sector[] = [
   {
     slug: "paca",
     name: "Provence-Alpes-Côte d'Azur",
@@ -82,7 +70,7 @@ export const sectors: Sector[] = [
       "Centre(s) VHU de destination et leur numéro d'agrément/enregistrement.",
       "Conditions tarifaires ou de gratuité par zone.",
     ],
-    related: ["marseille", "aubagne", "la-ciotat", "cassis", "nice"],
+    related: ["marseille", "aix-en-provence", "toulon", "aubagne", "la-ciotat", "cassis", "nice"],
   },
   {
     slug: "marseille",
@@ -147,7 +135,7 @@ export const sectors: Sector[] = [
     ],
     form: { city: "Marseille", askArrondissement: true },
     missing: CITY_MISSING,
-    related: ["aubagne", "la-ciotat", "cassis", "paca"],
+    related: ["allauch", "plan-de-cuques", "la-penne-sur-huveaune", "aix-en-provence", "aubagne", "paca"],
   },
   {
     slug: "aubagne",
@@ -198,7 +186,7 @@ export const sectors: Sector[] = [
       ...CITY_MISSING,
       "Confirmer que la ville visée par le brief (« Auban ») est bien Aubagne (13400).",
     ],
-    related: ["marseille", "la-ciotat", "cassis", "paca"],
+    related: ["gemenos", "la-penne-sur-huveaune", "auriol", "carnoux-en-provence", "marseille", "paca"],
   },
   {
     slug: "la-ciotat",
@@ -246,7 +234,7 @@ export const sectors: Sector[] = [
     ],
     form: { city: "La Ciotat", postalCode: "13600" },
     missing: CITY_MISSING,
-    related: ["cassis", "aubagne", "marseille", "paca"],
+    related: ["ceyreste", "saint-cyr-sur-mer", "cassis", "paca"],
   },
   {
     slug: "cassis",
@@ -294,7 +282,7 @@ export const sectors: Sector[] = [
     ],
     form: { city: "Cassis", postalCode: "13260" },
     missing: CITY_MISSING,
-    related: ["la-ciotat", "aubagne", "marseille", "paca"],
+    related: ["carnoux-en-provence", "roquefort-la-bedoule", "la-ciotat", "paca"],
   },
   {
     slug: "nice",
@@ -394,6 +382,15 @@ export const sectors: Sector[] = [
     related: ["nice"],
   },
 ];
+
+/** Secteurs historiques mis en avant dans les listes courtes. */
+const FEATURED = new Set(["paca", "marseille", "aubagne", "la-ciotat", "cassis", "nice"]);
+
+export const sectors: Sector[] = [...baseSectors, ...extraCities].map((s) => ({
+  ...s,
+  featured: FEATURED.has(s.slug),
+  local: cityLocal[s.slug] ?? s.local,
+}));
 
 /** Départements de la cible régionale (pas de pages dédiées à ce stade). */
 export const departments = [

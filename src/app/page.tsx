@@ -483,7 +483,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="reveal mt-12">
-          <SectorList tone="dark" />
+          <SectorList tone="dark" featuredOnly />
           <p className="mt-6">
             <Link href={pages.zones.path} className="font-semibold text-lime underline underline-offset-4">
               Toutes les zones d&apos;intervention
