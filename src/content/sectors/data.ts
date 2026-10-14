@@ -9,6 +9,12 @@ import type { Sector } from "./types";
 
 import { CITY_MISSING, CONFIRMED } from "./shared";
 import { extraCities } from "./cities-extra";
+import { cities13 } from "./cities-13";
+import { cities84 } from "./cities-84";
+import { cities83 } from "./cities-83";
+import { cities06 } from "./cities-06";
+import { cities04 } from "./cities-04";
+import { cities05 } from "./cities-05";
 import { cityLocal } from "./local";
 
 const baseSectors: Sector[] = [
@@ -329,14 +335,14 @@ const baseSectors: Sector[] = [
       ...CITY_MISSING,
       "Organisation spécifique aux Alpes-Maritimes (distance depuis le centre de destination, jours d'intervention).",
     ],
-    related: ["paca"],
+    related: ["antibes", "cagnes-sur-mer", "cannes", "paca"],
   },
 ];
 
 /** Secteurs historiques mis en avant dans les listes courtes. */
 const FEATURED = new Set(["paca", "marseille", "aubagne", "la-ciotat", "cassis", "nice"]);
 
-export const sectors: Sector[] = [...baseSectors, ...extraCities].map((s) => ({
+export const sectors: Sector[] = [...baseSectors, ...extraCities, ...cities13, ...cities84, ...cities83, ...cities06, ...cities04, ...cities05].map((s) => ({
   ...s,
   featured: FEATURED.has(s.slug),
   local: cityLocal[s.slug] ?? s.local,

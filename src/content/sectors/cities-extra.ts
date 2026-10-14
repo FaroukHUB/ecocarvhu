@@ -136,7 +136,7 @@ export const extraCities: Sector[] = [
     ],
     form: { city: "Toulon" },
     missing: [...CITY_MISSING, "Organisation spécifique au Var (distance, jours d'intervention)."],
-    related: ["saint-cyr-sur-mer", "la-ciotat", "paca"],
+    related: ["la-seyne-sur-mer", "hyeres", "saint-cyr-sur-mer", "paca"],
     local: {
       variant: 2,
       guide: {

@@ -4,6 +4,9 @@ import { CITY_COORDS, MAP_LABELS } from "@/content/sectors/coords";
 import type { Sector } from "@/content/sectors/types";
 import { sectorPath } from "@/lib/publication";
 
+/** Côté du nom pour les villes très entourées. */
+const LABEL_SIDE: Record<string, "l" | "r" | "t" | "b"> = { marseille: "l", toulon: "b", cannes: "b", "aix-en-provence": "t", avignon: "l", arles: "l" };
+
 const DEP_NAMES: Record<string, string> = {
   "04": "Alpes-de-Haute-Provence",
   "05": "Hautes-Alpes",
@@ -73,19 +76,32 @@ export function PacaMap({ cities, className = "" }: { cities: Sector[]; classNam
               fillOpacity="0.4"
             />
             <circle cx={x} cy={y} r={labelled ? 7 : 5} fill="#25d366" stroke="#0b1310" strokeWidth="2" />
-            <text
-              x={x + 12}
-              y={y + 7}
-              fill="#fff"
-              fontSize="21"
-              fontWeight="600"
-              className={labelled ? "paca-city__label" : "paca-city__label paca-city__label--hover"}
-            >
-              {c.name}
-            </text>
+            {!labelled ? (
+              <text x={x + 12} y={y + 7} fill="#fff" fontSize="21" fontWeight="600" className="paca-city__label paca-city__label--hover">
+                {c.name}
+              </text>
+            ) : null}
           </Link>
         );
       })}
+
+      {/* Noms des villes principales, au-dessus de tous les points */}
+      <g aria-hidden="true" pointerEvents="none">
+        {cities.map((c) => {
+          const pos = CITY_COORDS[c.slug];
+          if (!pos || !MAP_LABELS.has(c.slug)) return null;
+          const [x, y] = project(pos[0], pos[1]);
+          const side = LABEL_SIDE[c.slug] ?? "r";
+          const lx = side === "l" ? x - 14 : side === "r" ? x + 14 : x;
+          const ly = side === "b" ? y + 34 : side === "t" ? y - 16 : y + 7;
+          const anchor = side === "l" ? "end" : side === "r" ? "start" : "middle";
+          return (
+            <text key={c.slug} x={lx} y={ly} textAnchor={anchor} fill="#fff" fontSize="23" fontWeight="700" className="paca-city__label">
+              {c.name}
+            </text>
+          );
+        })}
+      </g>
     </svg>
   );
 }

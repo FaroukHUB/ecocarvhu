@@ -40,7 +40,7 @@ export default function ZonesPage() {
       {/* Carte de la région */}
       <Section tone="ink" labelledBy="carte-title">
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.5fr]">
-          <div className="reveal">
+          <div>
             <Eyebrow tone="light">Carte des secteurs</Eyebrow>
             <H2 id="carte-title">Toute la région, département par département</H2>
             <p className="mt-5 text-white/75">
@@ -60,7 +60,7 @@ export default function ZonesPage() {
               ))}
             </dl>
             <p className="mt-3 text-xs text-white/55">* Pour un véhicule complet et accessible.</p>
-            <ul className="mt-8 grid grid-cols-2 gap-2">
+            <ul className="mt-8 grid gap-2 sm:grid-cols-2">
               {byDep.map((d) => (
                 <li key={d.code}>
                   <a
