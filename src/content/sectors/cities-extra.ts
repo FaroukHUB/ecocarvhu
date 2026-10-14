@@ -1,5 +1,5 @@
 import type { Sector } from "./types";
-import { CITY_MISSING, CONFIRMED } from "./shared";
+import { BDR, CITY_MISSING, CONFIRMED, VAR, citySeo as seo } from "./shared";
 
 /**
  * Villes ajoutées le 13/10/2026 à la demande du porteur de projet (service confirmé).
@@ -7,20 +7,7 @@ import { CITY_MISSING, CONFIRMED } from "./shared";
  * se limitent à des données administratives vérifiables (département, codes postaux,
  * intercommunalité) ; aucun délai ni prix n'est annoncé.
  */
-const BDR = { code: "13", name: "Bouches-du-Rhône" } as const;
-const VAR = { code: "83", name: "Var" } as const;
 const AMP = "Métropole Aix-Marseille-Provence";
-
-function seo(name: string, cp: string, extra: string, secondary: string[]) {
-  return {
-    title: `Enlèvement d'épave gratuit à ${name} (${cp}) : épaviste ${name}`,
-    description: `Enlèvement d'épave gratuit à ${name} pour tout véhicule complet et accessible. ${extra} Demande en ligne ou par téléphone.`,
-    h1: `Enlèvement d'épave gratuit à ${name}`,
-    intent: `Locale transactionnelle : faire enlever un véhicule à ${name}`,
-    primaryQuery: `enlèvement épave ${name}`,
-    secondaryQueries: secondary,
-  };
-}
 
 export const extraCities: Sector[] = [
   {

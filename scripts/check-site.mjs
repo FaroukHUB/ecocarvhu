@@ -38,7 +38,6 @@ const SECTOR_PATHS = [
   "/zones-intervention/nice",
 ];
 const DRAFT_PATHS = [
-  "/zones-intervention/monaco",
   "/conseils",
   "/conseils/documents-remise-vehicule",
 ];

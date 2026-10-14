@@ -45,10 +45,6 @@ const baseSectors: Sector[] = [
         text: "La région Provence-Alpes-Côte d'Azur regroupe six départements : Alpes-de-Haute-Provence (04), Hautes-Alpes (05), Alpes-Maritimes (06), Bouches-du-Rhône (13), Var (83) et Vaucluse (84).",
         source: "Découpage administratif officiel",
       },
-      {
-        text: "Monaco, voisin des Alpes-Maritimes, est un État distinct : ses démarches relèvent de l'administration monégasque et ne font pas partie de cette zone.",
-        source: "monservicepublic.gouv.mc",
-      },
     ],
     faq: [
       {
@@ -306,16 +302,12 @@ const baseSectors: Sector[] = [
     accessTips: [
       "Indiquez le code postal (06000, 06100, 06200 ou 06300) ou la commune voisine si le véhicule est hors de Nice.",
       "Parking en sous-sol : précisez le niveau, la hauteur et la présence d'une rampe en courbe.",
-      "Véhicule immatriculé à Monaco ou à l'étranger : signalez-le, les démarches ne sont pas les mêmes.",
+      "Véhicule immatriculé à l'étranger : signalez-le, les démarches ne sont pas les mêmes.",
     ],
     localFacts: [
       {
         text: "Nice est une commune des Alpes-Maritimes (06) ; elle compte plusieurs codes postaux (06000, 06100, 06200, 06300).",
         source: "Découpage administratif officiel / La Poste",
-      },
-      {
-        text: "Monaco est un État distinct : un véhicule immatriculé à Monaco relève de démarches monégasques, à vérifier avant toute intervention.",
-        source: "monservicepublic.gouv.mc",
       },
     ],
     faq: [
@@ -324,8 +316,8 @@ const baseSectors: Sector[] = [
         a: "Indiquez la commune et le code postal dans la demande : la faisabilité est vérifiée au cas par cas dans les Alpes-Maritimes.",
       },
       {
-        q: "Mon véhicule est immatriculé à Monaco : pouvez-vous le prendre en charge ?",
-        a: "Les formalités monégasques sont différentes des formalités françaises. Signalez-le dans votre demande : aucune intervention n'est proposée avant vérification de la procédure applicable.",
+        q: "Le véhicule est immatriculé à l'étranger : est-ce possible ?",
+        a: "Les démarches ne sont pas les mêmes qu'avec une carte grise française. Indiquez le pays d'immatriculation dans la demande : la procédure applicable est vérifiée avant toute intervention.",
       },
       {
         q: "Combien de temps faut-il pour obtenir une réponse ?",
@@ -338,48 +330,6 @@ const baseSectors: Sector[] = [
       "Organisation spécifique aux Alpes-Maritimes (distance depuis le centre de destination, jours d'intervention).",
     ],
     related: ["paca"],
-  },
-  {
-    slug: "monaco",
-    name: "Monaco",
-    kind: "foreign-state",
-    locative: "à Monaco",
-    postalCodes: ["98000"],
-    status: {
-      targeted: true,
-      serviceConfirmed: false,
-      contentVerified: false,
-      publicationApproved: false,
-    },
-    seo: {
-      title: "Véhicule hors d'usage à Monaco : démarches à vérifier",
-      description:
-        "Monaco est un État distinct : les démarches de destruction et de sortie du registre relèvent de l'administration monégasque. Page en cours de cadrage.",
-      h1: "Véhicule hors d'usage à Monaco",
-      intent: "Locale informationnelle (État distinct)",
-      primaryQuery: "épave Monaco",
-      secondaryQueries: ["destruction véhicule Monaco"],
-    },
-    lead:
-      "Monaco n'est pas une commune française : un véhicule immatriculé à Monaco relève des procédures du Service des Titres de Circulation. Les formalités françaises ne s'appliquent pas automatiquement. Ce secteur est en cours de cadrage.",
-    accessTips: [
-      "Précisez le pays d'immatriculation du véhicule et le lieu exact où il se trouve.",
-    ],
-    localFacts: [
-      {
-        text: "D'après les pages de Mon Service Public (à relire en direct), la destruction d'un véhicule immatriculé à Monaco suppose notamment une attestation de non-gage du Service des Titres de Circulation, un certificat de destruction délivré par un centre VHU, puis une demande de sortie du registre sur rendez-vous.",
-        source: "monservicepublic.gouv.mc — relecture en direct nécessaire",
-      },
-    ],
-    faq: [],
-    form: { city: "Monaco", postalCode: "98000" },
-    missing: [
-      "Vérifier sur monservicepublic.gouv.mc les procédures actuelles (non-gage, destruction, sortie du registre, frais).",
-      "Vérifier si un centre VHU français peut prendre en charge un véhicule immatriculé à Monaco et avec quelles pièces.",
-      "Vérifier les conditions d'intervention d'une entreprise française sur le territoire monégasque (circulation, stationnement, autorisations).",
-      "Décider si ce secteur fait l'objet d'une offre commerciale.",
-    ],
-    related: ["nice"],
   },
 ];
 

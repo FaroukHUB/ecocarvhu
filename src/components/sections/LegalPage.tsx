@@ -20,12 +20,6 @@ export function LegalPage({
       <Breadcrumbs items={[{ name: title, path }]} />
       <Container className="py-10">
         <h1 className="text-[2rem] font-bold sm:text-4xl">{title}</h1>
-        <div className="mt-6 max-w-3xl">
-          <Notice tone="warn" title="Document provisoire, non validé">
-            Ce texte est un brouillon préparé avant le lancement. Il sera complété avec les informations de
-            l&apos;entreprise et relu avant toute publication.
-          </Notice>
-        </div>
         <div className="prose-eco mt-8 max-w-3xl text-ink-2">{children}</div>
       </Container>
     </>

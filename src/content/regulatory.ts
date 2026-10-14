@@ -31,11 +31,6 @@ export const sources = {
     url: "https://immatriculation.ants.gouv.fr/",
     checkedOn: null,
   },
-  monaco: {
-    label: "Mon Service Public (Monaco) — titres de circulation",
-    url: "https://monservicepublic.gouv.mc/",
-    checkedOn: null,
-  },
 } satisfies Record<string, OfficialSource>;
 
 export interface DocumentItem {

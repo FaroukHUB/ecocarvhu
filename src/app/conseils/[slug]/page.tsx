@@ -6,7 +6,6 @@ import { guides, type Guide } from "@/content/guides";
 import { hasPublishedGuides, isGuidePublished, isGuideRenderable } from "@/lib/publication";
 import { buildMetadata, type Crumb } from "@/lib/seo";
 import { PageHero } from "@/components/sections/PageHero";
-import { DraftBanner } from "@/components/ui/DraftBanner";
 import { ButtonLink, Container } from "@/components/ui/primitives";
 import { CallBand } from "@/components/sections/CallBand";
 
@@ -42,9 +41,6 @@ export default async function GuidePage({ params }: PageProps<"/conseils/[slug]"
 
   return (
     <>
-      {!isGuidePublished(g) ? (
-        <DraftBanner missing={["Relecture humaine du contenu et des sources officielles.", "Validation de publication."]} label="Guide en brouillon" />
-      ) : null}
       <PageHero crumbs={crumbs} eyebrow="Conseils pratiques" title={g.h1} lead={<p>{g.summary}</p>} phone={false} />
       <Container className="py-12">
         <article className="prose-eco max-w-3xl text-[1.05rem] text-ink-2">

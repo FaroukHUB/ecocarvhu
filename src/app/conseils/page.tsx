@@ -39,11 +39,6 @@ export default function ConseilsPage() {
                 href={`/conseils/${g.slug}`}
                 className="card group flex h-full flex-col p-7"
               >
-                {!isGuidePublished(g) ? (
-                  <span className="mb-3 self-start rounded-full bg-lime px-2 py-0.5 text-[0.7rem] font-bold uppercase">
-                    Brouillon
-                  </span>
-                ) : null}
                 <h2 className="text-xl font-bold group-hover:text-brand">{g.h1}</h2>
                 <p className="mt-2 flex-1 text-ink-3">{g.summary}</p>
                 <span className="mt-4 inline-flex items-center gap-2 font-semibold text-brand">

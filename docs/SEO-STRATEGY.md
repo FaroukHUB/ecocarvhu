@@ -35,7 +35,7 @@ Version du 13/10/2026. Ce document décrit des **hypothèses de travail**. Aucun
 4. **Module « état et accès »** sur l'accueil : cinq questions et les points à signaler avant le déplacement. Les réponses sont reprises dans le formulaire.
 5. **Formulaire d'enlèvement en 3 étapes**, orienté qualification : roues, clés, déplaçable, type d'accès, photos de l'accès, situation de la carte grise **sans** copie de document.
 6. **Demande de pièce sans connaître son nom** : description et photo de l'emplacement ou de l'étiquette. Les informations de compatibilité sont expliquées.
-7. **Peu de pages locales**, chacune ancrée dans des faits vérifiables et publiée seulement après confirmation du service. Monaco est traité à part.
+7. **Peu de pages locales**, chacune ancrée dans des faits vérifiables et publiée seulement après confirmation du service.
 8. **Aucun délai, prix ou avis** affiché sans preuve. Le bloc « preuves » est masqué tant qu'il est vide.
 9. **Téléphone très visible et répété**, en relief, avec un bouton d'appel flottant sur mobile, à la demande du porteur de projet. Pas de widget WhatsApp lourd.
 
@@ -62,7 +62,6 @@ Règle : **une intention, une destination principale.** Les autres pages renvoie
 2. **Villes du brief** : Marseille, Aubagne, La Ciotat, Cassis, Nice. Le porteur de projet les présente comme « une idée ». Elles ne sont publiées qu'avec un service confirmé et de la matière locale vérifiée.
 3. **Départements** (13, 83, 06, 84, 04, 05) : ils sont pour l'instant des sections de la page PACA. Une page départementale ne se justifie que si elle apporte une information distincte (organisation, délais, centre de destination).
 4. **Arrondissements de Marseille** : un champ facultatif dans le formulaire suffit. **Pas de pages par arrondissement** sans valeur distincte.
-5. **Monaco** : un brouillon séparé, jamais présenté comme une commune de PACA (voir `CONTENT-VALIDATION.md`).
 6. **Autres secteurs du Sud** : il suffit d'ajouter un objet dans `src/content/sectors/data.ts`. Aucune campagne nationale.
 
 Hypothèse à confirmer : « Auban » a été interprété comme **Aubagne (13400)**.
@@ -85,7 +84,6 @@ Hypothèse à confirmer : « Auban » a été interprété comme **Aubagne (1340
 /zones-intervention/la-ciotat       Brouillon
 /zones-intervention/cassis          Brouillon
 /zones-intervention/nice            Brouillon
-/zones-intervention/monaco          Brouillon séparé (État distinct)
 /conseils (+ 4 guides)              Brouillons (le hub n'existe en production qu'avec au moins un guide publié)
 /mentions-legales, /confidentialite, /conditions   Brouillons légaux (noindex)
 /demande/resultat/{statut}          Résultat d'envoi sans JavaScript (noindex)
@@ -127,7 +125,7 @@ Les title, descriptions et H1 exacts se trouvent dans `src/content/pages.ts` et 
 | `/zones-intervention/aubagne` | Locale | enlèvement épave Aubagne | Terrain privé, véhicule sans clés | Marseille, La Ciotat, Cassis | Formulaire (13400) | Hypothèse « Auban » |
 | `/zones-intervention/la-ciotat` | Locale | enlèvement épave La Ciotat | Véhicule immobilisé, propriétaire absent | Cassis, Aubagne, Marseille | Formulaire (13600) | Idem |
 | `/zones-intervention/cassis` | Locale | enlèvement épave Cassis | Faisabilité honnête, voie étroite à décrire | La Ciotat, Aubagne, Marseille | Formulaire (13260) | Idem |
-| `/zones-intervention/nice` | Locale | enlèvement épave Nice | Département différent, véhicule monégasque | PACA | Formulaire | Organisation 06 |
+| `/zones-intervention/nice` | Locale | enlèvement épave Nice | Département différent, véhicule immatriculé à l'étranger | PACA | Formulaire | Organisation 06 |
 
 Chaque page a un seul H1, une hiérarchie H2/H3 logique, un fil d'Ariane visible cohérent avec le JSON-LD `BreadcrumbList`, un canonical vers elle-même (dès que le domaine est connu) et une meta description propre.
 

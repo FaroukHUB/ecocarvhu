@@ -133,7 +133,7 @@ export const cityLocal: Record<string, CityLocal> = {
       paragraphs: [
         "Nice est éloignée des communes des Bouches-du-Rhône où se concentre l'essentiel des demandes. Chaque enlèvement y est donc organisé spécifiquement : le jour d'intervention, le trajet et le centre de destination sont confirmés pour votre dossier, pas annoncés à l'avance de façon générale.",
         "La ville compte de nombreux immeubles avec parkings souterrains, parfois sur plusieurs niveaux et avec des rampes en courbe. Le niveau, la hauteur maximale affichée à l'entrée et l'état des roues sont les trois informations à donner en priorité.",
-        "La proximité de Monaco amène aussi des questions sur les véhicules immatriculés à l'étranger. Leur prise en charge suit d'autres règles : signalez le pays d'immatriculation dès la demande pour éviter toute mauvaise surprise.",
+        "Ville très touristique, Nice voit aussi passer des véhicules immatriculés à l'étranger. Leur prise en charge suit d'autres règles : signalez le pays d'immatriculation dès la demande pour éviter toute mauvaise surprise.",
       ],
     },
     situations: {
@@ -144,8 +144,8 @@ export const cityLocal: Record<string, CityLocal> = {
           text: "Indiquez le niveau, la hauteur maximale et si la rampe est droite ou en courbe : un véhicule qui ne roule plus ne se sort pas de la même façon.",
         },
         {
-          title: "Un véhicule immatriculé à Monaco",
-          text: "Les formalités relèvent de l'administration monégasque. Aucune intervention n'est proposée avant vérification de la procédure.",
+          title: "Un véhicule immatriculé à l'étranger",
+          text: "Les formalités ne sont pas celles d'une carte grise française. Aucune intervention n'est proposée avant vérification de la procédure.",
         },
         {
           title: "Une commune voisine de Nice",

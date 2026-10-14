@@ -1,11 +1,9 @@
 import Image from "next/image";
-import { draftsVisible } from "@/config/env";
 import { photoSrc, photos, type PhotoSlot } from "@/config/media";
-import { CameraIcon } from "./icons";
 
 /** Une photo est-elle affichée pour cet emplacement (vraie photo, ou cadre en prévisualisation) ? */
 export function hasPhotoBlock(slot: PhotoSlot): boolean {
-  return Boolean(photoSrc(slot)) || draftsVisible;
+  return Boolean(photoSrc(slot));
 }
 
 /**
@@ -29,22 +27,5 @@ export function Photo({ slot, className = "", flush = false }: { slot: PhotoSlot
       </div>
     );
   }
-  if (!draftsVisible) return null;
-
-  return (
-    <div
-      className={`${frame} flex flex-col items-center justify-center gap-3 border-2 border-dashed border-ink/15 bg-surface p-6 text-center`}
-      role="img"
-      aria-label={`Emplacement photo à venir : ${photos[slot].brief}`}
-    >
-      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-brand shadow">
-        <CameraIcon className="h-7 w-7" />
-      </span>
-      <p className="font-bold text-ink">Photo à venir</p>
-      <p className="max-w-xs text-sm text-ink-3">{photos[slot].brief}</p>
-      <p className="text-xs text-muted">
-        Fichier : <code>public/{photos[slot].file}.jpg</code>
-      </p>
-    </div>
-  );
+  return null;
 }

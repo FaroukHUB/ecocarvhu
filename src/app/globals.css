@@ -491,3 +491,33 @@ body {
     opacity: 1;
   }
 }
+
+/* Carte PACA */
+.paca-dep path {
+  transition: fill 0.3s ease, stroke-opacity 0.3s ease;
+}
+.paca-dep:hover path,
+.paca-dep:focus-visible path {
+  fill: #155c3a;
+  stroke-opacity: 0.9;
+}
+.paca-dep:hover .paca-dep__code {
+  fill-opacity: 0.3;
+}
+.paca-city__label {
+  paint-order: stroke;
+  stroke: #0b1310;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+.paca-city__label--hover {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.paca-city:hover .paca-city__label--hover,
+.paca-city:focus-visible .paca-city__label--hover {
+  opacity: 1;
+}
+.paca-city:hover circle:last-of-type {
+  r: 9;
+}

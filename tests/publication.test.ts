@@ -22,15 +22,9 @@ describe("publication des secteurs", () => {
   });
 
   it("rend les brouillons en prévisualisation mais pas en production", () => {
-    const draft = sectors.find((s) => !isSectorPublished(s.status))!;
+    const draft = { ...sectors[0], status: { ...sectors[0].status, publicationApproved: false } };
     expect(isSectorRenderable(draft, PREVIEW)).toBe(true);
     expect(isSectorRenderable(draft, PROD)).toBe(false);
-  });
-
-  it("garde Monaco hors publication tant que le cadrage n'est pas validé", () => {
-    const monaco = sectors.find((s) => s.slug === "monaco")!;
-    expect(monaco.kind).toBe("foreign-state");
-    expect(isSectorPublished(monaco.status)).toBe(false);
   });
 
   it("ne contient pas de valeur commerciale inventée dans les faits locaux", () => {
@@ -87,8 +81,6 @@ describe("routes dynamiques (vrai 404)", async () => {
   it("reconnaît les segments existants et refuse les autres", () => {
     expect(isKnownDynamicPath("/zones-intervention/marseille", PREVIEW)).toBe(true);
     expect(isKnownDynamicPath("/zones-intervention/marseille", PROD)).toBe(true);
-    expect(isKnownDynamicPath("/zones-intervention/monaco", PREVIEW)).toBe(true);
-    expect(isKnownDynamicPath("/zones-intervention/monaco", PROD)).toBe(false);
     expect(isKnownDynamicPath("/zones-intervention/ville-inconnue", PREVIEW)).toBe(false);
     expect(isKnownDynamicPath("/zones-intervention/marseille/x", PREVIEW)).toBe(false);
     expect(isKnownDynamicPath("/conseils/inconnu", PREVIEW)).toBe(false);

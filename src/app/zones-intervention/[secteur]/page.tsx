@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { pages } from "@/content/pages";
 import { departments, sectors } from "@/content/sectors/data";
 import type { CityLocal, Sector } from "@/content/sectors/types";
-import { sources } from "@/content/regulatory";
 import { resolveFileLimits } from "@/lib/forms/files";
 import {
   getSector,
@@ -14,7 +13,6 @@ import {
 } from "@/lib/publication";
 import { buildMetadata, type Crumb } from "@/lib/seo";
 import { PageHero } from "@/components/sections/PageHero";
-import { DraftBanner } from "@/components/ui/DraftBanner";
 import { Container, Eyebrow, H2, Notice, Section } from "@/components/ui/primitives";
 import { Faq } from "@/components/ui/Faq";
 import { RequestSteps } from "@/components/sections/RequestSteps";
@@ -59,8 +57,6 @@ const CONDITIONS_BEFORE = [
 export default async function SectorPage({ params }: PageProps<"/zones-intervention/[secteur]">) {
   const { secteur } = await params;
   const sector = resolve(secteur);
-  const published = isSectorPublished(sector.status);
-  const isForeign = sector.kind === "foreign-state";
 
   const crumbs: Crumb[] = [{ name: pages.zones.label, path: pages.zones.path }];
   if (sector.kind === "city") {
@@ -75,23 +71,15 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
 
   return (
     <>
-      {!published ? (
-        <DraftBanner
-          missing={sector.missing}
-          label={isForeign ? "Secteur séparé (État distinct) — brouillon" : "Brouillon de page locale"}
-        />
-      ) : null}
 
       <PageHero
         crumbs={crumbs}
-        eyebrow={sector.department ? `${sector.department.name} (${sector.department.code})` : isForeign ? "État distinct" : "Région"}
+        eyebrow={sector.department ? `${sector.department.name} (${sector.department.code})` : "Région"}
         title={sector.seo.h1}
         lead={<p>{sector.lead}</p>}
       />
 
-      {isForeign ? (
-        <ForeignStateBody sector={sector} />
-      ) : sector.local ? (
+      {sector.local ? (
         <CityBody sector={sector} local={sector.local} />
       ) : (
         <>
@@ -270,7 +258,7 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
         </ul>
       </Section>
 
-      {!isForeign ? <CallBand placement={`secteur-${sector.slug}`} formHref="#demande" /> : null}
+      <CallBand placement={`secteur-${sector.slug}`} formHref="#demande" />
     </>
   );
 }
@@ -296,32 +284,6 @@ function ServiceCard({
         <p className="mt-1.5 text-ink-3">{text}</p>
       </Link>
     </li>
-  );
-}
-
-function ForeignStateBody({ sector }: { sector: Sector }) {
-  return (
-    <Section labelledBy="monaco-title">
-      <div className="max-w-3xl space-y-6">
-        <H2 id="monaco-title">Des démarches différentes des démarches françaises</H2>
-        <ul className="space-y-4">
-          {sector.localFacts.map((f) => (
-            <li key={f.text} className="card p-5">
-              <p className="text-ink-3">{f.text}</p>
-              <p className="mt-1 text-xs text-muted">Source : {f.source}</p>
-            </li>
-          ))}
-        </ul>
-        <Notice tone="warn" title="Aucune intervention proposée à ce stade">
-          Les procédures monégasques et les conditions d&apos;intervention doivent être vérifiées avant
-          toute offre. Pour un véhicule immatriculé à Monaco, consultez{" "}
-          <a href={sources.monaco.url} className="underline" rel="noopener">
-            Mon Service Public
-          </a>
-          .
-        </Notice>
-      </div>
-    </Section>
   );
 }
 

@@ -49,7 +49,7 @@ Environnement : conteneur Linux, Node 22.22, Next.js 16.4.0, serveur local `next
 | Build preview (`SITE_ENV=preview`) | OK | 42 pages générées |
 | Build production (`SITE_ENV=production`, domaine de test `https://ecocarvhu.test`) | OK | |
 | `check:site` en preview | OK | 21 pages : noindex partout, `X-Robots-Tag` présent, robots `Disallow: /`, sitemap vide, 24 liens internes sans erreur, vrais 404 |
-| `check:site` en production | OK | 12 pages : un H1 par page, title et description, canonical vers la page elle-même, brouillons (villes, Monaco, conseils) en **404**, pages légales en noindex, sitemap de 9 URL toutes en 200, indexables avec un canonical identique, aucun localhost, JSON-LD valide, pas de `LocalBusiness` ni d'`aggregateRating` |
+| `check:site` en production | OK | 12 pages : un H1 par page, title et description, canonical vers la page elle-même, brouillons (conseils) en **404**, pages légales en noindex, sitemap de 9 URL toutes en 200, indexables avec un canonical identique, aucun localhost, JSON-LD valide, pas de `LocalBusiness` ni d'`aggregateRating` |
 | Statuts HTTP | OK | Routes inconnues et segments dynamiques inconnus (`/zones-intervention/ville-inconnue`, `/conseils/inconnu`…) en 404. **Un défaut a été trouvé puis corrigé** : avec Cache Components, un segment inconnu pouvait répondre 200. La correction passe par le proxy (`src/lib/routes.ts`) |
 | Parcours navigateur (`scripts/e2e-forms.mjs`, Chromium, viewport mobile 390 px) | **12/12 OK** | Voir le détail ci-dessous |
 | Mode démo | OK | Avec `SITE_ENV=development`, réponse « demo » et page « rien n'a été transmis ». Avec `SITE_ENV=preview`, `FORM_TRANSPORT=demo` est refusé (503, « pas encore disponible ») |

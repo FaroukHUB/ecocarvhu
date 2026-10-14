@@ -32,9 +32,7 @@ export function launchBlockers(env: EnvSource = process.env): string[] {
   for (const key of ["mentions", "confidentialite", "conditions"] as const) {
     if (pages[key].draft) b.push(`Page « ${pages[key].label} » encore en brouillon.`);
   }
-  // Monaco n'est pas publié : sa source sera relue avec le cadrage de ce secteur.
-  for (const [key, s] of Object.entries(sources)) {
-    if (key === "monaco") continue;
+  for (const s of Object.values(sources)) {
     if (!s.checkedOn) b.push(`Source officielle à relire en direct : ${s.label}.`);
   }
   if (publishedSectors().length === 0)

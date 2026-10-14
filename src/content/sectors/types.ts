@@ -21,7 +21,7 @@ export interface SectorStatus {
   publicationApproved: boolean;
 }
 
-export type SectorKind = "region" | "city" | "foreign-state";
+export type SectorKind = "region" | "city";
 
 export interface Sector {
   slug: string;

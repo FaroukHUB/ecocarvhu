@@ -68,7 +68,7 @@ const optionalEmail = z
     message: "Adresse e-mail invalide.",
   });
 
-/** Code postal français à 5 chiffres (Monaco : 98000). */
+/** Code postal français à 5 chiffres. */
 const postalCode = required(5, "Indiquez le code postal.").refine((v) => /^\d{5}$/.test(v), {
   message: "Code postal à 5 chiffres.",
 });

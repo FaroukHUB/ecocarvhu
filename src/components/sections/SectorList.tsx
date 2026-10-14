@@ -4,13 +4,11 @@ import { isSectorPublished, sectorPath, visibleSectors } from "@/lib/publication
 import { MapPinIcon } from "@/components/ui/icons";
 
 /**
- * Secteurs : seuls les secteurs publiés sont liés en production. Hors
- * production, les brouillons apparaissent avec un badge pour la recette.
- * Monaco (État distinct) n'est jamais mélangé aux secteurs de PACA.
+ * Secteurs : seuls les secteurs publiés sont liés en production.
  */
 export function SectorList({ tone = "light", featuredOnly = false }: { tone?: "light" | "dark"; featuredOnly?: boolean }) {
   // Listes courtes (accueil, page enlèvement) : secteurs mis en avant seulement ; la page des zones liste tout.
-  const shown = visibleSectors().filter((s) => s.kind !== "foreign-state" && (!featuredOnly || s.featured));
+  const shown = visibleSectors().filter((s) => !featuredOnly || s.featured);
   const line =
     tone === "dark"
       ? "border-white/10 bg-white/5 hover:border-lime/50"
@@ -35,11 +33,6 @@ export function SectorList({ tone = "light", featuredOnly = false }: { tone?: "l
                       <span className={tone === "dark" ? "text-white/60" : "text-muted"}>({s.department.code})</span>
                     ) : null}
                   </span>
-                  {!published ? (
-                    <span className="rounded-full bg-lime px-2 py-0.5 text-[0.7rem] font-bold uppercase text-ink">
-                      Brouillon
-                    </span>
-                  ) : null}
                 </Link>
               </li>
             );

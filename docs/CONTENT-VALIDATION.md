@@ -13,7 +13,6 @@
 | Zone visée | Région PACA (04, 05, 06, 13, 83, 84) | Brief + message du 13/10/2026 (« on vise le PACA ») | Cible, **service non confirmé** |
 | Villes citées | Marseille, Aubagne, La Ciotat, Cassis, Nice | Brief (« une idée ») | Cibles |
 | « Auban » | Interprété comme Aubagne (13400) | Hypothèse | **À confirmer** |
-| Monaco | Cible demandée, État distinct | Brief | Brouillon séparé |
 | Enlèvement gratuit | Gratuit pour un véhicule complet (moteur, pot catalytique, batterie) et accessible dans des conditions normales | Demande du porteur de projet (« gratuit » plus présent) ; condition reprise de la pratique du secteur | **Condition à confirmer** par l'entreprise |
 
 ## 2. Informations manquantes (rien n'a été inventé)
@@ -44,7 +43,6 @@ Elles sont toutes `null` dans `src/config/company.ts` et s'affichent comme « à
 | Enregistrement ICPE depuis le 01/01/2025 ; anciens agréments valables tant qu'ils ne sont ni retirés ni suspendus | ecologie.gouv.fr (article R. 543-155-1 cité) | Non |
 | Pièce d'identité « pouvant être demandée » | Pratique observée chez des acteurs du secteur, **pas** sur F1468 | À confirmer avec le centre partenaire |
 | Étapes du traitement en centre VHU (dépollution, démontage, recyclage) | Connaissance générale de la filière | À faire valider par le centre partenaire |
-| Monaco : non-gage du Service des Titres de Circulation, certificat de destruction, sortie du registre sur rendez-vous | monservicepublic.gouv.mc (pages indexées, possiblement anciennes) | Non |
 
 Points à éclaircir avec le centre partenaire :
 - Quelles pièces exige-t-il exactement ?
@@ -66,7 +64,7 @@ Le mot « agréé » n'apparaît que dans l'encart du partenaire, conformément 
 
 ## 5. Statut des secteurs
 
-> 13/10/2026 : le porteur de projet a confirmé le service et autorisé la publication de la région PACA et des 5 villes. Monaco reste un brouillon séparé. Les éléments listés dans la colonne « Ce qui manque » restent utiles pour enrichir ces pages.
+> 13/10/2026 : le porteur de projet a confirmé le service et autorisé la publication de la région PACA et des 5 villes. brouillon séparé. Les éléments listés dans la colonne « Ce qui manque » restent utiles pour enrichir ces pages.
 
 Statuts : **C** = cible souhaitée · **S** = service confirmé · **V** = contenu vérifié · **P** = publication autorisée.
 
@@ -78,7 +76,6 @@ Statuts : **C** = cible souhaitée · **S** = service confirmé · **V** = conte
 | La Ciotat | ✔ | ✔ | ✔ | ✔ | Idem Marseille |
 | Cassis | ✔ | ✔ | ✔ | ✔ | Idem Marseille |
 | Nice | ✔ | ✔ | ✔ | ✔ | Idem + organisation propre aux Alpes-Maritimes |
-| Monaco | ✔ | ✘ | ✘ | ✘ | Procédures monégasques actuelles, prise en charge d'un véhicule monégasque par un centre français, conditions d'intervention sur le territoire, décision commerciale |
 | Var, Vaucluse, 04, 05 (départements) | ✔ | ✘ | — | — | Pas de page dédiée : section de la page PACA |
 
 ### Matière locale
@@ -86,7 +83,7 @@ Statuts : **C** = cible souhaitée · **S** = service confirmé · **V** = conte
 Les pages de ville contiennent uniquement :
 - des faits administratifs vérifiables : département, codes postaux, nombre d'arrondissements de Marseille ;
 - des conseils pour décrire l'accès, formulés comme des questions à se poser (et non comme des affirmations sur la ville) ;
-- des FAQ liées au secteur : arrondissement, sous-sol, fourrière, propriétaire absent, véhicule monégasque à Nice.
+- des FAQ liées au secteur : arrondissement, sous-sol, fourrière, propriétaire absent.
 
 Elles ne contiennent **pas** :
 - d'anecdote touristique, de chiffre de population ou de liste de quartiers ;
@@ -106,19 +103,7 @@ Pour qu'une page de ville devienne réellement locale, il faudra ajouter :
 3. La publication est validée : `publicationApproved: true`.
 4. Lancer `npm test`, faire une build de production, puis `npm run check:site`.
 
-## 6. Monaco
-
-- Le brouillon existe à `/zones-intervention/monaco`. Il n'est visible qu'en prévisualisation et n'est jamais listé parmi les secteurs PACA.
-- Il présente Monaco comme un **État distinct**. Il n'y a ni formulaire d'enlèvement ni offre commerciale.
-- Avant toute publication, vérifier sur monservicepublic.gouv.mc :
-  - la procédure de destruction et de sortie du registre ;
-  - les frais ;
-  - le formulaire ;
-  - les règles de circulation et de stationnement d'un véhicule de dépannage.
-- Vérifier aussi auprès du centre VHU partenaire s'il accepte les véhicules immatriculés à Monaco, et avec quels documents.
-
-
-## 7. Accueil enrichi : informations à confirmer
+## 6. Accueil enrichi : informations à confirmer
 
 L'accueil ne publie que des informations formulées comme vérifiées au cas par cas. Pour aller plus loin, il faudra fournir :
 

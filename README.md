@@ -43,7 +43,7 @@ src/
     env.ts            Environnement (production / preview / development), domaine
   content/            Données et textes (futur CMS)
     pages.ts          Slugs, title, description, H1, intention des pages principales
-    sectors/          Secteurs (PACA, villes, Monaco) avec leurs 4 statuts de publication
+    sectors/          Secteurs (PACA et villes) avec leurs 4 statuts de publication
     guides.ts         Espace conseils
     regulatory.ts     Documents, cas particuliers, gratuité, sources officielles
     home.ts           Familles de pièces, FAQ d'accueil
@@ -68,7 +68,7 @@ Il y a trois couches séparées : les **données** (`config/`, `content/`), l'**
 
 | | `development` | `preview` | `production` |
 |---|---|---|---|
-| Brouillons (villes, Monaco, guides) | visibles | visibles (bandeau) | **404** |
+| Brouillons (guides) | visibles | visibles (bandeau) | **404** |
 | `<meta name="robots">` | noindex | noindex | index (sauf brouillons légaux) |
 | En-tête `X-Robots-Tag` | noindex | noindex | — |
 | `robots.txt` | Disallow: / | Disallow: / | Allow + sitemap |

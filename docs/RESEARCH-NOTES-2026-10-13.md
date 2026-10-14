@@ -96,8 +96,6 @@ Pour EcocarVHU, cela donne trois enseignements [H] :
 4. **Barre de contact collante sur mobile** : Appeler, SMS ou WhatsApp, Formulaire. Les liens `tel:` et `sms:` utilisent un seul numéro canonique. Proposer WhatsApp seulement si le canal est réellement suivi.
 5. **Une checklist de documents conforme à service-public.gouv.fr** (B.1) : mention « vendu/cédé le … pour destruction », cerfa 15776, certificat de situation administrative de **moins de 15 jours**, ainsi que les cas perte, vol, véhicule étranger et gage. Ajouter un lien vers la fiche officielle et la date de dernière vérification. Ne jamais écrire « 3 mois ».
 6. **Une page « Gratuité et conditions » factuelle.** Elle explique ce qu'est la remise gratuite d'un véhicule complet et quand des frais de transport ou d'accès peuvent s'appliquer. Aucune promesse de rachat chiffrée sans grille validée.
-7. **Une architecture en silos par intention plutôt que par ville** : `/enlevement-epave`, `/pieces-auto-occasion`, `/rachat-vehicule`, `/demarches` (carte grise, gage, véhicule étranger, Monaco).
-8. **Des pages locales limitées et réellement différenciées** : par exemple les 6 départements et quelques pôles (Marseille, Aubagne/La Ciotat/Cassis, Nice). Chaque page apporte un contenu propre : délai réaliste depuis le centre, contraintes d'accès (parkings souterrains, centres anciens), règles locales de fourrière ou d'enlèvement, rappel que **Monaco est un État distinct**. Pas de génération par commune (B.4).
 9. **Une recherche de pièces structurée** : marque, modèle, année, type de pièce et référence d'origine si connue, avec photo facultative. La disponibilité est confirmée par un humain. Indiquer clairement le mode de retrait ou de livraison et la garantie, seulement s'ils sont réels.
 10. **Une preuve de traçabilité** : expliquer le certificat de destruction remis par le centre VHU et la déclaration de cession, avec un exemple anonymisé. Afficher des avis seulement s'ils sont vérifiables (fiche Google Business Profile liée), jamais d'avis auto-attribués en balisage.
 11. **JSON-LD** : `AutomotiveBusiness` ou un sous-type de LocalBusiness avec `address`, `telephone`, `openingHoursSpecification` et `geo`. `areaServed` couvre les départements desservis, en cohérence avec une fiche GBP en zone de service. Pas d'`aggregateRating` auto-attribué.
@@ -201,32 +199,6 @@ URL : https://web.dev/articles/vitals [C-ind].
 - Une page atteint le seuil si **75 % des visites (p75)** sont « bonnes » pour la métrique, avec une segmentation mobile / ordinateur.
 - L'INP se mesure sur le terrain. En laboratoire, le TBT sert d'indicateur de substitution.
 
-### B.7 Monaco (État distinct, procédure propre)
-
-Le Service des Titres de Circulation dépend du ministère monégasque de l'Équipement, de l'Environnement et de l'Urbanisme [C-ind]. Pages relevées :
-- https://monservicepublic.gouv.mc/en/themes/transport-and-mobility/vehicle-registration/printouts-from-the-number-plate-database/how-to-declare-the-destruction-of-a-vehicle2
-- https://monservicepublic.gouv.mc/en/themes/transport-and-mobility/vehicle-registration/printouts-from-the-number-plate-database/how-to-request-the-removal-of-a-vehicle-from-the-registration-register
-- https://legimonaco.mc/code/code-route/index.html (article 109 cité)
-
-Procédure relevée [C-ind] :
-1. **Attestation de non-inscription de gage** délivrée par le Service des Titres de Circulation, à remettre au centre VHU agréé.
-2. Destruction par un centre VHU. Il délivre un **certificat de destruction** qui précise si les plaques sont conservées ou détruites, et appose la mention « destruction » sur la carte grise.
-3. **Demande de sortie du registre** par le propriétaire auprès du Service, **sur rendez-vous** (en ligne, par e-mail ou par téléphone). Pièces à joindre :
-   - le formulaire signé ;
-   - l'acte de cession original au centre VHU ;
-   - le certificat de destruction tamponné ;
-   - la carte grise portant la mention « destruction » ;
-   - les plaques, si le centre ne les a pas conservées ;
-   - la pièce d'identité (ou les statuts / l'extrait RCI pour une société).
-- **Cas d'un accident avec cession à l'assureur** : procédure distincte, avec un certificat « véhicule techniquement irréparable ».
-- **Tarif** : un arrêté ministériel de 2012 fixait le certificat à 18 €, montant probablement modifié depuis [À VÉRIFIER].
-- **À vérifier** :
-  - fraîcheur des pages (l'index les date d'environ 800 jours) ;
-  - formulaire exact et frais actuels ;
-  - mise en fourrière à Monaco (non trouvée) ;
-  - possibilité pour un centre VHU français de traiter un véhicule monégasque, et pièces exigées côté français (véhicule « immatriculé à l'étranger » au sens de F1468).
-- [H] Sur le site, ne pas présenter Monaco comme une simple « ville desservie ». Proposer une page d'information qui renvoie aux démarches monégasques.
-
 ### B.8 Next.js 16 (nextjs.org) [C-ind]
 
 - **`generateMetadata`** : `params` (et `searchParams`) sont des **Promise** qu'il faut `await`. Accès synchrone jusqu'à la v14 ; asynchrone depuis la v15, obligatoire en v16.
@@ -249,5 +221,4 @@ Procédure relevée [C-ind] :
 - **CNIL** : cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience, FAQ, recommandation consolidée
 - **web.dev** : web.dev/articles/vitals
 - **Next.js** : nextjs.org (generate-metadata, sitemap, upgrading/version-16)
-- **Monaco** : monservicepublic.gouv.mc (pages ci-dessus), legimonaco.mc
 - **Benchmark** : autopieces-des-mureaux.fr, manycar.fr, inter-car.fr, rapid-epaviste-marseille.fr ; domicar-nice.com, manocar.fr (repérés seulement)

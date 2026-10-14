@@ -37,11 +37,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fr" className={`${geist.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
-        {siteEnv !== "production" ? (
-          <div className="bg-ink px-4 py-1.5 text-center text-xs font-semibold text-white/80">
-            Prévisualisation ({siteEnv}) — site non indexé, brouillons visibles
-          </div>
-        ) : null}
         <Header />
         <main id="contenu" className="flex-1">
           {children}
