@@ -52,6 +52,17 @@ describe("transport", () => {
     expect(resolveTransport({ FORM_TRANSPORT: "demo", SITE_ENV: "development" }).kind).toBe("demo");
   });
 
+  it("configure Brevo et découpe « Nom <adresse> »", () => {
+    const t = resolveTransport({
+      FORM_TRANSPORT: "brevo",
+      BREVO_API_KEY: "xkeysib",
+      FORM_TO_EMAIL: "a@exemple.test, b@exemple.test",
+      FORM_FROM_EMAIL: "EcocarVHU <demandes@exemple.test>",
+    });
+    expect(t).toMatchObject({ kind: "brevo", from: "demandes@exemple.test", fromName: "EcocarVHU", to: ["a@exemple.test", "b@exemple.test"] });
+    expect(resolveTransport({ FORM_TRANSPORT: "brevo", FORM_TO_EMAIL: "a@x.test", FORM_FROM_EMAIL: "d@x.test" }).kind).toBe("unconfigured");
+  });
+
   it("signale les variables manquantes", () => {
     const t = resolveTransport({ FORM_TRANSPORT: "resend", RESEND_API_KEY: "x" });
     expect(t.kind).toBe("unconfigured");
@@ -78,6 +89,20 @@ describe("traitement des demandes", () => {
     expect(body.text).toContain("Secteur d'origine : marseille");
     expect(body.text).toContain("Accès : Sous-sol");
     expect((init as RequestInit).headers).toMatchObject({ Authorization: "Bearer re_test" });
+  });
+
+  it("envoie via Brevo avec la clé api-key et des destinataires au format Brevo", async () => {
+    const fetchImpl = vi.fn(async () => new Response(JSON.stringify({ messageId: "<m1>" }), { status: 201 })) as unknown as typeof fetch;
+    const env = { ...RESEND_ENV, FORM_TRANSPORT: "brevo", BREVO_API_KEY: "xkeysib-test" };
+    const r = await processRequest(pickupForm(), { env, now: NOW, fetchImpl });
+    expect(r).toMatchObject({ status: "accepted", mode: "sent" });
+    const [url, init] = (fetchImpl as unknown as ReturnType<typeof vi.fn>).mock.calls[0];
+    expect(url).toBe("https://api.brevo.com/v3/smtp/email");
+    expect((init as RequestInit).headers).toMatchObject({ "api-key": "xkeysib-test" });
+    const body = JSON.parse((init as RequestInit).body as string);
+    expect(body.to).toEqual([{ email: "demandes@exemple.test" }]);
+    expect(body.subject).toContain("Enlèvement");
+    expect(body.textContent).toContain("Accès : Sous-sol");
   });
 
   it("renvoie une erreur (et pas un succès) si le prestataire refuse", async () => {

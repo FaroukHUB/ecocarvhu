@@ -15,7 +15,8 @@ export function launchBlockers(env: EnvSource = process.env): string[] {
   const b: string[] = [];
   if (resolveSiteEnv(env) !== "production") b.push("SITE_ENV doit valoir « production » sur l'environnement publié.");
   if (!resolveSiteUrl({ ...env, SITE_ENV: "production" })) b.push("NEXT_PUBLIC_SITE_URL : domaine définitif en https manquant.");
-  if (resolveTransport(env).kind !== "resend") b.push("Transmission des formulaires non configurée (FORM_TRANSPORT=resend + variables).");
+  if (!["resend", "brevo"].includes(resolveTransport(env).kind))
+    b.push("Transmission des formulaires non configurée (FORM_TRANSPORT=brevo ou resend + variables).");
 
   if (company.brandIsProvisional) b.push("Marque encore provisoire : confirmer le nom EcocarVHU.");
   if (!company.legalName || !company.siret || !company.registeredAddress)

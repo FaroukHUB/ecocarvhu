@@ -18,7 +18,7 @@ La mise en ligne publique en production **ne fait pas partie de cette étape**. 
 - [ ] Domaine définitif acheté. Variables de l'hébergeur en production : `SITE_ENV=production` et `NEXT_PUBLIC_SITE_URL=https://…`.
 - [ ] Resend configuré :
   - domaine d'envoi vérifié (SPF/DKIM) ;
-  - `FORM_TRANSPORT=resend`, `RESEND_API_KEY`, `FORM_TO_EMAIL`, `FORM_FROM_EMAIL` ;
+  - `FORM_TRANSPORT=brevo`, `BREVO_API_KEY`, `FORM_TO_EMAIL`, `FORM_FROM_EMAIL` (ou la variante Resend) ;
   - **un envoi réel testé** de bout en bout, avec photos ;
   - limite de taille d'e-mail du prestataire vérifiée.
 - [ ] Limite de taille des requêtes de l'hébergeur vérifiée. Ajuster `FORM_MAX_*` en conséquence (défaut : 4 Mo par demande).
