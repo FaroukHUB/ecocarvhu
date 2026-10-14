@@ -56,7 +56,7 @@ export default function HomePage() {
   const hasHeroImage = Boolean(heroImages());
   const latestPosts = visiblePosts().slice(0, 3);
   const accessGuide = guideHref("enlevement-acces-difficile");
-  const docsGuide = guideHref("documents-remise-vehicule");
+  const docsGuide = guideHref("documents-enlevement-epave-paca");
 
   return (
     <>

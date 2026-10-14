@@ -2,6 +2,7 @@ import { guides, type Guide } from "@/content/guides";
 import type { Post, PostBlock } from "./types";
 import { enlevementEpaveGratuitPaca } from "./posts/enlevement-epave-gratuit-paca";
 import { documentsEnlevementEpavePaca } from "./posts/documents-enlevement-epave-paca";
+import { vendreVoitureEnPanne } from "./posts/vendre-voiture-en-panne";
 
 /** Les guides pratiques existants deviennent des articles du blog (sans image de couverture). */
 function guideToPost(g: Guide): Post {
@@ -29,7 +30,7 @@ function guideToPost(g: Guide): Post {
 }
 
 /** Tous les articles, du plus récent au plus ancien. */
-export const posts: Post[] = [documentsEnlevementEpavePaca, enlevementEpaveGratuitPaca, ...guides.map(guideToPost)].sort((a, b) =>
+export const posts: Post[] = [vendreVoitureEnPanne, documentsEnlevementEpavePaca, enlevementEpaveGratuitPaca, ...guides.map(guideToPost)].sort((a, b) =>
   b.date.localeCompare(a.date),
 );
 

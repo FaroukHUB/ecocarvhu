@@ -31,6 +31,7 @@ const CORE_PATHS = [
   "/blog",
   "/blog/enlevement-epave-gratuit-paca",
   "/blog/documents-enlevement-epave-paca",
+  "/blog/vendre-voiture-en-panne",
 ];
 const SECTOR_PATHS = [
   "/zones-intervention/paca",
@@ -41,7 +42,7 @@ const SECTOR_PATHS = [
   "/zones-intervention/nice",
 ];
 const DRAFT_PATHS = [
-  "/blog/documents-remise-vehicule",
+  "/blog/enlevement-acces-difficile",
 ];
 const FORBIDDEN = [/lorem ipsum/i, /01 23 45 67 89/, /exemple\.(com|fr)/i, /aggregateRating/, /"@type":"LocalBusiness"/];
 

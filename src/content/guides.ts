@@ -26,58 +26,6 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
-    slug: "documents-remise-vehicule",
-    title: "Quels documents préparer pour faire détruire un véhicule ?",
-    description:
-      "Carte grise barrée, déclaration de cession, certificat de situation administrative : la liste des documents à préparer et les cas particuliers (perte, vol, gage, véhicule étranger).",
-    h1: "Préparer les documents pour la remise d'un véhicule hors d'usage",
-    summary:
-      "La liste des pièces habituellement demandées, et ce qu'il faut faire quand l'une d'elles manque.",
-    reviewedOn: null,
-    status: { contentVerified: false, publicationApproved: false },
-    sections: [
-      {
-        heading: "Pourquoi préparer les documents avant le rendez-vous",
-        paragraphs: [
-          "Un véhicule ne peut être pris en charge pour destruction que si la personne qui le cède en a le droit, et si rien ne bloque la cession (gage, opposition). Préparer les documents en amont évite un déplacement pour rien et permet d'obtenir le certificat de destruction sans délai supplémentaire.",
-          "Lors de votre première demande en ligne, nous vous demandons seulement si vous disposez de ces documents. N'envoyez pas de copie de pièce d'identité ou de carte grise par le formulaire : les vérifications se font au moment du rendez-vous.",
-        ],
-      },
-      {
-        heading: "Les documents habituellement demandés",
-        list: [
-          "La carte grise, barrée avec la mention « Vendu le … pour destruction » ou « Cédé le … pour destruction », datée et signée par tous les titulaires.",
-          "La déclaration de cession (cerfa 15776) ; l'exemplaire n° 2 est remis au centre VHU.",
-          "Un certificat de situation administrative de moins de 15 jours, à télécharger gratuitement en ligne.",
-          "Une pièce d'identité, qui peut être demandée pour vérifier l'identité du cédant.",
-        ],
-      },
-      {
-        heading: "Si un document manque",
-        list: [
-          "Carte grise perdue : une déclaration de perte la remplace, avec le certificat de situation administrative.",
-          "Carte grise volée : le récépissé de déclaration de vol est demandé.",
-          "Véhicule gagé : le gage doit en principe être levé avant la cession.",
-          "Véhicule immatriculé à l'étranger : le certificat d'immatriculation étranger est remis ; la situation est examinée au cas par cas.",
-          "Titulaire décédé ou absent : expliquez la situation dans votre demande, les pièces nécessaires vous seront indiquées.",
-        ],
-      },
-      {
-        heading: "Ce que vous recevez",
-        paragraphs: [
-          "Le centre VHU qui prend en charge le véhicule remet un certificat de destruction. Conservez-le : il sert notamment à résilier l'assurance du véhicule.",
-        ],
-      },
-    ],
-    sources: [
-      {
-        label: "Service-Public.fr — Véhicule à détruire et certificat d'immatriculation",
-        url: "https://www.service-public.gouv.fr/particuliers/vosdroits/F1468",
-      },
-    ],
-    cta: { label: "Demander un enlèvement", href: "/enlevement-epave#demande" },
-  },
-  {
     slug: "enlevement-acces-difficile",
     title: "Enlèvement d'un véhicule en sous-sol ou d'accès difficile : comment le décrire",
     description:

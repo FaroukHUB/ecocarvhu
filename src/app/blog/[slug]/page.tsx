@@ -275,7 +275,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
 
           {post.cta ? (
             <section className="bg-brand-glow mt-14 rounded-3xl p-7 text-white sm:p-10" aria-labelledby="cta-title">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lime">Préparer votre demande</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lime">{post.cta.eyebrow ?? "Préparer votre demande"}</p>
               <h2 id="cta-title" className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
                 {post.cta.title}
               </h2>
