@@ -7,8 +7,6 @@ import {
   buybackInfo,
   freeConditions,
   homeFaq,
-  partChecklist,
-  partFamilies,
   proUses,
   roles,
   situations,
@@ -40,6 +38,7 @@ import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
 import { SectorList } from "@/components/sections/SectorList";
 import { CallBand } from "@/components/sections/CallBand";
 import { RequestSteps } from "@/components/sections/RequestSteps";
+import { PartsComingSoon } from "@/components/sections/PartsComingSoon";
 import { ZoneMap } from "@/components/sections/ZoneMap";
 import { Marquee } from "@/components/sections/Marquee";
 
@@ -56,7 +55,6 @@ export default function HomePage() {
   const hasHeroImage = Boolean(heroImages());
   const accessGuide = guideHref("enlevement-acces-difficile");
   const docsGuide = guideHref("documents-remise-vehicule");
-  const refGuide = guideHref("identifier-reference-piece");
 
   return (
     <>
@@ -82,7 +80,7 @@ export default function HomePage() {
         <Container className="flex min-h-[calc(100svh-7rem)] flex-col justify-start pb-6 pt-8 md:min-h-[620px] md:pb-10 md:pt-14 lg:min-h-[700px]">
           <div className="flex max-w-2xl flex-1 flex-col [text-shadow:0_2px_16px_rgb(0_0_0/0.35)]">
             <div className="hidden [text-shadow:none] sm:block">
-              <Eyebrow tone="light">Épaviste · Pièces auto d&apos;occasion · PACA</Eyebrow>
+              <Eyebrow tone="light">Épaviste · Rachat de véhicules · PACA</Eyebrow>
             </div>
             <h1 className="text-[2.3rem] font-bold leading-[1.02] tracking-[-0.04em] sm:mt-5 sm:text-6xl lg:text-[4.2rem]">
               Enlèvement d&apos;épave <span className="text-glow [text-shadow:none]">gratuit</span>
@@ -100,11 +98,7 @@ export default function HomePage() {
                 <TruckIcon className="h-6 w-6" />
                 Demander un enlèvement
               </Link>
-              <Link href={pages.demandePiece.path} className="btn btn-glass hidden min-h-14 px-6 text-lg sm:inline-flex">
-                <GearIcon className="h-6 w-6" />
-                Trouver une pièce
-              </Link>
-              <Link href={pages.rachat.path} className="btn btn-glass mr-[5rem] min-h-12 bg-ink/50 sm:hidden">
+              <Link href={pages.rachat.path} className="btn btn-glass mr-[5rem] min-h-12 bg-ink/50 sm:mr-0 sm:min-h-14 sm:px-6 sm:text-lg">
                 <CoinsIcon className="h-5 w-5 text-lime" />
                 Faire étudier le rachat de mon véhicule
               </Link>
@@ -112,13 +106,6 @@ export default function HomePage() {
 
             <div className="mt-7 hidden items-center gap-6 [text-shadow:none] sm:flex">
               <PhoneBig placement="hero" size="lg" caption="Appel direct" />
-              <Link
-                href={pages.rachat.path}
-                className="inline-flex items-center gap-2 font-semibold text-white/90 underline-offset-4 hover:text-white hover:underline"
-              >
-                <CoinsIcon className="h-5 w-5 text-lime" />
-                Faire étudier le rachat de mon véhicule
-              </Link>
             </div>
           </div>
         </Container>
@@ -131,7 +118,7 @@ export default function HomePage() {
           "Centre VHU partenaire",
           "Certificat de destruction",
           "Toute la région PACA",
-          "Pièces d'occasion vérifiées",
+          "Rachat de véhicule sur étude",
         ]}
       />
 
@@ -332,58 +319,10 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* F. Pièces auto d'occasion */}
-      <Section labelledBy="pieces-title">
-        <div className={hasPhotoBlock("pieces") ? "grid items-center gap-12 lg:grid-cols-[1fr_1.1fr]" : ""}>
-          <Photo slot="pieces" className="reveal-zoom lg:order-first" />
-          <div className="reveal order-first lg:order-none">
-            <Eyebrow>Pièces de réemploi</Eyebrow>
-            <H2 id="pieces-title">Pièces auto d&apos;occasion : la bonne pièce, vérifiée avant toute proposition</H2>
-            <p className="mt-5 max-w-3xl text-lg leading-relaxed text-ink-3">
-              Une pièce d&apos;occasion n&apos;est utile que si elle correspond exactement à votre véhicule. La
-              même marque et le même modèle ne suffisent pas : l&apos;année, la motorisation, la finition et
-              les options changent souvent la pièce. Chaque demande est donc vérifiée (disponibilité,
-              compatibilité, état) avant de vous proposer quoi que ce soit.
-            </p>
-          </div>
-        </div>
-        <div className="mt-12">
-          <FeatureList items={partFamilies} columns={3} />
-        </div>
-        <div className="reveal bg-ink-grid mt-8 grid gap-8 overflow-hidden rounded-3xl p-7 text-white sm:p-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
-          <div>
-            <h3 className="text-2xl font-bold tracking-tight">
-              Préparer une <span className="text-lime">demande de pièce</span>
-            </h3>
-            <ul className="mt-5 space-y-3">
-              {partChecklist.map((c) => (
-                <li key={c} className="flex gap-3 text-white/80">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-lime text-ink">
-                    <CheckIcon className="h-3 w-3" />
-                  </span>
-                  {c}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <ButtonLink href={pages.demandePiece.path}>Faire une demande de pièce</ButtonLink>
-            <p className="text-sm text-white/60">
-              Ces familles décrivent les recherches possibles, pas un stock en ligne : la disponibilité est
-              confirmée au cas par cas.{" "}
-              <Link href={pages.pieces.path} className="font-semibold text-lime underline">
-                En savoir plus sur les pièces d&apos;occasion
-              </Link>
-              {refGuide ? (
-                <>
-                  {" · "}
-                  <Link href={refGuide} className="font-semibold text-lime underline">
-                    Trouver la référence d&apos;une pièce
-                  </Link>
-                </>
-              ) : null}
-            </p>
-          </div>
+      {/* F. Pièces auto d'occasion : service en préparation */}
+      <Section>
+        <div className="reveal">
+          <PartsComingSoon />
         </div>
       </Section>
 
@@ -555,7 +494,7 @@ export default function HomePage() {
         <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr]">
           <div className="reveal lg:sticky lg:top-28 lg:self-start">
             <Eyebrow>Questions fréquentes</Eyebrow>
-            <H2 id="faq-title">Enlèvement, pièces, rachat : vos questions</H2>
+            <H2 id="faq-title">Enlèvement, rachat : vos questions</H2>
             <p className="mt-5 text-ink-3">
               Une question qui n&apos;est pas ici ? Appelez, c&apos;est souvent le plus rapide.
             </p>

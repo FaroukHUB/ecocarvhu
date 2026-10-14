@@ -162,8 +162,8 @@ export const buybackInfo = [
 /* H — Professionnels ----------------------------------------------------- */
 
 export const proUses = [
-  { title: "Une ou plusieurs références", text: "Envoyez une liste ligne par ligne : véhicule, pièce, référence. La disponibilité est vérifiée pour chaque ligne." },
-  { title: "Les informations d'un véhicule", text: "Motorisation, finition, photos : de quoi vérifier la compatibilité avant toute proposition." },
+  { title: "Une étude de rachat", text: "Un véhicule qui garde de la valeur : demandez une étude, sans estimation automatique." },
+  { title: "Les informations des véhicules", text: "État, clés, carte grise et accès au site : de quoi confirmer les conditions avant le passage." },
   { title: "Des véhicules à faire enlever", text: "Épaves de clients ou véhicules abandonnés à l'atelier : décrivez le lot, les conditions sont étudiées." },
   { title: "Une relation régulière", text: "Garages, carrossiers, dépanneurs : proposez une collaboration, ses modalités sont discutées au cas par cas." },
 ];
@@ -194,14 +194,9 @@ export const homeFaq: FaqItem[] = [
     a: "Non. Elle permet de vérifier la faisabilité et la situation administrative. Le rendez-vous est fixé ensuite, avec votre accord. Elle ne vaut pas non plus autorisation de destruction.",
   },
   {
-    q: "Je ne connais pas le nom ni la référence de la pièce : comment faire ?",
-    a: "Décrivez ce que vous constatez et ajoutez une photo de la pièce ou de son emplacement. L'équipe identifie la pièce, puis vérifie sa disponibilité et sa compatibilité.",
-    link: { href: "/demande-piece", label: "Faire une demande de pièce" },
-  },
-  {
-    q: "Une pièce du même modèle de voiture est-elle forcément compatible ?",
-    a: "Non. L'année, la motorisation, la finition et les options changent souvent la pièce. C'est pourquoi la compatibilité est vérifiée, avec la référence constructeur quand elle est disponible.",
-    link: { href: "/pieces-auto-occasion", label: "Les informations utiles à la compatibilité" },
+    q: "Proposez-vous des pièces auto d'occasion ?",
+    a: "Le service de pièces auto d'occasion est en cours de préparation. Les demandes de pièces seront ouvertes dès qu'il sera prêt ; en attendant, l'enlèvement d'épave et l'étude de rachat restent disponibles.",
+    link: { href: "/pieces-auto-occasion", label: "Pièces auto d'occasion" },
   },
   {
     q: "Comment se passe une étude de rachat ?",
