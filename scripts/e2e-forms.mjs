@@ -58,21 +58,27 @@ check(/pas encore disponible|n'a pas été transmise/.test(alertText ?? ""), "se
 check((await page.inputValue('[name="name"]')) === "Client Test", "service absent : champs conservés");
 check(!(await page.isVisible("text=Votre demande a été transmise")), "service absent : aucun faux succès");
 
-// 3. Fichier refusé (contenu non image renommé en .jpg)
-await page.goto(`${BASE}/demande-piece`, { waitUntil: "networkidle" });
+// 3. Fichier refusé (contenu non image renommé en .jpg), via le formulaire de rachat
+await page.goto(`${BASE}/rachat-vehicule`, { waitUntil: "networkidle" });
 await page.waitForTimeout(3000);
 await page.selectOption('select[name="brand"]', "Renault");
 await page.selectOption('select[name="model"]', "Clio");
+await page.selectOption('select[name="year"]', "2012");
+await page.fill('[name="mileage"]', "180000");
 await page.click("button[type=submit]");
-await page.fill('[name="partName"]', "Alternateur");
+await page.check('input[name="mechanical"][value="ne-roule-pas"]', { force: true });
+await page.check('input[name="keys"][value="oui"]', { force: true });
+await page.check('input[name="registrationDoc"][value="oui"]', { force: true });
 await page.setInputFiles('input[type=file]', {
   name: "faux.jpg",
   mimeType: "image/jpeg",
   buffer: Buffer.from("ceci n'est pas une image, mais un texte assez long"),
 });
 await page.click("button[type=submit]");
+await page.fill('[name="postalCode"]', "13001");
+await page.fill('[name="city"]', "Marseille");
 await page.fill('[name="name"]', "Client");
-await page.fill('[name="email"]', "client@test.invalid");
+await page.fill('[name="phone"]', "0601020304");
 await page.click("button[type=submit]");
 await page.waitForSelector('form [role="alert"]');
 check(/n'est pas une photo acceptée/.test((await page.textContent('form [role="alert"]')) ?? ""), "fichier non image refusé par le serveur");

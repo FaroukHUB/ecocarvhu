@@ -15,7 +15,7 @@ export default function MentionsPage() {
     <LegalPage title={page.h1} path={page.path}>
       <h2>Éditeur du site</h2>
       <ul>
-        <li>Nom commercial : {company.brandName}{company.brandIsProvisional ? " (provisoire)" : ""}</li>
+        <li>Nom commercial : {company.brandName}</li>
         <li>Raison sociale : {v(company.legalName)}</li>
         <li>Forme juridique : {v(company.legalForm)}</li>
         <li>SIRET : {v(company.siret)}</li>

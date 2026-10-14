@@ -37,7 +37,6 @@ export function Footer() {
       <div className="border-t border-white/10">
         <p className="mx-auto max-w-6xl px-4 py-5 pb-24 text-xs text-white/60 sm:pb-5">
           {company.brandName}
-          {company.brandIsProvisional ? " (nom de marque provisoire)" : ""}
           {company.legalName ? ` — ${company.legalName}` : ""}.
         </p>
       </div>

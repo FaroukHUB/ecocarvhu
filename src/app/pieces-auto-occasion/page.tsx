@@ -4,7 +4,8 @@ import { partFamilies } from "@/content/home";
 import { buildMetadata } from "@/lib/seo";
 import { guideHref } from "@/lib/publication";
 import { PageHero } from "@/components/sections/PageHero";
-import { ButtonLink, Eyebrow, H2, Notice, Section } from "@/components/ui/primitives";
+import { ButtonLink, Container, Eyebrow, H2, Notice, Section } from "@/components/ui/primitives";
+import { PartsComingSoon } from "@/components/sections/PartsComingSoon";
 import { Faq } from "@/components/ui/Faq";
 import { CallBand } from "@/components/sections/CallBand";
 import { FeatureList } from "@/components/ui/FeatureList";
@@ -62,8 +63,14 @@ export default function PiecesPage() {
             compatibilité sont vérifiées avant toute proposition.
           </p>
         }
-        actions={<ButtonLink href={pages.demandePiece.path}>Faire une demande de pièce</ButtonLink>}
+        actions={<ButtonLink href="#bientot">Service en préparation</ButtonLink>}
       />
+
+      <section id="bientot" aria-label="Service pièces en préparation" className="scroll-mt-20 py-12 sm:py-16">
+        <Container>
+          <PartsComingSoon />
+        </Container>
+      </section>
 
       <Section labelledBy="ways-title">
         <Eyebrow>Trois façons de demander</Eyebrow>
@@ -111,7 +118,6 @@ export default function PiecesPage() {
               Disponibilité de la pièce, compatibilité avec votre véhicule, état. Le prix, la garantie et
               les modalités de retrait ou d&apos;envoi sont indiqués avec la proposition.
             </Notice>
-            <ButtonLink href={pages.demandePiece.path}>Décrire ma pièce</ButtonLink>
             <p className="text-sm text-ink-3">
               Vous êtes garagiste ou carrossier ?{" "}
               <Link href={pages.pros.path} className="font-semibold text-brand underline">
@@ -130,13 +136,7 @@ export default function PiecesPage() {
         </div>
       </Section>
 
-      <CallBand
-        placement="pieces"
-        title="Une pièce à trouver ?"
-        text="Appelez avec votre carte grise sous la main, ou décrivez la pièce en ligne avec une photo."
-        formHref={pages.demandePiece.path}
-        formLabel="Demander une pièce"
-      />
+      <CallBand placement="pieces" />
     </>
   );
 }

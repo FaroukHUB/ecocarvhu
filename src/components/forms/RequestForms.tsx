@@ -318,7 +318,7 @@ export function ProForm({ pagePath }: { pagePath: string }) {
       pagePath={pagePath}
       submitLabel="Envoyer la demande professionnelle"
       successTitle="Votre demande a été transmise"
-      successText="Un interlocuteur l'étudie et vous recontacte pour préciser les références, quantités ou modalités."
+      successText="Un interlocuteur l'étudie et vous recontacte pour préciser les véhicules, l'accès et les modalités."
       steps={[
         {
           title: "Demande professionnelle",
@@ -334,11 +334,11 @@ export function ProForm({ pagePath }: { pagePath: string }) {
               </div>
               <TextArea
                 name="references"
-                label="Références ou liste de véhicules"
+                label="Liste des véhicules"
                 rows={6}
-                placeholder={"Une ligne par pièce ou véhicule, ex. :\nClio IV 1.5 dCi — alternateur — réf. 231008473R\nGolf 7 — optique avant droite"}
+                placeholder={"Une ligne par véhicule, ex. :\nClio IV 2015 — ne roule pas — clés OK — carte grise OK\nKangoo 2009 — accidenté — sans clés"}
               />
-              <TextArea name="message" label="Message" rows={4} hint="Obligatoire si vous ne listez pas de références." />
+              <TextArea name="message" label="Message" rows={4} hint="Obligatoire si vous ne listez pas de véhicules." />
               <div className="grid gap-5 sm:grid-cols-2">
                 <TextField name="phone" label="Téléphone" type="tel" inputMode="tel" autoComplete="tel" required />
                 <TextField name="email" label="E-mail" type="email" inputMode="email" autoComplete="email" />

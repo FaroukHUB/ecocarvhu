@@ -214,7 +214,7 @@ export const proSchema = z
       ctx.addIssue({
         code: "custom",
         path: ["message"],
-        message: "Décrivez votre demande ou listez les références.",
+        message: "Décrivez votre demande ou listez les véhicules.",
       });
     }
   });
@@ -292,7 +292,7 @@ export const FIELD_LABELS: Record<string, string> = {
   contactName: "Interlocuteur",
   activity: "Activité",
   requestType: "Objet",
-  references: "Références",
+  references: "Véhicules listés",
   message: "Message",
   subject: "Sujet",
 };

@@ -521,3 +521,29 @@ body {
 .paca-city:hover circle:last-of-type {
   r: 9;
 }
+
+/* Illustration « service en préparation » */
+@media (prefers-reduced-motion: no-preference) {
+  .gear-spin {
+    animation: spin 9s linear infinite;
+  }
+  .gear-spin-reverse {
+    animation: spin 6s linear infinite reverse;
+  }
+  .progress-bar {
+    animation: progress 3.5s ease-in-out infinite alternate;
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes progress {
+  from {
+    width: 110px;
+  }
+  to {
+    width: 180px;
+  }
+}

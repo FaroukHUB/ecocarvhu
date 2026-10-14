@@ -1,17 +1,14 @@
-import Link from "next/link";
 import { pages } from "@/content/pages";
-import { resolveFileLimits } from "@/lib/forms/files";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/PageHero";
-import { Container, Notice } from "@/components/ui/primitives";
-import { PartForm } from "@/components/forms/RequestForms";
+import { Container } from "@/components/ui/primitives";
+import { PartsComingSoon } from "@/components/sections/PartsComingSoon";
 
 const page = pages.demandePiece;
 
 export const metadata = buildMetadata({ path: page.path, title: page.title, description: page.description });
 
 export default function DemandePiecePage() {
-  const limits = resolveFileLimits();
   return (
     <>
       <PageHero
@@ -23,36 +20,15 @@ export default function DemandePiecePage() {
         title={page.h1}
         lead={
           <p>
-            Trois étapes : votre véhicule, la pièce, vos coordonnées. Si vous ne connaissez pas le nom de
-            la pièce, une description et une photo suffisent.
+            Le service de pièces auto d&apos;occasion est en cours de préparation : les demandes de pièces seront
+            ouvertes dès qu&apos;il sera prêt.
           </p>
         }
+        phone={false}
       />
-      <section aria-label="Formulaire de demande de pièce" className="bg-surface py-12 sm:py-16">
-        <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-          <div className="rounded-3xl border border-line bg-paper p-5 shadow-[0_30px_60px_-40px_rgb(11_19_16/0.35)] sm:p-9">
-            <PartForm pagePath={page.path} limits={limits} />
-          </div>
-          <aside className="space-y-5">
-            <Notice title="Avant la réponse, l'équipe vérifie">
-              <ul className="mt-1 list-disc space-y-1 pl-5">
-                <li>que la pièce est disponible ;</li>
-                <li>qu&apos;elle est compatible avec votre véhicule ;</li>
-                <li>son état.</li>
-              </ul>
-            </Notice>
-            <Notice tone="warn" title="Sans engagement">
-              Une demande ne réserve aucune pièce. Le prix et les modalités (retrait, envoi, garantie
-              éventuelle) sont indiqués avec la proposition.
-            </Notice>
-            <p className="text-sm text-ink-3">
-              Plusieurs références à chercher pour un atelier ?{" "}
-              <Link href={pages.pros.path} className="font-semibold text-brand underline">
-                Utilisez le formulaire professionnel
-              </Link>
-              .
-            </p>
-          </aside>
+      <section aria-label="Service pièces en préparation" className="bg-surface py-12 sm:py-16">
+        <Container>
+          <PartsComingSoon />
         </Container>
       </section>
     </>

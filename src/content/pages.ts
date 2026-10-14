@@ -123,13 +123,19 @@ export const pages: Record<PageKey, PageEntry> = {
   pros: {
     path: "/professionnels",
     label: "Professionnels",
-    title: "Garages, carrossiers : pièces d'occasion et enlèvements groupés",
+    title: "Enlèvement d'épaves pour garages et professionnels en PACA",
     description:
-      "Envoyez une liste de références, organisez plusieurs enlèvements ou proposez un partenariat. Un interlocuteur traite les demandes des garages et carrossiers.",
-    h1: "Un service pensé pour les garages, carrossiers et professionnels",
-    intent: "B2B : demande professionnelle",
-    primaryQuery: "pièces occasion garage",
-    secondaryQueries: ["enlèvement épaves garage", "fournisseur pièces réemploi carrossier"],
+      "Garages, carrossiers, dépanneurs, flottes : enlèvement d'épaves gratuit pour tout véhicule complet et accessible, remise à un centre VHU agréé, étude de rachat. PACA.",
+    h1: "Enlèvement de véhicules hors d'usage pour les professionnels",
+    intent: "B2B : enlèvement d'épaves et rachat de véhicules pour professionnels",
+    primaryQuery: "enlèvement épave garage",
+    secondaryQueries: [
+      "épaviste professionnel PACA",
+      "enlèvement véhicule hors d'usage garage",
+      "enlèvement épaves carrossier",
+      "enlèvement VHU flotte entreprise",
+      "rachat véhicule professionnel",
+    ],
     sitemap: true,
   },
   contact: {

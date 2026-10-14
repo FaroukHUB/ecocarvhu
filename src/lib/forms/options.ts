@@ -84,7 +84,6 @@ export const PRO_ACTIVITY_OPTIONS: Option[] = [
 ];
 
 export const PRO_REQUEST_OPTIONS: Option[] = [
-  { value: "pieces", label: "Pièces (une ou plusieurs références)" },
   { value: "enlevements", label: "Enlèvement de plusieurs véhicules" },
   { value: "partenariat", label: "Partenariat" },
   { value: "autre", label: "Autre" },
