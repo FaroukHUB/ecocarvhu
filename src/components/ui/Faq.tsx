@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { FaqItem } from "@/content/sectors/types";
+import { RichText } from "@/components/blog/RichText";
 
 /**
  * FAQ en <details> natif : accessible au clavier, sans JavaScript.
@@ -19,7 +20,9 @@ export function Faq({ items, headingId }: { items: FaqItem[]; headingId?: string
               +
             </span>
           </summary>
-          <p className={`leading-relaxed text-ink-3 ${item.link ? "pb-2" : "pb-5"}`}>{item.a}</p>
+          <p className={`leading-relaxed text-ink-3 ${item.link ? "pb-2" : "pb-5"}`}>
+            <RichText text={item.a} />
+          </p>
           {item.link ? (
             <p className="pb-5">
               <Link href={item.link.href} className="font-semibold text-brand underline underline-offset-2">

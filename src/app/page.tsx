@@ -14,7 +14,8 @@ import {
   toVerify,
 } from "@/content/home";
 import { buildMetadata } from "@/lib/seo";
-import { guideHref } from "@/lib/publication";
+import { guideHref, visiblePosts } from "@/lib/publication";
+import { PostCard } from "@/components/blog/PostCard";
 import { PhoneBig } from "@/components/ui/PhoneBig";
 import { ButtonLink, Container, Eyebrow, H2, Section } from "@/components/ui/primitives";
 import {
@@ -53,6 +54,7 @@ export const metadata = buildMetadata({
 
 export default function HomePage() {
   const hasHeroImage = Boolean(heroImages());
+  const latestPosts = visiblePosts().slice(0, 3);
   const accessGuide = guideHref("enlevement-acces-difficile");
   const docsGuide = guideHref("documents-remise-vehicule");
 
@@ -488,6 +490,28 @@ export default function HomePage() {
           <PartnerCentreCard />
         </div>
       </Section>
+
+      {/* Blog : les trois articles les plus récents */}
+      {latestPosts.length ? (
+        <Section labelledBy="blog-title">
+          <div className="reveal flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <Eyebrow>Le blog</Eyebrow>
+              <H2 id="blog-title">Nos conseils pour préparer votre demande</H2>
+            </div>
+            <ButtonLink href={pages.conseils.path} variant="ghost">
+              Tous les articles
+            </ButtonLink>
+          </div>
+          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {latestPosts.map((p) => (
+              <li key={p.slug} className="reveal">
+                <PostCard post={p} />
+              </li>
+            ))}
+          </ul>
+        </Section>
+      ) : null}
 
       {/* K. FAQ */}
       <Section tone="surface" labelledBy="faq-title">

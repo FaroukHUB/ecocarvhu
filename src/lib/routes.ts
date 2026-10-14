@@ -1,6 +1,6 @@
-import { guides } from "@/content/guides";
+import { posts } from "@/content/blog";
 import { sectors } from "@/content/sectors/data";
-import { isGuideRenderable, isSectorRenderable } from "@/lib/publication";
+import { isPostRenderable, isSectorRenderable } from "@/lib/publication";
 
 type EnvSource = Record<string, string | undefined>;
 
@@ -30,11 +30,11 @@ export function isKnownDynamicPath(pathname: string, env: EnvSource = process.en
     const sector = sectors.find((s) => s.slug === m![1]);
     return Boolean(sector && isSectorRenderable(sector, env));
   }
-  m = path.match(/^\/conseils\/([^/]+)(\/.*)?$/);
+  m = path.match(/^\/blog\/([^/]+)(\/.*)?$/);
   if (m) {
     if (m[2]) return false;
-    const guide = guides.find((g) => g.slug === m![1]);
-    return Boolean(guide && isGuideRenderable(guide, env));
+    const post = posts.find((p) => p.slug === m![1]);
+    return Boolean(post && isPostRenderable(post, env));
   }
   m = path.match(/^\/demande\/resultat\/([^/]+)(\/.*)?$/);
   if (m) return !m[2] && (RESULT_STATUSES as readonly string[]).includes(m[1]);

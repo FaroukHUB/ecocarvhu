@@ -10,6 +10,8 @@ interface BuildMetadataInput {
   /** Titre complet sans ajout de la marque (accueil). */
   absoluteTitle?: boolean;
   draft?: boolean;
+  /** Article de blog : image de partage propre et date de publication. */
+  article?: { image?: { url: string; width: number; height: number }; publishedTime: string };
 }
 
 /**
@@ -22,6 +24,7 @@ export function buildMetadata({
   description,
   absoluteTitle,
   draft,
+  article,
 }: BuildMetadataInput): Metadata {
   const noindex = shouldNoindex({ draft });
   return {
@@ -32,14 +35,15 @@ export function buildMetadata({
       ? { index: false, follow: !draft, googleBot: { index: false, follow: !draft } }
       : { index: true, follow: true },
     openGraph: {
-      type: "website",
+      type: article ? "article" : "website",
+      ...(article ? { publishedTime: article.publishedTime } : {}),
       locale: "fr_FR",
       siteName: company.brandName,
       title,
       description,
       url: siteUrl ? path : undefined,
       // Image de partage commune (src/app/opengraph-image.tsx).
-      images: siteUrl ? [{ url: "/opengraph-image", width: 1200, height: 630 }] : undefined,
+      images: siteUrl ? [article?.image ?? { url: "/opengraph-image", width: 1200, height: 630 }] : undefined,
     },
   };
 }
@@ -84,5 +88,30 @@ export function organizationJsonLd() {
     url: `${siteUrl}/`,
     ...(company.phone ? { telephone: company.phone.e164 } : {}),
     ...(company.email ? { email: company.email.value } : {}),
+  };
+}
+
+/** Article de blog (BlogPosting) : uniquement si le domaine est connu (URL absolues requises). */
+export function blogPostingJsonLd(post: {
+  h1: string;
+  description: string;
+  date: string;
+  path: string;
+  image?: string;
+  author: string;
+}) {
+  if (!siteUrl) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.h1,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    mainEntityOfPage: absoluteUrl(post.path),
+    ...(post.image ? { image: absoluteUrl(post.image) } : {}),
+    author: { "@type": "Organization", name: post.author },
+    publisher: { "@type": "Organization", name: company.brandName },
+    inLanguage: "fr-FR",
   };
 }

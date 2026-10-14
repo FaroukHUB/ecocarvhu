@@ -1,11 +1,13 @@
 import { draftsVisible } from "@/config/env";
 import { pages } from "@/content/pages";
-import { hasPublishedGuides } from "@/lib/publication";
+import { hasPublishedPosts } from "@/lib/publication";
 
 export interface NavItem {
   href: string;
   label: string;
 }
+
+export const showBlog = hasPublishedPosts() || draftsVisible;
 
 export const mainNav: NavItem[] = [
   { href: pages.enlevement.path, label: "Enlèvement gratuit" },
@@ -13,10 +15,10 @@ export const mainNav: NavItem[] = [
   { href: pages.rachat.path, label: "Rachat" },
   { href: pages.pros.path, label: "Professionnels" },
   { href: pages.zones.path, label: "Zones" },
+  ...(showBlog ? [{ href: pages.conseils.path, label: "Blog" }] : []),
   { href: pages.contact.path, label: "Contact" },
 ];
 
-export const showConseils = hasPublishedGuides() || draftsVisible;
 
 export const footerNav: { title: string; items: NavItem[] }[] = [
   {
@@ -34,7 +36,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     title: "Informations",
     items: [
       { href: pages.zones.path, label: "Zones d'intervention" },
-      ...(showConseils ? [{ href: pages.conseils.path, label: "Conseils pratiques" }] : []),
+      ...(showBlog ? [{ href: pages.conseils.path, label: "Blog" }] : []),
       { href: pages.contact.path, label: "Contact" },
       { href: pages.mentions.path, label: "Mentions légales" },
       { href: pages.confidentialite.path, label: "Confidentialité" },

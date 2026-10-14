@@ -547,3 +547,19 @@ body {
     width: 180px;
   }
 }
+
+/* Articles du blog */
+.prose-article h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-top: 3rem;
+  margin-bottom: 0.25rem;
+}
+.prose-article p {
+  line-height: 1.75;
+}
+.prose-article li {
+  line-height: 1.65;
+}

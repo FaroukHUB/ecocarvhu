@@ -28,6 +28,8 @@ const CORE_PATHS = [
   "/mentions-legales",
   "/confidentialite",
   "/conditions",
+  "/blog",
+  "/blog/enlevement-epave-gratuit-paca",
 ];
 const SECTOR_PATHS = [
   "/zones-intervention/paca",
@@ -38,8 +40,7 @@ const SECTOR_PATHS = [
   "/zones-intervention/nice",
 ];
 const DRAFT_PATHS = [
-  "/conseils",
-  "/conseils/documents-remise-vehicule",
+  "/blog/documents-remise-vehicule",
 ];
 const FORBIDDEN = [/lorem ipsum/i, /01 23 45 67 89/, /exemple\.(com|fr)/i, /aggregateRating/, /"@type":"LocalBusiness"/];
 
@@ -124,7 +125,7 @@ async function main() {
   // Vrai 404
   const missing = await get("/page-qui-n-existe-pas");
   if (missing.status !== 404) fail(`route inexistante : statut ${missing.status} au lieu de 404`);
-  for (const p of ["/zones-intervention/ville-inconnue", "/conseils/inconnu", "/demande/resultat/xyz", "/enlevement-epave/x"]) {
+  for (const p of ["/zones-intervention/ville-inconnue", "/blog/inconnu", "/demande/resultat/xyz", "/enlevement-epave/x"]) {
     const r = await get(p);
     if (r.status !== 404) fail(`${p} : statut ${r.status} au lieu de 404`);
   }

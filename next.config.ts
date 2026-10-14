@@ -21,6 +21,13 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  async redirects() {
+    // L'ancienne rubrique « Conseils pratiques » est devenue le blog.
+    return [
+      { source: "/conseils", destination: "/blog", permanent: true },
+      { source: "/conseils/:slug", destination: "/blog/:slug", permanent: true },
+    ];
+  },
   async headers() {
     const security = [
       { key: "X-Content-Type-Options", value: "nosniff" },

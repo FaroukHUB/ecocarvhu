@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { sectors } from "@/content/sectors/data";
-import { guides } from "@/content/guides";
+import { posts } from "@/content/blog";
 import {
   guideHref,
   isSectorPublished,
@@ -54,10 +54,10 @@ describe("sitemap", () => {
     expect(urls.some((u) => u.includes("localhost"))).toBe(false);
   });
 
-  it("n'inclut le hub conseils que s'il existe un guide publié", () => {
+  it("n'inclut le blog que s'il existe un article publié", () => {
     const urls = sitemapEntries(PROD).map((e) => e.url);
-    const anyPublished = guides.some((g) => g.status.contentVerified && g.status.publicationApproved);
-    expect(urls.includes("https://www.domaine.fr/conseils")).toBe(anyPublished);
+    const anyPublished = posts.some((g) => g.status.contentVerified && g.status.publicationApproved);
+    expect(urls.includes("https://www.domaine.fr/blog")).toBe(anyPublished);
   });
 });
 
@@ -69,9 +69,9 @@ describe("robots des pages", () => {
   });
 
   it("ne produit aucun lien vers un guide en brouillon en production", () => {
-    for (const g of guides.filter((x) => !x.status.publicationApproved)) {
+    for (const g of posts.filter((x) => !x.status.publicationApproved)) {
       expect(guideHref(g.slug, PROD)).toBeNull();
-      expect(guideHref(g.slug, PREVIEW)).toBe(`/conseils/${g.slug}`);
+      expect(guideHref(g.slug, PREVIEW)).toBe(`/blog/${g.slug}`);
     }
   });
 });
@@ -83,7 +83,7 @@ describe("routes dynamiques (vrai 404)", async () => {
     expect(isKnownDynamicPath("/zones-intervention/marseille", PROD)).toBe(true);
     expect(isKnownDynamicPath("/zones-intervention/ville-inconnue", PREVIEW)).toBe(false);
     expect(isKnownDynamicPath("/zones-intervention/marseille/x", PREVIEW)).toBe(false);
-    expect(isKnownDynamicPath("/conseils/inconnu", PREVIEW)).toBe(false);
+    expect(isKnownDynamicPath("/blog/inconnu", PREVIEW)).toBe(false);
     expect(isKnownDynamicPath("/demande/resultat/ok-sent", PROD)).toBe(true);
     expect(isKnownDynamicPath("/demande/resultat/xyz", PROD)).toBe(false);
     expect(isKnownDynamicPath("/contact", PROD)).toBeNull();

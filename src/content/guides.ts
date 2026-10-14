@@ -155,7 +155,7 @@ export const guides: Guide[] = [
       },
     ],
     sources: [],
-    cta: { label: "Faire une demande de pièce", href: "/demande-piece" },
+    cta: { label: "Pièces auto d'occasion", href: "/pieces-auto-occasion" },
   },
   {
     slug: "etapes-prise-en-charge-vhu",

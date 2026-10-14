@@ -2,7 +2,7 @@ import { canPreviewDrafts, isIndexingAllowed, resolveSiteUrl } from "@/config/en
 import { pages, type PageEntry } from "@/content/pages";
 import { sectors } from "@/content/sectors/data";
 import type { Sector, SectorStatus } from "@/content/sectors/types";
-import { guides, type Guide } from "@/content/guides";
+import { posts, type Post } from "@/content/blog";
 
 type EnvSource = Record<string, string | undefined>;
 
@@ -38,17 +38,26 @@ export function visibleSectors(env: EnvSource = process.env): Sector[] {
   return sectors.filter((s) => isSectorRenderable(s, env));
 }
 
-export function isGuidePublished(guide: Guide): boolean {
-  return guide.status.contentVerified && guide.status.publicationApproved;
+export function isPostPublished(post: Post): boolean {
+  return post.status.contentVerified && post.status.publicationApproved;
 }
 
-/** Le hub /conseils n'est indexé et lié que s'il contient au moins un guide publié. */
-export function hasPublishedGuides(): boolean {
-  return guides.some(isGuidePublished);
+/** Le blog n'est indexé et lié que s'il contient au moins un article publié. */
+export function hasPublishedPosts(): boolean {
+  return posts.some(isPostPublished);
 }
 
-export function isGuideRenderable(guide: Guide, env: EnvSource = process.env): boolean {
-  return isGuidePublished(guide) || canPreviewDrafts(env);
+export function isPostRenderable(post: Post, env: EnvSource = process.env): boolean {
+  return isPostPublished(post) || canPreviewDrafts(env);
+}
+
+/** Articles visibles dans l'environnement courant, du plus récent au plus ancien. */
+export function visiblePosts(env: EnvSource = process.env): Post[] {
+  return posts.filter((p) => isPostRenderable(p, env));
+}
+
+export function postPath(post: Post): string {
+  return `/blog/${post.slug}`;
 }
 
 /** Une page doit-elle porter un noindex ? */
@@ -72,24 +81,18 @@ export function sitemapEntries(env: EnvSource = process.env): SitemapEntry[] {
 
   const staticPages = (Object.values(pages) as PageEntry[])
     .filter((p) => p.sitemap && !p.draft)
-    .filter((p) => p.path !== pages.conseils.path || hasPublishedGuides())
+    .filter((p) => p.path !== pages.conseils.path || hasPublishedPosts())
     .map((p) => ({ url: abs(p.path) }));
 
   const sectorPages = publishedSectors().map((s) => ({ url: abs(sectorPath(s)) }));
 
-  const guidePages = guides
-    .filter(isGuidePublished)
-    .map((g) => ({
-      url: abs(`/conseils/${g.slug}`),
-      // lastmod seulement si une date de révision réelle est renseignée
-      ...(g.reviewedOn ? { lastModified: g.reviewedOn } : {}),
-    }));
+  const postPages = posts.filter(isPostPublished).map((p) => ({ url: abs(postPath(p)), lastModified: p.date }));
 
-  return [...staticPages, ...sectorPages, ...guidePages];
+  return [...staticPages, ...sectorPages, ...postPages];
 }
 
-/** Lien vers un guide, ou `null` s'il n'est pas visible ici (jamais de lien vers un brouillon en production). */
+/** Lien vers un article, ou `null` s'il n'est pas visible ici (jamais de lien vers un brouillon en production). */
 export function guideHref(slug: string, env: EnvSource = process.env): string | null {
-  const guide = guides.find((g) => g.slug === slug);
-  return guide && isGuideRenderable(guide, env) ? `/conseils/${guide.slug}` : null;
+  const post = posts.find((p) => p.slug === slug);
+  return post && isPostRenderable(post, env) ? postPath(post) : null;
 }

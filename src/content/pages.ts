@@ -163,12 +163,12 @@ export const pages: Record<PageKey, PageEntry> = {
     sitemap: true,
   },
   conseils: {
-    path: "/conseils",
-    label: "Conseils",
-    title: "Conseils pratiques : documents, accès, références de pièces",
+    path: "/blog",
+    label: "Blog",
+    title: "Blog : conseils pour l'enlèvement d'épave et le rachat de véhicule en PACA",
     description:
-      "Guides courts pour préparer la remise d'un véhicule, décrire un accès difficile, identifier une référence de pièce et comprendre la prise en charge d'un VHU.",
-    h1: "Conseils pratiques",
+      "Guides et conseils pratiques : enlèvement d'épave gratuit, documents à préparer, accès au véhicule, rôle du centre VHU et démarches en Provence-Alpes-Côte d'Azur.",
+    h1: "Le blog EcocarVHU",
     intent: "Informationnelle",
     primaryQuery: null,
     secondaryQueries: [],

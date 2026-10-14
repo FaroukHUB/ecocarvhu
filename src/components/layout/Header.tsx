@@ -18,13 +18,13 @@ export function Header() {
       </a>
       <div className="relative mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between gap-2 px-4 sm:gap-4">
         <Logo />
-        <nav aria-label="Navigation principale" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
+        <nav aria-label="Navigation principale" className="hidden xl:block">
+          <ul className="flex items-center gap-0.5">
             {mainNav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="rounded-full px-3.5 py-2 text-[0.92rem] font-medium text-ink-2 transition-colors hover:bg-surface hover:text-ink"
+                  className="whitespace-nowrap rounded-full px-3 py-2 text-[0.9rem] font-medium text-ink-2 transition-colors hover:bg-surface hover:text-ink"
                 >
                   {item.label}
                 </Link>
