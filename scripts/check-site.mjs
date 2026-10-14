@@ -30,6 +30,7 @@ const CORE_PATHS = [
   "/conditions",
   "/blog",
   "/blog/enlevement-epave-gratuit-paca",
+  "/blog/documents-enlevement-epave-paca",
 ];
 const SECTOR_PATHS = [
   "/zones-intervention/paca",

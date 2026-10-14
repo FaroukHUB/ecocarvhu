@@ -106,7 +106,11 @@ function Block({ block }: { block: PostBlock }) {
       return (
         <div className="not-prose my-8 overflow-x-auto rounded-2xl border border-line">
           <table className="w-full min-w-[34rem] border-collapse text-left text-[0.92rem]">
-            {block.caption ? <caption className="sr-only">{block.caption}</caption> : null}
+            {block.caption ? (
+              <caption className="caption-bottom border-t border-line bg-surface px-4 py-2.5 text-left text-xs text-muted">
+                {block.caption}
+              </caption>
+            ) : null}
             <thead className="bg-ink text-white">
               <tr>
                 {block.head.map((h) => (
@@ -290,7 +294,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           {post.sources.length ? (
             <section className="mt-14 border-t border-line pt-8" aria-labelledby="sources-title">
               <h2 id="sources-title" className="text-sm font-semibold uppercase tracking-[0.14em] text-muted">
-                Sources et repères officiels
+                {post.sourcesTitle ?? "Sources et repères officiels"}
               </h2>
               <ol className="mt-4 space-y-2 text-sm text-ink-3">
                 {post.sources.map((s, i) => (

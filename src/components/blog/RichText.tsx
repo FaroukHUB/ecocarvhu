@@ -7,13 +7,13 @@ import { guideHref } from "@/lib/publication";
  * Un lien « guide:slug » n'est rendu que si l'article cible est visible.
  */
 export function RichText({ text }: { text: string }) {
-  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\)|\[\d\])/g).filter(Boolean);
+  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\)|\[\d+\])/g).filter(Boolean);
   return (
     <>
       {parts.map((part, i) => {
         const bold = part.match(/^\*\*([^*]+)\*\*$/);
         if (bold) return <strong key={i}>{bold[1]}</strong>;
-        const ref = part.match(/^\[(\d)\]$/);
+        const ref = part.match(/^\[(\d+)\]$/);
         if (ref)
           return (
             <sup key={i}>

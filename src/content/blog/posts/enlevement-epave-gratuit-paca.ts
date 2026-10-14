@@ -133,7 +133,7 @@ export const enlevementEpaveGratuitPaca: Post = {
     },
     {
       type: "p",
-      text: "Si le véhicule appartient à une autre personne, provient d'une succession ou fait l'objet d'un signalement administratif, exposez la situation avant le rendez-vous. Évitez de remplir les coordonnées d'un centre au hasard. Notre [guide des documents de remise du véhicule](guide:documents-remise-vehicule) détaille cette préparation.",
+      text: "Si le véhicule appartient à une autre personne, provient d'une succession ou fait l'objet d'un signalement administratif, exposez la situation avant le rendez-vous. Évitez de remplir les coordonnées d'un centre au hasard. Notre [guide des documents de remise du véhicule](guide:documents-enlevement-epave-paca) détaille cette préparation.",
     },
     {
       type: "figure",

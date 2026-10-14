@@ -36,6 +36,7 @@ export interface Post {
   faqTitle?: string;
   cta?: { title: string; text: string; label: string; href: string; note?: string };
   sources: { label: string; url?: string }[];
+  sourcesTitle?: string;
   /** Mention finale de l'auteur (ex. nature des visuels). */
   footnote?: string;
   status: { contentVerified: boolean; publicationApproved: boolean };
