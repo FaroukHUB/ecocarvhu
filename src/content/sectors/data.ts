@@ -86,7 +86,7 @@ const baseSectors: Sector[] = [
     ],
     status: { ...CONFIRMED },
     seo: {
-      title: "Enlèvement d'épave gratuit à Marseille : épaviste Marseille (13)",
+      title: "Épaviste Marseille : enlèvement d'épave gratuit",
       description:
         "Enlèvement d'épave gratuit à Marseille pour tout véhicule complet : voiture en panne, accidentée ou hors d'usage, dans tous les arrondissements. Demande en ligne ou par téléphone.",
       h1: "Enlèvement d'épave gratuit à Marseille",
@@ -96,7 +96,6 @@ const baseSectors: Sector[] = [
         "épaviste Marseille",
         "enlèvement voiture Marseille",
         "enlèvement épave gratuit Marseille",
-        "pièces auto occasion Marseille",
       ],
     },
     lead:
@@ -131,8 +130,8 @@ const baseSectors: Sector[] = [
         a: "Signalez-le dans votre demande avec la date indiquée sur l'avis. Une procédure engagée par les autorités ne se règle pas par un simple enlèvement privé : l'équipe vous indiquera si une intervention reste possible.",
       },
       {
-        q: "Je cherche aussi une pièce pour un autre véhicule : faut-il deux demandes ?",
-        a: "Oui, de préférence : la demande de pièce contient les questions de compatibilité (motorisation, référence) qui ne figurent pas dans le formulaire d'enlèvement.",
+        q: "Ma voiture n'a plus de carte grise : peut-on quand même l'enlever ?",
+        a: "Indiquez dans votre demande pourquoi elle manque. En cas de perte, une déclaration de perte et un certificat de situation administrative sont demandés ; en cas de vol, le récépissé de déclaration de vol. La faisabilité vous est confirmée avant tout déplacement.",
       },
     ],
     form: { city: "Marseille", askArrondissement: true },

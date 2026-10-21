@@ -3,17 +3,19 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { pages } from "@/content/pages";
 import { departments, sectors } from "@/content/sectors/data";
-import type { CityLocal, Sector } from "@/content/sectors/types";
+import type { CityExtraSection, CityLocal, CitySectionKey, Sector } from "@/content/sectors/types";
 import { resolveFileLimits } from "@/lib/forms/files";
 import {
   getSector,
+  guideHref,
   isSectorPublished,
   isSectorRenderable,
   sectorPath,
 } from "@/lib/publication";
 import { buildMetadata, type Crumb } from "@/lib/seo";
 import { PageHero } from "@/components/sections/PageHero";
-import { Container, Eyebrow, H2, Notice, Section } from "@/components/ui/primitives";
+import { ButtonLink, Container, Eyebrow, H2, Notice, Section } from "@/components/ui/primitives";
+import { RichText } from "@/components/blog/RichText";
 import { Faq } from "@/components/ui/Faq";
 import { RequestSteps } from "@/components/sections/RequestSteps";
 import { DocumentsChecklist } from "@/components/sections/DocumentsChecklist";
@@ -402,8 +404,12 @@ function CityBody({ sector, local }: { sector: Sector; local: CityLocal }) {
       aria-labelledby="demande-title"
       className="scroll-mt-20 bg-surface py-16 sm:py-24"
     >
-      <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-        <div className="rounded-3xl border border-line bg-paper p-5 shadow-[0_30px_60px_-40px_rgb(11_19_16/0.35)] sm:p-9">
+      <Container className={local.hideFormAside ? "" : "grid gap-10 lg:grid-cols-[1.5fr_1fr]"}>
+        <div
+          className={`rounded-3xl border border-line bg-paper p-5 shadow-[0_30px_60px_-40px_rgb(11_19_16/0.35)] sm:p-9${
+            local.hideFormAside ? " mx-auto max-w-3xl" : ""
+          }`}
+        >
           <H2 id="demande-title" className="!mt-0 mb-2">
             {[`Demande d'enlèvement ${sector.locative}`, `Votre demande pour ${name}`, `Faire enlever un véhicule ${sector.locative}`][v - 1]}
           </H2>
@@ -419,30 +425,106 @@ function CityBody({ sector, local }: { sector: Sector; local: CityLocal }) {
             limits={resolveFileLimits()}
           />
         </div>
-        <aside className="space-y-4 lg:pt-2">
-          <div className="card p-6">
-            <span className="icon-tile draw h-10 w-10">
-              <GearIcon className="h-5 w-5" />
-            </span>
-            <p className="mt-4 font-semibold">Une pièce à chercher, un véhicule à vendre ?</p>
-            <p className="mt-1.5 text-[0.95rem] text-ink-3">
-              Ce formulaire concerne l&apos;enlèvement. Pour une pièce ou une étude de rachat, utilisez le formulaire
-              dédié.
-            </p>
-            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-semibold">
-              <Link href={pages.demandePiece.path} className="text-brand underline">
-                Demande de pièce
-              </Link>
-              <Link href={pages.rachat.path} className="inline-flex items-center gap-1 text-brand underline">
-                <CoinsIcon className="h-4 w-4" />
-                Étude de rachat
-              </Link>
-            </p>
-          </div>
-        </aside>
+        {local.hideFormAside ? null : (
+          <aside className="space-y-4 lg:pt-2">
+            <div className="card p-6">
+              <span className="icon-tile draw h-10 w-10">
+                <GearIcon className="h-5 w-5" />
+              </span>
+              <p className="mt-4 font-semibold">Une pièce à chercher, un véhicule à vendre ?</p>
+              <p className="mt-1.5 text-[0.95rem] text-ink-3">
+                Ce formulaire concerne l&apos;enlèvement. Pour une pièce ou une étude de rachat, utilisez le formulaire
+                dédié.
+              </p>
+              <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-semibold">
+                <Link href={pages.demandePiece.path} className="text-brand underline">
+                  Demande de pièce
+                </Link>
+                <Link href={pages.rachat.path} className="inline-flex items-center gap-1 text-brand underline">
+                  <CoinsIcon className="h-4 w-4" />
+                  Étude de rachat
+                </Link>
+              </p>
+            </div>
+          </aside>
+        )}
       </Container>
     </section>
   );
+
+  const extra = (s: CityExtraSection, tone: "paper" | "surface") => {
+    const links = (s.links ?? []).flatMap((l) => {
+      const href = guideHref(l.guide);
+      return href ? [{ label: l.label, href: l.anchor ? `${href}#${l.anchor}` : href }] : [];
+    });
+    return (
+      <Section key={`extra:${s.id}`} tone={tone} labelledBy={`${s.id}-title`}>
+        <div className="reveal max-w-3xl">
+          <Eyebrow>{s.eyebrow}</Eyebrow>
+          <H2 id={`${s.id}-title`}>{s.title}</H2>
+          {s.paragraphs?.length ? (
+            <div className="prose-eco mt-5 text-lg text-ink-3">
+              {s.paragraphs.map((p) => (
+                <p key={p}>
+                  <RichText text={p} />
+                </p>
+              ))}
+            </div>
+          ) : null}
+        </div>
+        {s.blocks?.length ? (
+          <div className={`mt-8 grid gap-4 ${s.blocks.length === 3 ? "lg:grid-cols-3" : "md:grid-cols-2"}`}>
+            {s.blocks.map((b) => (
+              <div key={b.title} className="reveal card p-6">
+                <h3 className="text-lg font-semibold tracking-tight">{b.title}</h3>
+                <div className="prose-eco text-[0.95rem] text-ink-3">
+                  {b.paragraphs?.map((p) => (
+                    <p key={p}>
+                      <RichText text={p} />
+                    </p>
+                  ))}
+                  {b.list?.length ? (
+                    <ul>
+                      {b.list.map((li) => (
+                        <li key={li}>
+                          <RichText text={li} />
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : null}
+        {links.length || s.sources ? (
+          <div className="prose-eco mt-6 max-w-3xl text-sm text-ink-3">
+            {links.length ? (
+              <p>
+                Pour aller plus loin :{" "}
+                {links.map((l, k) => (
+                  <span key={l.href}>
+                    {k ? " · " : null}
+                    <Link href={l.href}>{l.label}</Link>
+                  </span>
+                ))}
+              </p>
+            ) : null}
+            {s.sources ? (
+              <p className="text-muted">
+                <RichText text={s.sources} />
+              </p>
+            ) : null}
+          </div>
+        ) : null}
+        {s.formCta ? (
+          <div className="mt-8">
+            <ButtonLink href="#demande">{s.formCta}</ButtonLink>
+          </div>
+        ) : null}
+      </Section>
+    );
+  };
 
   const faq = (tone: "paper" | "surface") =>
     sector.faq.length ? (
@@ -461,18 +543,29 @@ function CityBody({ sector, local }: { sector: Sector; local: CityLocal }) {
       </Section>
     ) : null;
 
-  const order = {
-    1: ["guide", "situations", "access", "form", "faq"],
-    2: ["situations", "form", "guide", "access", "faq"],
-    3: ["access", "guide", "situations", "form", "faq"],
+  const order: CitySectionKey[] = local.order ?? {
+    1: ["guide", "situations", "access", "form", "faq"] as CitySectionKey[],
+    2: ["situations", "form", "guide", "access", "faq"] as CitySectionKey[],
+    3: ["access", "guide", "situations", "form", "faq"] as CitySectionKey[],
   }[v];
+
+  // Ordre explicite : le fond alterne aussi autour du formulaire (fond « surface »).
+  const tones = order.reduce<("paper" | "surface")[]>((acc, key, k) => {
+    const prev = k ? acc[k - 1] : "surface";
+    acc.push(key === "form" ? "surface" : prev === "paper" ? "surface" : "paper");
+    return acc;
+  }, []);
 
   let i = 0;
   return (
     <>
-      {order.map((key) => {
+      {order.map((key, k) => {
         if (key === "form") return form;
-        const tone = i++ % 2 === 0 ? "paper" : "surface";
+        const tone = local.order ? tones[k] : i++ % 2 === 0 ? "paper" : "surface";
+        if (key.startsWith("extra:")) {
+          const s = local.extraSections?.find((x) => `extra:${x.id}` === key);
+          return s ? extra(s, tone) : null;
+        }
         if (key === "guide") return guide(tone);
         if (key === "situations") return situations(tone);
         if (key === "access") return access(tone);

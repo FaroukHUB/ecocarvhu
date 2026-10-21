@@ -29,11 +29,138 @@ export const cityLocal: Record<string, CityLocal> = {
         },
         {
           title: "La voiture d'un parent qui a quitté son logement",
-          text: "Héritage, déménagement en maison de retraite : indiquez qui détient la carte grise et qui peut signer. Les justificatifs sont vérifiés avant le rendez-vous.",
+          text: "Héritage, déménagement en maison de retraite : indiquez qui détient la carte grise et qui peut signer. Précisez-le dans votre demande.",
         },
       ],
     },
     nearby: ["Allauch", "Plan-de-Cuques", "La Penne-sur-Huveaune", "Aubagne", "Cassis"],
+    // Formulaire en 2e position. Aucune condition commerciale non validée (délais,
+    // frais, rachat, gestion des documents, centre partenaire) dans ces sections.
+    order: [
+      "extra:gratuite",
+      "form",
+      "extra:etat",
+      "access",
+      "situations",
+      "extra:documents",
+      "extra:centre-vhu",
+      "guide",
+      "faq",
+    ],
+    hideFormAside: true,
+    extraSections: [
+      {
+        id: "gratuite",
+        eyebrow: "Gratuité",
+        title: "Enlèvement gratuit à Marseille : ce qui relève de qui",
+        paragraphs: [
+          "**La remise à un centre VHU** relève de la réglementation : la remise d'un véhicule hors d'usage complet à un centre VHU agréé est gratuite pour son détenteur.",
+          "**L'enlèvement chez vous** est une prestation distincte. Sa faisabilité et ses conditions dépendent de l'état du véhicule et de son accès : elles vous sont confirmées avant tout déplacement.",
+        ],
+        links: [
+          {
+            label: "Pourquoi « enlèvement gratuit » mérite une explication",
+            guide: "enlevement-epave-gratuit-paca",
+            anchor: "pourquoi-enlevement-gratuit-merite-une-explication",
+          },
+        ],
+        formCta: "Faire ma demande",
+      },
+      {
+        id: "etat",
+        eyebrow: "Votre véhicule",
+        title: "Voiture en panne, accidentée ou hors d'usage",
+        blocks: [
+          {
+            title: "Elle ne démarre plus",
+            paragraphs: [
+              "Une panne ne retire aucune pièce : tant que le moteur, le pot catalytique et la batterie sont présents, le véhicule reste complet.",
+              "Précisez dans le formulaire si les roues tournent, si le frein à main est bloqué ou si les pneus sont à plat.",
+            ],
+          },
+          {
+            title: "Elle est accidentée",
+            paragraphs: [
+              "Signalez l'accident dans votre demande, avec des photos du véhicule.",
+              "Si le véhicule fait l'objet d'un gage ou d'une opposition, consultez les [démarches officielles sur Service-Public](https://www.service-public.fr/particuliers/vosdroits/F34107) avant la remise.",
+            ],
+          },
+          {
+            title: "Elle est immobilisée depuis longtemps",
+            paragraphs: [
+              "Rue, terrain, parking : précisez où elle se trouve et si les roues tournent encore.",
+              "Si elle a reçu un avis de mise en fourrière, signalez-le dès la demande : une procédure engagée par les autorités ne se règle pas par un simple enlèvement privé.",
+            ],
+          },
+        ],
+        links: [
+          {
+            label: "Véhicule complet : une panne n'est pas une pièce manquante",
+            guide: "enlevement-epave-gratuit-paca",
+            anchor: "vehicule-complet-une-panne-n-est-pas-une-piece-manquante",
+          },
+        ],
+      },
+      {
+        id: "documents",
+        eyebrow: "Documents",
+        title: "Documents à préparer et situations particulières",
+        blocks: [
+          {
+            title: "Les documents habituels",
+            list: [
+              "**La carte grise**, barrée avec la mention « Vendu le … pour destruction » ou « Cédé le … pour destruction », datée et signée par tous les titulaires.",
+              "**La déclaration de cession (cerfa 15776)**, dont l'exemplaire n° 2 est remis au centre VHU.",
+              "**Un certificat de situation administrative** de moins de 15 jours, qui s'obtient gratuitement en ligne.",
+            ],
+          },
+          {
+            title: "Si un document manque ou si la situation est particulière",
+            list: [
+              "**Carte grise perdue** : une déclaration de perte, avec le certificat de situation administrative.",
+              "**Carte grise volée** : le récépissé de déclaration de vol, avec le certificat de situation administrative.",
+              "**Gage ou opposition** : suivez les [démarches officielles sur Service-Public](https://www.service-public.fr/particuliers/vosdroits/F34107).",
+              "**Vous n'êtes pas le titulaire** (héritage, véhicule d'un proche) : indiquez-le dans votre demande.",
+            ],
+          },
+        ],
+        links: [
+          {
+            label: "Les trois documents à préparer",
+            guide: "documents-enlevement-epave-paca",
+            anchor: "les-trois-documents-a-preparer-pour-la-remise",
+          },
+          {
+            label: "Sans carte grise",
+            guide: "documents-enlevement-epave-paca",
+            anchor: "sans-carte-grise-preciser-pourquoi-elle-manque",
+          },
+          {
+            label: "Succession, mandat, leasing",
+            guide: "documents-enlevement-epave-paca",
+            anchor: "succession-mandat-leasing-les-cas-a-signaler",
+          },
+        ],
+        sources: "Source officielle : [Service-Public, véhicule à détruire (F1468)](https://www.service-public.fr/particuliers/vosdroits/F1468).",
+      },
+      {
+        id: "centre-vhu",
+        eyebrow: "Après l'enlèvement",
+        title: "Après l'enlèvement : le rôle du centre VHU",
+        paragraphs: [
+          "Un véhicule hors d'usage doit être remis à un centre VHU agréé. Seul ce centre peut le dépolluer, le démonter et délivrer le **certificat de destruction**.",
+          "Conservez la déclaration de cession et le certificat de destruction : ce sont vos justificatifs.",
+        ],
+        links: [
+          {
+            label: "Après l'enlèvement : qui prend en charge la destruction ?",
+            guide: "enlevement-epave-gratuit-paca",
+            anchor: "apres-l-enlevement-qui-prend-en-charge-la-destruction",
+          },
+        ],
+        sources: "Sources officielles : [ministère de la Transition écologique, VHU](https://www.ecologie.gouv.fr/politiques-publiques/vehicules-hors-dusage-vhu) · [Service-Public (F1468)](https://www.service-public.fr/particuliers/vosdroits/F1468).",
+      },
+    ],
   },
 
   aubagne: {

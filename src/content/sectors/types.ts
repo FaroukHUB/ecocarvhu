@@ -72,4 +72,36 @@ export interface CityLocal {
   situations: { title: string; items: { title: string; text: string }[] };
   /** Communes voisines (texte simple, sans promesse de service). */
   nearby: string[];
+  /** Sections éditoriales propres à la commune, placées via `order` (clé `extra:<id>`). */
+  extraSections?: CityExtraSection[];
+  /** Ordre explicite des sections ; à défaut, celui de la variante. */
+  order?: CitySectionKey[];
+  /** Masque l'encart « pièce / rachat » à côté du formulaire. */
+  hideFormAside?: boolean;
+}
+
+export type CitySectionKey = "guide" | "situations" | "access" | "form" | "faq" | `extra:${string}`;
+
+/** Lien vers une section d'article du blog, affiché seulement si l'article est visible. */
+export interface GuideLink {
+  label: string;
+  guide: string;
+  anchor?: string;
+}
+
+/**
+ * Section éditoriale d'une page de ville. Les textes acceptent les balises de
+ * `RichText` (**gras**, [libellé](lien)). Aucune condition commerciale non validée.
+ */
+export interface CityExtraSection {
+  id: string;
+  eyebrow: string;
+  title: string;
+  paragraphs?: string[];
+  blocks?: { title: string; paragraphs?: string[]; list?: string[] }[];
+  links?: GuideLink[];
+  /** Ligne de sources officielles (RichText). */
+  sources?: string;
+  /** Ajoute un bouton vers le formulaire `#demande`. */
+  formCta?: string;
 }
