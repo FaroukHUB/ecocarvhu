@@ -147,13 +147,13 @@ const baseSectors: Sector[] = [
     postalCodes: ["13400"],
     status: { ...CONFIRMED },
     seo: {
-      title: "Enlèvement d'épave gratuit à Aubagne (13400) : épaviste Aubagne",
+      title: "Épaviste Aubagne : enlèvement d'épave gratuit",
       description:
-        "Enlèvement d'épave gratuit à Aubagne pour tout véhicule complet : voiture en panne, accidentée ou hors d'usage. Demande en ligne ou par téléphone.",
+        "Épaviste à Aubagne (13400) : enlèvement d'épave gratuit selon conditions, depuis une cour, un terrain ou une zone d'activités. Véhicule non roulant ou accidenté : faites votre demande.",
       h1: "Enlèvement d'épave gratuit à Aubagne",
       intent: "Locale transactionnelle : faire enlever un véhicule à Aubagne",
       primaryQuery: "enlèvement épave Aubagne",
-      secondaryQueries: ["épaviste Aubagne", "enlèvement voiture Aubagne", "casse auto Aubagne pièces"],
+      secondaryQueries: ["épaviste Aubagne", "enlèvement épave gratuit Aubagne", "enlèvement voiture Aubagne"],
     },
     lead:
       "Maison avec cour, terrain, parking d'immeuble ou zone d'activités : à Aubagne comme ailleurs, le bon déroulement d'un enlèvement se joue sur l'accès. Décrivez-le précisément, la réponse sera plus rapide et plus fiable.",
@@ -178,8 +178,8 @@ const baseSectors: Sector[] = [
         a: "Souvent oui, mais l'absence de clés empêche parfois de débloquer la direction ou la boîte de vitesses. Indiquez-le pour que l'équipe prévoie le bon matériel.",
       },
       {
-        q: "Puis-je demander une pièce pour mon autre voiture en même temps ?",
-        a: "Faites une demande de pièce séparée : elle comporte les questions de compatibilité nécessaires.",
+        q: "Le véhicule n'a pas bougé depuis des années : faut-il le préparer ?",
+        a: "Inutile de le remettre en état. Décrivez ce qui a changé avec le temps (pneus à plat, frein à main grippé, végétation autour) et joignez une photo : la faisabilité vous est confirmée avant tout déplacement.",
       },
     ],
     form: { city: "Aubagne", postalCode: "13400" },

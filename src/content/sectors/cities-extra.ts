@@ -18,12 +18,17 @@ export const extraCities: Sector[] = [
     department: BDR,
     postalCodes: ["13080", "13090", "13100", "13290", "13540"],
     status: { ...CONFIRMED },
-    seo: seo(
-      "Aix-en-Provence",
-      "13090",
-      "Centre-ville, quartiers résidentiels, Les Milles, Luynes ou Puyricard : l'accès est vérifié avant tout déplacement.",
-      ["épaviste Aix-en-Provence", "enlèvement voiture Aix-en-Provence", "casse auto Aix-en-Provence pièces"],
-    ),
+    seo: {
+      ...seo(
+        "Aix-en-Provence",
+        "13090",
+        "Centre-ville, quartiers résidentiels, Les Milles, Luynes ou Puyricard : l'accès est vérifié avant tout déplacement.",
+        ["épaviste Aix-en-Provence", "enlèvement épave gratuit Aix-en-Provence", "enlèvement voiture Aix-en-Provence"],
+      ),
+      title: "Épaviste Aix-en-Provence : enlèvement d'épave gratuit",
+      description:
+        "Épaviste à Aix-en-Provence : enlèvement d'épave gratuit selon conditions, du centre ancien à Luynes, Les Milles ou Puyricard. Voiture en panne ou accidentée : faites votre demande.",
+    },
     lead:
       "Aix-en-Provence est une commune étendue : centre historique, quartiers résidentiels, zones d'activités et villages rattachés comme Les Milles, Luynes ou Puyricard. Indiquez le code postal et le quartier : c'est le point de départ pour organiser un enlèvement réaliste.",
     accessTips: [
@@ -63,7 +68,7 @@ export const extraCities: Sector[] = [
       guide: {
         title: "Une grande commune, des accès très différents",
         paragraphs: [
-          "On imagine souvent Aix-en-Provence à travers son centre ancien, mais la plupart des véhicules hors d'usage se trouvent ailleurs : dans les quartiers résidentiels, les copropriétés avec parking souterrain, les zones d'activités ou les villages rattachés à la commune. D'un quartier à l'autre, l'approche d'un camion plateau n'a rien à voir.",
+          "On imagine souvent Aix-en-Provence à travers son centre ancien, mais la plupart des véhicules hors d'usage se trouvent ailleurs : dans les quartiers résidentiels, les copropriétés avec parking souterrain, les zones d'activités ou les villages rattachés à la commune. D'un quartier à l'autre, l'approche du véhicule n'a rien à voir.",
           "Les demandes aixoises concernent souvent des situations de transition : un étudiant qui termine ses études, une famille qui déménage, un véhicule de société remplacé. Dans ces cas, la date de départ compte autant que l'état du véhicule. Indiquez-la dès la demande, avec la personne qui pourra remettre les clés si vous n'êtes plus sur place.",
           "Pour les copropriétés, le règlement intérieur ou le syndic peuvent imposer des conditions d'accès au parking. Renseignez-vous avant de proposer une date : c'est souvent ce point, plus que le véhicule lui-même, qui retarde un enlèvement.",
         ],
@@ -86,6 +91,118 @@ export const extraCities: Sector[] = [
         ],
       },
       nearby: ["Marseille", "Plan-de-Cuques", "Allauch"],
+      // Formulaire en 2e position. Aucune condition commerciale non validée.
+      order: [
+        "extra:aix-conditions",
+        "form",
+        "extra:aix-etat",
+        "access",
+        "guide",
+        "situations",
+        "extra:aix-documents",
+        "faq",
+      ],
+      hideFormAside: true,
+      extraSections: [
+        {
+          id: "aix-conditions",
+          eyebrow: "Avant de demander",
+          title: "Épaviste à Aix-en-Provence : ce qui est gratuit, ce qui est vérifié",
+          paragraphs: [
+            "**Ce que prévoit la réglementation** : un véhicule hors d'usage complet remis à un centre VHU agréé ne coûte rien à son détenteur.",
+            "**Ce qui est vérifié avec vous** : venir chercher le véhicule dans le centre ancien, une copropriété, une zone d'activités ou un village rattaché est une prestation distincte. Sa faisabilité et ses conditions dépendent de l'accès et de l'état du véhicule ; elles sont confirmées avant tout déplacement. Les étapes sont détaillées sur la page [enlèvement d'épave](/enlevement-epave).",
+          ],
+          links: [
+            {
+              label: "Pourquoi « enlèvement gratuit » mérite une explication",
+              guide: "enlevement-epave-gratuit-paca",
+              anchor: "pourquoi-enlevement-gratuit-merite-une-explication",
+            },
+          ],
+          formCta: "Accéder au formulaire",
+        },
+        {
+          id: "aix-etat",
+          eyebrow: "État du véhicule",
+          title: "Panne, accident ou longue immobilisation : décrire l'état du véhicule",
+          blocks: [
+            {
+              title: "Moteur en panne, batterie à plat",
+              paragraphs: [
+                "Une voiture qui ne démarre plus reste complète tant que le moteur, le pot catalytique et la batterie sont en place.",
+                "Dites si les roues tournent et si la direction est bloquée : c'est ce qui décide de la façon de déplacer le véhicule.",
+              ],
+            },
+            {
+              title: "Après un accident",
+              paragraphs: [
+                "Joignez des photos prises sous plusieurs angles, en montrant les parties endommagées.",
+                "En cas de gage ou d'opposition sur le véhicule, consultez les [démarches officielles sur Service-Public](https://www.service-public.fr/particuliers/vosdroits/F34107).",
+              ],
+            },
+            {
+              title: "Immobilisée depuis des mois",
+              paragraphs: [
+                "Parking de copropriété, garage fermé, terrain : précisez si les pneus sont à plat et comment accéder à l'emplacement (badge, syndic, horaires).",
+              ],
+            },
+          ],
+          links: [
+            {
+              label: "Véhicule complet : une panne n'est pas une pièce manquante",
+              guide: "enlevement-epave-gratuit-paca",
+              anchor: "vehicule-complet-une-panne-n-est-pas-une-piece-manquante",
+            },
+          ],
+        },
+        {
+          id: "aix-documents",
+          eyebrow: "Documents",
+          title: "Les papiers à réunir, et ce que devient le véhicule",
+          blocks: [
+            {
+              title: "Les trois documents habituels",
+              list: [
+                "La **carte grise**, barrée de la mention « Vendu le … pour destruction » (ou « Cédé le … »), datée et signée par chaque titulaire.",
+                "La **déclaration de cession (cerfa 15776)** : l'exemplaire n° 2 revient au centre VHU.",
+                "Un **certificat de situation administrative** de moins de 15 jours, gratuit en ligne.",
+              ],
+            },
+            {
+              title: "Si vous quittez Aix avant le rendez-vous",
+              paragraphs: [
+                "Étudiant en fin d'études, déménagement, véhicule de société remplacé : indiquez qui remettra les clés et les documents si vous n'êtes plus sur place.",
+                "Carte grise perdue : une déclaration de perte est demandée ; volée : le récépissé de déclaration de vol.",
+              ],
+            },
+            {
+              title: "Après l'enlèvement",
+              paragraphs: [
+                "Le véhicule doit être remis à un centre VHU agréé, seul habilité à le dépolluer, le démonter et délivrer le **certificat de destruction**.",
+                "Gardez ce certificat et la déclaration de cession : ce sont vos justificatifs.",
+              ],
+            },
+          ],
+          links: [
+            {
+              label: "Les trois documents à préparer",
+              guide: "documents-enlevement-epave-paca",
+              anchor: "les-trois-documents-a-preparer-pour-la-remise",
+            },
+            {
+              label: "Mandat, succession, leasing",
+              guide: "documents-enlevement-epave-paca",
+              anchor: "succession-mandat-leasing-les-cas-a-signaler",
+            },
+            {
+              label: "Qui prend en charge la destruction ?",
+              guide: "enlevement-epave-gratuit-paca",
+              anchor: "apres-l-enlevement-qui-prend-en-charge-la-destruction",
+            },
+          ],
+          sources: "Sources officielles : [Service-Public (F1468)](https://www.service-public.fr/particuliers/vosdroits/F1468) · [ministère de la Transition écologique, VHU](https://www.ecologie.gouv.fr/politiques-publiques/vehicules-hors-dusage-vhu).",
+        },
+      ],
     },
   },
 

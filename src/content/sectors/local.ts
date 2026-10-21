@@ -169,7 +169,7 @@ export const cityLocal: Record<string, CityLocal> = {
       title: "Entre zones d'activités et maisons avec terrain : préparer l'enlèvement à Aubagne",
       paragraphs: [
         "Aubagne mêle un centre ancien, des quartiers résidentiels en maisons individuelles et de grandes zones d'activités. Chacun de ces lieux impose sa propre logistique : un portail étroit dans un quartier pavillonnaire, des horaires d'ouverture dans une zone d'activités, une circulation dense aux heures de pointe.",
-        "Pour un garage ou une entreprise installés en zone d'activités, la question pratique est souvent celle du créneau : précisez les jours et heures où le site est ouvert et où quelqu'un peut remettre les clés. Pour un particulier, c'est plutôt l'état du terrain qui compte : sol meuble, pente, végétation qui gêne l'approche d'un camion plateau.",
+        "Pour un garage ou une entreprise installés en zone d'activités, la question pratique est souvent celle du créneau : précisez les jours et heures où le site est ouvert et où quelqu'un peut remettre les clés. Pour un particulier, c'est plutôt l'état du terrain qui compte : sol meuble, pente, végétation qui gêne l'approche.",
         "Si plusieurs véhicules sont concernés sur un même site, décrivez-les dans une seule demande. Les professionnels qui ont régulièrement des véhicules à faire enlever peuvent aussi passer par le formulaire dédié aux professionnels.",
       ],
     },
@@ -178,7 +178,7 @@ export const cityLocal: Record<string, CityLocal> = {
       items: [
         {
           title: "Une voiture au fond d'un terrain",
-          text: "Largeur du portail, nature du sol, distance jusqu'à la route : ces éléments disent si un plateau peut approcher ou s'il faut un treuil.",
+          text: "Largeur du portail, nature du sol, distance jusqu'à la route : ces éléments disent comment le véhicule pourra être approché.",
         },
         {
           title: "Un véhicule laissé dans un atelier",
@@ -186,11 +186,108 @@ export const cityLocal: Record<string, CityLocal> = {
         },
         {
           title: "Plusieurs véhicules sur le même site",
-          text: "Listez-les dans une seule demande avec leur état respectif : l'organisation d'un passage unique est étudiée.",
+          text: "Listez-les dans une seule demande avec leur état respectif.",
         },
       ],
     },
     nearby: ["Gémenos", "La Penne-sur-Huveaune", "Carnoux-en-Provence", "Roquefort-la-Bédoule", "Auriol"],
+    // Formulaire en 2e position. Aucune condition commerciale non validée.
+    order: [
+      "extra:aubagne-gratuite",
+      "form",
+      "extra:aubagne-non-roulant",
+      "situations",
+      "access",
+      "extra:aubagne-documents",
+      "guide",
+      "faq",
+    ],
+    hideFormAside: true,
+    extraSections: [
+      {
+        id: "aubagne-gratuite",
+        eyebrow: "Gratuité",
+        title: "Enlèvement d'épave gratuit à Aubagne : la règle et la prestation",
+        paragraphs: [
+          "Remettre un véhicule hors d'usage complet à un centre VHU agréé ne coûte rien : **c'est la règle**, fixée par la réglementation.",
+          "Venir le chercher dans une cour, au fond d'un terrain ou dans une zone d'activités est **une prestation à part**. Selon l'accès et l'état du véhicule, ses conditions vous sont confirmées avant tout déplacement. Le déroulement complet est décrit sur la page [enlèvement d'épave](/enlevement-epave).",
+        ],
+        links: [
+          {
+            label: "Ce que recouvre un enlèvement gratuit",
+            guide: "enlevement-epave-gratuit-paca",
+            anchor: "pourquoi-enlevement-gratuit-merite-une-explication",
+          },
+        ],
+        formCta: "Remplir le formulaire",
+      },
+      {
+        id: "aubagne-non-roulant",
+        eyebrow: "Véhicule non roulant",
+        title: "Non roulant, en panne ou accidenté : ce qu'il faut signaler",
+        blocks: [
+          {
+            title: "Il ne roule plus",
+            paragraphs: [
+              "Panne moteur, batterie morte, contrôle technique refusé : le véhicule reste complet tant que moteur, pot catalytique et batterie sont présents.",
+              "Signalez une roue manquante, un frein à main grippé ou des pneus à plat : ces détails changent la manière de le charger.",
+            ],
+          },
+          {
+            title: "Il a été accidenté",
+            paragraphs: [
+              "Ajoutez des photos des dégâts et indiquez où se trouve le véhicule : chez vous, dans un garage, sur un parking.",
+              "Gage ou opposition sur le véhicule : reportez-vous aux [démarches officielles sur Service-Public](https://www.service-public.fr/particuliers/vosdroits/F34107) avant la cession.",
+            ],
+          },
+        ],
+        links: [
+          {
+            label: "Une panne n'est pas une pièce manquante",
+            guide: "enlevement-epave-gratuit-paca",
+            anchor: "vehicule-complet-une-panne-n-est-pas-une-piece-manquante",
+          },
+        ],
+      },
+      {
+        id: "aubagne-documents",
+        eyebrow: "Documents",
+        title: "Documents : qui signe, et avec quels papiers",
+        paragraphs: [
+          "C'est le **titulaire de la carte grise** qui cède le véhicule, même lorsqu'il se trouve sur un terrain qui ne lui appartient pas ou dans l'atelier d'un garage.",
+        ],
+        blocks: [
+          {
+            title: "À préparer pour la remise",
+            list: [
+              "La carte grise barrée « Vendu le … pour destruction » (ou « Cédé le … »), datée et signée par tous les titulaires.",
+              "La déclaration de cession (cerfa 15776), dont l'exemplaire n° 2 est destiné au centre VHU.",
+              "Un certificat de situation administrative de moins de 15 jours, à demander gratuitement en ligne.",
+            ],
+          },
+          {
+            title: "Carte grise absente, et après la remise",
+            paragraphs: [
+              "Perdue : prévoyez une déclaration de perte. Volée : le récépissé de déclaration de vol.",
+              "Une fois remis au centre VHU agréé, le véhicule est dépollué et démonté ; le centre délivre un **certificat de destruction**, à conserver avec la déclaration de cession.",
+            ],
+          },
+        ],
+        links: [
+          {
+            label: "Les trois documents à préparer",
+            guide: "documents-enlevement-epave-paca",
+            anchor: "les-trois-documents-a-preparer-pour-la-remise",
+          },
+          {
+            label: "Sans carte grise",
+            guide: "documents-enlevement-epave-paca",
+            anchor: "sans-carte-grise-preciser-pourquoi-elle-manque",
+          },
+        ],
+        sources: "Sources officielles : [Service-Public (F1468)](https://www.service-public.fr/particuliers/vosdroits/F1468) · [ministère de la Transition écologique, VHU](https://www.ecologie.gouv.fr/politiques-publiques/vehicules-hors-dusage-vhu).",
+      },
+    ],
   },
 
   "la-ciotat": {
