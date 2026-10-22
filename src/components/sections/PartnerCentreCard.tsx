@@ -3,8 +3,8 @@ import { company } from "@/config/company";
 import { ShieldIcon } from "@/components/ui/icons";
 
 /**
- * Encart "centre VHU partenaire". Les informations non fournies sont affichées
- * comme "à venir" : elles ne sont jamais inventées. Le rôle d'EcocarVHU et
+ * Encart "centre VHU partenaire". Les informations non fournies ne sont pas
+ * affichées : elles ne sont jamais inventées. Le rôle d'EcocarVHU et
  * celui du centre sont distingués.
  */
 export function PartnerCentreCard({ variant = "full" }: { variant?: "full" | "compact" }) {
@@ -28,9 +28,7 @@ export function PartnerCentreCard({ variant = "full" }: { variant?: "full" | "co
           <ShieldIcon className="h-5 w-5 text-brand-bright" />
           Partenariat avec un centre VHU agréé
         </p>
-        <p className="mt-1.5 text-white/75">
-          N° d&apos;agrément : {p.agrementNumber ?? <span className="font-semibold text-lime">à venir</span>}
-        </p>
+        {p.agrementNumber ? <p className="mt-1.5 text-white/75">N° d&apos;agrément : {p.agrementNumber}</p> : null}
       </div>
     );
   }
@@ -65,9 +63,6 @@ export function PartnerCentreCard({ variant = "full" }: { variant?: "full" | "co
             </dl>
           ) : null}
           <p className="mt-5 text-sm text-white/60">
-            {known.length < rows.length
-              ? "La raison sociale et le numéro d'agrément du centre partenaire seront publiés ici dès leur communication. "
-              : null}
             <Link href="/centre-vhu" className="font-semibold text-lime underline underline-offset-2">
               Comprendre la prise en charge
             </Link>

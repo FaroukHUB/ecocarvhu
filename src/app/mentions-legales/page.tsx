@@ -32,7 +32,7 @@ export default function MentionsPage() {
       <h2>Centre VHU partenaire</h2>
       <ul>
         <li>Raison sociale : {v(p.name)}</li>
-        <li>N° d&apos;agrément ou d&apos;enregistrement : {p.agrementNumber ?? <Missing>à venir</Missing>}</li>
+        {p.agrementNumber ? <li>N° d&apos;agrément ou d&apos;enregistrement : {p.agrementNumber}</li> : null}
         <li>Autorité de délivrance : {v(p.issuingAuthority)}</li>
       </ul>
 
