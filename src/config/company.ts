@@ -82,7 +82,10 @@ export const company: CompanyConfig = {
     e164: "+33753086218",
     source: "Fourni par le porteur de projet, 13/10/2026",
   },
-  whatsapp: null,
+  whatsapp: {
+    value: "33753086218",
+    source: "Confirmé par le porteur de projet, 25/10/2026 : le numéro bascule sur WhatsApp",
+  },
   email: null,
   publicAddress: null,
   openingHours: null,
@@ -112,6 +115,11 @@ export const company: CompanyConfig = {
 
 export function telHref(): string | null {
   return company.phone ? `tel:${company.phone.e164}` : null;
+}
+
+/** Lien du numéro affiché : WhatsApp s'il est configuré, sinon appel. */
+export function contactHref(): string | null {
+  return whatsappHref() ?? telHref();
 }
 
 export function whatsappHref(prefill?: string): string | null {

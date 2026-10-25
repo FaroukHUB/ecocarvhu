@@ -1,13 +1,14 @@
 import Link from "next/link";
-import { company, telHref } from "@/config/company";
+import { company, contactHref } from "@/config/company";
 import { CallLink } from "@/components/ui/CallLink";
-import { PhoneIcon } from "@/components/ui/icons";
+import { PhoneIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { Logo } from "./Logo";
 import { MobileNav } from "./MobileNav";
 import { mainNav } from "./nav";
 
 export function Header() {
-  const tel = telHref();
+  const tel = contactHref();
+  const whatsapp = tel?.startsWith("https://wa.me/");
   return (
     <header className="sticky top-0 z-30 border-b border-ink/5 bg-paper/90 backdrop-blur-xl supports-[backdrop-filter]:bg-paper/75">
       <a
@@ -37,11 +38,11 @@ export function Header() {
             <CallLink
               href={tel}
               placement="header"
-              ariaLabel={`Appeler le ${company.phone.value}`}
+              ariaLabel={whatsapp ? `Écrire sur WhatsApp au ${company.phone.value}` : `Appeler le ${company.phone.value}`}
               className="phone-key gap-2 px-3 py-2 sm:gap-2.5 sm:py-1.5 sm:pl-1.5 sm:pr-4"
             >
               <span className="phone-key__icon hidden h-8 w-8 sm:inline-flex" aria-hidden="true">
-                <PhoneIcon className="h-4 w-4" />
+                {whatsapp ? <WhatsAppIcon className="h-4 w-4" /> : <PhoneIcon className="h-4 w-4" />}
               </span>
               <span className="whitespace-nowrap text-[0.9rem] font-bold tabular-nums sm:text-base">
                 {company.phone.value}

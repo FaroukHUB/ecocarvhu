@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
-import { company, telHref } from "@/config/company";
+import { company, contactHref } from "@/config/company";
 import { indexingAllowed, siteEnv, siteUrl } from "@/config/env";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -33,7 +33,8 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
-  const tel = telHref();
+  const tel = contactHref();
+  const whatsapp = Boolean(tel?.startsWith("https://wa.me/"));
   return (
     <html lang="fr" className={`${geist.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
@@ -42,7 +43,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer />
-        {tel && company.phone ? <CallFab href={tel} label={`Appeler le ${company.phone.value}`} /> : null}
+        {tel && company.phone ? (
+          <CallFab
+            href={tel}
+            whatsapp={whatsapp}
+            label={whatsapp ? `Écrire sur WhatsApp au ${company.phone.value}` : `Appeler le ${company.phone.value}`}
+          />
+        ) : null}
         <JsonLd data={organizationJsonLd()} />
       </body>
     </html>

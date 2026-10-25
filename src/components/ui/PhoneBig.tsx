@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { company, telHref } from "@/config/company";
+import { company, contactHref } from "@/config/company";
+import { WhatsAppIcon } from "./icons";
 import { CallLink } from "./CallLink";
 
 /**
@@ -20,7 +21,7 @@ export function PhoneBig({
   caption?: string | null;
   className?: string;
 }) {
-  const href = telHref();
+  const href = contactHref();
   if (!href || !company.phone) {
     return (
       <Link href="/contact" className="inline-flex items-center gap-2 btn btn-lime">
@@ -35,15 +36,27 @@ export function PhoneBig({
     xl: { pad: "py-3.5 pl-3.5 pr-7 gap-4", icon: "h-16 w-16", svg: "h-8 w-8", num: "text-[1.9rem] sm:text-[2.6rem]", cap: "text-xs sm:text-sm" },
   }[size];
 
+  const whatsapp = href.startsWith("https://wa.me/");
+  const label = caption && whatsapp ? "WhatsApp" : caption;
+
   return (
-    <CallLink href={href} placement={placement} className={`phone-key ${s.pad} ${className}`}>
+    <CallLink
+      href={href}
+      placement={placement}
+      ariaLabel={whatsapp ? `Écrire sur WhatsApp au ${company.phone.value}` : undefined}
+      className={`phone-key ${s.pad} ${className}`}
+    >
       <span className={`phone-key__icon ${s.icon}`} aria-hidden="true">
-        <svg viewBox="0 0 24 24" className={s.svg} fill="currentColor">
-          <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" />
-        </svg>
+        {whatsapp ? (
+          <WhatsAppIcon className={s.svg} />
+        ) : (
+          <svg viewBox="0 0 24 24" className={s.svg} fill="currentColor">
+            <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" />
+          </svg>
+        )}
       </span>
       <span className="flex flex-col items-start leading-none">
-        {caption ? <span className={`${s.cap} font-semibold uppercase tracking-[0.14em] text-ink/85`}>{caption}</span> : null}
+        {label ? <span className={`${s.cap} font-semibold uppercase tracking-[0.14em] text-ink/85`}>{label}</span> : null}
         <span className={`${s.num} mt-1 whitespace-nowrap font-bold tracking-tight tabular-nums`}>
           {company.phone.value}
         </span>

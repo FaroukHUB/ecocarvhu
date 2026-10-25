@@ -2,7 +2,7 @@
 
 import { track } from "@/lib/analytics";
 
-/** Lien `tel:` avec mesure du clic (si la mesure est activée). */
+/** Lien `tel:` ou WhatsApp avec mesure du clic (si la mesure est activée). */
 export function CallLink({
   href,
   placement,
@@ -16,12 +16,14 @@ export function CallLink({
   children: React.ReactNode;
   ariaLabel?: string;
 }) {
+  const whatsapp = href.startsWith("https://wa.me/");
   return (
     <a
       href={href}
       className={className}
       aria-label={ariaLabel}
-      onClick={() => track("call_click", { placement })}
+      {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      onClick={() => track(whatsapp ? "whatsapp_click" : "call_click", { placement })}
     >
       {children}
     </a>
