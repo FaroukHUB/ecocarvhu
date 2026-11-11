@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { company } from "@/config/company";
-import { heroImages } from "@/config/media";
 import { pages } from "@/content/pages";
 import { sources } from "@/content/regulatory";
 import {
@@ -17,7 +16,7 @@ import { buildMetadata } from "@/lib/seo";
 import { guideHref, visiblePosts } from "@/lib/publication";
 import { PostCard } from "@/components/blog/PostCard";
 import { PhoneBig } from "@/components/ui/PhoneBig";
-import { ButtonLink, Container, Eyebrow, H2, Section } from "@/components/ui/primitives";
+import { ButtonLink, Eyebrow, H2, Section } from "@/components/ui/primitives";
 import {
   AlertIcon,
   BuildingIcon,
@@ -33,7 +32,7 @@ import {
 import { FeatureList } from "@/components/ui/FeatureList";
 import { Faq } from "@/components/ui/Faq";
 import { Photo, hasPhotoBlock } from "@/components/ui/Photo";
-import { HeroBackground } from "@/components/sections/HeroBackground";
+import { HeroDrone } from "@/components/sections/HeroDrone";
 import { VehicleCheck } from "@/components/sections/VehicleCheck";
 import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
 import { SectorList } from "@/components/sections/SectorList";
@@ -53,65 +52,14 @@ export const metadata = buildMetadata({
 });
 
 export default function HomePage() {
-  const hasHeroImage = Boolean(heroImages());
   const latestPosts = visiblePosts().slice(0, 3);
   const accessGuide = guideHref("enlevement-acces-difficile");
   const docsGuide = guideHref("documents-enlevement-epave-paca");
 
   return (
     <>
-      {/* A. Hero : image plein cadre (paysage sur ordinateur, portrait sur mobile), voile, texte par-dessus */}
-      <section className="relative isolate overflow-hidden bg-ink text-white">
-        {hasHeroImage ? (
-          <>
-            <HeroBackground />
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/5 portrait:bg-gradient-to-b portrait:from-ink/85 portrait:via-ink/50 portrait:via-35% portrait:to-ink/0 portrait:to-60%"
-            />
-            {/* Voile bas (portrait) : lisibilité des boutons placés en bas de l'image */}
-            <div
-              aria-hidden="true"
-              className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-ink/75 to-ink/0"
-            />
-          </>
-        ) : (
-          <div aria-hidden="true" className="bg-ink-grid absolute inset-0 -z-20" />
-        )}
-
-        <Container className="flex min-h-[calc(100svh-7rem)] flex-col justify-start pb-6 pt-8 md:min-h-[620px] md:pb-10 md:pt-14 lg:min-h-[700px]">
-          <div className="flex max-w-2xl flex-1 flex-col [text-shadow:0_2px_16px_rgb(0_0_0/0.35)]">
-            <div className="hidden [text-shadow:none] sm:block">
-              <Eyebrow tone="light">Épaviste · Rachat de véhicules · PACA</Eyebrow>
-            </div>
-            <h1 className="text-[2.3rem] font-bold leading-[1.02] tracking-[-0.04em] sm:mt-5 sm:text-6xl lg:text-[4.2rem]">
-              Enlèvement d&apos;épave <span className="text-glow [text-shadow:none]">gratuit</span>
-              <span className="mt-2 block text-[0.5em] font-semibold leading-tight tracking-[-0.02em] text-white/90">
-                en Provence-Alpes-Côte d&apos;Azur
-              </span>
-            </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
-              Véhicule complet et accessible : nous l&apos;enlevons <strong className="text-white">gratuitement</strong>{" "}
-              et le remettons à un centre VHU partenaire. Conditions confirmées avant le déplacement.
-            </p>
-
-            <div className="mt-auto grid gap-3 pt-10 [text-shadow:none] sm:flex sm:flex-wrap">
-              <Link href="/enlevement-epave#demande" className="btn btn-lime min-h-14 px-6 text-lg">
-                <TruckIcon className="h-6 w-6" />
-                Demander un enlèvement
-              </Link>
-              <Link href={pages.rachat.path} className="btn btn-glass mr-[5rem] min-h-12 bg-ink/50 sm:mr-0 sm:min-h-14 sm:px-6 sm:text-lg">
-                <CoinsIcon className="h-5 w-5 text-lime" />
-                Faire étudier le rachat de mon véhicule
-              </Link>
-            </div>
-
-            <div className="mt-7 hidden items-center gap-6 [text-shadow:none] sm:flex">
-              <PhoneBig placement="hero" size="lg" caption="Appel direct" />
-            </div>
-          </div>
-        </Container>
-      </section>
+      {/* A. Hero immersif : vol de drone au-dessus de Marseille, piloté par le défilement */}
+      <HeroDrone />
 
       <Marquee
         items={[
