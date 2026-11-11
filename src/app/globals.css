@@ -563,3 +563,336 @@ body {
 .prose-article li {
   line-height: 1.65;
 }
+
+/* ------------------------------------------------------------------------
+ * Hero « vol de drone » (accueil). Sans JavaScript : image fixe + texte.
+ * Avec la séquence (.is-live) : piste de défilement et scène collante.
+ * ---------------------------------------------------------------------- */
+.drone-stage {
+  position: relative;
+  height: calc(100svh - 4.5rem);
+  min-height: 560px;
+  overflow: hidden;
+}
+.drone-hero.is-live {
+  height: 330svh;
+}
+.drone-hero.is-live .drone-stage {
+  position: sticky;
+  top: 4.5rem;
+}
+@media (min-width: 900px) {
+  .drone-hero.is-live {
+    height: 400svh;
+  }
+}
+.drone-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.drone-canvas.is-ready {
+  opacity: 1;
+}
+.drone-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgb(5 10 8 / 0.5) 100%);
+}
+.drone-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgb(11 19 16 / 0.82), rgb(11 19 16 / 0.45) 45%, rgb(11 19 16 / 0) 75%);
+}
+.drone-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(90deg, rgb(11 19 16 / 0.85), rgb(11 19 16 / 0.45) 42%, rgb(11 19 16 / 0) 70%),
+    linear-gradient(0deg, rgb(11 19 16 / 0.6), rgb(11 19 16 / 0) 40%);
+}
+@media (orientation: portrait) {
+  .drone-scrim {
+    background:
+      linear-gradient(180deg, rgb(11 19 16 / 0.8), rgb(11 19 16 / 0.35) 42%, rgb(11 19 16 / 0) 62%),
+      linear-gradient(0deg, rgb(11 19 16 / 0.7), rgb(11 19 16 / 0) 35%);
+  }
+  .drone-shade {
+    background:
+      linear-gradient(180deg, rgb(11 19 16 / 0.82), rgb(11 19 16 / 0.35) 40%, rgb(11 19 16 / 0) 60%),
+      linear-gradient(0deg, rgb(11 19 16 / 0.75), rgb(11 19 16 / 0) 38%);
+  }
+}
+
+.drone-beat-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(75% 38% at 50% 22%, rgb(8 14 11 / 0.6), rgb(8 14 11 / 0.2) 60%, transparent 85%);
+}
+
+.drone-open,
+.drone-land {
+  position: absolute;
+  inset: 0;
+  margin: 0 auto;
+  display: flex;
+  max-width: 72rem;
+  flex-direction: column;
+  padding: 1.75rem 1rem 1.5rem;
+  text-shadow: 0 2px 16px rgb(0 0 0 / 0.35);
+}
+@media (min-width: 640px) {
+  .drone-open,
+  .drone-land {
+    padding: 3.5rem 1.5rem 2.5rem;
+  }
+}
+.drone-kicker {
+  display: none;
+  align-self: flex-start;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 999px;
+  background: rgb(11 19 16 / 0.35);
+  padding: 0.35rem 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.88);
+  text-shadow: none;
+}
+@media (min-width: 640px) {
+  .drone-kicker {
+    display: inline-block;
+  }
+}
+.drone-title {
+  max-width: 44rem;
+  font-size: 2.3rem;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+@media (min-width: 640px) {
+  .drone-title {
+    margin-top: 1.25rem;
+    font-size: 3.75rem;
+  }
+}
+@media (min-width: 1024px) {
+  .drone-title {
+    font-size: 4.4rem;
+  }
+}
+.drone-glow {
+  color: var(--color-lime);
+  text-shadow: 0 0 34px rgb(37 211 102 / 0.55);
+}
+.drone-title-sub {
+  margin-top: 0.5rem;
+  display: block;
+  font-size: 0.5em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: rgb(255 255 255 / 0.92);
+}
+.drone-lead {
+  margin-top: 1.1rem;
+  max-width: 36rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.86);
+}
+.drone-lead strong {
+  color: #fff;
+}
+@media (min-width: 640px) {
+  .drone-lead {
+    font-size: 1.125rem;
+  }
+}
+.drone-ctas {
+  margin-top: auto;
+  display: grid;
+  gap: 0.75rem;
+  padding-top: 2rem;
+  text-shadow: none;
+}
+@media (min-width: 640px) {
+  .drone-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 0;
+  }
+}
+
+.drone-beat {
+  position: absolute;
+  inset: 16% 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
+.drone-beat-title {
+  font-size: clamp(1.9rem, 5.4vw, 4rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-shadow: 0 4px 30px rgb(0 0 0 / 0.55);
+}
+.drone-beat-title em {
+  font-style: normal;
+  color: var(--color-lime);
+}
+.drone-beat-sub {
+  margin-top: 0.65rem;
+  max-width: 30rem;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  color: rgb(255 255 255 / 0.9);
+  text-shadow: 0 2px 14px rgb(0 0 0 / 0.6);
+}
+.drone-land {
+  opacity: 0;
+}
+.drone-land-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+@media (min-width: 640px) {
+  .drone-land-title {
+    font-size: 3.6rem;
+  }
+}
+.drone-land-text {
+  margin-top: 1rem;
+  max-width: 34rem;
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.88);
+}
+
+.drone-cue,
+.drone-alt {
+  display: none;
+}
+.drone-hero.is-live .drone-cue {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  display: flex;
+  transform: translateX(-50%);
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+@media (max-width: 639px) {
+  .drone-hero.is-live .drone-cue {
+    display: none;
+  }
+}
+.drone-cue i {
+  position: relative;
+  width: 1px;
+  height: 44px;
+  overflow: hidden;
+  background: linear-gradient(rgb(255 255 255 / 0.9), transparent);
+}
+.drone-cue i::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--color-lime);
+  box-shadow: 0 0 8px var(--color-lime);
+  animation: drone-drop 1.6s infinite;
+}
+@keyframes drone-drop {
+  from {
+    top: -14px;
+  }
+  to {
+    top: 44px;
+  }
+}
+@media (min-width: 1024px) {
+  .drone-hero.is-live .drone-alt {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    display: flex;
+    transform: translateY(-50%);
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    color: rgb(255 255 255 / 0.8);
+    pointer-events: none;
+  }
+}
+.drone-alt b {
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+.drone-alt-rec {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.drone-alt-rec::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff4b3e;
+  animation: drone-blink 1.2s infinite;
+}
+@keyframes drone-blink {
+  50% {
+    opacity: 0.2;
+  }
+}
+.drone-alt-bar {
+  position: relative;
+  width: 2px;
+  height: 120px;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.18);
+}
+.drone-alt-bar i {
+  position: absolute;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-lime);
+  box-shadow: 0 0 10px var(--color-lime);
+  transform: translateY(-50%);
+}
