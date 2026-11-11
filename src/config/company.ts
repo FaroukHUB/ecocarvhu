@@ -82,10 +82,8 @@ export const company: CompanyConfig = {
     e164: "+33753086218",
     source: "Fourni par le porteur de projet, 13/10/2026",
   },
-  whatsapp: {
-    value: "33753086218",
-    source: "Confirmé par le porteur de projet, 25/10/2026 : le numéro bascule sur WhatsApp",
-  },
+  // WhatsApp retiré le 11/11/2026 à la demande du porteur de projet : appel téléphonique classique partout.
+  whatsapp: null,
   email: null,
   publicAddress: null,
   openingHours: null,
