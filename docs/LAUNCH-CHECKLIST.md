@@ -33,7 +33,7 @@ La mise en ligne publique en production **ne fait pas partie de cette étape**. 
   - `sitemap.xml` soumis ;
   - inspection d'URL sur l'accueil et `/enlevement-epave`.
 - [ ] Google Business Profile **seulement** si un établissement réel est éligible : une seule fiche, adresse masquée si l'entreprise est une zone de service, zone desservie réelle. Aucune fiche par ville, aucun avis sollicité de façon artificielle.
-- [ ] Mesure d'audience : choix de l'outil, configuration (exemption CNIL ou consentement), mise à jour de `/confidentialite`, puis `NEXT_PUBLIC_ANALYTICS_ENABLED=true`.
+- [x] Mesure d'audience : Vercel Web Analytics (sans cookie), `/confidentialite` mis à jour.
 - [ ] Données terrain Core Web Vitals (rapport Search Console ou CrUX) consultées dès qu'il y a assez de trafic.
 
 ## C. Vérifications réellement effectuées (13/10/2026)

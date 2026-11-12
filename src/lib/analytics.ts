@@ -1,13 +1,14 @@
+import { track as vercelTrack } from "@vercel/analytics";
+
 /**
- * Mesure des conversions — désactivée par défaut.
+ * Mesure des conversions avec Vercel Web Analytics (sans cookie).
  *
- * Aucun script tiers n'est chargé. Les événements sont poussés dans
- * `window.dataLayer` seulement si NEXT_PUBLIC_ANALYTICS_ENABLED="true", ce qui
- * suppose qu'un outil ait été choisi, configuré, et que le consentement soit
- * géré lorsque l'outil l'exige (voir README, section Mesure).
+ * Les événements ne sont envoyés que sur les déploiements Vercel où Web
+ * Analytics est activé ; en local, rien n'est transmis. Vercel limite chaque
+ * événement à 2 propriétés : on garde les plus utiles.
  *
  * Jamais de donnée personnelle : seulement le type d'événement, le type de
- * demande et le chemin de la page.
+ * demande, la page et l'emplacement du bouton.
  *
  * Rappel d'interprétation : un clic sur "Appeler" n'est pas un appel reçu,
  * un clic WhatsApp n'est pas une conversation, une demande transmise n'est
@@ -28,17 +29,14 @@ export interface AnalyticsProps {
   error_kind?: string;
 }
 
-declare global {
-  interface Window {
-    dataLayer?: Record<string, unknown>[];
-  }
-}
-
-const enabled = process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true";
-
 export function track(event: AnalyticsEvent, props: AnalyticsProps = {}): void {
-  if (!enabled || typeof window === "undefined") return;
-  const page_path = props.page_path ?? window.location.pathname;
-  window.dataLayer = window.dataLayer ?? [];
-  window.dataLayer.push({ event, ...props, page_path });
+  if (typeof window === "undefined") return;
+  const page = props.page_path ?? window.location.pathname;
+  const data: Record<string, string> =
+    event === "call_click" || event === "whatsapp_click"
+      ? { page, placement: props.placement ?? "inconnu" }
+      : event === "form_submit_error"
+        ? { form: props.form_type ?? "inconnu", error: props.error_kind ?? "inconnu" }
+        : { form: props.form_type ?? "inconnu", page };
+  vercelTrack(event, data);
 }

@@ -40,9 +40,11 @@ export default function ConfidentialitePage() {
 
       <h2>Mesure d&apos;audience et cookies</h2>
       <p>
-        Le site ne dépose actuellement aucun cookie de mesure d&apos;audience ni de publicité. Si un outil de
-        mesure est ajouté, cette section sera mise à jour et, lorsque l&apos;outil l&apos;exige, votre
-        consentement sera demandé avant tout dépôt.
+        Le site utilise Vercel Web Analytics, l&apos;outil de mesure d&apos;audience de notre hébergeur, sans
+        cookie. Il compte de façon agrégée les pages consultées, leur provenance, le type d&apos;appareil, ainsi
+        que les clics sur les boutons de contact et l&apos;envoi des formulaires, sans leur contenu. Aucune
+        donnée permettant de vous identifier n&apos;est collectée. Le site ne dépose aucun cookie de mesure
+        d&apos;audience ni de publicité.
       </p>
 
       <h2>Vos droits</h2>

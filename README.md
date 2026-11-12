@@ -52,7 +52,7 @@ src/
     routes.ts         Segments dynamiques connus (vrai 404 via le proxy)
     seo.ts            Métadonnées, canonical, BreadcrumbList, Organization
     forms/            Schémas, contrôle des fichiers, anti-spam, transport e-mail
-    analytics.ts      Événements de conversion (désactivés par défaut)
+    analytics.ts      Événements de conversion (Vercel Web Analytics)
     launch-readiness.ts  Liste des points bloquants avant publication
   components/         layout/, sections/, forms/, ui/
   app/                Routes (pages serveur), api/demandes, robots.ts, sitemap.ts
@@ -146,12 +146,7 @@ Ajoutez un cas dans `resolveTransport()` et `deliver()` (`src/lib/forms/transpor
 
 `src/lib/analytics.ts` définit les événements `call_click`, `whatsapp_click`, `form_start`, `form_submit_accepted` et `form_submit_error`. Ils portent le type de demande, la page et l'emplacement, **jamais de donnée personnelle**.
 
-Rien n'est chargé ni envoyé tant que `NEXT_PUBLIC_ANALYTICS_ENABLED` ne vaut pas `true`. Avant de l'activer :
-
-1. Choisir un outil.
-2. Vérifier s'il peut être configuré dans les conditions d'exemption de consentement décrites par la CNIL (finalité limitée, données anonymes, pas de recoupement ni de transmission, durées limitées). Aucun outil n'est « certifié CNIL ».
-3. Sinon, mettre en place un recueil du consentement **avant** tout dépôt.
-4. Mettre à jour `/confidentialite`.
+Ils sont envoyés à **Vercel Web Analytics** (sans cookie), activé dans le tableau de bord Vercel du projet, avec le composant `<Analytics />` de `src/app/layout.tsx`. Vercel limite chaque événement à 2 propriétés : la page et l'emplacement pour les clics, le type de demande et la page pour les formulaires, le type de demande et la nature de l'erreur pour les échecs. En local, rien n'est transmis. Les résultats sont dans Vercel → projet → Analytics (onglet Events pour les clics et les demandes). `/confidentialite` décrit cette mesure.
 
 Pour l'interprétation : un clic sur « Appeler » n'est pas un appel reçu, un clic WhatsApp n'est pas une conversation, et une demande transmise n'est pas une vente.
 
