@@ -148,6 +148,8 @@ Ajoutez un cas dans `resolveTransport()` et `deliver()` (`src/lib/forms/transpor
 
 Ils sont envoyés à **Vercel Web Analytics** (sans cookie), activé dans le tableau de bord Vercel du projet, avec le composant `<Analytics />` de `src/app/layout.tsx`. Vercel limite chaque événement à 2 propriétés : la page et l'emplacement pour les clics, le type de demande et la page pour les formulaires, le type de demande et la nature de l'erreur pour les échecs. En local, rien n'est transmis. Les résultats sont dans Vercel → projet → Analytics (onglet Events pour les clics et les demandes). `/confidentialite` décrit cette mesure.
 
+Un **tableau de bord privé** est disponible sur `/admin/statistiques` (visiteurs, contacts par jour, pages et villes qui amènent des contacts, sources, appareils, boutons d'appel, formulaires). Il lit l'API Vercel Web Analytics côté serveur et demande deux variables : `ADMIN_BASIC_AUTH` (« utilisateur:motdepasse », sinon `/admin` répond 404) et `VERCEL_ANALYTICS_TOKEN` (jeton d'accès Vercel). Les visites du tableau de bord ne sont pas comptées.
+
 Pour l'interprétation : un clic sur « Appeler » n'est pas un appel reçu, un clic WhatsApp n'est pas une conversation, et une demande transmise n'est pas une vente.
 
 ## Vérifications

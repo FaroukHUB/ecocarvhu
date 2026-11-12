@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
+import { SiteAnalytics } from "@/components/layout/SiteAnalytics";
 import { company, contactHref } from "@/config/company";
 import { indexingAllowed, siteEnv, siteUrl } from "@/config/env";
 import { Header } from "@/components/layout/Header";
@@ -52,7 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           />
         ) : null}
         <JsonLd data={organizationJsonLd()} />
-        <Analytics />
+        <SiteAnalytics />
       </body>
     </html>
   );

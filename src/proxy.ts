@@ -5,9 +5,30 @@ import { isKnownDynamicPath } from "@/lib/routes";
  * 1. Protection optionnelle de la prévisualisation (Basic Auth) si
  *    PREVIEW_BASIC_AUTH="utilisateur:motdepasse" est défini hors production.
  *    À préférer : la protection native de l'hébergeur si elle existe.
- * 2. Vrai 404 pour les segments dynamiques inconnus ou non publiés.
+ * 2. Accès privé à /admin (statistiques) : Basic Auth avec ADMIN_BASIC_AUTH
+ *    ="utilisateur:motdepasse". Sans cette variable, /admin répond 404.
+ * 3. Vrai 404 pour les segments dynamiques inconnus ou non publiés.
  */
 export function proxy(request: NextRequest) {
+  if (request.nextUrl.pathname === "/admin" || request.nextUrl.pathname.startsWith("/admin/")) {
+    const admin = process.env.ADMIN_BASIC_AUTH;
+    if (!admin) return NextResponse.rewrite(new URL("/_page-introuvable", request.url));
+    const header = request.headers.get("authorization");
+    if (!(header?.startsWith("Basic ") && atob(header.slice(6)) === admin)) {
+      return new NextResponse("Accès restreint", {
+        status: 401,
+        headers: {
+          "WWW-Authenticate": 'Basic realm="Statistiques EcocarVHU", charset="UTF-8"',
+          "X-Robots-Tag": "noindex, nofollow",
+        },
+      });
+    }
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    res.headers.set("Cache-Control", "private, no-store");
+    return res;
+  }
+
   const credentials = process.env.PREVIEW_BASIC_AUTH;
   if (credentials && process.env.SITE_ENV !== "production") {
     const header = request.headers.get("authorization");
