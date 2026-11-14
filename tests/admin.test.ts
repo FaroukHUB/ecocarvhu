@@ -64,3 +64,38 @@ describe("prospection", () => {
     expect(unsubscribeUrl("https://www.ecocarvhu.fr/", "abc")).toBe("https://www.ecocarvhu.fr/api/desinscription/abc");
   });
 });
+
+describe("visibilité", () => {
+  it("compare les recherches sans accents", async () => {
+    const { normalize } = await import("@/lib/visibilite/gsc");
+    expect(normalize("Épaviste  Aix-en-Provence")).toBe(normalize("epaviste aix en provence"));
+  });
+  it("calcule deux périodes de 28 jours avant le retard de Google", async () => {
+    const { periods } = await import("@/lib/visibilite/gsc");
+    const p = periods(Date.UTC(2026, 10, 14, 12));
+    expect(p.current).toEqual({ startDate: "2026-10-15", endDate: "2026-11-11" });
+    expect(p.previous).toEqual({ startDate: "2026-09-17", endDate: "2026-10-14" });
+  });
+  it("signe le jeton Google avec la clé du compte de service", async () => {
+    const { generateKeyPairSync, createVerify } = await import("node:crypto");
+    const { signedAssertion, gscConfig } = await import("@/lib/visibilite/gsc");
+    const { privateKey, publicKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
+    const account = { client_email: "x@y.iam.gserviceaccount.com", private_key: privateKey.export({ type: "pkcs8", format: "pem" }).toString() };
+    const jwt = signedAssertion(account, 1000);
+    const [h, c, sig] = jwt.split(".");
+    expect(JSON.parse(Buffer.from(c, "base64url").toString()).scope).toContain("webmasters.readonly");
+    const v = createVerify("RSA-SHA256");
+    v.update(`${h}.${c}`);
+    expect(v.verify(publicKey, Buffer.from(sig, "base64url"))).toBe(true);
+    const b64 = Buffer.from(JSON.stringify(account)).toString("base64");
+    expect(gscConfig({ GSC_SERVICE_ACCOUNT: b64 })?.site).toBe("sc-domain:ecocarvhu.fr");
+    expect(gscConfig({ GSC_SERVICE_ACCOUNT: "pas du json" })).toBeNull();
+  });
+  it("prépare un plan à compléter, qu'on ne peut pas valider en l'état", async () => {
+    const { contentTemplate, countToConfirm } = await import("@/lib/visibilite/content");
+    const t = contentTemplate("ville", "Gardanne", "");
+    expect(t.title).toBe("Enlèvement d'épave gratuit à Gardanne");
+    expect(countToConfirm(t.body)).toBeGreaterThan(0);
+    expect(countToConfirm("Texte final relu.")).toBe(0);
+  });
+});

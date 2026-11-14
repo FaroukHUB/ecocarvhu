@@ -9,6 +9,7 @@ import { CENTRE_STEPS, DOCUMENTS, fromLocalInput, isStatus, STATUS_INFO, type Ce
 import { draftWithClaude } from "@/lib/prospection/ai";
 import { fillProspect, sendProspectEmail } from "@/lib/prospection/email";
 import { unsubscribeUrl } from "@/lib/prospection/stages";
+import { contentTemplate, countToConfirm, draftContentWithClaude } from "@/lib/visibilite/content";
 import { activite, type Company as Entreprise } from "@/lib/prospection/search";
 import { resolveSiteUrl } from "@/config/env";
 import { supabaseConfig } from "@/lib/supabase/config";
@@ -592,4 +593,72 @@ export async function saveProspectTemplate(step: number, form: FormData) {
     })
     .eq("step", step);
   revalidatePath("/admin/prospection");
+}
+
+/* --------------------------------------------------------- contenu */
+
+export async function createContentDraft(form: FormData) {
+  const { supabase, profile } = await requireUser("admin");
+  const kind = form.get("kind") === "ville" ? "ville" : "article";
+  const topic = String(form.get("topic") ?? "").trim().slice(0, 150);
+  const keyword = String(form.get("keyword") ?? "").trim().slice(0, 120);
+  const notes = String(form.get("notes") ?? "").trim().slice(0, 4000);
+  const mode = form.get("mode") === "ia" ? "ia" : "plan";
+  if (!topic) redirect("/admin/contenu?erreur=" + encodeURIComponent("Indiquez le sujet ou la ville."));
+  let draft: { title: string; meta_description: string; body: string };
+  if (mode === "ia") {
+    try {
+      draft = await draftContentWithClaude({ kind, topic, keyword, notes });
+    } catch (e) {
+      redirect("/admin/contenu?erreur=" + encodeURIComponent(e instanceof Error ? e.message : "Rédaction impossible."));
+    }
+  } else {
+    draft = contentTemplate(kind, topic, keyword);
+  }
+  const { data, error } = await supabase
+    .from("content_drafts")
+    .insert({ kind, topic, keyword, notes, ...draft, created_by: profile.id })
+    .select("id")
+    .single();
+  if (error || !data) redirect("/admin/contenu?erreur=" + encodeURIComponent("Enregistrement impossible."));
+  redirect(`/admin/contenu/${data.id}`);
+}
+
+export async function saveContentDraft(id: string, form: FormData) {
+  const { supabase } = await requireUser("admin");
+  await supabase
+    .from("content_drafts")
+    .update({
+      title: String(form.get("title") ?? "").slice(0, 200),
+      meta_description: String(form.get("meta_description") ?? "").slice(0, 400),
+      body: String(form.get("body") ?? "").slice(0, 30000),
+      keyword: String(form.get("keyword") ?? "").slice(0, 120),
+    })
+    .eq("id", id)
+    .eq("status", "brouillon");
+  revalidatePath(`/admin/contenu/${id}`);
+}
+
+export async function setContentStatus(id: string, status: "brouillon" | "valide" | "publie") {
+  const { supabase } = await requireUser("admin");
+  if (status === "valide") {
+    const { data } = await supabase.from("content_drafts").select("title, meta_description, body").eq("id", id).single();
+    if (!data) return;
+    if (countToConfirm(`${data.title}\n${data.meta_description}\n${data.body}`) > 0) {
+      redirect(`/admin/contenu/${id}?erreur=` + encodeURIComponent("Il reste des passages [À CONFIRMER] ou [À COMPLÉTER] : complétez-les ou supprimez-les avant de valider."));
+    }
+  }
+  await supabase
+    .from("content_drafts")
+    .update({ status, validated_at: status === "brouillon" ? null : status === "valide" ? new Date().toISOString() : undefined })
+    .eq("id", id);
+  revalidatePath(`/admin/contenu/${id}`);
+  revalidatePath("/admin/contenu");
+}
+
+export async function deleteContentDraft(id: string) {
+  const { supabase } = await requireUser("admin");
+  await supabase.from("content_drafts").delete().eq("id", id).neq("status", "publie");
+  revalidatePath("/admin/contenu");
+  redirect("/admin/contenu");
 }

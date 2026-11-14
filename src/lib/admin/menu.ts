@@ -69,9 +69,9 @@ export const MENU: MenuCategory[] = [
     color: "bg-pink-400",
     items: [
       { href: "/admin/statistiques", label: "Statistiques du site", emoji: "📈" },
-      { href: "/admin/google", label: "Positions Google", emoji: "🔎", soon: true },
-      { href: "/admin/contenu", label: "Contenu", emoji: "✍️", soon: true },
-      { href: "/admin/carte", label: "Carte des enlèvements", emoji: "🗺️", soon: true },
+      { href: "/admin/google", label: "Positions Google", emoji: "🔎" },
+      { href: "/admin/contenu", label: "Contenu", emoji: "✍️" },
+      { href: "/admin/carte", label: "Carte des enlèvements", emoji: "🗺️" },
     ],
   },
   {

@@ -152,6 +152,8 @@ L'**espace de gestion** (`/admin`) regroupe les demandes, les fiches véhicules,
 
 **Prospection** (`/admin/prospection`) : recherche d'entreprises dans la base publique Recherche d'entreprises (les entreprises opposées à la prospection sont exclues), 3 e-mails par entreprise (modèles modifiables, ou rédaction par Claude si `ANTHROPIC_API_KEY` est défini), envoi par Brevo seulement après validation, relances programmées envoyées chaque jour ouvré par `/api/cron/prospection` (Vercel Cron, `vercel.json`, protégé par `CRON_SECRET`). Chaque e-mail contient un lien de désinscription (`/api/desinscription/[token]`, désinscription en un clic). Les réponses ne sont pas détectées automatiquement : elles sont à indiquer sur la fiche, ce qui arrête les relances.
 
+**Visibilité** : *Positions Google* (`/admin/google`) lit l'API Search Console avec un compte de service (`GSC_SERVICE_ACCOUNT`, `GSC_SITE`) : villes (« épaviste + ville » et position de chaque page ville), mots-clés, pages, évolution sur 90 jours ; sans configuration, la page affiche le guide de branchement. *Contenu* (`/admin/contenu`, table `content_drafts`) prépare des brouillons d'articles ou de pages ville (plan à compléter, ou premier jet par Claude si `ANTHROPIC_API_KEY` est défini, limité aux faits connus) ; la validation est bloquée tant qu'il reste des repères [À CONFIRMER] ou [À COMPLÉTER], et la mise en ligne se fait dans le code. *Carte des enlèvements* (`/admin/carte`) situe les demandes par département et par ville (codes postaux des pages ville) et signale les villes demandées sans page publiée.
+
 Pour l'interprétation : un clic sur « Appeler » n'est pas un appel reçu, un clic WhatsApp n'est pas une conversation, et une demande transmise n'est pas une vente.
 
 ## Vérifications
