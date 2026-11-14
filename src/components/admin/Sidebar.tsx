@@ -12,7 +12,7 @@ export function Sidebar({ name, nouvelles, signOut }: { name: string; nouvelles:
   const active = (href: string) => (href === "/admin" ? path === "/admin" : path.startsWith(href));
 
   const nav = (
-    <nav aria-label="Menu de gestion" className="flex-1 space-y-5 overflow-y-auto px-3 pb-6">
+    <nav aria-label="Menu de gestion" className="flex-1 space-y-5 overflow-y-auto px-3 pb-6 [scrollbar-color:rgb(255_255_255/0.15)_transparent] [scrollbar-width:thin]">
       {MENU.map((cat) => (
         <div key={cat.title}>
           <p className="mb-1.5 flex items-center gap-2 px-2 text-[0.7rem] font-bold uppercase tracking-[0.14em] text-white/55">
