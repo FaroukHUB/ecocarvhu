@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,
+  experimental: {
+    // Photos de l'espace de gestion : compressées sur le téléphone, envoyées une à une
+    // (limite Vercel d'un corps de requête : 4,5 Mo).
+    serverActions: { bodySizeLimit: "4mb" },
+  },
   images: {
     // 60 : image de fond du hero (sous un voile sombre) ; 75 : valeur par défaut.
     qualities: [60, 75],

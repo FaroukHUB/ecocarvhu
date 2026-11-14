@@ -3,12 +3,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { MessagePicker } from "@/components/admin/MessagePicker";
+import { PhotoUploader } from "@/components/admin/PhotoUploader";
 import { buttonClass, Card, inputClass, StatusBadge } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
 import {
+  CENTRE_STEPS,
+  DOCUMENTS,
   fillTemplate,
   FORM_INFO,
   formatDate,
+  PHOTO_KINDS,
   placeLabel,
   STATUS_INFO,
   STATUSES,
@@ -19,7 +23,7 @@ import {
 } from "@/lib/admin/demandes";
 import { labelFor } from "@/lib/forms/options";
 import { FIELD_LABELS } from "@/lib/forms/schemas";
-import { deleteDemande, saveContact, saveNotes, saveRdv, setStatus } from "../../../actions";
+import { assignChauffeur, deleteDemande, saveContact, saveNotes, saveRdv, setCentreStep, setStatus } from "../../../actions";
 
 export const metadata: Metadata = { title: "Fiche demande" };
 
@@ -35,17 +39,20 @@ async function Fiche({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   if (!/^[0-9a-f-]{36}$/.test(id)) notFound();
   const { supabase } = await requireUser("admin");
-  const [{ data: d }, { data: photos }, { data: events }, { data: templates }] = await Promise.all([
+  const [{ data: d }, { data: photos }, { data: events }, { data: templates }, { data: chauffeurs }] = await Promise.all([
     supabase.from("demandes").select("*").eq("id", id).maybeSingle<Demande>(),
     supabase.from("demande_photos").select("path, kind").eq("demande_id", id).order("created_at"),
     supabase.from("demande_events").select("created_at, kind, message").eq("demande_id", id).order("created_at", { ascending: false }),
     supabase.from("message_templates").select("id, title, body").order("position"),
+    supabase.from("profiles").select("id, full_name, email, role").order("role"),
   ]);
   if (!d) notFound();
 
   const signed = photos?.length
     ? (await supabase.storage.from("photos").createSignedUrls(photos.map((p) => p.path), 3600)).data ?? []
     : [];
+  const kindOf = new Map((photos ?? []).map((p) => [p.path, p.kind]));
+  const byKind = (kinds: string[]) => signed.filter((p) => p.signedUrl && kinds.includes(kindOf.get(p.path ?? "") ?? ""));
   const wa = whatsappNumber(d.phone);
   const mapQuery = [d.address, d.postal_code, d.city].filter(Boolean).join(" ");
   const formRows = Object.entries(d.data ?? {}).filter(([, v]) => v);
@@ -122,22 +129,73 @@ async function Fiche({ params }: { params: Promise<{ id: string }> }) {
           <Card title="Véhicule" emoji="🚗">
             <p className="text-lg font-semibold">{vehicleLabel(d)}</p>
             {d.plate ? <p className="mt-1">Immatriculation : <strong>{d.plate}</strong></p> : null}
-            {signed.length ? (
-              <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {signed.map((p) =>
-                  p.signedUrl ? (
-                    <li key={p.path}>
-                      <a href={p.signedUrl} target="_blank" rel="noopener noreferrer">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={p.signedUrl} alt="Photo du véhicule" className="aspect-square w-full rounded-2xl object-cover" />
-                      </a>
-                    </li>
-                  ) : null,
-                )}
+            {(["client", "enlevement", "signature"] as const).map((k) =>
+              byKind([k]).length ? (
+                <div key={k} className="mt-4">
+                  <p className="text-sm font-semibold text-muted">{PHOTO_KINDS[k]}</p>
+                  <ul className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                    {byKind([k]).map((p) => (
+                      <li key={p.path}>
+                        <a href={p.signedUrl!} target="_blank" rel="noopener noreferrer">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={p.signedUrl!} alt={PHOTO_KINDS[k]} className={`aspect-square w-full rounded-2xl ${k === "signature" ? "bg-white object-contain ring-1 ring-line" : "object-cover"}`} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null,
+            )}
+            {!byKind(["client", "enlevement", "signature"]).length ? <p className="mt-3 text-sm text-muted">Pas de photo.</p> : null}
+          </Card>
+
+          {d.enleve_at ? (
+            <Card title="Enlèvement" emoji="🚛">
+              <p>
+                Enlevé le <strong>{formatDate(d.enleve_at)}</strong>
+                {d.signataire ? <> · signé par <strong>{d.signataire}</strong></> : null}
+              </p>
+              <ul className="mt-3 grid gap-1 sm:grid-cols-2">
+                {DOCUMENTS.map((doc) => (
+                  <li key={doc.key}>
+                    {d.documents?.[doc.key] ? "✅" : "⬜"} {doc.label}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                {CENTRE_STEPS.map((st) => {
+                  const done = Boolean(d[st.key]);
+                  return (
+                    <form key={st.key} action={setCentreStep.bind(null, d.id, st.key, !done)}>
+                      <button
+                        type="submit"
+                        className={`w-full rounded-2xl px-3 py-2.5 text-left text-sm font-semibold ring-1 ${done ? "bg-emerald-50 text-emerald-900 ring-emerald-300" : "bg-surface ring-line"}`}
+                      >
+                        {done ? "✅" : st.emoji} {st.label}
+                        {done ? <span className="block text-xs font-normal">le {formatDate(d[st.key]!, false)}</span> : null}
+                      </button>
+                    </form>
+                  );
+                })}
+              </div>
+            </Card>
+          ) : null}
+
+          <Card title="Documents" emoji="📄">
+            {byKind(["document"]).length ? (
+              <ul className="mb-3 space-y-1">
+                {byKind(["document"]).map((p, k) => (
+                  <li key={p.path}>
+                    <a href={p.signedUrl!} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand hover:underline">
+                      📎 Document {k + 1}
+                    </a>
+                  </li>
+                ))}
               </ul>
             ) : (
-              <p className="mt-3 text-sm text-muted">Pas de photo.</p>
+              <p className="mb-3 text-sm text-muted">Certificat de destruction, carte grise, cerfa… (photo ou PDF)</p>
             )}
+            <PhotoUploader demandeId={d.id} kind="document" label="📎 Joindre un document" accept="image/*,application/pdf" capture={false} />
           </Card>
 
           {formRows.length ? (
@@ -194,6 +252,23 @@ async function Fiche({ params }: { params: Promise<{ id: string }> }) {
               </button>
             </form>
             <p className="mt-2 text-xs text-muted">Fixer une date passe la demande en « RDV fixé ». Laissez vide pour retirer le rendez-vous.</p>
+            <form action={assignChauffeur.bind(null, d.id)} className="mt-4 flex flex-wrap gap-2">
+              <select name="chauffeur_id" defaultValue={d.chauffeur_id ?? ""} className={`${inputClass} flex-1`}>
+                <option value="">🚚 Aucun chauffeur</option>
+                {(chauffeurs ?? []).map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.full_name || c.email}
+                    {c.role === "admin" ? " (administrateur)" : ""}
+                  </option>
+                ))}
+              </select>
+              <button type="submit" className={buttonClass}>
+                Attribuer
+              </button>
+            </form>
+            <Link href={`/admin/chauffeur/${d.id}`} className="mt-3 inline-block text-sm font-semibold text-brand hover:underline">
+              📱 Ouvrir la mission (photos, signature, validation)
+            </Link>
           </Card>
 
           <Card title="Envoyer un message" emoji="💬">

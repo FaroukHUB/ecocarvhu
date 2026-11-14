@@ -45,6 +45,42 @@ export interface Demande {
   notes: string;
   rdv_at: string | null;
   lost_reason: string | null;
+  chauffeur_id: string | null;
+  enleve_at: string | null;
+  centre_remis_at: string | null;
+  cd_recu_at: string | null;
+  cd_envoye_at: string | null;
+  documents: Record<string, boolean>;
+  signataire: string | null;
+}
+
+/** Pièces récupérées au moment de l'enlèvement. */
+export const DOCUMENTS = [
+  { key: "carte_grise", label: "Carte grise barrée et signée" },
+  { key: "cerfa", label: "Certificat de cession (cerfa 15776)" },
+  { key: "csa", label: "Certificat de situation administrative" },
+  { key: "piece_identite", label: "Copie de la pièce d'identité" },
+  { key: "cles", label: "Clés du véhicule" },
+] as const;
+
+/** Étapes du suivi avec le centre VHU, dans l'ordre. */
+export const CENTRE_STEPS = [
+  { key: "centre_remis_at", label: "Remis au centre VHU", emoji: "♻️" },
+  { key: "cd_recu_at", label: "Certificat de destruction reçu", emoji: "📄" },
+  { key: "cd_envoye_at", label: "Certificat envoyé au client", emoji: "📨" },
+] as const;
+export type CentreStep = (typeof CENTRE_STEPS)[number]["key"];
+
+export const PHOTO_KINDS: Record<string, string> = {
+  client: "Photo envoyée par le client",
+  enlevement: "Photo prise à l'enlèvement",
+  signature: "Signature du client",
+  document: "Document",
+};
+
+/** Jour (AAAA-MM-JJ) d'une date en heure de Paris. */
+export function parisDay(iso: string | Date): string {
+  return new Date(iso).toLocaleDateString("fr-CA", { timeZone: "Europe/Paris" });
 }
 
 export function isStatus(v: unknown): v is Status {

@@ -31,7 +31,7 @@ export const MENU: MenuCategory[] = [
     items: [
       { href: "/admin/demandes", label: "Demandes", emoji: "📥", badge: "nouvelles" },
       { href: "/admin/vehicules", label: "Fiches véhicules", emoji: "🚘" },
-      { href: "/admin/agenda", label: "Agenda", emoji: "📅", soon: true },
+      { href: "/admin/agenda", label: "Agenda", emoji: "📅" },
       { href: "/admin/messages", label: "Messages types", emoji: "💬" },
     ],
   },
@@ -40,8 +40,8 @@ export const MENU: MenuCategory[] = [
     emoji: "📋",
     color: "bg-sky-400",
     items: [
-      { href: "/admin/centre-vhu", label: "Suivi centre VHU", emoji: "♻️", soon: true },
-      { href: "/admin/registre", label: "Registre", emoji: "📚", soon: true },
+      { href: "/admin/centre-vhu", label: "Suivi centre VHU", emoji: "♻️" },
+      { href: "/admin/registre", label: "Registre", emoji: "📚" },
     ],
   },
   {
@@ -78,6 +78,22 @@ export const MENU: MenuCategory[] = [
     title: "Chauffeur",
     emoji: "🚚",
     color: "bg-orange-400",
-    items: [{ href: "/admin/chauffeur", label: "Espace chauffeur", emoji: "📱", soon: true }],
+    items: [{ href: "/admin/chauffeur", label: "Espace chauffeur", emoji: "📱" }],
+  },
+  {
+    title: "Réglages",
+    emoji: "⚙️",
+    color: "bg-stone-300",
+    items: [{ href: "/admin/equipe", label: "Équipe et accès", emoji: "👥" }],
+  },
+];
+
+/** Menu réduit du chauffeur : uniquement sa tournée. */
+export const CHAUFFEUR_MENU: MenuCategory[] = [
+  {
+    title: "Ma tournée",
+    emoji: "🚚",
+    color: "bg-orange-400",
+    items: [{ href: "/admin/chauffeur", label: "Mes enlèvements", emoji: "📱" }],
   },
 ];

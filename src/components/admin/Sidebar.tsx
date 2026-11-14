@@ -3,17 +3,29 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { MENU } from "@/lib/admin/menu";
+import { CHAUFFEUR_MENU, MENU } from "@/lib/admin/menu";
 
 /** Menu latéral (ordinateur) et tiroir (téléphone). */
-export function Sidebar({ name, nouvelles, signOut }: { name: string; nouvelles: number; signOut: () => Promise<void> }) {
+export function Sidebar({
+  name,
+  role,
+  nouvelles,
+  signOut,
+}: {
+  name: string;
+  role: "admin" | "chauffeur";
+  nouvelles: number;
+  signOut: () => Promise<void>;
+}) {
+  const menu = role === "chauffeur" ? CHAUFFEUR_MENU : MENU;
+  const home = role === "chauffeur" ? "/admin/chauffeur" : "/admin";
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const active = (href: string) => (href === "/admin" ? path === "/admin" : path.startsWith(href));
 
   const nav = (
     <nav aria-label="Menu de gestion" className="flex-1 space-y-5 overflow-y-auto px-3 pb-6 [scrollbar-color:rgb(255_255_255/0.15)_transparent] [scrollbar-width:thin]">
-      {MENU.map((cat) => (
+      {menu.map((cat) => (
         <div key={cat.title}>
           <p className="mb-1.5 flex items-center gap-2 px-2 text-[0.7rem] font-bold uppercase tracking-[0.14em] text-white/55">
             <span className={`h-2 w-2 rounded-full ${cat.color}`} aria-hidden="true" />
@@ -64,7 +76,7 @@ export function Sidebar({ name, nouvelles, signOut }: { name: string; nouvelles:
   );
 
   const brand = (
-    <Link href="/admin" className="flex items-center gap-2 px-5 py-5" onClick={() => setOpen(false)}>
+    <Link href={home} className="flex items-center gap-2 px-5 py-5" onClick={() => setOpen(false)}>
       <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-bright text-xl" aria-hidden="true">
         ♻️
       </span>
@@ -99,7 +111,7 @@ export function Sidebar({ name, nouvelles, signOut }: { name: string; nouvelles:
     <>
       {/* Téléphone : barre du haut + tiroir */}
       <div className="sticky top-0 z-30 flex items-center justify-between bg-ink-grid px-4 py-3 lg:hidden">
-        <Link href="/admin" className="flex items-center gap-2 font-bold text-white">
+        <Link href={home} className="flex items-center gap-2 font-bold text-white">
           <span aria-hidden="true">♻️</span> Ecocar<span className="-ml-2 text-brand-bright">VHU</span>
         </Link>
         <button

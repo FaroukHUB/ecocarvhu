@@ -1,0 +1,15 @@
+-- Espace de gestion EcocarVHU — étape 2 (agenda, chauffeur, centre VHU, registre, équipe).
+-- Appliqué le 14/11/2026. Le texte complet est conservé dans l'historique des
+-- migrations du projet Supabase (nom : admin_etape2_terrain).
+--
+-- Résumé :
+-- * demandes : enleve_at, centre_remis_at, cd_recu_at, cd_envoye_at,
+--   documents (jsonb : pièces récupérées), signataire.
+-- * bucket photos : PDF autorisés (certificats de destruction).
+-- * auth.users : confirmation automatique des adresses de allowed_users
+--   (private.auto_confirm_allowed, avant insertion).
+-- * public.admin_sync_profiles() : rattache les comptes existants (admin).
+-- * public.admin_remove_user(email) : retire un accès (admin, pas soi-même).
+-- * Chauffeur : private.is_assigned(uuid), private.object_demande(text),
+--   politiques de stockage (dépôt et lecture des photos de ses missions),
+--   public.chauffeur_add_photo(uuid, text, text), public.chauffeur_finish(uuid, jsonb, text).

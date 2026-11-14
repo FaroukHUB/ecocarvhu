@@ -1,9 +1,11 @@
 "use server";
 
+import { createClient } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireUser } from "@/lib/admin/auth";
-import { fromLocalInput, isStatus, STATUS_INFO } from "@/lib/admin/demandes";
+import { CENTRE_STEPS, DOCUMENTS, fromLocalInput, isStatus, STATUS_INFO, type CentreStep } from "@/lib/admin/demandes";
+import { supabaseConfig } from "@/lib/supabase/config";
 import { supabaseServer } from "@/lib/supabase/server";
 
 /* ------------------------------------------------------------ connexion */
@@ -13,9 +15,10 @@ export async function signIn(_prev: { error?: string } | undefined, form: FormDa
   const password = String(form.get("password") ?? "");
   if (!email || !password) return { error: "Indiquez votre e-mail et votre mot de passe." };
   const supabase = await supabaseServer();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) return { error: "E-mail ou mot de passe incorrect." };
-  redirect("/admin");
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error || !data.user) return { error: "E-mail ou mot de passe incorrect." };
+  const { data: profile } = await supabase.from("profiles").select("role").eq("id", data.user.id).maybeSingle();
+  redirect(profile?.role === "chauffeur" ? "/admin/chauffeur" : "/admin");
 }
 
 export async function signOut() {
@@ -131,4 +134,97 @@ export async function deleteTemplate(id: string) {
   const { supabase } = await requireUser("admin");
   await supabase.from("message_templates").delete().eq("id", id);
   revalidatePath("/admin/messages");
+}
+
+/* ------------------------------------------------- agenda et chauffeur */
+
+export async function assignChauffeur(id: string, form: FormData) {
+  const { supabase } = await requireUser("admin");
+  const chauffeur = String(form.get("chauffeur_id") ?? "");
+  await supabase.from("demandes").update({ chauffeur_id: chauffeur || null }).eq("id", id);
+  await logEvent(id, "chauffeur", chauffeur ? "Chauffeur attribué" : "Chauffeur retiré");
+  refresh(id);
+}
+
+const PHOTO_TYPES: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "application/pdf": "pdf" };
+
+/** Photo ou signature déposée depuis l'espace chauffeur (ou par un administrateur). */
+export async function uploadMissionFile(id: string, kind: "enlevement" | "signature" | "document", form: FormData) {
+  const { supabase } = await requireUser();
+  const file = form.get("file");
+  if (!(file instanceof File) || !file.size) return { error: "Aucun fichier." };
+  const ext = PHOTO_TYPES[file.type];
+  if (!ext) return { error: "Format non accepté (JPEG, PNG, WebP ou PDF)." };
+  if (file.size > 3_900_000) return { error: "Fichier trop lourd (4 Mo maximum)." };
+  const path = `${id}/${kind}/${crypto.randomUUID()}.${ext}`;
+  const up = await supabase.storage.from("photos").upload(path, file, { contentType: file.type });
+  if (up.error) return { error: "Envoi impossible. Réessayez." };
+  const reg = await supabase.rpc("chauffeur_add_photo", { demande: id, object_path: path, photo_kind: kind });
+  if (reg.error) return { error: "Envoi impossible. Réessayez." };
+  revalidatePath(`/admin/chauffeur/${id}`);
+  revalidatePath(`/admin/demandes/${id}`);
+  return { ok: true };
+}
+
+export async function finishMission(id: string, form: FormData) {
+  const { supabase, profile } = await requireUser();
+  const docs = Object.fromEntries(DOCUMENTS.map((d) => [d.key, form.get(d.key) === "on"]));
+  const { error } = await supabase.rpc("chauffeur_finish", { demande: id, docs, signer: String(form.get("signataire") ?? "").slice(0, 120) });
+  if (error) throw new Error("La validation a échoué.");
+  revalidatePath("/admin", "layout");
+  redirect(profile.role === "chauffeur" ? "/admin/chauffeur?fait=1" : `/admin/demandes/${id}`);
+}
+
+/* ------------------------------------------------------ centre VHU */
+
+export async function setCentreStep(id: string, step: CentreStep, done: boolean) {
+  if (!CENTRE_STEPS.some((s) => s.key === step)) return;
+  const { supabase } = await requireUser("admin");
+  const patch: Record<string, string | null> = { [step]: done ? new Date().toISOString() : null };
+  if (step === "cd_envoye_at" && done) patch.status = "terminee";
+  await supabase.from("demandes").update(patch).eq("id", id);
+  const label = CENTRE_STEPS.find((s) => s.key === step)!.label;
+  await logEvent(id, "centre", done ? label : `${label} (annulé)`);
+  refresh(id);
+  revalidatePath("/admin/centre-vhu");
+}
+
+/* ------------------------------------------------------------ équipe */
+
+export async function addMember(_prev: { error?: string; ok?: string } | undefined, form: FormData) {
+  const { supabase } = await requireUser("admin");
+  const email = String(form.get("email") ?? "").trim().toLowerCase();
+  const full_name = String(form.get("full_name") ?? "").trim().slice(0, 80);
+  const role = form.get("role") === "admin" ? "admin" : "chauffeur";
+  const password = String(form.get("password") ?? "");
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return { error: "Adresse e-mail invalide." };
+  if (password.length < 8) return { error: "Le mot de passe doit faire au moins 8 caractères." };
+
+  const { error } = await supabase.from("allowed_users").upsert({ email, role, full_name });
+  if (error) return { error: "Ajout impossible." };
+
+  // Création du compte avec un client sans session, pour ne pas déconnecter l'administrateur.
+  const config = supabaseConfig()!;
+  const anon = createClient(config.url, config.key, { auth: { persistSession: false, autoRefreshToken: false } });
+  const { error: signUpError } = await anon.auth.signUp({ email, password });
+  await supabase.rpc("admin_sync_profiles");
+  revalidatePath("/admin/equipe");
+  if (signUpError) {
+    return {
+      error: `Accès enregistré, mais le compte n'a pas pu être créé (${signUpError.message}). Créez-le dans Supabase (Authentication → Users → Add user), puis cliquez sur « Actualiser ».`,
+    };
+  }
+  return { ok: `${full_name || email} peut se connecter avec ce mot de passe (si le compte existait déjà, son ancien mot de passe reste valable).` };
+}
+
+export async function removeMember(email: string) {
+  const { supabase } = await requireUser("admin");
+  await supabase.rpc("admin_remove_user", { target_email: email });
+  revalidatePath("/admin/equipe");
+}
+
+export async function syncMembers() {
+  const { supabase } = await requireUser("admin");
+  await supabase.rpc("admin_sync_profiles");
+  revalidatePath("/admin/equipe");
 }

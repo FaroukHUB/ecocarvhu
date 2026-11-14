@@ -20,5 +20,5 @@ export default function AppLayout({ children }: LayoutProps<"/admin">) {
 async function Menu() {
   const { supabase, profile } = await requireUser();
   const { count } = await supabase.from("demandes").select("id", { count: "exact", head: true }).eq("status", "nouvelle");
-  return <Sidebar name={profile.full_name || profile.email} nouvelles={count ?? 0} signOut={signOut} />;
+  return <Sidebar name={profile.full_name || profile.email} role={profile.role} nouvelles={count ?? 0} signOut={signOut} />;
 }
