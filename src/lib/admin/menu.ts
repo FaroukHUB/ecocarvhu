@@ -60,7 +60,7 @@ export const MENU: MenuCategory[] = [
     color: "bg-violet-400",
     items: [
       { href: "/admin/pros", label: "Fichier pros", emoji: "📇" },
-      { href: "/admin/prospection", label: "Prospection", emoji: "🎯", soon: true },
+      { href: "/admin/prospection", label: "Prospection", emoji: "🎯" },
     ],
   },
   {

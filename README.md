@@ -150,6 +150,8 @@ Ils sont envoyés à **Vercel Web Analytics** (sans cookie), activé dans le tab
 
 L'**espace de gestion** (`/admin`) regroupe les demandes, les fiches véhicules, les messages types et les statistiques du site (API Vercel Web Analytics, variable `VERCEL_ANALYTICS_TOKEN`). Il repose sur Supabase (projet `ecocarvhu`, Paris) : connexion par e-mail et mot de passe, comptes autorisés dans la table `allowed_users` (rôles `admin` et `chauffeur`), données protégées par RLS. Chaque demande acceptée par le site y est copiée avec ses photos (`src/lib/forms/store.ts`), en plus de l'e-mail. Variables : `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` (côté serveur uniquement), `SUPABASE_INGEST_TOKEN`. Les visites de l'admin ne sont pas comptées.
 
+**Prospection** (`/admin/prospection`) : recherche d'entreprises dans la base publique Recherche d'entreprises (les entreprises opposées à la prospection sont exclues), 3 e-mails par entreprise (modèles modifiables, ou rédaction par Claude si `ANTHROPIC_API_KEY` est défini), envoi par Brevo seulement après validation, relances programmées envoyées chaque jour ouvré par `/api/cron/prospection` (Vercel Cron, `vercel.json`, protégé par `CRON_SECRET`). Chaque e-mail contient un lien de désinscription (`/api/desinscription/[token]`, désinscription en un clic). Les réponses ne sont pas détectées automatiquement : elles sont à indiquer sur la fiche, ce qui arrête les relances.
+
 Pour l'interprétation : un clic sur « Appeler » n'est pas un appel reçu, un clic WhatsApp n'est pas une conversation, et une demande transmise n'est pas une vente.
 
 ## Vérifications

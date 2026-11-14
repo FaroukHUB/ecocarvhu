@@ -50,3 +50,17 @@ describe("argent", () => {
     expect(marge({ prix_achat: 300, frais: 50, revente_pieces: 400, revente_metal: 120 })).toBe(170);
   });
 });
+
+describe("prospection", () => {
+  it("remplit un modèle d'e-mail", async () => {
+    const { fillProspect } = await import("@/lib/prospection/email");
+    const p = { name: "Garage Martin", city: "Aubagne", naf: "45.20A", dirigeant: "Paul Martin", contact_name: null };
+    expect(fillProspect("Bonjour{dirigeant}, {entreprise} à {ville}", p)).toBe("Bonjour Paul Martin, Garage Martin à Aubagne");
+    expect(fillProspect("{accroche}", p)).toContain("répare des véhicules");
+    expect(fillProspect("Bonjour{dirigeant},", { ...p, dirigeant: null })).toBe("Bonjour,");
+  });
+  it("construit le lien de désinscription", async () => {
+    const { unsubscribeUrl } = await import("@/lib/prospection/stages");
+    expect(unsubscribeUrl("https://www.ecocarvhu.fr/", "abc")).toBe("https://www.ecocarvhu.fr/api/desinscription/abc");
+  });
+});

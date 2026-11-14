@@ -6,6 +6,11 @@ import { redirect } from "next/navigation";
 import { computeTotals, parseAmount } from "@/lib/admin/argent";
 import { requireUser } from "@/lib/admin/auth";
 import { CENTRE_STEPS, DOCUMENTS, fromLocalInput, isStatus, STATUS_INFO, type CentreStep } from "@/lib/admin/demandes";
+import { draftWithClaude } from "@/lib/prospection/ai";
+import { fillProspect, sendProspectEmail } from "@/lib/prospection/email";
+import { unsubscribeUrl } from "@/lib/prospection/stages";
+import { activite, type Company as Entreprise } from "@/lib/prospection/search";
+import { resolveSiteUrl } from "@/config/env";
 import { supabaseConfig } from "@/lib/supabase/config";
 import { supabaseServer } from "@/lib/supabase/server";
 
@@ -449,4 +454,142 @@ export async function deleteDraft(id: string) {
 export async function saveAndEmit(id: string, form: FormData) {
   await saveDocument(id, form);
   await emitDocument(id);
+}
+
+/* --------------------------------------------------------- prospection */
+
+/** Ajoute les entreprises cochées au fichier pros (étape « à contacter »). */
+export async function addProspects(form: FormData) {
+  const { supabase } = await requireUser("admin");
+  let list: Entreprise[] = [];
+  try {
+    list = JSON.parse(String(form.get("companies") ?? "[]"));
+  } catch {
+    list = [];
+  }
+  const chosen = new Set(form.getAll("siren").map(String));
+  const rows = list
+    .filter((c) => chosen.has(c.siren) && !c.refuseProspection)
+    .map((c) => ({
+      siren: c.siren,
+      name: c.name,
+      naf: c.naf,
+      naf_label: c.nafLabel,
+      effectif: c.effectif,
+      dirigeant: c.dirigeant || null,
+      address: c.address || null,
+      postal_code: c.postalCode || null,
+      city: c.city || null,
+      kind: activite(c.naf)?.kind ?? "autre",
+      status: "prospect",
+      source: "prospection",
+      stage: "a_contacter",
+    }));
+  if (rows.length) await supabase.from("pros").upsert(rows, { onConflict: "siren", ignoreDuplicates: true });
+  revalidatePath("/admin/prospection");
+  redirect(`/admin/prospection?onglet=suivi&ajoutes=${rows.length}`);
+}
+
+export async function saveProspectInfo(id: string, form: FormData) {
+  const { supabase } = await requireUser("admin");
+  const t = (k: string) => String(form.get(k) ?? "").trim().slice(0, 200) || null;
+  await supabase.from("pros").update({ email: t("email")?.toLowerCase() ?? null, website: t("website"), contact_name: t("contact_name"), phone: t("phone") }).eq("id", id);
+  revalidatePath(`/admin/prospection/${id}`);
+}
+
+/** Prépare les 3 e-mails en brouillon, à partir des modèles ou avec l'IA. */
+export async function prepareProspectEmails(id: string, mode: "modele" | "ia") {
+  const { supabase } = await requireUser("admin");
+  const { data: p } = await supabase.from("pros").select("*").eq("id", id).single();
+  if (!p) return;
+  let emails: { subject: string; body: string }[];
+  if (mode === "ia") {
+    try {
+      emails = await draftWithClaude(p);
+    } catch (e) {
+      redirect(`/admin/prospection/${id}?erreur=${encodeURIComponent(e instanceof Error ? e.message : "Rédaction impossible.")}`);
+    }
+  } else {
+    const { data: tpl } = await supabase.from("prospect_templates").select("*").order("step");
+    emails = (tpl ?? []).map((t) => ({ subject: fillProspect(t.subject, p), body: fillProspect(t.body, p) }));
+  }
+  await supabase.from("prospect_emails").delete().eq("pro_id", id).in("status", ["brouillon", "annule", "erreur"]);
+  await supabase.from("prospect_emails").upsert(
+    emails.slice(0, 3).map((e, i) => ({ pro_id: id, step: i + 1, subject: e.subject, body: e.body, status: "brouillon" })),
+    { onConflict: "pro_id,step", ignoreDuplicates: true },
+  );
+  await supabase.from("pros").update({ stage: "pret" }).eq("id", id).eq("stage", "a_contacter");
+  revalidatePath(`/admin/prospection/${id}`);
+}
+
+export async function saveProspectEmail(emailId: string, proId: string, form: FormData) {
+  const { supabase } = await requireUser("admin");
+  await supabase
+    .from("prospect_emails")
+    .update({ subject: String(form.get("subject") ?? "").slice(0, 200), body: String(form.get("body") ?? "").slice(0, 5000) })
+    .eq("id", emailId)
+    .eq("status", "brouillon");
+  revalidatePath(`/admin/prospection/${proId}`);
+}
+
+/** Validation : envoie le premier e-mail tout de suite et programme les relances. */
+export async function approveAndSend(id: string) {
+  const { supabase } = await requireUser("admin");
+  const back = (msg: string) => redirect(`/admin/prospection/${id}?erreur=${encodeURIComponent(msg)}`);
+  const [{ data: p }, { data: emails }, { data: tpl }] = await Promise.all([
+    supabase.from("pros").select("*").eq("id", id).single(),
+    supabase.from("prospect_emails").select("*").eq("pro_id", id).order("step"),
+    supabase.from("prospect_templates").select("step, delay_days"),
+  ]);
+  if (!p) return;
+  if (!p.email) back("Ajoutez d'abord l'adresse e-mail de l'entreprise.");
+  const { data: optout } = await supabase.from("optouts").select("email").eq("email", String(p.email).toLowerCase()).maybeSingle();
+  if (optout) back("Cette adresse a demandé à ne plus recevoir de messages.");
+  const first = (emails ?? []).find((e) => e.step === 1 && e.status === "brouillon");
+  if (!first) back("Préparez d'abord les e-mails.");
+  const site = resolveSiteUrl() ?? "https://www.ecocarvhu.fr";
+  const sent = await sendProspectEmail({
+    to: p.email,
+    subject: first.subject,
+    body: first.body,
+    unsubscribeUrl: unsubscribeUrl(site, p.unsubscribe_token),
+  });
+  if (!sent.ok) {
+    await supabase.from("prospect_emails").update({ status: "erreur", error: sent.error }).eq("id", first.id);
+    back(`Envoi impossible : ${sent.error}`);
+  }
+  const now = Date.now();
+  const delay = new Map((tpl ?? []).map((t) => [t.step, t.delay_days]));
+  await supabase.from("prospect_emails").update({ status: "envoye", sent_at: new Date(now).toISOString() }).eq("id", first.id);
+  for (const e of (emails ?? []).filter((x) => x.step > 1 && x.status === "brouillon")) {
+    const days = delay.get(e.step) ?? (e.step === 2 ? 5 : 12);
+    await supabase.from("prospect_emails").update({ status: "planifie", scheduled_at: new Date(now + days * 86400_000).toISOString() }).eq("id", e.id);
+  }
+  await supabase.from("pros").update({ stage: "envoye", last_contact_at: new Date(now).toISOString() }).eq("id", id);
+  revalidatePath(`/admin/prospection/${id}`);
+  revalidatePath("/admin/prospection");
+}
+
+/** Résultat de la prospection : arrête les relances programmées. */
+export async function setProspectStage(id: string, stage: "repondu" | "gagne" | "refus" | "a_contacter") {
+  const { supabase } = await requireUser("admin");
+  const patch: Record<string, unknown> = { stage };
+  if (stage === "gagne") patch.status = "client";
+  await supabase.from("pros").update(patch).eq("id", id);
+  if (stage !== "a_contacter") await supabase.from("prospect_emails").update({ status: "annule" }).eq("pro_id", id).eq("status", "planifie");
+  revalidatePath(`/admin/prospection/${id}`);
+  revalidatePath("/admin/prospection");
+}
+
+export async function saveProspectTemplate(step: number, form: FormData) {
+  const { supabase } = await requireUser("admin");
+  await supabase
+    .from("prospect_templates")
+    .update({
+      subject: String(form.get("subject") ?? "").slice(0, 200),
+      body: String(form.get("body") ?? "").slice(0, 5000),
+      delay_days: Math.min(Math.max(Number(form.get("delay_days")) || 0, 0), 60),
+    })
+    .eq("step", step);
+  revalidatePath("/admin/prospection");
 }
