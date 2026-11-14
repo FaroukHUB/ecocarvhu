@@ -40,7 +40,7 @@ export function CompanyForm({ company }: { company: Company }) {
         <span>
           <span className="block font-semibold">Franchise en base de TVA</span>
           <span className="block text-sm text-ink-3">
-            Cochez si vous ne facturez pas la TVA (micro-entreprise) : la mention « TVA non applicable, art. 293 B du CGI » sera ajoutée.
+            À cocher si tu ne factures pas la TVA (micro-entreprise) : la mention « TVA non applicable, art. 293 B du CGI » sera ajoutée.
           </span>
         </span>
       </label>

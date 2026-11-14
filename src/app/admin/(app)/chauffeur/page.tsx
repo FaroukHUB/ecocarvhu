@@ -40,7 +40,7 @@ async function Tournee({ searchParams }: { searchParams: Promise<Record<string, 
       <PageTitle
         emoji="🚚"
         title={profile.role === "chauffeur" ? `Bonjour${first ? ` ${first}` : ""} !` : "Espace chauffeur"}
-        subtitle={profile.role === "chauffeur" ? "Vos enlèvements à faire." : "Aperçu : toutes les missions attribuées à un chauffeur."}
+        subtitle={profile.role === "chauffeur" ? "Tes enlèvements à faire." : "Toutes les missions confiées à un chauffeur."}
       />
       {fait ? <p className="mb-5 rounded-2xl bg-emerald-50 p-4 font-semibold text-emerald-900">🎉 Enlèvement validé. Merci !</p> : null}
       {missions.length ? (

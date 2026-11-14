@@ -16,7 +16,7 @@ export const metadata: Metadata = { title: "Contenu" };
 export default function ContenuPage({ searchParams }: PageProps<"/admin/contenu">) {
   return (
     <>
-      <PageTitle emoji="✍️" title="Contenu" subtitle="Préparez un article de blog ou une nouvelle page ville. Vous relisez et validez avant toute publication." />
+      <PageTitle emoji="✍️" title="Contenu" subtitle="Un article de blog ou une nouvelle page ville : tu prépares, tu relis, tu valides." />
       <Suspense fallback={<p className="text-muted">Chargement…</p>}>
         <Content searchParams={searchParams} />
       </Suspense>
@@ -74,7 +74,7 @@ async function Content({ searchParams }: { searchParams: Promise<Record<string, 
           </label>
           <label className="block">
             <span className="mb-1 block text-sm font-semibold">Informations vérifiées à utiliser (facultatif)</span>
-            <textarea name="notes" rows={4} maxLength={4000} placeholder="Ce que vous savez de sûr : secteurs desservis, cas fréquents, particularités d'accès…" className={inputClass} />
+            <textarea name="notes" rows={4} maxLength={4000} placeholder="Ce que tu sais de sûr : secteurs desservis, cas fréquents, particularités d'accès…" className={inputClass} />
           </label>
           <div className="flex flex-wrap gap-2">
             <button type="submit" name="mode" value="plan" className={buttonClass}>
@@ -82,19 +82,19 @@ async function Content({ searchParams }: { searchParams: Promise<Record<string, 
             </button>
             {aiAvailable() ? (
               <button type="submit" name="mode" value="ia" className={greenButtonClass}>
-                ✨ Rédiger un premier jet avec l&apos;IA
+                ✨ Rédaction automatique
               </button>
             ) : null}
           </div>
           <p className="text-xs text-muted">
             {aiAvailable()
-              ? "L'IA n'utilise que les faits connus de l'entreprise et vos informations ; tout le reste est marqué [À CONFIRMER]. Coût : quelques centimes par texte."
-              : "La rédaction par l'IA apparaîtra ici si une clé ANTHROPIC_API_KEY est ajoutée sur Vercel (quelques centimes par texte)."}
+              ? "Le texte part de ce qu'on sait de sûr ; le reste est marqué [À CONFIRMER]. Relis chaque phrase avant de valider."
+              : "Tu pars d'un plan, et tu le remplis à ta façon."}
           </p>
         </form>
       </Card>
 
-      <Card title="Vos textes" emoji="🗂️">
+      <Card title="Tes textes" emoji="🗂️">
         {drafts.length ? (
           <ul className="divide-y divide-line">
             {drafts.map((d) => (

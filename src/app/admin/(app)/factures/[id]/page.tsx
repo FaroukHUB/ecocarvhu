@@ -69,11 +69,11 @@ async function Editor({
       {typeof erreur === "string" ? <p className="mt-4 rounded-2xl bg-red-50 p-4 text-red-900">⚠️ {erreur}</p> : null}
       {draft && !companyReady(company) ? (
         <p className="mt-4 rounded-2xl bg-amber-50 p-4 text-amber-950">
-          ⚠️ Pour émettre, complétez d&apos;abord la raison sociale, le SIRET et l&apos;adresse dans{" "}
+          ⚠️ Pour émettre, il faut d&apos;abord la raison sociale, le SIRET et l&apos;adresse dans{" "}
           <Link href="/admin/entreprise" className="font-semibold underline">
             Réglages › Entreprise
           </Link>
-          . Vous pouvez déjà préparer ce brouillon.
+          . Tu peux déjà préparer ce brouillon.
         </p>
       ) : null}
 

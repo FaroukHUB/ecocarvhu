@@ -19,7 +19,7 @@ export function AddMemberForm() {
       <label className="block">
         <span className="mb-1 block text-sm font-semibold">Mot de passe (8 caractères minimum)</span>
         <input name="password" type="text" minLength={8} required className={inputClass} autoComplete="off" />
-        <span className="mt-1 block text-xs text-muted">Notez-le et transmettez-le à la personne.</span>
+        <span className="mt-1 block text-xs text-muted">Note-le et donne-le à la personne.</span>
       </label>
       <fieldset>
         <legend className="mb-1 block text-sm font-semibold">Rôle</legend>

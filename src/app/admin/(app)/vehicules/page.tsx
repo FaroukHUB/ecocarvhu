@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Fiches véhicules" };
 export default function VehiculesPage() {
   return (
     <>
-      <PageTitle emoji="🚘" title="Fiches véhicules" subtitle="Les véhicules des demandes d'enlèvement et de rachat, avec leurs photos." />
+      <PageTitle emoji="🚘" title="Fiches véhicules" subtitle="Tous les véhicules des demandes d'enlèvement et de rachat, avec leurs photos." />
       <Suspense fallback={<p className="text-muted">Chargement…</p>}>
         <Grid />
       </Suspense>

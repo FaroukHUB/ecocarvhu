@@ -84,7 +84,7 @@ export function SignaturePad({ demandeId, signed }: { demandeId: string; signed:
         </button>
       </div>
       {state === "ok" ? <p className="mt-2 rounded-xl bg-emerald-50 p-3 text-sm text-emerald-900">✅ Signature enregistrée.</p> : null}
-      {state === "erreur" ? <p className="mt-2 rounded-xl bg-red-50 p-3 text-sm text-red-800">L&apos;enregistrement a échoué, réessayez.</p> : null}
+      {state === "erreur" ? <p className="mt-2 rounded-xl bg-red-50 p-3 text-sm text-red-800">Ça n&apos;a pas marché, réessaie.</p> : null}
     </div>
   );
 }

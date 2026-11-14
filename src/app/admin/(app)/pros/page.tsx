@@ -14,7 +14,7 @@ export default function ProsPage({ searchParams }: PageProps<"/admin/pros">) {
       <PageTitle
         emoji="📇"
         title="Fichier pros"
-        subtitle="Garages, concessions, flottes, syndics… vos clients et prospects professionnels."
+        subtitle="Garages, concessions, flottes, syndics… tes clients et prospects pros."
         action={<BigButton href="/admin/pros/nouveau" emoji="➕">Ajouter un pro</BigButton>}
       />
       <Suspense fallback={<p className="text-muted">Chargement…</p>}>

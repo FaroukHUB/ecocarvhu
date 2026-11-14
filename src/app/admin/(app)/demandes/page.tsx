@@ -13,7 +13,7 @@ export default function DemandesPage({ searchParams }: PageProps<"/admin/demande
       <PageTitle
         emoji="📥"
         title="Demandes"
-        subtitle="Toutes les demandes du site et celles ajoutées à la main."
+        subtitle="Tout ce qui arrive du site, plus ce que tu ajoutes à la main."
         action={<BigButton href="/admin/demandes/nouvelle" emoji="➕">Ajouter une demande</BigButton>}
       />
       <Suspense fallback={<p className="text-muted">Chargement…</p>}>

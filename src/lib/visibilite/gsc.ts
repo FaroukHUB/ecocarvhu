@@ -58,7 +58,7 @@ async function accessToken(account: ServiceAccount): Promise<string> {
     cache: "no-store",
     signal: AbortSignal.timeout(15_000),
   });
-  if (!res.ok) throw new GscError(`Connexion à Google refusée (${res.status}). Vérifiez la clé du compte de service.`);
+  if (!res.ok) throw new GscError("Google ne répond pas pour l'instant. Réessaie un peu plus tard.");
   return ((await res.json()) as { access_token: string }).access_token;
 }
 
@@ -94,9 +94,9 @@ export async function gscClient() {
       },
     );
     if (res.status === 403) {
-      throw new GscError(`Google refuse l'accès à la propriété « ${config.site} ». Ajoutez l'e-mail du compte de service comme utilisateur dans Search Console.`);
+      throw new GscError("Google ne donne pas encore accès aux chiffres du site. Réessaie un peu plus tard.");
     }
-    if (!res.ok) throw new GscError(`Search Console ne répond pas (${res.status}).`);
+    if (!res.ok) throw new GscError("Google ne répond pas pour l'instant. Réessaie un peu plus tard.");
     return ((await res.json()) as { rows?: GscRow[] }).rows ?? [];
   };
 }

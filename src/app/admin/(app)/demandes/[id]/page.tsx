@@ -266,7 +266,7 @@ async function Fiche({ params }: { params: Promise<{ id: string }> }) {
                 Enregistrer
               </button>
             </form>
-            <p className="mt-2 text-xs text-muted">Fixer une date passe la demande en « RDV fixé ». Laissez vide pour retirer le rendez-vous.</p>
+            <p className="mt-2 text-xs text-muted">Avec une date, la demande passe en « RDV fixé ». Laisse vide pour enlever le rendez-vous.</p>
             <form action={assignChauffeur.bind(null, d.id)} className="mt-4 flex flex-wrap gap-2">
               <select name="chauffeur_id" defaultValue={d.chauffeur_id ?? ""} className={`${inputClass} flex-1`}>
                 <option value="">🚚 Aucun chauffeur</option>
@@ -361,7 +361,7 @@ async function Fiche({ params }: { params: Promise<{ id: string }> }) {
 
           <details className="rounded-3xl border border-red-200 bg-white p-5">
             <summary className="cursor-pointer font-semibold text-red-700">🗑️ Supprimer cette demande</summary>
-            <p className="mt-2 text-sm text-muted">À utiliser pour un doublon ou un message indésirable. Les photos sont supprimées aussi. C&apos;est définitif.</p>
+            <p className="mt-2 text-sm text-muted">Pour un doublon ou un message indésirable. Les photos partent avec, et c&apos;est définitif.</p>
             <form action={deleteDemande.bind(null, d.id)} className="mt-3">
               <button type="submit" className="rounded-xl bg-red-600 px-4 py-2 font-semibold text-white">
                 Oui, supprimer définitivement

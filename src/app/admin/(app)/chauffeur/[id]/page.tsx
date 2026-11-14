@@ -135,7 +135,7 @@ async function Mission({ params }: { params: Promise<{ id: string }> }) {
           <button type="submit" className="mt-3 w-full rounded-2xl bg-ink px-5 py-4 text-lg font-bold text-white active:scale-[0.98]">
             ✅ Véhicule enlevé
           </button>
-          <p className="mt-2 text-center text-xs text-muted">Les photos, la signature et les papiers remontent dans la fiche du bureau.</p>
+          <p className="mt-2 text-center text-xs text-muted">Photos, signature et papiers arrivent directement dans la fiche.</p>
         </form>
       </Card>
     </div>

@@ -25,7 +25,7 @@ export default function NewDemandePage() {
         ← Toutes les demandes
       </Link>
       <div className="mt-3">
-        <PageTitle emoji="➕" title="Ajouter une demande" subtitle="Pour une demande reçue par téléphone, WhatsApp ou de vive voix." />
+        <PageTitle emoji="➕" title="Ajouter une demande" subtitle="Un client a appelé, écrit sur WhatsApp ou t'a parlé en direct ? Note sa demande ici." />
       </div>
       <Card>
         <form action={createDemande} className="grid gap-4 sm:grid-cols-2">

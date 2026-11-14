@@ -16,7 +16,7 @@ const str = (v: string | string[] | undefined) => (typeof v === "string" ? v : "
 export default function ProspectionPage({ searchParams }: PageProps<"/admin/prospection">) {
   return (
     <>
-      <PageTitle emoji="🎯" title="Prospection" subtitle="Trouvez des entreprises, préparez les e-mails, validez : les relances partent toutes seules." />
+      <PageTitle emoji="🎯" title="Prospection" subtitle="Tu trouves des entreprises, tu prépares les e-mails, tu valides : les relances partent toutes seules." />
       <Suspense fallback={<p className="text-muted">Chargement…</p>}>
         <Content searchParams={searchParams} />
       </Suspense>
@@ -118,7 +118,7 @@ async function Trouver({ sp }: { sp: SP }) {
             🔍 Chercher
           </button>
         </form>
-        <p className="mt-3 text-xs text-muted">Source : base officielle des entreprises (gratuite). Les entreprises fermées sont exclues.</p>
+        <p className="mt-3 text-xs text-muted">Les entreprises viennent de la base officielle de l&apos;État. Celles qui ont fermé n&apos;apparaissent pas.</p>
       </Card>
 
       {error ? <p className="mt-5 rounded-2xl bg-red-50 p-4 text-red-900">{error}</p> : null}
@@ -156,7 +156,7 @@ async function Trouver({ sp }: { sp: SP }) {
                             Refuse la prospection : exclue
                           </span>
                         ) : inFile ? (
-                          <span className="mt-1 inline-block rounded-full bg-stone-100 px-2 py-0.5 text-xs font-semibold">Déjà dans votre fichier</span>
+                          <span className="mt-1 inline-block rounded-full bg-stone-100 px-2 py-0.5 text-xs font-semibold">Déjà dans ton fichier</span>
                         ) : null}
                       </span>
                     </label>
@@ -183,7 +183,7 @@ async function Trouver({ sp }: { sp: SP }) {
           <p className="mt-5 rounded-3xl bg-white p-8 text-center text-muted">Aucune entreprise trouvée avec ces critères.</p>
         )
       ) : !naf ? (
-        <p className="mt-5 rounded-3xl bg-white p-8 text-center text-muted">Choisissez une activité et un département pour lancer la recherche.</p>
+        <p className="mt-5 rounded-3xl bg-white p-8 text-center text-muted">Choisis une activité et un département pour lancer la recherche.</p>
       ) : null}
     </>
   );
@@ -203,7 +203,7 @@ async function Suivi({ sp }: { sp: SP }) {
     <>
       {str(sp.ajoutes) ? (
         <p className="mb-4 rounded-2xl bg-emerald-50 p-4 text-emerald-950">
-          ✅ {ajoutes} entreprise{ajoutes > 1 ? "s" : ""} ajoutée{ajoutes > 1 ? "s" : ""}. Ouvrez chaque fiche pour ajouter l&apos;e-mail et préparer les messages.
+          ✅ {ajoutes} entreprise{ajoutes > 1 ? "s" : ""} ajoutée{ajoutes > 1 ? "s" : ""}. Ouvre chaque fiche pour ajouter l&apos;e-mail et préparer les messages.
         </p>
       ) : null}
       <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-2">

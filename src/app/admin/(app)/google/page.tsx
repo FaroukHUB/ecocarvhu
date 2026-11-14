@@ -19,7 +19,7 @@ export default function GooglePage({ searchParams }: PageProps<"/admin/google">)
       <PageTitle
         emoji="🔎"
         title="Positions Google"
-        subtitle="Où le site apparaît dans Google : sur quels mots, à quelle position, avec combien de clics. Source : Google Search Console."
+        subtitle="Où on apparaît dans Google : sur quels mots, à quelle place, et combien de gens cliquent."
       />
       <Suspense fallback={<p className="text-muted">Chargement des chiffres Google…</p>}>
         <Content searchParams={searchParams} />
@@ -120,7 +120,7 @@ async function Content({ searchParams }: { searchParams: Promise<SP> }) {
         {tab === "evolution"
           ? "90 derniers jours."
           : `Période : 28 jours, du ${p.current.startDate.split("-").reverse().join("/")} au ${p.current.endDate.split("-").reverse().join("/")}, comparés aux 28 jours d'avant.`}{" "}
-        Google publie ses chiffres avec environ 3 jours de retard. La position est une moyenne : 1 = tout en haut, 10 = bas de la première page.
+        Les chiffres de Google ont environ 3 jours de décalage. La position est une moyenne : 1 = tout en haut, 10 = bas de la première page.
       </p>
       {body}
     </>
@@ -289,32 +289,8 @@ function Evolution({ rows }: { rows: GscRow[] }) {
 
 function Setup() {
   return (
-    <Card title="Brancher Google Search Console (gratuit, une seule fois)" emoji="🔌">
-      <p className="mb-4 text-muted">Cet onglet affichera vos positions dès que l&apos;accès sera configuré. Comptez 15 minutes.</p>
-      <ol className="list-decimal space-y-3 pl-5">
-        <li>
-          Vérifiez que le site est dans <strong>Google Search Console</strong> (search.google.com/search-console), en propriété de type « Domaine » :{" "}
-          <code>ecocarvhu.fr</code>.
-        </li>
-        <li>
-          Sur <strong>console.cloud.google.com</strong>, créez un projet (par exemple « ecocarvhu »), puis activez l&apos;API{" "}
-          <strong>Google Search Console API</strong>.
-        </li>
-        <li>
-          Dans « IAM et administration › Comptes de service », créez un compte de service, puis dans son onglet « Clés », ajoutez une clé au format{" "}
-          <strong>JSON</strong>. Un fichier se télécharge : gardez-le pour vous, ne l&apos;envoyez à personne par message.
-        </li>
-        <li>
-          Copiez l&apos;adresse du compte de service (elle finit par <code>.iam.gserviceaccount.com</code>). Dans Search Console › Paramètres › Utilisateurs et
-          autorisations, ajoutez cette adresse avec l&apos;accès <strong>Restreint</strong> (lecture seule).
-        </li>
-        <li>
-          Sur <strong>vercel.com</strong> › projet ecocarvhu › Settings › Environment Variables, ajoutez <code>GSC_SERVICE_ACCOUNT</code> avec, comme valeur, tout
-          le contenu du fichier JSON. Si votre propriété Search Console est une URL (et non un domaine), ajoutez aussi <code>GSC_SITE</code> avec cette URL
-          exacte, par exemple <code>https://www.ecocarvhu.fr/</code>.
-        </li>
-        <li>Redéployez le site (ou demandez-le-moi) : les positions apparaissent ici.</li>
-      </ol>
+    <Card title="Bientôt ici" emoji="🔌">
+      <p className="text-muted">Les positions Google ne sont pas encore reliées. Elles s&apos;afficheront ici dès que ce sera fait.</p>
     </Card>
   );
 }

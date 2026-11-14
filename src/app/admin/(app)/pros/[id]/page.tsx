@@ -152,7 +152,7 @@ async function Fiche({ params }: { params: Promise<{ id: string }> }) {
                   ))}
                 </ul>
               ) : (
-                <p className="text-sm text-muted">Rattachez une demande à ce pro depuis sa fiche (rubrique « Client pro »).</p>
+                <p className="text-sm text-muted">Pour rattacher une demande à ce pro, passe par la fiche de la demande (rubrique « Client pro »).</p>
               )}
             </Card>
             <Card title={`Devis et factures (${docs.length})`} emoji="🧾">

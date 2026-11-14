@@ -68,7 +68,7 @@ async function Draft({ params, searchParams }: { params: Promise<{ id: string }>
                 💾 Enregistrer
               </button>
             ) : (
-              <p className="text-sm text-muted">Repassez le texte en brouillon pour le modifier.</p>
+              <p className="text-sm text-muted">Pour le modifier, repasse-le en brouillon.</p>
             )}
           </form>
         </Card>
@@ -77,12 +77,12 @@ async function Draft({ params, searchParams }: { params: Promise<{ id: string }>
           <Card title="Avant de valider" emoji="🧐">
             <ul className="space-y-2 text-sm">
               <li>{todo ? `⚠️ ${todo} passage${todo > 1 ? "s" : ""} [À CONFIRMER] ou [À COMPLÉTER] à traiter.` : "✅ Aucun passage à confirmer."}</li>
-              <li>Chaque fait (gratuité, documents, délais, prix) doit être vrai et vérifiable. Dans le doute, supprimez la phrase.</li>
-              <li>Pas d&apos;avis client, de chiffre ou de promesse que vous ne pouvez pas prouver.</li>
+              <li>Chaque info (gratuité, documents, délais, prix) doit être vraie et vérifiable. Dans le doute, on enlève la phrase.</li>
+              <li>Pas d&apos;avis client, de chiffre ou de promesse qu&apos;on ne peut pas prouver.</li>
             </ul>
             {d.notes ? (
               <details className="mt-3 text-sm">
-                <summary className="cursor-pointer font-semibold">Vos informations de départ</summary>
+                <summary className="cursor-pointer font-semibold">Tes infos de départ</summary>
                 <p className="mt-2 whitespace-pre-line text-muted">{d.notes}</p>
               </details>
             ) : null}
@@ -91,7 +91,7 @@ async function Draft({ params, searchParams }: { params: Promise<{ id: string }>
           <Card title="Publication" emoji="🚀">
             {status === "brouillon" ? (
               <>
-                <p className="mb-3 text-sm text-muted">Enregistrez vos modifications, puis validez quand le texte est prêt.</p>
+                <p className="mb-3 text-sm text-muted">Enregistre tes modifs, puis valide quand le texte est prêt.</p>
                 <form action={setContentStatus.bind(null, d.id, "valide")}>
                   <button type="submit" className={greenButtonClass} disabled={todo > 0}>
                     ✅ Valider pour publication
@@ -101,8 +101,8 @@ async function Draft({ params, searchParams }: { params: Promise<{ id: string }>
             ) : status === "valide" ? (
               <>
                 <p className="mb-3 text-sm">
-                  Validé le {d.validated_at ? formatDate(d.validated_at) : "—"}. Pour la mise en ligne, demandez à Claude d&apos;intégrer ce texte au site : il le
-                  met en page avec le design du site, puis vous le marquez « En ligne ».
+                  Validé le {d.validated_at ? formatDate(d.validated_at) : "—"}. Il reste à le mettre en ligne sur le site.
+                  Une fois que c&apos;est fait, passe-le en « En ligne ».
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <form action={setContentStatus.bind(null, d.id, "publie")}>

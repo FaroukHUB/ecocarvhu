@@ -89,7 +89,7 @@ async function Fiche({ params, searchParams }: { params: Promise<{ id: string }>
           </Card>
 
           <Card title="Résultat" emoji="🏁">
-            <p className="mb-3 text-sm text-muted">Les réponses arrivent dans votre boîte mail. Indiquez-le ici : les relances programmées s&apos;arrêtent.</p>
+            <p className="mb-3 text-sm text-muted">L&apos;entreprise a répondu ? Clique ici, les relances s&apos;arrêtent.</p>
             <div className="flex flex-wrap gap-2">
               <form action={setProspectStage.bind(null, p.id, "repondu")}>
                 <button className="rounded-xl bg-amber-100 px-4 py-2.5 font-semibold text-amber-950">💬 A répondu</button>
@@ -122,7 +122,7 @@ async function Fiche({ params, searchParams }: { params: Promise<{ id: string }>
                 </form>
                 {aiAvailable() ? (
                   <form action={prepareProspectEmails.bind(null, p.id, "ia")}>
-                    <button className={buttonClass}>✨ Rédiger avec l&apos;IA</button>
+                    <button className={buttonClass}>✨ Rédaction automatique</button>
                   </form>
                 ) : null}
               </div>
@@ -168,7 +168,7 @@ async function Fiche({ params, searchParams }: { params: Promise<{ id: string }>
             <Card title="3. Valider et envoyer" emoji="🚀">
               <p className="text-sm text-muted">
                 Le premier e-mail part tout de suite à <strong>{p.email || "— e-mail manquant —"}</strong>. Les relances partent ensuite toutes seules aux dates
-                prévues, sauf si vous indiquez une réponse, un refus, ou si l&apos;entreprise se désinscrit.
+                prévues, sauf si tu indiques une réponse ou un refus, ou si l&apos;entreprise se désinscrit.
               </p>
               <form action={approveAndSend.bind(null, p.id)} className="mt-4">
                 <button type="submit" disabled={!p.email} className={greenButtonClass}>

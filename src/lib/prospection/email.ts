@@ -24,7 +24,7 @@ const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 /** Envoi d'un e-mail de prospection par Brevo, avec lien de désinscription. */
 export async function sendProspectEmail(input: { to: string; subject: string; body: string; unsubscribeUrl: string }) {
   const config = resolveTransport();
-  if (config.kind !== "brevo") return { ok: false as const, error: "L'envoi d'e-mails (Brevo) n'est pas configuré." };
+  if (config.kind !== "brevo") return { ok: false as const, error: "L'envoi d'e-mails n'est pas encore activé." };
   const footer = `\n\n—\nVous recevez ce message car votre entreprise exerce une activité liée aux véhicules en Provence-Alpes-Côte d'Azur.\nPour ne plus recevoir nos messages : ${input.unsubscribeUrl}`;
   const html = `<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.55;color:#1b1f23">${esc(input.body).replace(/\n/g, "<br>")}</div>
 <p style="font-family:Arial,sans-serif;font-size:12px;color:#6b7280;margin-top:28px">Vous recevez ce message car votre entreprise exerce une activité liée aux véhicules en Provence-Alpes-Côte d'Azur.<br><a href="${input.unsubscribeUrl}" style="color:#6b7280">Ne plus recevoir nos messages</a></p>`;

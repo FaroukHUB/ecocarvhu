@@ -111,9 +111,9 @@ export async function draftContentWithClaude(input: { kind: ContentKind; topic: 
     system: SYSTEM,
     messages: [{ role: "user", content: ask }],
   });
-  if (response.stop_reason === "refusal") throw new Error("La rédaction automatique a été refusée.");
+  if (response.stop_reason === "refusal") throw new Error("La rédaction automatique n'a pas abouti. Réessaie, ou pars du plan.");
   const text = response.content.flatMap((b) => (b.type === "text" ? [b.text] : [])).join("");
   const parsed = Draft.safeParse(JSON.parse(text));
-  if (!parsed.success) throw new Error("La réponse de l'IA est incomplète. Réessayez ou partez du plan.");
+  if (!parsed.success) throw new Error("La rédaction automatique n'a pas abouti. Réessaie, ou pars du plan.");
   return parsed.data;
 }

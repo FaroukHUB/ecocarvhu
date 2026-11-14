@@ -134,7 +134,7 @@ async function Home() {
             ))}
           </ul>
         ) : (
-          <p className="text-muted">Aucune demande en cours. Les demandes envoyées depuis le site arriveront ici automatiquement.</p>
+          <p className="text-muted">Rien en cours pour l&apos;instant. Les nouvelles demandes du site arrivent ici toutes seules.</p>
         )}
       </Card>
     </>

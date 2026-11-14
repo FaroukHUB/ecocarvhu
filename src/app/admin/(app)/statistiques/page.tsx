@@ -56,7 +56,7 @@ export default function StatsPage({ searchParams }: PageProps<"/admin/statistiqu
       <PageTitle
         emoji="📈"
         title="Statistiques du site"
-        subtitle="Vercel Web Analytics, site en production. Un clic sur le numéro n'est pas forcément un appel abouti."
+        subtitle="Qui vient sur le site, d'où, et qui nous contacte. Un clic sur le numéro n'est pas forcément un appel abouti."
       />
       <Suspense fallback={<p className="mt-10 text-muted">Chargement des statistiques…</p>}>
         <Dashboard searchParams={searchParams} />
@@ -92,8 +92,7 @@ async function Dashboard({ searchParams }: { searchParams: Promise<Record<string
       <>
         {periodNav}
         <Message>
-          Configuration à terminer : ajoutez la variable <code>VERCEL_ANALYTICS_TOKEN</code> (jeton d&apos;accès Vercel)
-          dans les variables d&apos;environnement du projet, puis redéployez.
+          Les statistiques ne sont pas encore reliées. Elles s&apos;afficheront ici dès que ce sera fait.
         </Message>
       </>
     );

@@ -16,7 +16,7 @@ export function MessagePicker({
 }) {
   const [i, setI] = useState(0);
   const [copied, setCopied] = useState(false);
-  if (!templates.length) return <p className="text-sm text-muted">Aucun message type. Ajoutez-en dans « Messages types ».</p>;
+  if (!templates.length) return <p className="text-sm text-muted">Pas encore de message type : tu peux en ajouter dans « Messages types ».</p>;
   const text = templates[i].text;
   const enc = encodeURIComponent(text);
   const btn = "inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold transition hover:-translate-y-0.5";

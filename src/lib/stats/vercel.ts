@@ -20,7 +20,7 @@ export function statsConfigured(): boolean {
 
 async function query(path: string, params: { since: Date; until: Date; by?: string[]; filter?: string; limit?: number }) {
   const token = process.env.VERCEL_ANALYTICS_TOKEN;
-  if (!token) throw new StatsError("VERCEL_ANALYTICS_TOKEN n'est pas défini.");
+  if (!token) throw new StatsError("Les statistiques ne sont pas encore reliées.");
   const qs = new URLSearchParams({
     projectId: PROJECT_ID,
     teamId: TEAM_ID,
@@ -35,8 +35,7 @@ async function query(path: string, params: { since: Date; until: Date; by?: stri
     cache: "no-store",
   });
   if (!res.ok) {
-    const detail = await res.text().catch(() => "");
-    throw new StatsError(`API Vercel ${res.status} sur ${path} ${detail.slice(0, 200)}`);
+    throw new StatsError(`Les statistiques ne répondent pas pour l'instant (${res.status}). Réessaie un peu plus tard.`);
   }
   return (await res.json()) as { data: unknown };
 }

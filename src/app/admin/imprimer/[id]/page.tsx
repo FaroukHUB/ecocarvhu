@@ -33,7 +33,7 @@ async function Doc({ params }: { params: Promise<{ id: string }> }) {
     <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-[210mm] p-8 text-[13px] leading-relaxed text-black print:p-0">
         <div className="mb-6 flex justify-between gap-4 print:hidden">
-          <p className="text-sm text-stone-500">Aperçu avant impression. Choisissez « Enregistrer en PDF » dans la fenêtre d&apos;impression.</p>
+          <p className="text-sm text-stone-500">Aperçu avant impression. Pour un PDF, choisis « Enregistrer en PDF » dans la fenêtre d&apos;impression.</p>
           <PrintButton />
         </div>
         {!f.numero ? <p className="mb-4 rounded bg-amber-100 p-2 text-center font-bold">BROUILLON — document non émis</p> : null}

@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Équipe et accès" };
 export default function EquipePage() {
   return (
     <>
-      <PageTitle emoji="👥" title="Équipe et accès" subtitle="Les personnes qui peuvent se connecter à l'espace de gestion." />
+      <PageTitle emoji="👥" title="Équipe et accès" subtitle="Ceux qui peuvent se connecter à l'espace de gestion." />
       <Suspense fallback={<p className="text-muted">Chargement…</p>}>
         <Team />
       </Suspense>
@@ -18,7 +18,7 @@ export default function EquipePage() {
         <AddMemberForm />
         <p className="mt-4 text-sm text-muted">
           La personne se connecte sur <strong>www.ecocarvhu.fr/admin</strong> avec son e-mail et ce mot de passe. Un chauffeur ne voit
-          que les enlèvements que vous lui attribuez.
+          que les enlèvements qu&apos;on lui confie.
         </p>
       </Card>
     </>
@@ -56,14 +56,14 @@ async function Team() {
                 </button>
               </form>
             ) : (
-              <span className="text-sm text-muted">c&apos;est vous</span>
+              <span className="text-sm text-muted">c&apos;est toi</span>
             )}
           </li>
         ))}
       </ul>
       <form action={syncMembers} className="mt-3">
         <button type="submit" className="text-sm font-semibold text-brand hover:underline">
-          🔄 Actualiser (après une création de compte dans Supabase)
+          🔄 Actualiser la liste
         </button>
       </form>
     </Card>

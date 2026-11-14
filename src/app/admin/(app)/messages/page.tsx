@@ -16,7 +16,7 @@ export default function MessagesPage() {
       />
       <Card className="mb-6" title="Les mots magiques" emoji="✨">
         <p className="text-sm text-ink-3">
-          Ils sont remplacés automatiquement par les infos de la demande : <code>{"{prenom}"}</code>, <code>{"{nom}"}</code>,{" "}
+          Ils se remplacent tout seuls par les infos de la demande : <code>{"{prenom}"}</code>, <code>{"{nom}"}</code>,{" "}
           <code>{"{ville}"}</code>, <code>{"{vehicule}"}</code>, <code>{"{date_rdv}"}</code>.
         </p>
       </Card>

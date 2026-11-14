@@ -80,7 +80,7 @@ async function List() {
         </ul>
       ) : (
         <p className="mt-6 rounded-3xl bg-white p-8 text-center text-muted">
-          Aucun rachat. Créez-en un ici, ou depuis la fiche d&apos;une demande de rachat.
+          Pas encore de rachat. Tu peux en créer un ici, ou depuis la fiche d&apos;une demande de rachat.
         </p>
       )}
     </>

@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Agenda" };
 export default function AgendaPage({ searchParams }: PageProps<"/admin/agenda">) {
   return (
     <>
-      <PageTitle emoji="📅" title="Agenda des enlèvements" subtitle="Les rendez-vous de la semaine, jour par jour." />
+      <PageTitle emoji="📅" title="Agenda des enlèvements" subtitle="Ta semaine d'enlèvements, jour par jour." />
       <Suspense fallback={<p className="text-muted">Chargement…</p>}>
         <Week searchParams={searchParams} />
       </Suspense>
@@ -140,7 +140,7 @@ async function Week({ searchParams }: { searchParams: Promise<Record<string, str
                 <Link href={`/admin/demandes/${d.id}`} className="flex flex-wrap items-center justify-between gap-2 py-3">
                   <span>
                     <strong>{d.contact_name || "Sans nom"}</strong> · {placeLabel(d)}
-                    <span className="block text-sm text-muted">{vehicleLabel(d)} · ouvrez la fiche pour fixer la date</span>
+                    <span className="block text-sm text-muted">{vehicleLabel(d)} · ouvre la fiche pour caler la date</span>
                   </span>
                   <StatusBadge status={d.status} />
                 </Link>

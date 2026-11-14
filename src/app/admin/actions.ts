@@ -20,10 +20,10 @@ import { supabaseServer } from "@/lib/supabase/server";
 export async function signIn(_prev: { error?: string } | undefined, form: FormData) {
   const email = String(form.get("email") ?? "").trim();
   const password = String(form.get("password") ?? "");
-  if (!email || !password) return { error: "Indiquez votre e-mail et votre mot de passe." };
+  if (!email || !password) return { error: "Il manque ton e-mail ou ton mot de passe." };
   const supabase = await supabaseServer();
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error || !data.user) return { error: "E-mail ou mot de passe incorrect." };
+  if (error || !data.user) return { error: "E-mail ou mot de passe incorrect, réessaie." };
   const { data: profile } = await supabase.from("profiles").select("role").eq("id", data.user.id).maybeSingle();
   redirect(profile?.role === "chauffeur" ? "/admin/chauffeur" : "/admin");
 }
@@ -165,9 +165,9 @@ export async function uploadMissionFile(id: string, kind: "enlevement" | "signat
   if (file.size > 3_900_000) return { error: "Fichier trop lourd (4 Mo maximum)." };
   const path = `${id}/${kind}/${crypto.randomUUID()}.${ext}`;
   const up = await supabase.storage.from("photos").upload(path, file, { contentType: file.type });
-  if (up.error) return { error: "Envoi impossible. Réessayez." };
+  if (up.error) return { error: "L'envoi n'est pas passé, réessaie." };
   const reg = await supabase.rpc("chauffeur_add_photo", { demande: id, object_path: path, photo_kind: kind });
-  if (reg.error) return { error: "Envoi impossible. Réessayez." };
+  if (reg.error) return { error: "L'envoi n'est pas passé, réessaie." };
   revalidatePath(`/admin/chauffeur/${id}`);
   revalidatePath(`/admin/demandes/${id}`);
   return { ok: true };
@@ -218,10 +218,10 @@ export async function addMember(_prev: { error?: string; ok?: string } | undefin
   revalidatePath("/admin/equipe");
   if (signUpError) {
     return {
-      error: `Accès enregistré, mais le compte n'a pas pu être créé (${signUpError.message}). Créez-le dans Supabase (Authentication → Users → Add user), puis cliquez sur « Actualiser ».`,
+      error: "L'accès est noté, mais le compte n'a pas pu être créé pour l'instant. Réessaie un peu plus tard, puis clique sur « Actualiser ».",
     };
   }
-  return { ok: `${full_name || email} peut se connecter avec ce mot de passe (si le compte existait déjà, son ancien mot de passe reste valable).` };
+  return { ok: `${full_name || email} peut se connecter avec ce mot de passe (s'il avait déjà un compte, il garde son ancien mot de passe).` };
 }
 
 export async function removeMember(email: string) {
@@ -543,11 +543,11 @@ export async function approveAndSend(id: string) {
     supabase.from("prospect_templates").select("step, delay_days"),
   ]);
   if (!p) return;
-  if (!p.email) back("Ajoutez d'abord l'adresse e-mail de l'entreprise.");
+  if (!p.email) back("Il manque l'adresse e-mail de l'entreprise.");
   const { data: optout } = await supabase.from("optouts").select("email").eq("email", String(p.email).toLowerCase()).maybeSingle();
-  if (optout) back("Cette adresse a demandé à ne plus recevoir de messages.");
+  if (optout) back("Cette entreprise a demandé à ne plus recevoir de messages.");
   const first = (emails ?? []).find((e) => e.step === 1 && e.status === "brouillon");
-  if (!first) back("Préparez d'abord les e-mails.");
+  if (!first) back("Il faut d'abord préparer les e-mails.");
   const site = resolveSiteUrl() ?? "https://www.ecocarvhu.fr";
   const sent = await sendProspectEmail({
     to: p.email,
@@ -604,7 +604,7 @@ export async function createContentDraft(form: FormData) {
   const keyword = String(form.get("keyword") ?? "").trim().slice(0, 120);
   const notes = String(form.get("notes") ?? "").trim().slice(0, 4000);
   const mode = form.get("mode") === "ia" ? "ia" : "plan";
-  if (!topic) redirect("/admin/contenu?erreur=" + encodeURIComponent("Indiquez le sujet ou la ville."));
+  if (!topic) redirect("/admin/contenu?erreur=" + encodeURIComponent("Il manque le sujet ou la ville."));
   let draft: { title: string; meta_description: string; body: string };
   if (mode === "ia") {
     try {
@@ -645,7 +645,7 @@ export async function setContentStatus(id: string, status: "brouillon" | "valide
     const { data } = await supabase.from("content_drafts").select("title, meta_description, body").eq("id", id).single();
     if (!data) return;
     if (countToConfirm(`${data.title}\n${data.meta_description}\n${data.body}`) > 0) {
-      redirect(`/admin/contenu/${id}?erreur=` + encodeURIComponent("Il reste des passages [À CONFIRMER] ou [À COMPLÉTER] : complétez-les ou supprimez-les avant de valider."));
+      redirect(`/admin/contenu/${id}?erreur=` + encodeURIComponent("Il reste des passages [À CONFIRMER] ou [À COMPLÉTER] : complète-les ou enlève-les avant de valider."));
     }
   }
   await supabase

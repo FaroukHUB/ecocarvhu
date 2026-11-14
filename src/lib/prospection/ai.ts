@@ -71,9 +71,9 @@ export async function draftWithClaude(p: {
     system: SYSTEM,
     messages: [{ role: "user", content: `Rédige la séquence pour cette entreprise :\n${facts}` }],
   });
-  if (response.stop_reason === "refusal") throw new Error("La rédaction automatique a été refusée pour cette entreprise.");
+  if (response.stop_reason === "refusal") throw new Error("La rédaction automatique n'a pas abouti pour cette entreprise. Pars des modèles.");
   const text = response.content.flatMap((b) => (b.type === "text" ? [b.text] : [])).join("");
   const parsed = Draft.safeParse(JSON.parse(text));
-  if (!parsed.success) throw new Error("La réponse de l'IA est incomplète. Réessayez ou utilisez les modèles.");
+  if (!parsed.success) throw new Error("La rédaction automatique n'a pas abouti. Réessaie, ou pars des modèles.");
   return parsed.data.emails;
 }

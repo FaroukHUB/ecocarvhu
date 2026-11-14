@@ -26,7 +26,7 @@ async function Content() {
     <>
       {!companyReady(data) ? (
         <p className="mb-5 rounded-2xl bg-amber-50 p-4 text-amber-950">
-          ⚠️ Tant que la raison sociale, le SIRET et l&apos;adresse ne sont pas remplis, vous pouvez préparer des brouillons mais pas
+          ⚠️ Tant que la raison sociale, le SIRET et l&apos;adresse ne sont pas remplis, tu peux préparer des brouillons, mais pas encore
           émettre de devis ni de facture.
         </p>
       ) : null}

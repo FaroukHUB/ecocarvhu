@@ -20,7 +20,7 @@ const DEPS: Record<string, string> = { "04": "Alpes-de-Haute-Provence", "05": "H
 export default function CartePage({ searchParams }: PageProps<"/admin/carte">) {
   return (
     <>
-      <PageTitle emoji="🗺️" title="Carte des enlèvements" subtitle="Où viennent vos clients : pour savoir où concentrer la publicité et les pages du site." />
+      <PageTitle emoji="🗺️" title="Carte des enlèvements" subtitle="D'où viennent les clients, pour savoir où mettre le paquet en pub et en pages ville." />
       <Suspense fallback={<p className="text-muted">Chargement…</p>}>
         <Content searchParams={searchParams} />
       </Suspense>

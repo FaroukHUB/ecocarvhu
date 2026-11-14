@@ -15,7 +15,7 @@ export default function FacturesPage({ searchParams }: PageProps<"/admin/facture
       <PageTitle
         emoji="🧾"
         title="Factures et devis"
-        subtitle="Préparez, émettez, imprimez en PDF et suivez les paiements."
+        subtitle="Tu prépares, tu émets, tu imprimes en PDF et tu suis les paiements."
         action={
           <div className="flex flex-wrap gap-2">
             <form action={createDocument.bind(null, "devis", {})}>
