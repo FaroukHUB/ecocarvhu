@@ -38,11 +38,16 @@ const path = (url: string) => {
   }
 };
 
+/** En dessous de ce nombre d'affichages, une position moyenne n'est pas assez fiable pour comparer. */
+const MIN_IMPRESSIONS = 20;
+const reliable = (r?: GscRow) => (r?.impressions ?? 0) >= MIN_IMPRESSIONS;
+
 /** Écart de position : négatif = le site remonte (position plus petite = mieux). */
-function Delta({ now, before }: { now?: number; before?: number }) {
-  if (now === undefined) return <span className="text-muted">—</span>;
-  if (before === undefined) return <span className="rounded-full bg-sky-100 px-2 py-0.5 text-xs font-semibold text-sky-900">nouveau</span>;
-  const d = before - now;
+function Delta({ now, before }: { now?: GscRow; before?: GscRow }) {
+  if (!now) return null;
+  if (!before) return <span className="rounded-full bg-sky-100 px-2 py-0.5 text-xs font-semibold text-sky-900">nouveau</span>;
+  if (!reliable(now) || !reliable(before)) return null;
+  const d = before.position - now.position;
   if (Math.abs(d) < 0.5) return <span className="text-muted">=</span>;
   return d > 0 ? (
     <span className="font-semibold text-emerald-700">▲ {pos(d)}</span>
@@ -144,8 +149,9 @@ function Villes({ pages, pagesBefore, queries, queriesBefore }: { pages: GscRow[
 
   const verdict = (r: (typeof rows)[number]) => {
     if (!r.page) return { label: "Pas encore vue par Google", tone: "bg-stone-100 text-stone-700" };
-    if (r.pageBefore && r.pageBefore.position - r.page.position >= 1) return { label: "🚀 Progresse", tone: "bg-emerald-100 text-emerald-900" };
-    if (r.pageBefore && r.page.position - r.pageBefore.position >= 1) return { label: "⚠️ Recule", tone: "bg-red-100 text-red-900" };
+    const comparable = reliable(r.page) && reliable(r.pageBefore);
+    if (comparable && r.pageBefore!.position - r.page.position >= 1) return { label: "🚀 Progresse", tone: "bg-emerald-100 text-emerald-900" };
+    if (comparable && r.page.position - r.pageBefore!.position >= 1) return { label: "⚠️ Recule", tone: "bg-red-100 text-red-900" };
     if (r.page.position > 10) return { label: "🎯 À optimiser", tone: "bg-amber-100 text-amber-950" };
     return { label: "✅ Première page", tone: "bg-emerald-50 text-emerald-900" };
   };
@@ -154,6 +160,8 @@ function Villes({ pages, pagesBefore, queries, queriesBefore }: { pages: GscRow[
     <Card>
       <p className="mb-4 text-sm text-muted">
         Une ligne par page ville en ligne. « À optimiser » : la page apparaît dans Google, mais en moyenne après la 10ᵉ position (au-delà de la première page).
+        « Progresse » et « Recule », comme les flèches, ne s&apos;affichent qu&apos;à partir de {MIN_IMPRESSIONS} affichages sur chacune des deux périodes : en dessous, la
+        moyenne n&apos;est pas fiable.
       </p>
       <div className="-mx-2 overflow-x-auto">
         <table className="w-full min-w-[46rem] text-left text-sm">
@@ -178,10 +186,10 @@ function Villes({ pages, pagesBefore, queries, queriesBefore }: { pages: GscRow[
                     </a>
                   </td>
                   <td className="px-2 py-2.5 tabular-nums">
-                    {pos(r.epav?.position)} <Delta now={r.epav?.position} before={r.epavBefore?.position} />
+                    {pos(r.epav?.position)} <Delta now={r.epav} before={r.epavBefore} />
                   </td>
                   <td className="px-2 py-2.5 tabular-nums">
-                    {pos(r.page?.position)} <Delta now={r.page?.position} before={r.pageBefore?.position} />
+                    {pos(r.page?.position)} <Delta now={r.page} before={r.pageBefore} />
                   </td>
                   <td className="px-2 py-2.5 text-right tabular-nums">{fmt(r.page?.impressions ?? 0)}</td>
                   <td className="px-2 py-2.5 text-right tabular-nums">{fmt(r.page?.clicks ?? 0)}</td>
@@ -219,7 +227,7 @@ function Table({ rows, before, dim }: { rows: GscRow[]; before: GscRow[]; dim: "
               <tr key={r.keys[0]}>
                 <td className="max-w-[22rem] truncate px-2 py-2.5 font-medium">{dim === "page" ? path(r.keys[0]) : r.keys[0]}</td>
                 <td className="whitespace-nowrap px-2 py-2.5 tabular-nums">
-                  {pos(r.position)} <Delta now={r.position} before={prev.get(r.keys[0])?.position} />
+                  {pos(r.position)} <Delta now={r} before={prev.get(r.keys[0])} />
                 </td>
                 <td className="px-2 py-2.5 text-right tabular-nums">{fmt(r.impressions)}</td>
                 <td className="px-2 py-2.5 text-right tabular-nums">{fmt(r.clicks)}</td>
