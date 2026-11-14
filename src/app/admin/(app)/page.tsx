@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
+import { LiveClock } from "@/components/admin/LiveClock";
 import { BigButton, Card, PageTitle, StatusBadge } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
 import { ago, currentTime, FORM_INFO, formatDate, placeLabel, STATUS_INFO, STATUSES, vehicleLabel, type Demande } from "@/lib/admin/demandes";
@@ -41,7 +42,7 @@ async function Home() {
       <PageTitle
         emoji="☀️"
         title="Salam la team EcocarVHU !"
-        subtitle={new Date().toLocaleDateString("fr-FR", { timeZone: "Europe/Paris", weekday: "long", day: "numeric", month: "long" })}
+        subtitle={<LiveClock initial={now} />}
         action={<BigButton href="/admin/demandes/nouvelle" emoji="➕">Ajouter une demande</BigButton>}
       />
 

@@ -3,7 +3,7 @@ import { STATUS_INFO, type Status } from "@/lib/admin/demandes";
 
 /** Petits éléments d'interface partagés par les pages de gestion. */
 
-export function PageTitle({ emoji, title, subtitle, action }: { emoji: string; title: string; subtitle?: string; action?: React.ReactNode }) {
+export function PageTitle({ emoji, title, subtitle, action }: { emoji: string; title: string; subtitle?: React.ReactNode; action?: React.ReactNode }) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
