@@ -29,3 +29,24 @@ describe("messages types", () => {
     expect(whatsappNumber(null)).toBeNull();
   });
 });
+
+import { computeTotals, marge, parseAmount } from "@/lib/admin/argent";
+
+describe("argent", () => {
+  it("calcule les totaux d'une facture", () => {
+    const t = computeTotals([
+      { label: "Enlèvement", qty: 1, unit_ht: 100, tva: 20 },
+      { label: "Frais d'accès", qty: 2, unit_ht: 12.5, tva: 20 },
+      { label: "", qty: 1, unit_ht: 999, tva: 20 },
+    ]);
+    expect(t.lines).toHaveLength(2);
+    expect(t).toMatchObject({ total_ht: 125, total_tva: 25, total_ttc: 150 });
+  });
+  it("lit les montants à la française", () => {
+    expect(parseAmount("1 200,50")).toBe(1200.5);
+    expect(parseAmount("")).toBeNull();
+  });
+  it("calcule la marge d'un rachat", () => {
+    expect(marge({ prix_achat: 300, frais: 50, revente_pieces: 400, revente_metal: 120 })).toBe(170);
+  });
+});

@@ -23,7 +23,18 @@ import {
 } from "@/lib/admin/demandes";
 import { labelFor } from "@/lib/forms/options";
 import { FIELD_LABELS } from "@/lib/forms/schemas";
-import { assignChauffeur, deleteDemande, saveContact, saveNotes, saveRdv, setCentreStep, setStatus } from "../../../actions";
+import {
+  assignChauffeur,
+  createDocument,
+  createRachat,
+  deleteDemande,
+  linkDemandePro,
+  saveContact,
+  saveNotes,
+  saveRdv,
+  setCentreStep,
+  setStatus,
+} from "../../../actions";
 
 export const metadata: Metadata = { title: "Fiche demande" };
 
@@ -45,6 +56,10 @@ async function Fiche({ params }: { params: Promise<{ id: string }> }) {
     supabase.from("demande_events").select("created_at, kind, message").eq("demande_id", id).order("created_at", { ascending: false }),
     supabase.from("message_templates").select("id, title, body").order("position"),
     supabase.from("profiles").select("id, full_name, email, role").order("role"),
+  ]);
+  const [{ data: pros }, { data: rachat }] = await Promise.all([
+    supabase.from("pros").select("id, name").order("name"),
+    supabase.from("rachats").select("id").eq("demande_id", id).maybeSingle(),
   ]);
   if (!d) notFound();
 
@@ -269,6 +284,50 @@ async function Fiche({ params }: { params: Promise<{ id: string }> }) {
             <Link href={`/admin/chauffeur/${d.id}`} className="mt-3 inline-block text-sm font-semibold text-brand hover:underline">
               📱 Ouvrir la mission (photos, signature, validation)
             </Link>
+          </Card>
+
+          <Card title="Commercial" emoji="💼">
+            <form action={linkDemandePro.bind(null, d.id)} className="flex flex-wrap gap-2">
+              <select name="pro_id" defaultValue={d.pro_id ?? ""} className={`${inputClass} flex-1`}>
+                <option value="">🏢 Pas de client pro</option>
+                {(pros ?? []).map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+              <button type="submit" className={buttonClass}>
+                Rattacher
+              </button>
+            </form>
+            {d.pro_id ? (
+              <Link href={`/admin/pros/${d.pro_id}`} className="mt-2 inline-block text-sm font-semibold text-brand hover:underline">
+                Voir la fiche du pro →
+              </Link>
+            ) : null}
+            <div className="mt-4 flex flex-wrap gap-2">
+              {rachat ? (
+                <Link href={`/admin/rachats/${rachat.id}`} className="rounded-2xl bg-emerald-100 px-3 py-2 text-sm font-semibold text-emerald-900">
+                  🤝 Voir le rachat
+                </Link>
+              ) : (
+                <form action={createRachat.bind(null, d.id)}>
+                  <button type="submit" className="rounded-2xl bg-emerald-100 px-3 py-2 text-sm font-semibold text-emerald-900">
+                    🤝 Créer un rachat
+                  </button>
+                </form>
+              )}
+              <form action={createDocument.bind(null, "devis", { demande: d.id })}>
+                <button type="submit" className="rounded-2xl bg-sky-100 px-3 py-2 text-sm font-semibold text-sky-900">
+                  🧾 Devis
+                </button>
+              </form>
+              <form action={createDocument.bind(null, "facture", { demande: d.id })}>
+                <button type="submit" className="rounded-2xl bg-amber-100 px-3 py-2 text-sm font-semibold text-amber-900">
+                  💶 Facture
+                </button>
+              </form>
+            </div>
           </Card>
 
           <Card title="Envoyer un message" emoji="💬">

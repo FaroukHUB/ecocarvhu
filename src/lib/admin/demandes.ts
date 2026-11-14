@@ -46,6 +46,7 @@ export interface Demande {
   rdv_at: string | null;
   lost_reason: string | null;
   chauffeur_id: string | null;
+  pro_id: string | null;
   enleve_at: string | null;
   centre_remis_at: string | null;
   cd_recu_at: string | null;

@@ -3,6 +3,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { computeTotals, parseAmount } from "@/lib/admin/argent";
 import { requireUser } from "@/lib/admin/auth";
 import { CENTRE_STEPS, DOCUMENTS, fromLocalInput, isStatus, STATUS_INFO, type CentreStep } from "@/lib/admin/demandes";
 import { supabaseConfig } from "@/lib/supabase/config";
@@ -227,4 +228,225 @@ export async function syncMembers() {
   const { supabase } = await requireUser("admin");
   await supabase.rpc("admin_sync_profiles");
   revalidatePath("/admin/equipe");
+}
+
+/* ---------------------------------------------------------- entreprise */
+
+export async function saveCompany(_prev: { error?: string; ok?: string } | undefined, form: FormData) {
+  const { supabase } = await requireUser("admin");
+  const t = (k: string, max = 200) => String(form.get(k) ?? "").trim().slice(0, max);
+  const { error } = await supabase
+    .from("company_settings")
+    .update({
+      legal_name: t("legal_name"),
+      legal_form: t("legal_form"),
+      siret: t("siret").replace(/\s/g, ""),
+      rcs: t("rcs"),
+      capital: t("capital"),
+      tva_number: t("tva_number").replace(/\s/g, ""),
+      tva_franchise: form.get("tva_franchise") === "on",
+      address: t("address"),
+      postal_code: t("postal_code"),
+      city: t("city"),
+      phone: t("phone"),
+      email: t("email"),
+      iban: t("iban").replace(/\s/g, ""),
+      bic: t("bic"),
+      payment_days: Math.min(Math.max(Number(form.get("payment_days")) || 30, 0), 60),
+      legal_footer: t("legal_footer", 1500),
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", 1);
+  if (error) return { error: "Enregistrement impossible." };
+  revalidatePath("/admin", "layout");
+  return { ok: "Informations enregistrées." };
+}
+
+/* --------------------------------------------------------------- pros */
+
+function proFields(form: FormData) {
+  const t = (k: string) => String(form.get(k) ?? "").trim().slice(0, 200) || null;
+  return {
+    name: t("name") ?? "Sans nom",
+    kind: t("kind") ?? "garage",
+    status: t("status") ?? "prospect",
+    contact_name: t("contact_name"),
+    phone: t("phone"),
+    email: t("email"),
+    address: t("address"),
+    postal_code: t("postal_code"),
+    city: t("city"),
+    siret: t("siret"),
+    notes: String(form.get("notes") ?? "").slice(0, 5000),
+  };
+}
+
+export async function savePro(id: string | null, form: FormData) {
+  const { supabase } = await requireUser("admin");
+  if (id) {
+    await supabase.from("pros").update(proFields(form)).eq("id", id);
+    revalidatePath(`/admin/pros/${id}`);
+    revalidatePath("/admin/pros");
+    return;
+  }
+  const { data, error } = await supabase.from("pros").insert(proFields(form)).select("id").single();
+  if (error || !data) throw new Error("Création impossible.");
+  revalidatePath("/admin/pros");
+  redirect(`/admin/pros/${data.id}`);
+}
+
+export async function touchPro(id: string) {
+  const { supabase } = await requireUser("admin");
+  await supabase.from("pros").update({ last_contact_at: new Date().toISOString() }).eq("id", id);
+  revalidatePath(`/admin/pros/${id}`);
+}
+
+export async function deletePro(id: string) {
+  const { supabase } = await requireUser("admin");
+  await supabase.from("pros").delete().eq("id", id);
+  revalidatePath("/admin/pros");
+  redirect("/admin/pros");
+}
+
+export async function linkDemandePro(id: string, form: FormData) {
+  const { supabase } = await requireUser("admin");
+  const pro = String(form.get("pro_id") ?? "");
+  await supabase.from("demandes").update({ pro_id: pro || null }).eq("id", id);
+  refresh(id);
+}
+
+/* ------------------------------------------------------------ rachats */
+
+export async function createRachat(demandeId: string | null) {
+  const { supabase } = await requireUser("admin");
+  let vehicle = "";
+  if (demandeId) {
+    const { data: existing } = await supabase.from("rachats").select("id").eq("demande_id", demandeId).maybeSingle();
+    if (existing) redirect(`/admin/rachats/${existing.id}`);
+    const { data: d } = await supabase.from("demandes").select("brand, model, year, plate").eq("id", demandeId).maybeSingle();
+    vehicle = [d?.brand, d?.model, d?.year, d?.plate].filter(Boolean).join(" ");
+  }
+  const { data, error } = await supabase.from("rachats").insert({ demande_id: demandeId, vehicle }).select("id").single();
+  if (error || !data) throw new Error("Création impossible.");
+  revalidatePath("/admin/rachats");
+  redirect(`/admin/rachats/${data.id}`);
+}
+
+export async function saveRachat(id: string, form: FormData) {
+  const { supabase } = await requireUser("admin");
+  const status = String(form.get("status") ?? "estimation");
+  await supabase
+    .from("rachats")
+    .update({
+      vehicle: String(form.get("vehicle") ?? "").trim().slice(0, 200),
+      status,
+      prix_propose: parseAmount(form.get("prix_propose")),
+      prix_achat: parseAmount(form.get("prix_achat")),
+      frais: parseAmount(form.get("frais")) ?? 0,
+      revente_pieces: parseAmount(form.get("revente_pieces")) ?? 0,
+      revente_metal: parseAmount(form.get("revente_metal")) ?? 0,
+      achete_le: /^\d{4}-\d{2}-\d{2}$/.test(String(form.get("achete_le"))) ? String(form.get("achete_le")) : null,
+      notes: String(form.get("notes") ?? "").slice(0, 5000),
+    })
+    .eq("id", id);
+  revalidatePath(`/admin/rachats/${id}`);
+  revalidatePath("/admin/rachats");
+}
+
+export async function deleteRachat(id: string) {
+  const { supabase } = await requireUser("admin");
+  await supabase.from("rachats").delete().eq("id", id);
+  revalidatePath("/admin/rachats");
+  redirect("/admin/rachats");
+}
+
+/* --------------------------------------------------- devis et factures */
+
+export async function createDocument(kind: "devis" | "facture", source: { pro?: string; demande?: string; devis?: string }) {
+  const { supabase } = await requireUser("admin");
+  const doc: Record<string, unknown> = { kind };
+  if (source.devis) {
+    const { data: dv } = await supabase.from("factures").select("*").eq("id", source.devis).maybeSingle();
+    if (dv) Object.assign(doc, { devis_id: dv.id, pro_id: dv.pro_id, demande_id: dv.demande_id, client_name: dv.client_name, client_address: dv.client_address, client_email: dv.client_email, client_siret: dv.client_siret, lines: dv.lines, total_ht: dv.total_ht, total_tva: dv.total_tva, total_ttc: dv.total_ttc });
+  } else if (source.pro) {
+    const { data: p } = await supabase.from("pros").select("*").eq("id", source.pro).maybeSingle();
+    if (p)
+      Object.assign(doc, {
+        pro_id: p.id,
+        client_name: p.name,
+        client_address: [p.address, [p.postal_code, p.city].filter(Boolean).join(" ")].filter(Boolean).join("\n"),
+        client_email: p.email ?? "",
+        client_siret: p.siret ?? "",
+      });
+  } else if (source.demande) {
+    const { data: d } = await supabase.from("demandes").select("*").eq("id", source.demande).maybeSingle();
+    if (d)
+      Object.assign(doc, {
+        demande_id: d.id,
+        pro_id: d.pro_id,
+        client_name: d.company || d.contact_name || "",
+        client_address: [d.address, [d.postal_code, d.city].filter(Boolean).join(" ")].filter(Boolean).join("\n"),
+        client_email: d.email ?? "",
+      });
+  }
+  const { data, error } = await supabase.from("factures").insert(doc).select("id").single();
+  if (error || !data) throw new Error("Création impossible.");
+  revalidatePath("/admin/factures");
+  redirect(`/admin/factures/${data.id}`);
+}
+
+export async function saveDocument(id: string, form: FormData) {
+  const { supabase } = await requireUser("admin");
+  let raw: unknown = [];
+  try {
+    raw = JSON.parse(String(form.get("lines") ?? "[]"));
+  } catch {
+    raw = [];
+  }
+  const totals = computeTotals(raw);
+  const t = (k: string, max = 300) => String(form.get(k) ?? "").trim().slice(0, max);
+  const { error } = await supabase
+    .from("factures")
+    .update({
+      client_name: t("client_name"),
+      client_address: t("client_address", 500),
+      client_email: t("client_email"),
+      client_siret: t("client_siret").replace(/\s/g, ""),
+      notes: t("notes", 2000),
+      ...totals,
+    })
+    .eq("id", id)
+    .is("numero", null);
+  if (error) throw new Error("Enregistrement impossible.");
+  revalidatePath(`/admin/factures/${id}`);
+}
+
+export async function emitDocument(id: string) {
+  const { supabase } = await requireUser("admin");
+  const { error } = await supabase.rpc("emit_document", { doc: id });
+  revalidatePath(`/admin/factures/${id}`);
+  revalidatePath("/admin/factures");
+  if (error) redirect(`/admin/factures/${id}?erreur=${encodeURIComponent(error.message)}`);
+}
+
+export async function setDocumentStatus(id: string, status: "accepte" | "refuse" | "paye" | "emis" | "annule") {
+  const { supabase } = await requireUser("admin");
+  const patch: Record<string, unknown> = { status };
+  patch.paid_at = status === "paye" ? new Date().toISOString().slice(0, 10) : null;
+  await supabase.from("factures").update(patch).eq("id", id).not("numero", "is", null);
+  revalidatePath(`/admin/factures/${id}`);
+  revalidatePath("/admin/factures");
+}
+
+export async function deleteDraft(id: string) {
+  const { supabase } = await requireUser("admin");
+  await supabase.from("factures").delete().eq("id", id).is("numero", null);
+  revalidatePath("/admin/factures");
+  redirect("/admin/factures");
+}
+
+/** Enregistre le brouillon puis l'émet (un seul clic, rien n'est perdu). */
+export async function saveAndEmit(id: string, form: FormData) {
+  await saveDocument(id, form);
+  await emitDocument(id);
 }

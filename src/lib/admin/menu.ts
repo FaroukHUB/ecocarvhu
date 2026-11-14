@@ -49,9 +49,9 @@ export const MENU: MenuCategory[] = [
     emoji: "💶",
     color: "bg-amber-400",
     items: [
-      { href: "/admin/rachats", label: "Rachats", emoji: "🤝", soon: true },
-      { href: "/admin/chiffres", label: "Chiffres du mois", emoji: "📊", soon: true },
-      { href: "/admin/factures", label: "Factures et devis", emoji: "🧾", soon: true },
+      { href: "/admin/rachats", label: "Rachats", emoji: "🤝" },
+      { href: "/admin/chiffres", label: "Chiffres du mois", emoji: "📊" },
+      { href: "/admin/factures", label: "Factures et devis", emoji: "🧾" },
     ],
   },
   {
@@ -59,7 +59,7 @@ export const MENU: MenuCategory[] = [
     emoji: "🏢",
     color: "bg-violet-400",
     items: [
-      { href: "/admin/pros", label: "Fichier pros", emoji: "📇", soon: true },
+      { href: "/admin/pros", label: "Fichier pros", emoji: "📇" },
       { href: "/admin/prospection", label: "Prospection", emoji: "🎯", soon: true },
     ],
   },
@@ -84,7 +84,10 @@ export const MENU: MenuCategory[] = [
     title: "Réglages",
     emoji: "⚙️",
     color: "bg-stone-300",
-    items: [{ href: "/admin/equipe", label: "Équipe et accès", emoji: "👥" }],
+    items: [
+      { href: "/admin/entreprise", label: "Entreprise", emoji: "🏷️" },
+      { href: "/admin/equipe", label: "Équipe et accès", emoji: "👥" },
+    ],
   },
 ];
 
