@@ -4,15 +4,16 @@ import { Suspense } from "react";
 import { posts } from "@/content/blog";
 import { pages } from "@/content/pages";
 import { sectors } from "@/content/sectors/data";
-import { Container } from "@/components/ui/primitives";
+import { PageTitle } from "@/components/admin/ui";
+import { requireUser } from "@/lib/admin/auth";
 import { amount, eventsBy, statsConfigured, StatsError, visitors, visitsBy, visitsCount, type Row } from "@/lib/stats/vercel";
 
 /**
- * Tableau de bord privé (protégé par ADMIN_BASIC_AUTH dans le proxy).
+ * Statistiques du site dans l'espace de gestion (réservé aux administrateurs).
  * Données : Vercel Web Analytics, production uniquement, lues à chaque visite.
  */
 export const metadata: Metadata = {
-  title: { absolute: "Statistiques — EcocarVHU" },
+  title: "Statistiques du site",
   robots: { index: false, follow: false },
 };
 
@@ -51,19 +52,21 @@ const FORMS: Record<string, string> = {
 
 export default function StatsPage({ searchParams }: PageProps<"/admin/statistiques">) {
   return (
-    <Container className="py-10 sm:py-14">
-      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Statistiques du site</h1>
-      <p className="mt-2 text-muted">
-        Vercel Web Analytics, site en production. Un clic sur le numéro n&apos;est pas forcément un appel abouti.
-      </p>
+    <>
+      <PageTitle
+        emoji="📈"
+        title="Statistiques du site"
+        subtitle="Vercel Web Analytics, site en production. Un clic sur le numéro n'est pas forcément un appel abouti."
+      />
       <Suspense fallback={<p className="mt-10 text-muted">Chargement des statistiques…</p>}>
         <Dashboard searchParams={searchParams} />
       </Suspense>
-    </Container>
+    </>
   );
 }
 
 async function Dashboard({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  await requireUser("admin");
   const p = Number((await searchParams).p);
   const days = (PERIODS as readonly number[]).includes(p) ? p : 30;
 

@@ -9,6 +9,7 @@ import {
   schemasByType,
   type FormType,
 } from "./schemas";
+import { storeDemande } from "./store";
 import { deliver, resolveTransport, type OutgoingMessage } from "./transport";
 
 /**
@@ -30,6 +31,8 @@ interface ProcessOptions {
   env?: Record<string, string | undefined>;
   fetchImpl?: typeof fetch;
   now?: number;
+  /** Copie dans l'espace de gestion (par défaut : Supabase si configuré). */
+  store?: typeof storeDemande;
 }
 
 const MIN_FILL_MS = 2500;
@@ -108,6 +111,11 @@ export async function processRequest(form: FormData, opts: ProcessOptions = {}):
         "La demande n'a pas pu être transmise. Vos informations sont conservées dans le formulaire : réessayez dans un instant" +
         (company.phone ? ` ou appelez le ${company.phone.value}.` : "."),
     };
+  }
+  try {
+    await (opts.store ?? storeDemande)({ formType, sector, pagePath, data, attachments }, env);
+  } catch (e) {
+    console.error(`[demandes] copie dans l'espace de gestion impossible : ${e instanceof Error ? e.message : e}`);
   }
   return { status: "accepted", mode: result.mode, formType };
 }

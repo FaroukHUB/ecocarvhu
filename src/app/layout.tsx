@@ -1,13 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import { SiteAnalytics } from "@/components/layout/SiteAnalytics";
-import { company, contactHref } from "@/config/company";
+import { company } from "@/config/company";
 import { indexingAllowed, siteEnv, siteUrl } from "@/config/env";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { CallFab } from "@/components/layout/CallFab";
-import { JsonLd } from "@/components/ui/primitives";
-import { organizationJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 const geist = Geist({
@@ -33,25 +28,12 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+/** Racine commune : le site public est dans (site), l'espace de gestion dans admin. */
 export default function RootLayout({ children }: LayoutProps<"/">) {
-  const tel = contactHref();
-  const whatsapp = Boolean(tel?.startsWith("https://wa.me/"));
   return (
     <html lang="fr" className={`${geist.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
-        <Header />
-        <main id="contenu" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        {tel && company.phone ? (
-          <CallFab
-            href={tel}
-            whatsapp={whatsapp}
-            label={whatsapp ? `Écrire sur WhatsApp au ${company.phone.value}` : `Appeler le ${company.phone.value}`}
-          />
-        ) : null}
-        <JsonLd data={organizationJsonLd()} />
+        {children}
         <SiteAnalytics />
       </body>
     </html>
