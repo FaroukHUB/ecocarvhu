@@ -16,7 +16,7 @@ export default function HomePage() {
 }
 
 async function Home() {
-  const { supabase, profile } = await requireUser("admin");
+  const { supabase } = await requireUser("admin");
   const { data } = await supabase
     .from("demandes")
     .select("*")
@@ -35,15 +35,12 @@ async function Home() {
     .filter((d) => d.rdv_at && dayOf(d.rdv_at) === todayKey)
     .sort((a, b) => a.rdv_at!.localeCompare(b.rdv_at!));
   const rdvMissing = open.filter((d) => d.status === "rdv_fixe" && !d.rdv_at);
-  const hour = Number(new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris", hour: "numeric", hour12: false }));
-  const hello = hour < 18 ? "Bonjour" : "Bonsoir";
-  const firstName = (profile.full_name || "").split(" ")[0];
 
   return (
     <>
       <PageTitle
         emoji="☀️"
-        title={`${hello}${firstName ? ` ${firstName}` : ""} !`}
+        title="Salam la team EcocarVHU !"
         subtitle={new Date().toLocaleDateString("fr-FR", { timeZone: "Europe/Paris", weekday: "long", day: "numeric", month: "long" })}
         action={<BigButton href="/admin/demandes/nouvelle" emoji="➕">Ajouter une demande</BigButton>}
       />
