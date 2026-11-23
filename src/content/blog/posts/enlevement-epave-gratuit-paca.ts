@@ -5,10 +5,10 @@ const IMG = "/images/blog/enlevement-epave-gratuit-paca";
 /** Article 1, transmis par le porteur de projet (PDF du 14/10/2026), repris fidèlement. */
 export const enlevementEpaveGratuitPaca: Post = {
   slug: "enlevement-epave-gratuit-paca",
-  title: "Enlèvement d'épave gratuit en PACA : les conditions à connaître",
+  title: "Enlèvement d'épave gratuit en PACA : conditions",
   description:
     "Enlèvement d'épave gratuit en PACA : ce que couvre la gratuité, l'état du véhicule, l'accès et les documents à préparer avant de faire votre demande.",
-  h1: "Enlèvement d'épave gratuit en PACA : les conditions à connaître",
+  h1: "Enlèvement d'épave gratuit en PACA : conditions",
   excerpt:
     "Ce qu'il reste sur le véhicule, la façon d'y accéder, les documents disponibles : les trois informations qui permettent d'obtenir une réponse utile, et ce que couvre vraiment la gratuité.",
   lead:

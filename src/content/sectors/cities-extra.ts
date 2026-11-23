@@ -25,9 +25,9 @@ export const extraCities: Sector[] = [
         "Centre-ville, quartiers résidentiels, Les Milles, Luynes ou Puyricard : l'accès est vérifié avant tout déplacement.",
         ["épaviste Aix-en-Provence", "enlèvement épave gratuit Aix-en-Provence", "enlèvement voiture Aix-en-Provence"],
       ),
-      title: "Épaviste Aix-en-Provence : enlèvement d'épave gratuit",
+      title: "Épaviste Aix-en-Provence : enlèvement gratuit",
       description:
-        "Épaviste à Aix-en-Provence : enlèvement d'épave gratuit selon conditions, du centre ancien à Luynes, Les Milles ou Puyricard. Voiture en panne ou accidentée : faites votre demande.",
+        "Épaviste à Aix-en-Provence : enlèvement d'épave gratuit selon conditions, du centre ancien à Luynes, Les Milles ou Puyricard. Faites votre demande.",
     },
     lead:
       "Aix-en-Provence est une commune étendue : centre historique, quartiers résidentiels, zones d'activités et villages rattachés comme Les Milles, Luynes ou Puyricard. Indiquez le code postal et le quartier : c'est le point de départ pour organiser un enlèvement réaliste.",

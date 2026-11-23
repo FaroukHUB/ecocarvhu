@@ -7,10 +7,10 @@ const H = 941;
 /** Article 3, transmis par le porteur de projet (PDF du 14/10/2026), repris fidèlement. */
 export const vendreVoitureEnPanne: Post = {
   slug: "vendre-voiture-en-panne",
-  title: "Voiture en panne ou non roulante : peut-on la vendre et à qui ?",
+  title: "Vendre une voiture en panne ou non roulante : à qui ?",
   description:
     "Voiture en panne ou non roulante : peut-on la vendre à un particulier, à qui s'adresser, comment préparer une demande de rachat en PACA et comparer les offres.",
-  h1: "Voiture en panne ou non roulante : peut-on la vendre et à qui ?",
+  h1: "Vendre une voiture en panne ou non roulante : à qui ?",
   excerpt:
     "Vente à un particulier, rachat par un professionnel ou destruction : les règles à connaître et les informations à réunir pour faire étudier le rachat d'une voiture qui ne roule plus.",
   lead:
@@ -38,6 +38,10 @@ export const vendreVoitureEnPanne: Post = {
     tip: "Le bon premier réflexe : décrire précisément le véhicule et demander quelle opération est proposée.",
   },
   blocks: [
+    {
+      type: "p",
+      text: "Vous savez déjà que vous voulez vendre ? Décrivez la voiture et sa panne dans la [demande d'étude de rachat](/rachat-vehicule#demande) : l'équipe examine le dossier avant toute proposition. Sinon, la suite de ce guide vous aide à choisir la bonne voie.",
+    },
     { type: "h2", text: "Peut-on vendre une voiture en panne à un particulier ?" },
     {
       type: "p",
@@ -113,6 +117,10 @@ export const vendreVoitureEnPanne: Post = {
     {
       type: "p",
       text: "Avant de payer une réparation uniquement pour espérer une meilleure revente, comparez le devis à une éventuelle offre dans l'état actuel. Si aucun diagnostic n'existe, dites-le. « Ne démarre plus depuis telle date » est une information plus fiable qu'une panne précise déduite d'une recherche sur internet.",
+    },
+    {
+      type: "p",
+      text: "Pour savoir ce que vaut votre voiture dans son état actuel, [faites étudier son rachat](/rachat-vehicule#demande) avec ces critères et quelques photos. La réponse dépend de l'examen du dossier ; aucun montant n'est garanti à l'avance.",
     },
 
     { type: "h2", text: "Voiture accidentée : vérifier l'expertise avant la vente" },

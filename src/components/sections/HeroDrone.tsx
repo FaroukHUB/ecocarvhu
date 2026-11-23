@@ -14,7 +14,7 @@ import { DroneSequence } from "./DroneSequence";
  *   boutons rendus côté serveur. Rien ne dépend du JavaScript pour lire la
  *   page ou demander un enlèvement.
  * - Avec JavaScript, sans « mouvement réduit » ni économie de données :
- *   `DroneSequence` charge la séquence d'images après le premier affichage et
+ *   `DroneSequence` charge la séquence d'images au premier geste du visiteur et
  *   anime la scène. La section devient alors plus haute (piste de défilement).
  */
 export function HeroDrone() {
