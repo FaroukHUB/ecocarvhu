@@ -329,9 +329,9 @@ export const cities06: Sector[] = [
         "",
         ["épaviste Le Cannet", "enlèvement voiture Le Cannet", "épaviste 06110"],
       ),
-      title: "Enlèvement d'épave gratuit au Cannet (06110) : épaviste Le Cannet",
+      title: "Épaviste Le Cannet : enlèvement gratuit",
       description:
-        "Enlèvement d'épave gratuit au Cannet pour tout véhicule complet et accessible. Rue en pente, garage individuel ou parking de résidence : l'accès est vérifié avant le rendez-vous. Demande en ligne ou par téléphone.",
+        "Épave au Cannet ? Enlèvement gratuit d'un véhicule complet et accessible. Rue en pente, garage ou parking de résidence : l'accès est vérifié avant.",
       h1: "Enlèvement d'épave gratuit au Cannet",
       intent: "Locale transactionnelle : faire enlever un véhicule au Cannet",
     },

@@ -7,10 +7,10 @@ const H = 1086;
 /** Article 2, transmis par le porteur de projet (PDF du 14/10/2026), repris fidèlement. */
 export const documentsEnlevementEpavePaca: Post = {
   slug: "documents-enlevement-epave-paca",
-  title: "Quels documents pour l'enlèvement d'une épave ? La checklist en PACA",
+  title: "Documents pour l'enlèvement d'une épave : checklist",
   description:
-    "Carte grise, certificat de non-gage, Cerfa 15776 : la checklist des documents pour l'enlèvement d'une épave en PACA, y compris sans carte grise ou en cas de succession.",
-  h1: "Quels documents pour l'enlèvement d'une épave ? La checklist en PACA",
+    "Carte grise, certificat de non-gage, Cerfa 15776 : les documents pour l'enlèvement d'une épave en PACA, y compris sans carte grise ou en cas de succession.",
+  h1: "Documents pour l'enlèvement d'une épave : checklist",
   excerpt:
     "Carte grise, certificat de situation administrative, Cerfa 15776 : la checklist pour préparer votre dossier avant le rendez-vous, y compris si la carte grise manque ou si plusieurs personnes doivent signer.",
   lead:

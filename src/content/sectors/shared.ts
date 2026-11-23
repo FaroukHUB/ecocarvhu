@@ -23,9 +23,14 @@ export const HA = { code: "05", name: "Hautes-Alpes" } as const;
 
 /** Métadonnées SEO d'une page de ville. */
 export function citySeo(name: string, cp: string, extra: string, secondary: string[]) {
+  // Titre court (le gabarit ajoute « | EcocarVHU ») : lieu et service d'abord,
+  // sans répéter le nom de la ville (audit SEO du 23/11/2026).
+  const base = `Épave à ${name} ? Enlèvement gratuit d'un véhicule complet et accessible.`;
+  const withExtra = extra ? `${base} ${extra}` : "";
   return {
-    title: `Enlèvement d'épave gratuit à ${name} (${cp}) : épaviste ${name}`,
-    description: `Enlèvement d'épave gratuit à ${name} pour tout véhicule complet et accessible. ${extra} Demande en ligne ou par téléphone.`,
+    title: `Épaviste ${name} : enlèvement gratuit`,
+    description:
+      withExtra && withExtra.length <= 160 ? withExtra : `${base} Conditions confirmées avant le déplacement.`,
     h1: `Enlèvement d'épave gratuit à ${name}`,
     intent: `Locale transactionnelle : faire enlever un véhicule à ${name}`,
     primaryQuery: `enlèvement épave ${name}`,

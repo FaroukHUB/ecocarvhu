@@ -27,9 +27,9 @@ export interface Guide {
 export const guides: Guide[] = [
   {
     slug: "enlevement-acces-difficile",
-    title: "Enlèvement d'un véhicule en sous-sol ou d'accès difficile : comment le décrire",
+    title: "Épave en sous-sol ou accès difficile : quoi décrire",
     description:
-      "Sous-sol, box, cour étroite, pente, véhicule sans roues : les informations et photos qui permettent de vérifier si un enlèvement est faisable avant de se déplacer.",
+      "Sous-sol, box, cour étroite, pente, véhicule sans roues : les informations et photos qui permettent de vérifier si un enlèvement est faisable avant de venir.",
     h1: "Demander un enlèvement dans un lieu difficile d'accès",
     summary: "Les informations qui évitent un déplacement inutile quand l'accès au véhicule est compliqué.",
     reviewedOn: null,
@@ -72,7 +72,7 @@ export const guides: Guide[] = [
     slug: "identifier-reference-piece",
     title: "Comment trouver la référence d'une pièce auto",
     description:
-      "Où lire la référence constructeur d'une pièce, quelles informations du véhicule relever et comment faire une demande même sans connaître le nom exact de la pièce.",
+      "Où lire la référence constructeur d'une pièce, quelles informations du véhicule relever et comment faire une demande sans connaître le nom exact de la pièce.",
     h1: "Identifier la référence d'une pièce auto",
     summary: "Les bons repères pour décrire une pièce et éviter une erreur de compatibilité.",
     reviewedOn: null,
@@ -107,7 +107,7 @@ export const guides: Guide[] = [
   },
   {
     slug: "etapes-prise-en-charge-vhu",
-    title: "Les étapes de la prise en charge d'un véhicule hors d'usage",
+    title: "Prise en charge d'un véhicule hors d'usage : étapes",
     description:
       "De la demande en ligne au certificat de destruction : qui fait quoi, ce qui est confirmé à chaque étape et ce que devient le véhicule dans un centre VHU.",
     h1: "Comprendre les étapes de prise en charge d'un VHU",
