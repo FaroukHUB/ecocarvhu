@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { company } from "@/config/company";
 import { PhoneBig } from "@/components/ui/PhoneBig";
-import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
 import { Logo } from "./Logo";
 import { footerNav } from "./nav";
 
@@ -12,12 +11,11 @@ export function Footer() {
         <div className="space-y-5">
           <Logo tone="light" size="footer" />
           <p className="max-w-sm text-sm leading-relaxed text-white/75">
-            Enlèvement de véhicules hors d&apos;usage, pièces auto d&apos;occasion et étude de rachat en
+            Enlèvement de véhicules hors d&apos;usage, rachat de voitures et de taxis sur étude en
             Provence-Alpes-Côte d&apos;Azur. Chaque demande est confirmée par l&apos;équipe avant tout
             déplacement.
           </p>
           <PhoneBig placement="footer" size="md" caption="Une question ? Appelez" />
-          <PartnerCentreCard variant="compact" />
         </div>
         {footerNav.map((col) => (
           <nav key={col.title} aria-label={col.title}>

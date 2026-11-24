@@ -14,7 +14,11 @@ describe.runIf(process.env.LAUNCH_CHECK === "1")("prêt pour la publication", ()
 });
 
 describe("liste des points bloquants", () => {
-  it("signale au minimum l'agrément du centre partenaire tant qu'il manque", () => {
-    expect(launchBlockers({}).some((b) => b.includes("agrément"))).toBe(true);
+  it("signale l'identité légale tant qu'elle manque", () => {
+    expect(launchBlockers({}).some((b) => b.includes("Identité légale"))).toBe(true);
+  });
+
+  it("n'exige plus d'identifier un centre VHU partenaire (plusieurs centres, non nommés)", () => {
+    expect(launchBlockers({}).some((b) => b.toLowerCase().includes("partenaire"))).toBe(false);
   });
 });

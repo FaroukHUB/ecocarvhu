@@ -8,7 +8,6 @@ import { ButtonLink, Container, Eyebrow, H2, Section } from "@/components/ui/pri
 import { FeatureList } from "@/components/ui/FeatureList";
 import { Faq } from "@/components/ui/Faq";
 import { RequestSteps } from "@/components/sections/RequestSteps";
-import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
 import { AlertIcon, BuildingIcon, CheckIcon, CoinsIcon, DocIcon, GearIcon, ShieldIcon, TruckIcon } from "@/components/ui/icons";
 import { ProForm } from "@/components/forms/RequestForms";
 import { CallBand } from "@/components/sections/CallBand";
@@ -91,7 +90,7 @@ const steps = [
   { title: "Vous décrivez le lot", text: "Nombre de véhicules, état, accès au site, situation administrative." },
   { title: "L'équipe étudie", text: "Faisabilité, matériel, documents à prévoir pour chaque véhicule." },
   { title: "Conditions confirmées", text: "Gratuité pour les véhicules complets et accessibles, conditions annoncées pour les autres." },
-  { title: "Enlèvement et suivi", text: "Remise au centre VHU partenaire, qui délivre les certificats de destruction." },
+  { title: "Enlèvement et suivi", text: "Remise à un centre VHU agréé, qui délivre les certificats de destruction." },
 ];
 
 const faq = [
@@ -117,9 +116,9 @@ const faq = [
     a: "Oui : le centre VHU agréé qui prend en charge chaque véhicule délivre un certificat de destruction, à conserver.",
   },
   {
-    q: "Proposez-vous des pièces d'occasion aux professionnels ?",
-    a: "Le service de pièces auto d'occasion est en cours de préparation. Les demandes de pièces seront ouvertes dès qu'il sera prêt.",
-    link: { href: pages.pieces.path, label: "Pièces auto d'occasion" },
+    q: "Rachetez-vous les taxis et les véhicules de flotte très kilométrés ?",
+    a: "Oui, sur étude. Taxis à fort kilométrage, accidentés ou en panne, véhicules de flotte en fin de vie : décrivez-les avec des photos, l'équipe vous répond après examen.",
+    link: { href: pages.rachatTaxi.path, label: "Rachat de taxi" },
   },
 ];
 
@@ -145,8 +144,8 @@ export default function ProfessionnelsPage() {
         <H2 id="offres-title">Enlèvement d&apos;épaves et rachat de véhicules pour les professionnels</H2>
         <p className="mt-5 max-w-3xl text-lg text-ink-3">
           Un seul interlocuteur pour vos véhicules hors d&apos;usage : la demande est étudiée, les conditions et la
-          date vous sont confirmées avant tout déplacement, et chaque véhicule est remis à un centre VHU agréé
-          partenaire.
+          date vous sont confirmées avant tout déplacement, et chaque véhicule est remis à un centre VHU
+          agréé.
         </p>
         <div className="mt-10">
           <FeatureList items={offers} columns={3} />
@@ -203,9 +202,6 @@ export default function ProfessionnelsPage() {
               </li>
             ))}
           </ul>
-        </div>
-        <div className="reveal mt-12">
-          <PartnerCentreCard />
         </div>
       </Section>
 

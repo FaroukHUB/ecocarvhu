@@ -11,9 +11,8 @@ export type PageKey =
   | "home"
   | "enlevement"
   | "centreVhu"
-  | "pieces"
-  | "demandePiece"
   | "rachat"
+  | "rachatTaxi"
   | "pros"
   | "contact"
   | "zones"
@@ -44,7 +43,7 @@ export const pages: Record<PageKey, PageEntry> = {
     label: "Accueil",
     title: "Épaviste en PACA : enlèvement d'épave gratuit | EcocarVHU",
     description:
-      "Épaviste en PACA : enlèvement gratuit d'un véhicule complet et accessible, remis à un centre VHU partenaire. Étude de rachat sur demande.",
+      "Épaviste en PACA : enlèvement gratuit d'un véhicule complet et accessible, remis à un centre VHU agréé. Rachat de voitures et de taxis sur étude.",
     h1: "Enlèvement d'épave gratuit en Provence-Alpes-Côte d'Azur",
     intent: "Navigation / choix du service",
     primaryQuery: "enlèvement épave PACA",
@@ -56,7 +55,7 @@ export const pages: Record<PageKey, PageEntry> = {
     label: "Enlèvement d'épave",
     title: "Enlèvement d'épave gratuit en PACA",
     description:
-      "Voiture en panne, accidentée ou non roulante : enlèvement gratuit si elle est complète et accessible, remise à un centre VHU agréé partenaire.",
+      "Voiture en panne, accidentée ou non roulante : enlèvement gratuit si elle est complète et accessible, remise à un centre VHU agréé.",
     h1: "Enlèvement d'épave gratuit",
     intent: "Transactionnelle : obtenir un enlèvement",
     primaryQuery: "enlèvement épave",
@@ -71,7 +70,7 @@ export const pages: Record<PageKey, PageEntry> = {
   centreVhu: {
     path: "/centre-vhu",
     label: "Centre VHU",
-    title: "Centre VHU partenaire : prise en charge",
+    title: "Centre VHU agréé : prise en charge",
     description:
       "Comment un véhicule hors d'usage est remis à un centre VHU, quels documents préparer et ce que le centre vous remet. Le rôle de chacun, expliqué simplement.",
     h1: "Prise en charge par un centre VHU : comment ça se passe",
@@ -84,30 +83,6 @@ export const pages: Record<PageKey, PageEntry> = {
     ],
     sitemap: true,
   },
-  pieces: {
-    path: "/pieces-auto-occasion",
-    label: "Pièces d'occasion",
-    title: "Pièces auto d'occasion : service en préparation",
-    description:
-      "Le service de pièces auto d'occasion EcocarVHU est en préparation. Les demandes ne sont pas encore ouvertes. Contactez-nous pour une question.",
-    h1: "Pièces auto d'occasion : trouvez la bonne pièce pour votre véhicule",
-    intent: "Commerciale : recherche d'une pièce",
-    primaryQuery: "pièces auto occasion",
-    secondaryQueries: ["pièce détachée occasion", "casse auto pièces", "pièce de réemploi"],
-    sitemap: true,
-  },
-  demandePiece: {
-    path: "/demande-piece",
-    label: "Demande de pièce",
-    title: "Demande de pièce : service en préparation",
-    description:
-      "Les demandes de pièces auto d'occasion ne sont pas encore ouvertes : service en préparation. Pour une épave ou un rachat, utilisez les formulaires dédiés.",
-    h1: "Demander une pièce d'occasion",
-    intent: "Transactionnelle : envoyer une demande de pièce",
-    primaryQuery: "demande pièce auto occasion",
-    secondaryQueries: ["recherche pièce auto", "trouver une pièce auto d'occasion"],
-    sitemap: true,
-  },
   rachat: {
     path: "/rachat-vehicule",
     label: "Rachat de véhicule",
@@ -118,6 +93,18 @@ export const pages: Record<PageKey, PageEntry> = {
     intent: "Transactionnelle : obtenir une étude de rachat",
     primaryQuery: "rachat voiture en panne",
     secondaryQueries: ["rachat voiture accidentée", "vendre voiture pour pièces"],
+    sitemap: true,
+  },
+  rachatTaxi: {
+    path: "/rachat-taxi",
+    label: "Rachat de taxi",
+    title: "Rachat de taxi : fort kilométrage ou accidenté",
+    description:
+      "Vous arrêtez ou changez de taxi ? Nous rachetons les taxis à fort kilométrage, accidentés ou en panne en PACA. Décrivez le véhicule : offre après étude.",
+    h1: "Rachat de taxi à fort kilométrage ou accidenté",
+    intent: "Transactionnelle : vendre un taxi usé ou accidenté",
+    primaryQuery: "rachat taxi",
+    secondaryQueries: ["vendre son taxi", "rachat taxi accidenté", "rachat taxi gros kilométrage"],
     sitemap: true,
   },
   pros: {

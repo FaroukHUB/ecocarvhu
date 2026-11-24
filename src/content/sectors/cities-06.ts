@@ -199,11 +199,6 @@ export const cities06: Sector[] = [
         q: "Le véhicule est en contrebas de la maison, l'allée est très raide : que faut-il prévoir ?",
         a: "Joignez une photo de l'allée prise depuis la route et indiquez si la voiture roule encore. Un treuil peut être nécessaire : cela se vérifie avant le rendez-vous, avec les conditions qui s'y rattachent.",
       },
-      {
-        q: "Je cherche une pièce d'occasion pour un autre véhicule : pouvez-vous m'aider ?",
-        a: "Vous pouvez déposer une recherche de pièce, distincte de la demande d'enlèvement.",
-        link: { href: "/demande-piece", label: "Rechercher une pièce" },
-      },
     ],
     form: { city: "Grasse", postalCode: "06130" },
     missing: AM_MISSING,

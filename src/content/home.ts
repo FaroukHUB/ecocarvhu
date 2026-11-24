@@ -16,11 +16,11 @@ export const roles = [
       "Reçoit votre appel ou votre formulaire et vous rappelle.",
       "Vérifie la faisabilité : commune, accès, état du véhicule, matériel à prévoir.",
       "Vous indique les documents à préparer selon votre situation.",
-      "Organise l'enlèvement et le transport vers le centre partenaire.",
+      "Organise l'enlèvement et le transport vers un centre VHU agréé.",
     ],
   },
   {
-    who: "Le centre VHU partenaire",
+    who: "Le centre VHU agréé",
     title: "Assure la prise en charge réglementaire",
     points: [
       "Prend en charge le véhicule hors d'usage.",
@@ -45,7 +45,7 @@ export const steps = [
   },
   {
     title: "Enlèvement et certificat",
-    text: "Les documents sont vérifiés, le véhicule est chargé et conduit au centre VHU partenaire, qui délivre le certificat de destruction selon la procédure applicable.",
+    text: "Les documents sont vérifiés, le véhicule est chargé et conduit dans un centre VHU agréé, qui délivre le certificat de destruction selon la procédure applicable.",
   },
 ];
 
@@ -114,40 +114,13 @@ export const freeConditions = [
   },
 ];
 
-/* F — Pièces auto d'occasion --------------------------------------------- */
+/* F — Rachat de taxis ---------------------------------------------------- */
 
-export const partFamilies = [
-  {
-    title: "Moteurs et boîtes de vitesses",
-    text: "La motorisation exacte (code moteur, cylindrée, puissance) et le type de boîte sont indispensables pour vérifier la correspondance.",
-  },
-  {
-    title: "Alternateurs et démarreurs",
-    text: "Une même voiture peut recevoir plusieurs modèles selon l'année ou la climatisation : la référence de l'étiquette évite l'erreur.",
-  },
-  {
-    title: "Carrosserie",
-    text: "Portières, capots, pare-chocs, ailes, hayons. Indiquez le côté, la couleur et, si possible, le code peinture.",
-  },
-  {
-    title: "Éclairage et rétroviseurs",
-    text: "Optiques, feux arrière, rétroviseurs : la technologie (halogène, xénon, LED) et les options (rabattable, chauffant) changent la pièce.",
-  },
-  {
-    title: "Électronique",
-    text: "Calculateurs, commodos, compteurs : la référence est souvent indispensable, et certaines pièces doivent être reprogrammées par un professionnel.",
-  },
-  {
-    title: "Équipements intérieurs",
-    text: "Sièges, garnitures, commandes : précisez la finition et la couleur, qui varient au sein d'un même modèle.",
-  },
-];
-
-export const partChecklist = [
-  "Marque, modèle, année de première mise en circulation et motorisation (sur la carte grise).",
-  "La référence constructeur, si vous la trouvez sur la pièce ou son étiquette.",
-  "Une photo de la pièce, de son étiquette ou de son emplacement.",
-  "Si vous ne connaissez pas le nom : une description de ce que vous constatez suffit.",
+export const taxiCases = [
+  { title: "Fort kilométrage", text: "Un taxi qui a beaucoup roulé garde souvent de la valeur : faites-le étudier." },
+  { title: "Accidenté", text: "Choc avant, arrière ou latéral, avec ou sans rapport d'expertise." },
+  { title: "En panne", text: "Moteur, boîte, hybride ou électronique : décrivez la panne simplement." },
+  { title: "Fin d'activité ou changement", text: "Vous arrêtez ou vous renouvelez votre véhicule : vendez l'ancien sans annonce." },
 ];
 
 /* G — Rachat ------------------------------------------------------------- */
@@ -194,9 +167,9 @@ export const homeFaq: FaqItem[] = [
     a: "Non. Elle permet de vérifier la faisabilité et la situation administrative. Le rendez-vous est fixé ensuite, avec votre accord. Elle ne vaut pas non plus autorisation de destruction.",
   },
   {
-    q: "Proposez-vous des pièces auto d'occasion ?",
-    a: "Le service de pièces auto d'occasion est en cours de préparation. Les demandes de pièces seront ouvertes dès qu'il sera prêt ; en attendant, l'enlèvement d'épave et l'étude de rachat restent disponibles.",
-    link: { href: "/pieces-auto-occasion", label: "Pièces auto d'occasion" },
+    q: "Rachetez-vous les taxis à fort kilométrage ou accidentés ?",
+    a: "Oui. Taxi très kilométré, accidenté ou en panne : décrivez-le et joignez des photos. L'équipe étudie le rachat et vous répond ; une offre définitive suppose de vérifier le véhicule.",
+    link: { href: "/rachat-taxi", label: "Faire racheter un taxi" },
   },
   {
     q: "Comment se passe une étude de rachat ?",

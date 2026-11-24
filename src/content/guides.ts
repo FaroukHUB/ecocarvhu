@@ -69,43 +69,6 @@ export const guides: Guide[] = [
     cta: { label: "Décrire mon véhicule et son accès", href: "/enlevement-epave#demande" },
   },
   {
-    slug: "identifier-reference-piece",
-    title: "Comment trouver la référence d'une pièce auto",
-    description:
-      "Où lire la référence constructeur d'une pièce, quelles informations du véhicule relever et comment faire une demande sans connaître le nom exact de la pièce.",
-    h1: "Identifier la référence d'une pièce auto",
-    summary: "Les bons repères pour décrire une pièce et éviter une erreur de compatibilité.",
-    reviewedOn: null,
-    status: { contentVerified: false, publicationApproved: false },
-    sections: [
-      {
-        heading: "Les informations du véhicule à relever",
-        paragraphs: [
-          "Deux véhicules du même modèle peuvent recevoir des pièces différentes selon l'année, la motorisation ou la finition. La carte grise contient la plupart des informations utiles : marque, dénomination commerciale, date de première immatriculation, type et puissance.",
-        ],
-        list: [
-          "Marque, modèle et année de première mise en circulation.",
-          "Motorisation (cylindrée, carburant, puissance) et type de boîte de vitesses.",
-          "Pour une pièce de carrosserie : la couleur et, si possible, le code peinture.",
-        ],
-      },
-      {
-        heading: "Où se trouve la référence d'une pièce",
-        paragraphs: [
-          "Beaucoup de pièces portent une étiquette ou un marquage gravé : boîtier électronique, alternateur, démarreur, optique, compresseur… La référence constructeur est généralement une suite de chiffres et de lettres. Une photo nette de cette étiquette vaut mieux qu'une recopie approximative.",
-        ],
-      },
-      {
-        heading: "Vous ne connaissez pas le nom de la pièce ?",
-        paragraphs: [
-          "Ce n'est pas un problème. Décrivez ce que vous constatez (« le cache sous le moteur côté passager est arraché », « le bouton de vitre avant gauche ne répond plus ») et ajoutez une photo de l'emplacement. L'équipe identifie la pièce puis vérifie sa disponibilité et sa compatibilité avant de vous proposer quoi que ce soit.",
-        ],
-      },
-    ],
-    sources: [],
-    cta: { label: "Pièces auto d'occasion", href: "/pieces-auto-occasion" },
-  },
-  {
     slug: "etapes-prise-en-charge-vhu",
     title: "Prise en charge d'un véhicule hors d'usage : étapes",
     description:
