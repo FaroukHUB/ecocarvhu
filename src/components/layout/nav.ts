@@ -11,8 +11,8 @@ export const showBlog = hasPublishedPosts() || draftsVisible;
 
 export const mainNav: NavItem[] = [
   { href: pages.enlevement.path, label: "Enlèvement gratuit" },
-  { href: pages.pieces.path, label: "Pièces d'occasion" },
   { href: pages.rachat.path, label: "Rachat" },
+  { href: pages.rachatTaxi.path, label: "Taxis" },
   { href: pages.pros.path, label: "Professionnels" },
   { href: pages.zones.path, label: "Zones" },
   ...(showBlog ? [{ href: pages.conseils.path, label: "Blog" }] : []),
@@ -25,10 +25,9 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     title: "Services",
     items: [
       { href: pages.enlevement.path, label: "Enlèvement d'épave gratuit" },
-      { href: pages.centreVhu.path, label: "Centre VHU partenaire" },
-      { href: pages.pieces.path, label: "Pièces auto d'occasion" },
-      { href: pages.demandePiece.path, label: "Demande de pièce" },
       { href: pages.rachat.path, label: "Rachat de véhicule" },
+      { href: pages.rachatTaxi.path, label: "Rachat de taxi" },
+      { href: pages.centreVhu.path, label: "Centre VHU agréé" },
       { href: pages.pros.path, label: "Professionnels" },
     ],
   },

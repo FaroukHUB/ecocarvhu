@@ -23,6 +23,11 @@ const faq = [
     a: "L'étude de rachat concerne un véhicule qui garde une valeur (pièces, réparation possible). Si le véhicule est hors d'usage, l'enlèvement vers un centre VHU est plus adapté.",
   },
   {
+    q: "Rachetez-vous les taxis ?",
+    a: "Oui : taxis à fort kilométrage, accidentés ou en panne, sur étude. Une page dédiée explique quoi indiquer.",
+    link: { href: "/rachat-taxi", label: "Rachat de taxi" },
+  },
+  {
     q: "Quels documents faudra-t-il ?",
     a: "Pour toute cession : la carte grise au nom du vendeur, un certificat de situation administrative récent et la déclaration de cession. Ils ne sont pas demandés dans le formulaire.",
   },
@@ -38,7 +43,7 @@ export default function RachatPage() {
         title={page.h1}
         lead={
           <p>
-            Véhicule en panne, accidenté ou très kilométré : envoyez ses caractéristiques et quelques
+            Voiture ou taxi en panne, accidenté ou très kilométré : envoyez ses caractéristiques et quelques
             photos. L&apos;équipe étudie la demande et vous répond. Il ne s&apos;agit ni d&apos;une estimation
             automatique ni d&apos;une offre garantie.
           </p>
@@ -83,6 +88,15 @@ export default function RachatPage() {
               <li>Le lieu de stationnement en Provence-Alpes-Côte d&apos;Azur et l&apos;accès au véhicule.</li>
             </ul>
           </div>
+        </div>
+        <div className="mt-8 flex flex-col gap-4 rounded-3xl bg-ink p-6 text-white sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lime">Chauffeurs de taxi</p>
+            <p className="mt-1.5 text-xl font-bold tracking-tight">
+              Taxi à fort kilométrage ou accidenté ? On le rachète.
+            </p>
+          </div>
+          <ButtonLink href={pages.rachatTaxi.path}>Rachat de taxi</ButtonLink>
         </div>
         <p className="mt-6 max-w-3xl text-ink-3">
           Vous hésitez entre vendre, réparer ou faire détruire ? Lisez notre guide{" "}

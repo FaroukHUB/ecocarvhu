@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "EcocarVHU — enlèvement d'épave et pièces auto d'occasion en Provence-Alpes-Côte d'Azur";
+export const alt = "EcocarVHU — enlèvement d'épave et rachat de véhicules en Provence-Alpes-Côte d'Azur";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -24,7 +24,7 @@ export default function OpengraphImage() {
           Ecocar<span style={{ color: "#3fd17a" }}>VHU</span>
         </div>
         <div style={{ marginTop: 28, fontSize: 44, lineHeight: 1.2, maxWidth: 950 }}>
-          Enlèvement d&apos;épave et pièces auto d&apos;occasion en Provence-Alpes-Côte d&apos;Azur
+          Enlèvement d&apos;épave et rachat de véhicules en Provence-Alpes-Côte d&apos;Azur
         </div>
         <div style={{ marginTop: 40, fontSize: 30, color: "#bfe9cf" }}>
           Conditions confirmées avant tout déplacement

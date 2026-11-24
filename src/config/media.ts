@@ -16,7 +16,7 @@ import path from "node:path";
  * correctement licenciées, jamais présentées à tort comme des photos maison.
  */
 
-export type PhotoSlot = "hero" | "enlevement" | "acces" | "pieces" | "rachat";
+export type PhotoSlot = "hero" | "enlevement" | "acces" | "rachat";
 
 export const photos: Record<
   PhotoSlot,
@@ -52,12 +52,7 @@ export const photos: Record<
     illustrative: false,
     brief: "Un véhicule d'occasion examiné en vue d'un rachat : état, compteur, dommages (format 4:3).",
   },
-  pieces: {
-    file: "accueil-pieces",
-    alt: "Un alternateur, une optique de phare et un rétroviseur d'occasion étiquetés sur un établi, devant des étagères de pièces",
-    illustrative: false,
-    brief: "Pièces d'occasion rangées et étiquetées : alternateur, optique, rétroviseur… (format 4:3).",
-  },
+
 };
 
 const EXTENSIONS = [".webp", ".jpg", ".jpeg", ".png"];

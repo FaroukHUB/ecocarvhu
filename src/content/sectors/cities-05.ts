@@ -354,11 +354,6 @@ export const cities05: Sector[] = [
         q: "J'ai récupéré la maison d'un parent avec sa voiture : que dois-je fournir ?",
         a: "La carte grise et les documents prouvant que vous pouvez disposer du véhicule (succession, mandat des héritiers). Précisez votre situation dans la demande : les pièces nécessaires vous sont confirmées.",
       },
-      {
-        q: "Je n'ai besoin que d'une pièce d'occasion pour mon autre véhicule : est-ce possible ?",
-        a: "Vous pouvez faire une demande de pièce, distincte de l'enlèvement.",
-        link: { href: "/demande-piece", label: "Demander une pièce" },
-      },
     ],
     form: { city: "Veynes", postalCode: "05400" },
     missing: [...CITY_MISSING, DEPT_MISSING],

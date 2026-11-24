@@ -25,9 +25,8 @@ export function launchBlockers(env: EnvSource = process.env): string[] {
   if (!company.host) b.push("Hébergeur non renseigné (mentions légales).");
   if (!company.email) b.push("E-mail de contact non renseigné.");
 
-  const p = company.vhu.partner;
-  if (company.vhu.situation === "partner-centre" && (!p.name || !p.agrementNumber || !p.issuingAuthority))
-    b.push("Centre VHU partenaire : raison sociale, numéro d'agrément/enregistrement et autorité à fournir et justifier.");
+  // Plusieurs centres VHU agréés selon le secteur : aucun centre nommé sur le site
+  // (décision du porteur de projet, 24/11/2026). Rien à exiger ici.
   if (company.vhu.situation === "to-define") b.push("Situation VHU de l'entreprise à préciser.");
 
   for (const key of ["mentions", "confidentialite", "conditions"] as const) {

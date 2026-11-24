@@ -6,7 +6,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container, H2 } from "@/components/ui/primitives";
 import { PhoneBig } from "@/components/ui/PhoneBig";
 import { ContactForm } from "@/components/forms/RequestForms";
-import { CoinsIcon, GearIcon, TruckIcon } from "@/components/ui/icons";
+import { CoinsIcon, TruckIcon } from "@/components/ui/icons";
 
 const page = pages.contact;
 
@@ -14,8 +14,8 @@ export const metadata = buildMetadata({ path: page.path, title: page.title, desc
 
 const shortcuts = [
   { href: "/enlevement-epave#demande", label: "Demande d'enlèvement", icon: TruckIcon },
-  { href: pages.demandePiece.path, label: "Demande de pièce", icon: GearIcon },
   { href: "/rachat-vehicule#demande", label: "Étude de rachat", icon: CoinsIcon },
+  { href: "/rachat-taxi#demande", label: "Rachat de taxi", icon: CoinsIcon },
 ];
 
 export default function ContactPage() {

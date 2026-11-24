@@ -47,11 +47,6 @@ export const cities84: Sector[] = [
         q: "Montfavet fait-il partie d'Avignon pour la demande ?",
         a: "Oui. Indiquez Avignon comme commune et 84140 comme code postal ; ajoutez « Montfavet » dans l'adresse pour lever toute ambiguïté.",
       },
-      {
-        q: "Je cherche une pièce d'occasion plutôt qu'un enlèvement : est-ce possible ?",
-        a: "Oui, la demande de pièce se fait à part. Donnez le modèle, l'année et la référence si vous la connaissez.",
-        link: { href: "/demande-piece", label: "Rechercher une pièce d'occasion" },
-      },
     ],
     form: { city: "Avignon" },
     missing: CITY_MISSING,

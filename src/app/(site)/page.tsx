@@ -10,6 +10,7 @@ import {
   roles,
   situations,
   steps,
+  taxiCases,
   toVerify,
 } from "@/content/home";
 import { buildMetadata } from "@/lib/seo";
@@ -34,11 +35,9 @@ import { Faq } from "@/components/ui/Faq";
 import { Photo, hasPhotoBlock } from "@/components/ui/Photo";
 import { HeroDrone } from "@/components/sections/HeroDrone";
 import { VehicleCheck } from "@/components/sections/VehicleCheck";
-import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
 import { SectorList } from "@/components/sections/SectorList";
 import { CallBand } from "@/components/sections/CallBand";
 import { RequestSteps } from "@/components/sections/RequestSteps";
-import { PartsComingSoon } from "@/components/sections/PartsComingSoon";
 import { ZoneMap } from "@/components/sections/ZoneMap";
 import { Marquee } from "@/components/sections/Marquee";
 
@@ -65,7 +64,8 @@ export default function HomePage() {
         items={[
           "Enlèvement gratuit",
           "Véhicule complet et accessible",
-          "Centre VHU partenaire",
+          "Centre VHU agréé",
+          "Rachat de taxis",
           "Certificat de destruction",
           "Toute la région PACA",
           "Rachat de véhicule sur étude",
@@ -82,7 +82,7 @@ export default function HomePage() {
               Faire enlever une épave soulève toujours les mêmes questions : est-ce faisable chez moi, est-ce
               gratuit, quels papiers, et qui détruit le véhicule ? EcocarVHU y répond{" "}
               <strong className="text-ink">avant</strong> le déplacement, puis organise l&apos;enlèvement. La
-              destruction elle-même relève du centre VHU partenaire.
+              destruction elle-même relève d&apos;un centre VHU agréé.
             </p>
             <p className="mt-4 text-ink-3">
               Vous savez à chaque étape ce qui se passe ensuite : l&apos;équipe vous rappelle, vous confirme
@@ -99,7 +99,7 @@ export default function HomePage() {
                 <ShieldIcon className="h-5 w-5" />
               </span>
               <span className="text-sm leading-tight">
-                <span className="block font-semibold">Centre VHU partenaire</span>
+                <span className="block font-semibold">Centre VHU agréé</span>
                 <span className="text-muted">Certificat de destruction</span>
               </span>
             </div>
@@ -269,10 +269,37 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* F. Pièces auto d'occasion : service en préparation */}
-      <Section>
-        <div className="reveal">
-          <PartsComingSoon />
+      {/* F. Rachat de taxis : mis en avant à la demande du porteur de projet (24/11/2026) */}
+      <Section labelledBy="taxi-title">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
+          <div className="reveal">
+            <Eyebrow>Chauffeurs de taxi</Eyebrow>
+            <H2 id="taxi-title">
+              Votre taxi a beaucoup roulé ou il est accidenté ? <span className="text-brand">On le rachète.</span>
+            </H2>
+            <p className="mt-5 max-w-xl text-lg text-ink-3">
+              Fin d&apos;activité, changement de véhicule, gros kilométrage, accident ou panne : décrivez votre
+              taxi et joignez quelques photos. L&apos;équipe étudie le rachat et vous répond, sans estimation
+              automatique.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ButtonLink href={`${pages.rachatTaxi.path}#demande`}>Faire racheter mon taxi</ButtonLink>
+              <ButtonLink href={pages.rachatTaxi.path} variant="ghost">
+                Comment ça se passe
+              </ButtonLink>
+            </div>
+          </div>
+          <ul className="reveal grid gap-3 sm:grid-cols-2">
+            {taxiCases.map((c) => (
+              <li key={c.title} className="card p-5">
+                <h3 className="flex items-center gap-2 font-semibold tracking-tight">
+                  <CheckIcon className="h-5 w-5 shrink-0 text-brand" />
+                  {c.title}
+                </h3>
+                <p className="mt-1.5 text-[0.93rem] text-ink-3">{c.text}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
 
@@ -433,10 +460,6 @@ export default function HomePage() {
           </div>
         ) : null}
 
-        {/* Encart du centre VHU partenaire, placé en bas de page à la demande du porteur de projet */}
-        <div className="reveal mt-12">
-          <PartnerCentreCard />
-        </div>
       </Section>
 
       {/* Blog : les trois articles les plus récents */}

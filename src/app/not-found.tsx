@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const links = [
   { href: "/enlevement-epave#demande", label: "Demander un enlèvement" },
-  { href: pages.demandePiece.path, label: "Demander une pièce" },
+  { href: pages.rachatTaxi.path, label: "Rachat de taxi" },
   { href: pages.rachat.path, label: "Étude de rachat" },
   { href: pages.zones.path, label: "Zones d'intervention" },
   { href: pages.contact.path, label: "Contact" },
