@@ -9,7 +9,9 @@ import { Faq } from "@/components/ui/Faq";
 import { RequestSteps } from "@/components/sections/RequestSteps";
 import { BuybackForm } from "@/components/forms/RequestForms";
 import { CallBand } from "@/components/sections/CallBand";
-import { CheckIcon } from "@/components/ui/icons";
+import { CheckIcon, MapPinIcon } from "@/components/ui/icons";
+import { departments } from "@/content/sectors/data";
+import { sectorPath, visibleSectors } from "@/lib/publication";
 
 /**
  * Rachat de taxis : page mise en avant à la demande du porteur de projet
@@ -50,6 +52,15 @@ const faq = [
   {
     q: "Le taxi est au nom de ma société : comment faire ?",
     a: "La cession est signée par le représentant de la société, avec la carte grise au nom de la société, un certificat de situation administrative récent et la déclaration de cession.",
+  },
+  {
+    q: "Rachetez-vous les taxis à Marseille, Nice ou Toulon ?",
+    a: "Oui, dans toute la région Provence-Alpes-Côte d'Azur : Marseille, Aix-en-Provence, Toulon, Nice, Cannes, Antibes, Avignon et les autres communes de PACA. L'étude se fait sur description et photos ; la faisabilité est confirmée selon votre commune.",
+    link: { href: pages.zones.path, label: "Les zones d'intervention" },
+  },
+  {
+    q: "Mon taxi est conventionné : est-ce que ça change quelque chose ?",
+    a: "Non. Taxi conventionné ou non, la demande d'étude est la même : c'est le véhicule qui est étudié, selon son état, son kilométrage et ses photos.",
   },
   {
     q: "Pouvez-vous me donner un prix en ligne ?",
@@ -107,6 +118,81 @@ export default function RachatTaxiPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </Section>
+
+      <Section labelledBy="vendre-title">
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr]">
+          <div>
+            <Eyebrow>Vendre son taxi</Eyebrow>
+            <H2 id="vendre-title">Vendre son taxi à fort kilométrage ou accidenté, sans passer par une annonce</H2>
+            <div className="prose-eco mt-6 space-y-4 text-ink-3">
+              <p>
+                Un taxi roule beaucoup plus qu&apos;une voiture de particulier. Au moment de le vendre, le compteur
+                fait souvent fuir les acheteurs, et une annonce peut rester en ligne longtemps : appels, visites,
+                essais, négociation. Le <strong>rachat de taxi sur étude</strong> vous évite ces démarches : vous
+                décrivez le véhicule, l&apos;équipe l&apos;étudie et vous répond.
+              </p>
+              <p>
+                <strong>Taxi accidenté</strong> : s&apos;il reste réparable ou garde de la valeur pour ses pièces,
+                il peut être racheté. S&apos;il est hors d&apos;usage, son enlèvement vers un centre VHU agréé vous
+                est proposé, gratuit si le véhicule est complet et accessible.
+              </p>
+              <p>
+                <strong>Taxi en panne</strong> : moteur, boîte de vitesses, batterie hybride, électronique… Une panne
+                coûteuse à réparer n&apos;empêche pas une étude de rachat. Décrivez-la simplement, même sans
+                diagnostic.
+              </p>
+              <p>
+                <strong>Fin d&apos;activité, départ à la retraite ou renouvellement</strong> : vous changez de
+                véhicule ou vous arrêtez le taxi ? Faites étudier le rachat de l&apos;ancien avant de le laisser
+                immobilisé.
+              </p>
+            </div>
+          </div>
+          <aside className="card self-start p-7">
+            <h3 className="text-lg font-semibold tracking-tight">Taxis hybrides, diesel ou électriques</h3>
+            <p className="mt-2 text-[0.95rem] text-ink-3">
+              Berline ou monospace, taxi conventionné ou non : la demande est la même. Indiquez la motorisation,
+              le kilométrage et l&apos;état de la batterie si c&apos;est un hybride ou un électrique.
+            </p>
+            <ButtonLink href="#demande" className="mt-6">
+              Demander une étude de rachat
+            </ButtonLink>
+          </aside>
+        </div>
+      </Section>
+
+      <Section tone="surface" labelledBy="villes-title">
+        <Eyebrow>Partout en PACA</Eyebrow>
+        <H2 id="villes-title">Rachat de taxi à Marseille, Aix-en-Provence, Toulon, Nice et dans toute la région</H2>
+        <p className="mt-5 max-w-3xl text-lg text-ink-3">
+          Chauffeur de taxi dans les Bouches-du-Rhône, le Var, les Alpes-Maritimes, le Vaucluse ou les Alpes :
+          l&apos;étude de rachat se fait à distance, sur description et photos. La faisabilité est ensuite
+          confirmée selon la commune où le taxi est stationné.
+        </p>
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {departments.map((d) => {
+            const cities = visibleSectors().filter((s) => s.kind === "city" && s.department?.code === d.code);
+            if (!cities.length) return null;
+            return (
+              <div key={d.code} className="card p-6">
+                <h3 className="flex items-center gap-2 font-semibold tracking-tight">
+                  <MapPinIcon className="h-5 w-5 shrink-0 text-brand" />
+                  Taxis {d.name === "Var" ? "du Var" : d.name === "Vaucluse" ? "du Vaucluse" : `des ${d.name}`} ({d.code})
+                </h3>
+                <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1.5 text-[0.95rem]">
+                  {cities.map((c) => (
+                    <li key={c.slug}>
+                      <Link href={sectorPath(c)} className="text-ink-2 underline decoration-line underline-offset-4 hover:text-brand">
+                        {c.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </Section>
 

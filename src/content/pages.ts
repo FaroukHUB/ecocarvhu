@@ -100,11 +100,17 @@ export const pages: Record<PageKey, PageEntry> = {
     label: "Rachat de taxi",
     title: "Rachat de taxi : fort kilométrage ou accidenté",
     description:
-      "Vous arrêtez ou changez de taxi ? Nous rachetons les taxis à fort kilométrage, accidentés ou en panne en PACA. Décrivez le véhicule : offre après étude.",
+      "Rachat de taxi à Marseille, Nice, Toulon et dans toute la région PACA : fort kilométrage, accidenté ou en panne. Décrivez-le, offre après étude.",
     h1: "Rachat de taxi à fort kilométrage ou accidenté",
     intent: "Transactionnelle : vendre un taxi usé ou accidenté",
     primaryQuery: "rachat taxi",
-    secondaryQueries: ["vendre son taxi", "rachat taxi accidenté", "rachat taxi gros kilométrage"],
+    secondaryQueries: [
+      "vendre son taxi",
+      "rachat taxi accidenté",
+      "rachat taxi gros kilométrage",
+      "rachat taxi Marseille",
+      "reprise taxi",
+    ],
     sitemap: true,
   },
   pros: {
