@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { PageTitle } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
-import { currentTime, parisDay, placeLabel, vehicleLabel, type Demande } from "@/lib/admin/demandes";
+import {parisDay, placeLabel, vehicleLabel, type Demande} from "@/lib/admin/demandes";
+import { currentTime } from "@/lib/admin/now";
 
 export const metadata: Metadata = { title: "Ma tournée" };
 
@@ -27,7 +28,7 @@ async function Tournee({ searchParams }: { searchParams: Promise<Record<string, 
   if (profile.role === "chauffeur") q = q.eq("chauffeur_id", profile.id);
   const { data } = await q.returns<Demande[]>();
   const missions = data ?? [];
-  const today = parisDay(new Date(currentTime()));
+  const today = parisDay(new Date((await currentTime())));
   const groups = [
     { title: "Aujourd'hui", emoji: "📍", list: missions.filter((d) => d.rdv_at && parisDay(d.rdv_at) <= today) },
     { title: "Prochains jours", emoji: "📅", list: missions.filter((d) => d.rdv_at && parisDay(d.rdv_at) > today) },

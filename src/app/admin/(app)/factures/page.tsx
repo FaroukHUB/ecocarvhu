@@ -4,7 +4,8 @@ import { Suspense } from "react";
 import { PageTitle } from "@/components/admin/ui";
 import { DOC_STATUS, euro, type Facture } from "@/lib/admin/argent";
 import { requireUser } from "@/lib/admin/auth";
-import { currentTime, formatDate } from "@/lib/admin/demandes";
+import {formatDate} from "@/lib/admin/demandes";
+import { currentTime } from "@/lib/admin/now";
 import { createDocument } from "../../actions";
 
 export const metadata: Metadata = { title: "Factures et devis" };
@@ -40,7 +41,7 @@ async function List({ searchParams }: { searchParams: Promise<Record<string, str
   const { supabase } = await requireUser("admin");
   const { data } = await supabase.from("factures").select("*").eq("kind", kind).order("created_at", { ascending: false }).limit(300).returns<Facture[]>();
   const rows = data ?? [];
-  const today = new Date(currentTime()).toISOString().slice(0, 10);
+  const today = new Date((await currentTime())).toISOString().slice(0, 10);
   const unpaid = rows.filter((f) => f.kind === "facture" && f.status === "emis");
   const late = unpaid.filter((f) => f.due_at && f.due_at < today);
   return (

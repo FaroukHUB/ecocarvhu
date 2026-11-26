@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Card, greenButtonClass, inputClass, PageTitle, buttonClass } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
-import { ago, currentTime } from "@/lib/admin/demandes";
+import {ago} from "@/lib/admin/demandes";
+import { currentTime } from "@/lib/admin/now";
 import { ACTIVITES, DEPARTEMENTS, searchCompanies, TAILLES, type Company } from "@/lib/prospection/search";
 import { EMAIL_STEPS, STAGES, type Prospect, type Stage } from "@/lib/prospection/stages";
 import { addProspects, saveProspectTemplate } from "../../actions";
@@ -196,7 +197,7 @@ async function Suivi({ sp }: { sp: SP }) {
   if (stage) query = query.eq("stage", stage);
   const [{ data }, { data: all }] = await Promise.all([query.returns<Prospect[]>(), supabase.from("pros").select("stage").not("siren", "is", null)]);
   const rows = data ?? [];
-  const now = currentTime();
+  const now = (await currentTime());
   const ajoutes = Number(str(sp.ajoutes));
   const count = (k: string) => (all ?? []).filter((r) => r.stage === k).length;
   return (

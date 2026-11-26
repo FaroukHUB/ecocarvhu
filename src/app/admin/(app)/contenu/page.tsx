@@ -5,7 +5,8 @@ import { posts } from "@/content/blog";
 import { sectors } from "@/content/sectors/data";
 import { Card, greenButtonClass, buttonClass, inputClass, PageTitle } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
-import { ago, currentTime } from "@/lib/admin/demandes";
+import {ago} from "@/lib/admin/demandes";
+import { currentTime } from "@/lib/admin/now";
 import { isPostPublished, isSectorPublished } from "@/lib/publication";
 import { aiAvailable } from "@/lib/prospection/ai";
 import { CONTENT_STATUS } from "@/lib/visibilite/status";
@@ -29,7 +30,7 @@ async function Content({ searchParams }: { searchParams: Promise<Record<string, 
   const { supabase } = await requireUser("admin");
   const { data } = await supabase.from("content_drafts").select("id, kind, topic, title, status, updated_at").order("updated_at", { ascending: false }).limit(200);
   const drafts = data ?? [];
-  const now = currentTime();
+  const now = (await currentTime());
   const onlineCities = sectors.filter((s) => s.kind === "city" && isSectorPublished(s.status)).length;
   const preparedCities = sectors.filter((s) => s.kind === "city" && !isSectorPublished(s.status)).length;
   const onlinePosts = posts.filter(isPostPublished).length;

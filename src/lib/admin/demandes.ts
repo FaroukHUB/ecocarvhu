@@ -160,7 +160,3 @@ export function whatsappNumber(phone: string | null): string | null {
   return digits || null;
 }
 
-/** Heure actuelle (composants serveur, rendus à chaque requête). */
-export function currentTime(): number {
-  return Date.now();
-}

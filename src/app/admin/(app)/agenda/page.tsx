@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Card, PageTitle, StatusBadge } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
-import { currentTime, parisDay, placeLabel, vehicleLabel, type Demande } from "@/lib/admin/demandes";
+import {parisDay, placeLabel, vehicleLabel, type Demande} from "@/lib/admin/demandes";
+import { currentTime } from "@/lib/admin/now";
 
 export const metadata: Metadata = { title: "Agenda" };
 
@@ -32,7 +33,7 @@ function addDays(day: string, n: number): string {
 
 async function Week({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const sp = await searchParams;
-  const today = parisDay(new Date(currentTime()));
+  const today = parisDay(new Date((await currentTime())));
   const start = monday(typeof sp.semaine === "string" && /^\d{4}-\d{2}-\d{2}$/.test(sp.semaine) ? sp.semaine : today);
   const days = Array.from({ length: 7 }, (_, i) => addDays(start, i));
   const { supabase } = await requireUser("admin");

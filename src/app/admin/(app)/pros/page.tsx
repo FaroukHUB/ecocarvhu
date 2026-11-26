@@ -4,7 +4,8 @@ import { Suspense } from "react";
 import { BigButton, inputClass, PageTitle } from "@/components/admin/ui";
 import { PRO_KINDS, PRO_STATUS, type Pro } from "@/lib/admin/argent";
 import { requireUser } from "@/lib/admin/auth";
-import { ago, currentTime } from "@/lib/admin/demandes";
+import {ago} from "@/lib/admin/demandes";
+import { currentTime } from "@/lib/admin/now";
 
 export const metadata: Metadata = { title: "Fichier pros" };
 
@@ -37,7 +38,7 @@ async function List({ searchParams }: { searchParams: Promise<Record<string, str
   }
   const [{ data }, { data: counts }] = await Promise.all([query.returns<Pro[]>(), supabase.from("pros").select("status")]);
   const rows = data ?? [];
-  const now = currentTime();
+  const now = (await currentTime());
   // Fidélisation : clients sans contact depuis plus de 60 jours.
   const relancer = rows.filter((p) => p.status === "client" && (!p.last_contact_at || now - new Date(p.last_contact_at).getTime() > 60 * 86400_000));
   const tab = (href: string, label: string, on: boolean) => (

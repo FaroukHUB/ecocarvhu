@@ -6,7 +6,7 @@ import { sectors } from "@/content/sectors/data";
 import { CITY_COORDS } from "@/content/sectors/coords";
 import { Card, PageTitle } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
-import { currentTime } from "@/lib/admin/demandes";
+import { currentTime } from "@/lib/admin/now";
 import { isSectorPublished, sectorPath } from "@/lib/publication";
 
 export const metadata: Metadata = { title: "Carte des enlèvements" };
@@ -44,7 +44,7 @@ async function Content({ searchParams }: { searchParams: Promise<SP> }) {
   const { supabase } = await requireUser("admin");
   let q = supabase.from("demandes").select("postal_code, city, status, created_at").limit(5000);
   const days = PERIODES[periode].days;
-  if (days) q = q.gte("created_at", new Date(currentTime() - days * 86400_000).toISOString());
+  if (days) q = q.gte("created_at", new Date((await currentTime()) - days * 86400_000).toISOString());
   const { data } = await q;
   const rows = (data ?? []).filter((d) => quoi === "demandes" || DONE.has(d.status as string));
 

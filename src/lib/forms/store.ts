@@ -24,10 +24,14 @@ export async function storeDemande(
   if (!config || !token) return;
   const db = createClient(config.url, config.key, { auth: { persistSession: false, autoRefreshToken: false } });
 
-  const { data, error } = await db.rpc("submit_demande", {
-    token,
-    payload: { formType: input.formType, sector: input.sector, pagePath: input.pagePath, data: input.data },
-  });
+  // Une coupure réseau passagère ne doit pas faire perdre la copie : 3 essais.
+  const payload = { formType: input.formType, sector: input.sector, pagePath: input.pagePath, data: input.data };
+  let { data, error } = await db.rpc("submit_demande", { token, payload });
+  for (const wait of [1_000, 3_000]) {
+    if (!error || !isNetworkError(error.message)) break;
+    await new Promise((r) => setTimeout(r, wait));
+    ({ data, error } = await db.rpc("submit_demande", { token, payload }));
+  }
   if (error || !data) throw new Error(`enregistrement : ${error?.message ?? "réponse vide"}`);
   const { id, upload_key } = data as { id: string; upload_key: string };
 
@@ -41,4 +45,9 @@ export async function storeDemande(
       if (reg.error) throw new Error(`photo : ${reg.error.message}`);
     }),
   );
+}
+
+/** Erreur de connexion (et non refus de la base) : on peut réessayer. */
+export function isNetworkError(message: string): boolean {
+  return /fetch failed|network|ECONNRESET|ETIMEDOUT|ENOTFOUND|socket|timeout/i.test(message);
 }

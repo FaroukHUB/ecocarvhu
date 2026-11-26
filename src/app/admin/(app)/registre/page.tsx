@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { PageTitle } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
-import { currentTime, formatDate, type Demande } from "@/lib/admin/demandes";
+import {formatDate, type Demande} from "@/lib/admin/demandes";
+import { currentTime } from "@/lib/admin/now";
 import { monthBounds, monthLabel, shiftMonth } from "@/lib/admin/registre";
 
 export const metadata: Metadata = { title: "Registre" };
@@ -21,7 +22,7 @@ export default function RegistrePage({ searchParams }: PageProps<"/admin/registr
 
 async function Table({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const sp = await searchParams;
-  const now = new Date(currentTime()).toLocaleDateString("fr-CA", { timeZone: "Europe/Paris" }).slice(0, 7);
+  const now = new Date((await currentTime())).toLocaleDateString("fr-CA", { timeZone: "Europe/Paris" }).slice(0, 7);
   const mois = typeof sp.mois === "string" && /^\d{4}-\d{2}$/.test(sp.mois) ? sp.mois : now;
   const [from, to] = monthBounds(mois);
   const { supabase } = await requireUser("admin");

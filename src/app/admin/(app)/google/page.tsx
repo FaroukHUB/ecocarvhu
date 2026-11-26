@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Card, PageTitle } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
-import { currentTime } from "@/lib/admin/demandes";
+import { currentTime } from "@/lib/admin/now";
 import { publishedSectors, sectorPath } from "@/lib/publication";
 import { GscError, gscClient, gscConfig, isoDay, normalize, periods, type GscRow } from "@/lib/visibilite/gsc";
 
@@ -63,7 +63,7 @@ async function Content({ searchParams }: { searchParams: Promise<SP> }) {
 
   if (!gscConfig()) return <Setup />;
 
-  const now = currentTime();
+  const now = (await currentTime());
   const p = periods(now);
   type Data =
     | { kind: "evolution"; rows: GscRow[] }

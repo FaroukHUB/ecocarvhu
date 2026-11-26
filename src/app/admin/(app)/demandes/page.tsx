@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { BigButton, PageTitle, StatusBadge, inputClass } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
-import { ago, currentTime, FORM_INFO, isStatus, placeLabel, STATUS_INFO, STATUSES, vehicleLabel, type Demande } from "@/lib/admin/demandes";
+import {ago, FORM_INFO, isStatus, placeLabel, STATUS_INFO, STATUSES, vehicleLabel, type Demande} from "@/lib/admin/demandes";
+import { currentTime } from "@/lib/admin/now";
 
 export const metadata: Metadata = { title: "Demandes" };
 
@@ -40,7 +41,7 @@ async function List({ searchParams }: { searchParams: Promise<Record<string, str
   }
   const { data } = await query.returns<Demande[]>();
   const rows = data ?? [];
-  const now = currentTime();
+  const now = (await currentTime());
   const tab = (href: string, label: React.ReactNode, on: boolean) => (
     <Link
       href={href}

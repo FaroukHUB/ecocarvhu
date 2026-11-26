@@ -4,7 +4,8 @@ import { Suspense } from "react";
 import { LiveClock } from "@/components/admin/LiveClock";
 import { BigButton, Card, PageTitle, StatusBadge } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
-import { ago, currentTime, FORM_INFO, formatDate, placeLabel, STATUS_INFO, STATUSES, vehicleLabel, type Demande } from "@/lib/admin/demandes";
+import {ago, FORM_INFO, formatDate, placeLabel, STATUS_INFO, STATUSES, vehicleLabel, type Demande} from "@/lib/admin/demandes";
+import { currentTime } from "@/lib/admin/now";
 
 export const metadata: Metadata = { title: "Ma journée" };
 
@@ -26,7 +27,7 @@ async function Home() {
     .limit(300)
     .returns<Demande[]>();
   const open = data ?? [];
-  const now = currentTime();
+  const now = (await currentTime());
   const todayKey = new Date().toLocaleDateString("fr-CA", { timeZone: "Europe/Paris" });
   const dayOf = (iso: string) => new Date(iso).toLocaleDateString("fr-CA", { timeZone: "Europe/Paris" });
 
