@@ -80,6 +80,7 @@ export const PRO_ACTIVITY_OPTIONS: Option[] = [
   { value: "carrosserie", label: "Carrosserie" },
   { value: "depannage", label: "Dépannage / remorquage" },
   { value: "flotte", label: "Gestionnaire de flotte" },
+  { value: "taxi", label: "Taxi / VTC" },
   { value: "autre", label: "Autre" },
 ];
 

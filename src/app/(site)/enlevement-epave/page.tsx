@@ -11,7 +11,6 @@ import { FeatureList } from "@/components/ui/FeatureList";
 import { AlertIcon, GearIcon, MapPinIcon, TruckIcon } from "@/components/ui/icons";
 import { RequestSteps } from "@/components/sections/RequestSteps";
 import { DocumentsChecklist } from "@/components/sections/DocumentsChecklist";
-import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
 import { SectorList } from "@/components/sections/SectorList";
 import { CallBand } from "@/components/sections/CallBand";
 import { PickupForm } from "@/components/forms/RequestForms";
@@ -46,7 +45,7 @@ const faq = [
   },
   {
     q: "Que devient le véhicule ?",
-    a: "Il est remis au centre VHU partenaire, qui le dépollue, récupère les pièces réutilisables et oriente le reste vers le recyclage. Le centre délivre le certificat de destruction.",
+    a: "Il est remis à un centre VHU agréé, qui le dépollue, récupère les pièces réutilisables et oriente le reste vers le recyclage. Le centre délivre le certificat de destruction.",
   },
 ];
 
@@ -162,10 +161,6 @@ export default function EnlevementPage() {
           <DocumentsChecklist />
         </div>
       </Section>
-
-      <Container className="pb-14">
-        <PartnerCentreCard />
-      </Container>
 
       <CallBand placement="enlevement-mid" formHref="#demande" />
 

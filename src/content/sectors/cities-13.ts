@@ -124,11 +124,6 @@ export const cities13: Sector[] = [
         a: "Beaucoup de sites imposent un accueil, un badge ou un équipement de sécurité. Donnez le nom d'un contact sur place et les règles d'entrée : le rendez-vous est organisé en fonction.",
         link: { href: "/professionnels", label: "Enlèvement pour les professionnels" },
       },
-      {
-        q: "Il ne me manque qu'une pièce pour réparer ma voiture : pouvez-vous m'aider ?",
-        a: "Oui, une demande de pièce d'occasion peut être faite séparément de tout enlèvement. Indiquez le modèle et la référence si vous l'avez.",
-        link: { href: "/demande-piece", label: "Faire une demande de pièce" },
-      },
     ],
     form: { city: "Martigues", postalCode: "13500" },
     missing: CITY_MISSING,

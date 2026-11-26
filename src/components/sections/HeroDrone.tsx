@@ -14,7 +14,7 @@ import { DroneSequence } from "./DroneSequence";
  *   boutons rendus côté serveur. Rien ne dépend du JavaScript pour lire la
  *   page ou demander un enlèvement.
  * - Avec JavaScript, sans « mouvement réduit » ni économie de données :
- *   `DroneSequence` charge la séquence d'images après le premier affichage et
+ *   `DroneSequence` charge la séquence d'images au premier geste du visiteur et
  *   anime la scène. La section devient alors plus haute (piste de défilement).
  */
 export function HeroDrone() {
@@ -59,7 +59,7 @@ export function HeroDrone() {
           </h1>
           <p className="drone-lead">
             Véhicule complet et accessible : nous l&apos;enlevons <strong>gratuitement</strong> et le remettons à un
-            centre VHU partenaire. Conditions confirmées avant le déplacement.
+            centre VHU agréé. Conditions confirmées avant le déplacement.
           </p>
           <div className="drone-ctas">
             <Link href="/enlevement-epave#demande" className="btn btn-lime min-h-14 px-6 text-lg">
@@ -97,7 +97,7 @@ export function HeroDrone() {
           </p>
           <p className="drone-land-text">
             L&apos;équipe vérifie l&apos;accès, l&apos;état du véhicule et les documents, puis organise
-            l&apos;enlèvement vers un centre VHU partenaire.
+            l&apos;enlèvement vers un centre VHU agréé.
           </p>
           <div className="drone-ctas">
             <Link href="/enlevement-epave#demande" className="btn btn-lime mr-[5rem] min-h-14 px-6 text-lg sm:mr-0">

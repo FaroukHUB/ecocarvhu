@@ -275,11 +275,6 @@ export const cities04: Sector[] = [
         q: "J'ai un vieux véhicule agricole léger en plus de la voiture : pouvez-vous tout prendre ?",
         a: "Indiquez précisément chaque véhicule, avec sa carte grise s'il en a une. Ce qui peut être enlevé, et à quelles conditions, vous est confirmé avant le passage.",
       },
-      {
-        q: "Je cherche une pièce pour réparer une autre voiture : pouvez-vous m'aider ?",
-        a: "Vous pouvez déposer une demande de pièce d'occasion ; elle est traitée séparément de l'enlèvement.",
-        link: { href: "/demande-piece", label: "Demander une pièce" },
-      },
     ],
     form: { city: "Oraison", postalCode: "04700" },
     missing: [...CITY_MISSING, DEPT_MISSING],

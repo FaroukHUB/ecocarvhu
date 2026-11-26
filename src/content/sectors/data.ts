@@ -26,9 +26,9 @@ const baseSectors: Sector[] = [
     postalCodes: [],
     status: { ...CONFIRMED },
     seo: {
-      title: "Enlèvement d'épave gratuit en PACA : épaviste dans les 6 départements",
+      title: "Enlèvement d'épave en PACA : les 6 départements",
       description:
-        "Enlèvement d'épave gratuit dans les Bouches-du-Rhône, le Var, les Alpes-Maritimes, le Vaucluse, les Alpes-de-Haute-Provence et les Hautes-Alpes, pour tout véhicule complet.",
+        "Enlèvement d'épave gratuit en PACA : Bouches-du-Rhône, Var, Alpes-Maritimes, Vaucluse, Alpes-de-Haute-Provence et Hautes-Alpes, véhicule complet.",
       h1: "Enlèvement d'épave gratuit en Provence-Alpes-Côte d'Azur",
       intent: "Locale régionale : savoir si le service couvre sa commune",
       primaryQuery: "épaviste PACA",
@@ -86,9 +86,9 @@ const baseSectors: Sector[] = [
     ],
     status: { ...CONFIRMED },
     seo: {
-      title: "Épaviste Marseille : enlèvement d'épave gratuit",
+      title: "Épaviste Marseille : enlèvement gratuit",
       description:
-        "Enlèvement d'épave gratuit à Marseille pour tout véhicule complet : voiture en panne, accidentée ou hors d'usage, dans tous les arrondissements. Demande en ligne ou par téléphone.",
+        "Épave à Marseille ? Demandez son enlèvement : gratuité selon l'état et l'accès. Documents et conditions confirmés avant le déplacement.",
       h1: "Enlèvement d'épave gratuit à Marseille",
       intent: "Locale transactionnelle : faire enlever un véhicule à Marseille",
       primaryQuery: "enlèvement épave Marseille",
@@ -147,9 +147,9 @@ const baseSectors: Sector[] = [
     postalCodes: ["13400"],
     status: { ...CONFIRMED },
     seo: {
-      title: "Épaviste Aubagne : enlèvement d'épave gratuit",
+      title: "Épaviste Aubagne : enlèvement gratuit",
       description:
-        "Épaviste à Aubagne (13400) : enlèvement d'épave gratuit selon conditions, depuis une cour, un terrain ou une zone d'activités. Véhicule non roulant ou accidenté : faites votre demande.",
+        "Épaviste à Aubagne : enlèvement d'épave gratuit selon conditions, depuis une cour, un terrain ou une zone d'activités. Véhicule non roulant ? Contactez-nous.",
       h1: "Enlèvement d'épave gratuit à Aubagne",
       intent: "Locale transactionnelle : faire enlever un véhicule à Aubagne",
       primaryQuery: "enlèvement épave Aubagne",
@@ -198,7 +198,7 @@ const baseSectors: Sector[] = [
     postalCodes: ["13600"],
     status: { ...CONFIRMED },
     seo: {
-      title: "Enlèvement d'épave gratuit à La Ciotat (13600) : épaviste La Ciotat",
+      title: "Épaviste La Ciotat : enlèvement gratuit",
       description:
         "Enlèvement d'épave gratuit à La Ciotat pour tout véhicule complet : voiture en panne, accidentée ou immobilisée. Demande en ligne ou par téléphone.",
       h1: "Enlèvement d'épave gratuit à La Ciotat",
@@ -246,7 +246,7 @@ const baseSectors: Sector[] = [
     postalCodes: ["13260"],
     status: { ...CONFIRMED },
     seo: {
-      title: "Enlèvement d'épave gratuit à Cassis (13260) : épaviste Cassis",
+      title: "Épaviste Cassis : enlèvement gratuit",
       description:
         "Enlèvement d'épave gratuit à Cassis pour tout véhicule complet : voiture en panne, accidentée ou hors d'usage. Demande en ligne ou par téléphone.",
       h1: "Enlèvement d'épave gratuit à Cassis",
@@ -294,9 +294,9 @@ const baseSectors: Sector[] = [
     postalCodes: ["06000", "06100", "06200", "06300"],
     status: { ...CONFIRMED },
     seo: {
-      title: "Enlèvement d'épave gratuit à Nice : épaviste Nice (06)",
+      title: "Épaviste Nice (06) : enlèvement d'épave",
       description:
-        "Enlèvement d'épave gratuit à Nice et dans les Alpes-Maritimes pour tout véhicule complet : voiture en panne, accidentée ou hors d'usage. Demande en ligne ou par téléphone.",
+        "Enlèvement d'épave gratuit à Nice et dans les Alpes-Maritimes pour un véhicule complet : voiture en panne, accidentée ou hors d'usage. Conditions avant passage.",
       h1: "Enlèvement d'épave gratuit à Nice",
       intent: "Locale transactionnelle : faire enlever un véhicule à Nice",
       primaryQuery: "enlèvement épave Nice",

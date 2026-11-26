@@ -27,9 +27,9 @@ export interface Guide {
 export const guides: Guide[] = [
   {
     slug: "enlevement-acces-difficile",
-    title: "Enlèvement d'un véhicule en sous-sol ou d'accès difficile : comment le décrire",
+    title: "Épave en sous-sol ou accès difficile : quoi décrire",
     description:
-      "Sous-sol, box, cour étroite, pente, véhicule sans roues : les informations et photos qui permettent de vérifier si un enlèvement est faisable avant de se déplacer.",
+      "Sous-sol, box, cour étroite, pente, véhicule sans roues : les informations et photos qui permettent de vérifier si un enlèvement est faisable avant de venir.",
     h1: "Demander un enlèvement dans un lieu difficile d'accès",
     summary: "Les informations qui évitent un déplacement inutile quand l'accès au véhicule est compliqué.",
     reviewedOn: null,
@@ -69,45 +69,8 @@ export const guides: Guide[] = [
     cta: { label: "Décrire mon véhicule et son accès", href: "/enlevement-epave#demande" },
   },
   {
-    slug: "identifier-reference-piece",
-    title: "Comment trouver la référence d'une pièce auto",
-    description:
-      "Où lire la référence constructeur d'une pièce, quelles informations du véhicule relever et comment faire une demande même sans connaître le nom exact de la pièce.",
-    h1: "Identifier la référence d'une pièce auto",
-    summary: "Les bons repères pour décrire une pièce et éviter une erreur de compatibilité.",
-    reviewedOn: null,
-    status: { contentVerified: false, publicationApproved: false },
-    sections: [
-      {
-        heading: "Les informations du véhicule à relever",
-        paragraphs: [
-          "Deux véhicules du même modèle peuvent recevoir des pièces différentes selon l'année, la motorisation ou la finition. La carte grise contient la plupart des informations utiles : marque, dénomination commerciale, date de première immatriculation, type et puissance.",
-        ],
-        list: [
-          "Marque, modèle et année de première mise en circulation.",
-          "Motorisation (cylindrée, carburant, puissance) et type de boîte de vitesses.",
-          "Pour une pièce de carrosserie : la couleur et, si possible, le code peinture.",
-        ],
-      },
-      {
-        heading: "Où se trouve la référence d'une pièce",
-        paragraphs: [
-          "Beaucoup de pièces portent une étiquette ou un marquage gravé : boîtier électronique, alternateur, démarreur, optique, compresseur… La référence constructeur est généralement une suite de chiffres et de lettres. Une photo nette de cette étiquette vaut mieux qu'une recopie approximative.",
-        ],
-      },
-      {
-        heading: "Vous ne connaissez pas le nom de la pièce ?",
-        paragraphs: [
-          "Ce n'est pas un problème. Décrivez ce que vous constatez (« le cache sous le moteur côté passager est arraché », « le bouton de vitre avant gauche ne répond plus ») et ajoutez une photo de l'emplacement. L'équipe identifie la pièce puis vérifie sa disponibilité et sa compatibilité avant de vous proposer quoi que ce soit.",
-        ],
-      },
-    ],
-    sources: [],
-    cta: { label: "Pièces auto d'occasion", href: "/pieces-auto-occasion" },
-  },
-  {
     slug: "etapes-prise-en-charge-vhu",
-    title: "Les étapes de la prise en charge d'un véhicule hors d'usage",
+    title: "Prise en charge d'un véhicule hors d'usage : étapes",
     description:
       "De la demande en ligne au certificat de destruction : qui fait quoi, ce qui est confirmé à chaque étape et ce que devient le véhicule dans un centre VHU.",
     h1: "Comprendre les étapes de prise en charge d'un VHU",

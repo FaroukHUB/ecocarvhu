@@ -19,10 +19,9 @@ import { RichText } from "@/components/blog/RichText";
 import { Faq } from "@/components/ui/Faq";
 import { RequestSteps } from "@/components/sections/RequestSteps";
 import { DocumentsChecklist } from "@/components/sections/DocumentsChecklist";
-import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
 import { CallBand } from "@/components/sections/CallBand";
 import { PickupForm } from "@/components/forms/RequestForms";
-import { AlertIcon, CheckIcon, CoinsIcon, DocIcon, GearIcon, MapPinIcon, TruckIcon } from "@/components/ui/icons";
+import { AlertIcon, CheckIcon, CoinsIcon, DocIcon, MapPinIcon, TruckIcon } from "@/components/ui/icons";
 import { FeatureList } from "@/components/ui/FeatureList";
 
 /** Toutes les pages de secteur sont pré-générées ; une page non rendable renvoie un vrai 404. */
@@ -93,13 +92,13 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
                 href="#demande"
                 icon={TruckIcon}
                 title="Enlèvement d'épave gratuit"
-                text="Véhicule complet en panne, accidenté ou non roulant, enlevé gratuitement et remis au centre VHU agréé partenaire."
+                text="Véhicule complet en panne, accidenté ou non roulant, enlevé gratuitement et remis à un centre VHU agréé."
               />
               <ServiceCard
-                href={pages.demandePiece.path}
-                icon={GearIcon}
-                title="Recherche de pièce"
-                text="Une pièce d'occasion compatible, même sans connaître son nom exact."
+                href={pages.rachatTaxi.path}
+                icon={CoinsIcon}
+                title="Rachat de taxi"
+                text="Taxi à fort kilométrage, accidenté ou en panne : rachat sur étude."
               />
               <ServiceCard
                 href={pages.rachat.path}
@@ -170,10 +169,6 @@ export default async function SectorPage({ params }: PageProps<"/zones-intervent
               <RequestSteps tone="dark" />
             </div>
           </Section>
-
-          <Container className="py-14">
-            <PartnerCentreCard />
-          </Container>
 
           <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-surface py-14 sm:py-20">
             <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
@@ -429,16 +424,15 @@ function CityBody({ sector, local }: { sector: Sector; local: CityLocal }) {
           <aside className="space-y-4 lg:pt-2">
             <div className="card p-6">
               <span className="icon-tile draw h-10 w-10">
-                <GearIcon className="h-5 w-5" />
+                <CoinsIcon className="h-5 w-5" />
               </span>
-              <p className="mt-4 font-semibold">Une pièce à chercher, un véhicule à vendre ?</p>
+              <p className="mt-4 font-semibold">Un véhicule ou un taxi à vendre ?</p>
               <p className="mt-1.5 text-[0.95rem] text-ink-3">
-                Ce formulaire concerne l&apos;enlèvement. Pour une pièce ou une étude de rachat, utilisez le formulaire
-                dédié.
+                Ce formulaire concerne l&apos;enlèvement. Pour une étude de rachat, utilisez le formulaire dédié.
               </p>
               <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-semibold">
-                <Link href={pages.demandePiece.path} className="text-brand underline">
-                  Demande de pièce
+                <Link href={pages.rachatTaxi.path} className="text-brand underline">
+                  Rachat de taxi
                 </Link>
                 <Link href={pages.rachat.path} className="inline-flex items-center gap-1 text-brand underline">
                   <CoinsIcon className="h-4 w-4" />

@@ -10,7 +10,7 @@ import { droneHero, type DroneFormat } from "@/config/drone-hero";
  *
  * Ne fait rien (le hero reste une image fixe) si l'utilisateur a demandé
  * moins d'animations, a activé l'économie de données ou a une connexion lente.
- * Le chargement démarre après le premier affichage pour ne pas retarder la page.
+ * Le chargement démarre au premier geste du visiteur, pas au chargement de la page.
  */
 
 type NetworkInfo = { saveData?: boolean; effectiveType?: string };
@@ -230,26 +230,26 @@ export function DroneSequence() {
       kick();
     };
 
-    // Après le premier affichage : la photo fixe reste l'élément principal du chargement.
-    const hasIdle = "requestIdleCallback" in window;
-    let idle = 0;
-    const onLoad = () => {
-      idle = hasIdle ? window.requestIdleCallback(start, { timeout: 1500 }) : window.setTimeout(start, 300);
+    // La séquence (~4 Mo) n'est chargée qu'au premier geste du visiteur
+    // (défilement, toucher, molette, clavier) : un visiteur qui ne fait pas
+    // défiler ne la télécharge pas, et l'image fixe reste l'élément principal
+    // du chargement (mesure Lighthouse mobile du 23/11/2026).
+    const triggers = ["scroll", "wheel", "touchstart", "pointerdown", "keydown"] as const;
+    const onFirstGesture = () => {
+      triggers.forEach((ev) => window.removeEventListener(ev, onFirstGesture));
+      start();
     };
-    if (document.readyState === "complete") onLoad();
-    else window.addEventListener("load", onLoad, { once: true });
+    triggers.forEach((ev) => window.addEventListener(ev, onFirstGesture, { passive: true }));
+    // Page rechargée déjà défilée : démarrer tout de suite.
+    if (window.scrollY > 0) onFirstGesture();
 
     return () => {
       generation++;
-      window.removeEventListener("load", onLoad);
+      triggers.forEach((ev) => window.removeEventListener(ev, onFirstGesture));
       window.removeEventListener("scroll", kick);
       window.removeEventListener("resize", onResize);
       io.disconnect();
       if (raf) cancelAnimationFrame(raf);
-      if (idle) {
-        if (hasIdle) window.cancelIdleCallback(idle);
-        else window.clearTimeout(idle);
-      }
       section.classList.remove("is-live");
     };
   }, []);

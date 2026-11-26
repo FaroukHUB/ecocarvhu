@@ -16,7 +16,7 @@ const DEFAULT_STEPS = [
   },
   {
     title: "Enlèvement et suivi",
-    text: "Documents remis, véhicule chargé et conduit au centre VHU partenaire, qui délivre le certificat de destruction.",
+    text: "Documents remis, véhicule chargé et conduit dans un centre VHU agréé, qui délivre le certificat de destruction.",
   },
 ];
 

@@ -1,11 +1,9 @@
-import Link from "next/link";
 import { company } from "@/config/company";
 import { pages } from "@/content/pages";
 import { centreStatusExplanation, freeOfChargeExplanation, sources } from "@/content/regulatory";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/PageHero";
-import { ButtonLink, Container, Eyebrow, H2, Notice, Section } from "@/components/ui/primitives";
-import { PartnerCentreCard } from "@/components/sections/PartnerCentreCard";
+import { ButtonLink, Eyebrow, H2, Notice, Section } from "@/components/ui/primitives";
 import { DocumentsChecklist } from "@/components/sections/DocumentsChecklist";
 import { CallBand } from "@/components/sections/CallBand";
 import { FeatureList } from "@/components/ui/FeatureList";
@@ -16,7 +14,7 @@ export const metadata = buildMetadata({ path: page.path, title: page.title, desc
 
 const treatment = [
   { title: "Dépollution", text: "Retrait des fluides (huiles, carburant, liquide de refroidissement, liquide de frein), de la batterie et des éléments dangereux." },
-  { title: "Démontage et réemploi", text: "Les pièces en état d'être réutilisées sont démontées, contrôlées et proposées comme pièces d'occasion." },
+  { title: "Démontage et réemploi", text: "Les pièces en état d'être réutilisées sont démontées et contrôlées pour être réemployées." },
   { title: "Recyclage", text: "La carcasse et les matériaux restants sont orientés vers des filières de broyage et de valorisation." },
   { title: "Certificat de destruction", text: "Le centre VHU le délivre au détenteur : il atteste la prise en charge du véhicule." },
 ];
@@ -47,13 +45,13 @@ function RolesSection() {
         <ul className="mt-3 list-disc space-y-1.5 pl-5 text-ink-3">
           <li>recevoir et qualifier votre demande ;</li>
           <li>vous indiquer les documents et les conditions ;</li>
-          <li>organiser l&apos;enlèvement et le transport vers le centre partenaire.</li>
+          <li>organiser l&apos;enlèvement et le transport vers un centre VHU agréé.</li>
         </ul>
       </div>
       <div className="card-dark bg-ink p-7 text-white">
         <p className="text-sm font-bold uppercase tracking-wider text-lime">Son rôle</p>
         <h3 className="mt-1 text-xl font-bold">
-          {company.vhu.partner.name ?? "Le centre VHU partenaire"}
+          Le centre VHU agréé
         </h3>
         <ul className="mt-3 list-disc space-y-1.5 pl-5 text-white/75">
           <li>prendre en charge le véhicule hors d&apos;usage ;</li>
@@ -83,10 +81,6 @@ export default function CentreVhuPage() {
           <ButtonLink href="/enlevement-epave#demande">Demander un enlèvement</ButtonLink>
         }
       />
-
-      <Container className="pt-14">
-        <PartnerCentreCard />
-      </Container>
 
       <Section labelledBy="roles-title">
         <Eyebrow>Qui fait quoi</Eyebrow>
@@ -136,13 +130,6 @@ export default function CentreVhuPage() {
         <div className="mt-10">
           <FeatureList items={treatment} numbered tone="dark" columns={4} />
         </div>
-        <p className="mt-10 text-white/80">
-          Les pièces de réemploi issues de ce démontage peuvent être recherchées via une{" "}
-          <Link href={pages.demandePiece.path} className="font-semibold text-brand-bright underline">
-            demande de pièce
-          </Link>
-          .
-        </p>
       </Section>
 
       <Section labelledBy="docs-title">

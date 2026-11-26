@@ -198,7 +198,7 @@ export const proSchema = z
   .object({
     company: required(150, "Indiquez le nom de l'entreprise."),
     contactName: required(120, "Indiquez le nom de l'interlocuteur."),
-    activity: optionalChoice(["garage", "carrosserie", "depannage", "flotte", "autre"] as const),
+    activity: optionalChoice(["garage", "carrosserie", "depannage", "flotte", "taxi", "autre"] as const),
     requestType: choice(
       ["pieces", "enlevements", "partenariat", "autre"] as const,
       "Indiquez l'objet de la demande.",

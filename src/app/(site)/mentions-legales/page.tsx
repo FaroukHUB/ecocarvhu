@@ -10,7 +10,6 @@ export const metadata = buildMetadata({ path: page.path, title: page.title, desc
 const v = (value: string | null) => value ?? <Missing />;
 
 export default function MentionsPage() {
-  const p = company.vhu.partner;
   return (
     <LegalPage title={page.h1} path={page.path}>
       <h2>Éditeur du site</h2>
@@ -28,13 +27,6 @@ export default function MentionsPage() {
 
       <h2>Hébergement</h2>
       <p>Hébergeur : {v(company.host)}</p>
-
-      <h2>Centre VHU partenaire</h2>
-      <ul>
-        <li>Raison sociale : {v(p.name)}</li>
-        {p.agrementNumber ? <li>N° d&apos;agrément ou d&apos;enregistrement : {p.agrementNumber}</li> : null}
-        <li>Autorité de délivrance : {v(p.issuingAuthority)}</li>
-      </ul>
 
       <h2>Propriété intellectuelle</h2>
       <p>

@@ -31,6 +31,9 @@ const nextConfig: NextConfig = {
     return [
       { source: "/conseils", destination: "/blog", permanent: true },
       { source: "/conseils/:slug", destination: "/blog/:slug", permanent: true },
+      // Service de pièces auto retiré le 24/11/2026.
+      { source: "/pieces-auto-occasion", destination: "/", permanent: true },
+      { source: "/demande-piece", destination: "/", permanent: true },
     ];
   },
   async headers() {

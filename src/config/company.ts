@@ -16,7 +16,8 @@ export type VerifiedValue<T> = {
 export type VhuSituation =
   /** L'entreprise exploite elle-même un centre VHU (statut à prouver). */
   | "own-centre"
-  /** L'entreprise organise l'enlèvement et remet le véhicule à un centre partenaire. */
+  /** L'entreprise organise l'enlèvement et remet le véhicule à un centre VHU agréé
+   *  (plusieurs centres selon le secteur, non nommés sur le site depuis le 24/11/2026). */
   | "partner-centre"
   /** Situation pas encore précisée. */
   | "to-define";

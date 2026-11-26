@@ -23,6 +23,11 @@ const faq = [
     a: "L'étude de rachat concerne un véhicule qui garde une valeur (pièces, réparation possible). Si le véhicule est hors d'usage, l'enlèvement vers un centre VHU est plus adapté.",
   },
   {
+    q: "Rachetez-vous les taxis ?",
+    a: "Oui : taxis à fort kilométrage, accidentés ou en panne, sur étude. Une page dédiée explique quoi indiquer.",
+    link: { href: "/rachat-taxi", label: "Rachat de taxi" },
+  },
+  {
     q: "Quels documents faudra-t-il ?",
     a: "Pour toute cession : la carte grise au nom du vendeur, un certificat de situation administrative récent et la déclaration de cession. Ils ne sont pas demandés dans le formulaire.",
   },
@@ -38,7 +43,7 @@ export default function RachatPage() {
         title={page.h1}
         lead={
           <p>
-            Véhicule en panne, accidenté ou très kilométré : envoyez ses caractéristiques et quelques
+            Voiture ou taxi en panne, accidenté ou très kilométré : envoyez ses caractéristiques et quelques
             photos. L&apos;équipe étudie la demande et vous répond. Il ne s&apos;agit ni d&apos;une estimation
             automatique ni d&apos;une offre garantie.
           </p>
@@ -59,6 +64,47 @@ export default function RachatPage() {
             ]}
           />
         </div>
+      </Section>
+
+      <Section tone="mint" labelledBy="vehicules-title">
+        <Eyebrow>Quels véhicules</Eyebrow>
+        <H2 id="vehicules-title">Voiture en panne, non roulante ou accidentée : ce qui peut être étudié</H2>
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <div className="card p-7">
+            <h3 className="text-xl font-semibold tracking-tight">Les situations courantes</h3>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-ink-2">
+              <li>Voiture qui ne démarre plus ou ne roule plus : moteur HS, boîte, embrayage, panne électronique.</li>
+              <li>Véhicule accidenté, avec ou sans rapport d&apos;expertise.</li>
+              <li>Réparation plus chère que la valeur de la voiture, ou véhicule très kilométré.</li>
+              <li>Véhicule immobilisé depuis longtemps dans une cour, un garage ou un parking.</li>
+            </ul>
+          </div>
+          <div className="card p-7">
+            <h3 className="text-xl font-semibold tracking-tight">Ce qui compte dans l&apos;étude</h3>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-ink-2">
+              <li>Modèle, année, motorisation et kilométrage.</li>
+              <li>La panne ou les dommages, décrits simplement (« ne démarre plus depuis… » suffit).</li>
+              <li>Les documents : carte grise au nom du vendeur, situation administrative.</li>
+              <li>Le lieu de stationnement en Provence-Alpes-Côte d&apos;Azur et l&apos;accès au véhicule.</li>
+            </ul>
+          </div>
+        </div>
+        <div className="mt-8 flex flex-col gap-4 rounded-3xl bg-ink p-6 text-white sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lime">Chauffeurs de taxi</p>
+            <p className="mt-1.5 text-xl font-bold tracking-tight">
+              Taxi à fort kilométrage ou accidenté ? On le rachète.
+            </p>
+          </div>
+          <ButtonLink href={pages.rachatTaxi.path}>Rachat de taxi</ButtonLink>
+        </div>
+        <p className="mt-6 max-w-3xl text-ink-3">
+          Vous hésitez entre vendre, réparer ou faire détruire ? Lisez notre guide{" "}
+          <Link href="/blog/vendre-voiture-en-panne" className="font-semibold text-brand underline">
+            vendre une voiture en panne ou non roulante
+          </Link>
+          .
+        </p>
       </Section>
 
       <section id="demande" aria-labelledby="demande-title" className="scroll-mt-20 bg-surface py-14 sm:py-20">
@@ -87,14 +133,20 @@ export default function RachatPage() {
         </Container>
       </section>
 
-      <Section tone="mint" labelledBy="faq-title">
+      <Section labelledBy="faq-title">
         <H2 id="faq-title">Questions fréquentes sur le rachat</H2>
         <div className="mt-8">
           <Faq items={faq} />
         </div>
       </Section>
 
-      <CallBand placement="rachat" formHref="#demande" formLabel="Demander une étude" title="Un véhicule à céder ?" />
+      <CallBand
+        placement="rachat"
+        formHref="#demande"
+        formLabel="Demander une étude de rachat"
+        title="Une voiture en panne à vendre ?"
+        text="Décrivez-la et joignez quelques photos : l'équipe étudie le rachat et vous répond. Aucun montant n'est garanti avant l'examen."
+      />
     </>
   );
 }

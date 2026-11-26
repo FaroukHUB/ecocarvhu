@@ -15,14 +15,14 @@ export default function ConfidentialitePage() {
 
       <h2>Données collectées</h2>
       <p>
-        Via les formulaires : les informations que vous saisissez (coordonnées, description du véhicule ou
-        de la pièce, commune, photos facultatives). Aucune copie de pièce d&apos;identité ni de carte grise
+        Via les formulaires : les informations que vous saisissez (coordonnées, description du véhicule,
+        commune, photos facultatives). Aucune copie de pièce d&apos;identité ni de carte grise
         n&apos;est demandée en ligne.
       </p>
 
       <h2>Finalité et base légale</h2>
       <p>
-        Traiter votre demande (enlèvement, pièce, étude de rachat, demande professionnelle ou message) et
+        Traiter votre demande (enlèvement, étude de rachat, demande professionnelle ou message) et
         vous recontacter : mesures précontractuelles prises à votre demande. <Missing>à valider</Missing>
       </p>
 

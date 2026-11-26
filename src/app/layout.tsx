@@ -14,7 +14,7 @@ const geist = Geist({
 export const metadata: Metadata = {
   ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
   title: {
-    default: "EcocarVHU — Enlèvement d'épave et pièces auto d'occasion en PACA",
+    default: "EcocarVHU — Enlèvement d'épave et rachat de véhicules en PACA",
     template: "%s | EcocarVHU",
   },
   applicationName: company.brandName,

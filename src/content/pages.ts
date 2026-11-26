@@ -11,9 +11,8 @@ export type PageKey =
   | "home"
   | "enlevement"
   | "centreVhu"
-  | "pieces"
-  | "demandePiece"
   | "rachat"
+  | "rachatTaxi"
   | "pros"
   | "contact"
   | "zones"
@@ -42,9 +41,9 @@ export const pages: Record<PageKey, PageEntry> = {
   home: {
     path: "/",
     label: "Accueil",
-    title: "Enlèvement d'épave gratuit en PACA — Épaviste | EcocarVHU",
+    title: "Épaviste en PACA : enlèvement d'épave gratuit | EcocarVHU",
     description:
-      "Épaviste en PACA : enlèvement d'épave gratuit d'un véhicule complet et accessible, remis à un centre VHU partenaire. Étude de rachat de véhicule sur demande.",
+      "Épaviste en PACA : enlèvement gratuit d'un véhicule complet et accessible, remis à un centre VHU agréé. Rachat de voitures et de taxis sur étude.",
     h1: "Enlèvement d'épave gratuit en Provence-Alpes-Côte d'Azur",
     intent: "Navigation / choix du service",
     primaryQuery: "enlèvement épave PACA",
@@ -54,9 +53,9 @@ export const pages: Record<PageKey, PageEntry> = {
   enlevement: {
     path: "/enlevement-epave",
     label: "Enlèvement d'épave",
-    title: "Enlèvement d'épave gratuit en PACA : épaviste partenaire d'un centre VHU agréé",
+    title: "Enlèvement d'épave gratuit en PACA",
     description:
-      "Enlèvement d'épave gratuit pour tout véhicule complet et accessible : voiture en panne, accidentée ou non roulante. Remise à un centre VHU agréé partenaire et certificat de destruction.",
+      "Voiture en panne, accidentée ou non roulante : enlèvement gratuit si elle est complète et accessible, remise à un centre VHU agréé.",
     h1: "Enlèvement d'épave gratuit",
     intent: "Transactionnelle : obtenir un enlèvement",
     primaryQuery: "enlèvement épave",
@@ -71,7 +70,7 @@ export const pages: Record<PageKey, PageEntry> = {
   centreVhu: {
     path: "/centre-vhu",
     label: "Centre VHU",
-    title: "Centre VHU partenaire : prise en charge d'un véhicule hors d'usage",
+    title: "Centre VHU agréé : prise en charge",
     description:
       "Comment un véhicule hors d'usage est remis à un centre VHU, quels documents préparer et ce que le centre vous remet. Le rôle de chacun, expliqué simplement.",
     h1: "Prise en charge par un centre VHU : comment ça se passe",
@@ -84,48 +83,42 @@ export const pages: Record<PageKey, PageEntry> = {
     ],
     sitemap: true,
   },
-  pieces: {
-    path: "/pieces-auto-occasion",
-    label: "Pièces d'occasion",
-    title: "Pièces auto d'occasion : demande de recherche et compatibilité",
-    description:
-      "Moteur, carrosserie, optiques, mécanique, électronique : décrivez votre véhicule et la pièce, même sans connaître son nom exact. Disponibilité et compatibilité vérifiées avant toute proposition.",
-    h1: "Pièces auto d'occasion : trouvez la bonne pièce pour votre véhicule",
-    intent: "Commerciale : recherche d'une pièce",
-    primaryQuery: "pièces auto occasion",
-    secondaryQueries: ["pièce détachée occasion", "casse auto pièces", "pièce de réemploi"],
-    sitemap: true,
-  },
-  demandePiece: {
-    path: "/demande-piece",
-    label: "Demande de pièce",
-    title: "Demande de pièce auto d'occasion",
-    description:
-      "Formulaire de recherche de pièce : véhicule, motorisation, référence si vous l'avez, photos. Nous vérifions la disponibilité et la compatibilité puis revenons vers vous.",
-    h1: "Demander une pièce d'occasion",
-    intent: "Transactionnelle : envoyer une demande de pièce",
-    primaryQuery: "demande pièce auto occasion",
-    secondaryQueries: ["recherche pièce auto", "trouver une pièce auto d'occasion"],
-    sitemap: true,
-  },
   rachat: {
     path: "/rachat-vehicule",
     label: "Rachat de véhicule",
-    title: "Rachat de véhicule en panne ou accidenté : demande d'étude",
+    title: "Rachat voiture en panne et non roulante",
     description:
-      "Vous voulez céder un véhicule en panne, accidenté ou très kilométré ? Envoyez ses caractéristiques et des photos : l'équipe étudie la demande, sans estimation automatique.",
+      "Faites étudier le rachat de votre voiture en panne ou non roulante en PACA. Décrivez son état et joignez des photos : offre après examen.",
     h1: "Faire étudier le rachat de votre véhicule",
     intent: "Transactionnelle : obtenir une étude de rachat",
     primaryQuery: "rachat voiture en panne",
     secondaryQueries: ["rachat voiture accidentée", "vendre voiture pour pièces"],
     sitemap: true,
   },
+  rachatTaxi: {
+    path: "/rachat-taxi",
+    label: "Rachat de taxi",
+    title: "Rachat de taxi : fort kilométrage ou accidenté",
+    description:
+      "Rachat de taxi à Marseille, Nice, Toulon et dans toute la région PACA : fort kilométrage, accidenté ou en panne. Décrivez-le, offre après étude.",
+    h1: "Rachat de taxi à fort kilométrage ou accidenté",
+    intent: "Transactionnelle : vendre un taxi usé ou accidenté",
+    primaryQuery: "rachat taxi",
+    secondaryQueries: [
+      "vendre son taxi",
+      "rachat taxi accidenté",
+      "rachat taxi gros kilométrage",
+      "rachat taxi Marseille",
+      "reprise taxi",
+    ],
+    sitemap: true,
+  },
   pros: {
     path: "/professionnels",
     label: "Professionnels",
-    title: "Enlèvement d'épaves pour garages et professionnels en PACA",
+    title: "Enlèvement d'épaves pour garages et pros en PACA",
     description:
-      "Garages, carrossiers, dépanneurs, flottes : enlèvement d'épaves gratuit pour tout véhicule complet et accessible, remise à un centre VHU agréé, étude de rachat. PACA.",
+      "Garages, carrossiers, dépanneurs, flottes : enlèvement gratuit des véhicules complets et accessibles, remise à un centre VHU agréé, étude de rachat.",
     h1: "Enlèvement de véhicules hors d'usage pour les professionnels",
     intent: "B2B : enlèvement d'épaves et rachat de véhicules pour professionnels",
     primaryQuery: "enlèvement épave garage",
@@ -143,7 +136,7 @@ export const pages: Record<PageKey, PageEntry> = {
     label: "Contact",
     title: "Contacter EcocarVHU",
     description:
-      "Téléphone et formulaire de contact. Pour un enlèvement, une pièce ou un rachat, utilisez le formulaire dédié : il contient les questions utiles pour vous répondre vite.",
+      "Téléphone et formulaire de contact. Pour un enlèvement ou un rachat, utilisez le formulaire dédié : il pose les questions utiles pour vous répondre vite.",
     h1: "Nous contacter",
     intent: "Navigation : joindre l'entreprise",
     primaryQuery: null,
@@ -155,7 +148,7 @@ export const pages: Record<PageKey, PageEntry> = {
     label: "Zones d'intervention",
     title: "Zones d'intervention en Provence-Alpes-Côte d'Azur",
     description:
-      "Secteurs couverts et en cours d'ouverture dans les six départements de PACA. Indiquez votre code postal : la faisabilité est confirmée pour chaque demande.",
+      "Secteurs couverts et en cours d'ouverture dans les six départements de PACA. La faisabilité est confirmée pour chaque demande selon votre commune.",
     h1: "Zones d'intervention",
     intent: "Navigation locale",
     primaryQuery: "épaviste PACA",
@@ -165,9 +158,9 @@ export const pages: Record<PageKey, PageEntry> = {
   conseils: {
     path: "/blog",
     label: "Blog",
-    title: "Blog : conseils pour l'enlèvement d'épave et le rachat de véhicule en PACA",
+    title: "Blog : épave, documents et rachat de véhicule",
     description:
-      "Guides et conseils pratiques : enlèvement d'épave gratuit, documents à préparer, accès au véhicule, rôle du centre VHU et démarches en Provence-Alpes-Côte d'Azur.",
+      "Guides pratiques : enlèvement d'épave gratuit, documents à préparer, accès au véhicule, rôle du centre VHU et vente d'une voiture en panne en PACA.",
     h1: "Le blog EcocarVHU",
     intent: "Informationnelle",
     primaryQuery: null,

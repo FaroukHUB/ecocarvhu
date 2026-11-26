@@ -21,16 +21,10 @@ export default function ConditionsPage() {
         rendez-vous et doivent être acceptées par le client. <Missing>modalités d&apos;acceptation</Missing>
       </p>
 
-      <h2>Pièces d&apos;occasion</h2>
-      <p>
-        La disponibilité, la compatibilité, le prix, la garantie éventuelle et les modalités de retrait ou
-        d&apos;envoi sont précisés avec chaque proposition. <Missing>conditions générales de vente</Missing>
-      </p>
-
       <h2>Destruction des véhicules</h2>
       <p>
-        La prise en charge pour destruction est réalisée par le centre VHU partenaire, qui délivre le
-        certificat de destruction. <Missing>identification du centre et articulation contractuelle</Missing>
+        La prise en charge pour destruction est réalisée par un centre VHU agréé, qui délivre le
+        certificat de destruction.
       </p>
     </LegalPage>
   );
