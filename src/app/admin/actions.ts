@@ -28,6 +28,32 @@ export async function signIn(_prev: { error?: string } | undefined, form: FormDa
   redirect(profile?.role === "chauffeur" ? "/admin/chauffeur" : "/admin");
 }
 
+/** Mot de passe oublié : même réponse que le compte existe ou non. */
+export async function requestPasswordReset(_prev: { ok?: string; error?: string } | undefined, form: FormData) {
+  const email = String(form.get("email") ?? "").trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { error: "Cet e-mail ne semble pas valide." };
+  const supabase = await supabaseServer();
+  const site = resolveSiteUrl() ?? "https://www.ecocarvhu.fr";
+  const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${site.replace(/\/$/, "")}/admin/auth/confirm` });
+  if (error && /rate|limit|seconds/i.test(error.message)) return { error: "Un e-mail vient déjà de partir. Attends quelques minutes avant de réessayer." };
+  return { ok: "C'est parti : si ce compte existe, un e-mail arrive dans quelques instants (pense à regarder les spams). Le lien est valable 1 heure." };
+}
+
+export async function updatePassword(_prev: { error?: string } | undefined, form: FormData) {
+  const password = String(form.get("password") ?? "");
+  if (password.length < 8) return { error: "Il faut au moins 8 caractères." };
+  if (password !== String(form.get("confirm") ?? "")) return { error: "Les deux mots de passe ne sont pas identiques." };
+  const supabase = await supabaseServer();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/admin/connexion?lien=expire");
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) return { error: /same|different/i.test(error.message) ? "Choisis un mot de passe différent de l'ancien." : "Ça n'a pas marché, réessaie." };
+  const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle();
+  redirect(profile?.role === "chauffeur" ? "/admin/chauffeur" : "/admin");
+}
+
 export async function signOut() {
   const supabase = await supabaseServer();
   await supabase.auth.signOut();

@@ -60,7 +60,7 @@ async function adminGate(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const login = request.nextUrl.pathname === "/admin/connexion";
+  const login = request.nextUrl.pathname === "/admin/connexion" || request.nextUrl.pathname === "/admin/auth/confirm";
   if (!user && !login) {
     const redirect = NextResponse.redirect(new URL("/admin/connexion", request.url));
     for (const c of response.cookies.getAll()) redirect.cookies.set(c);

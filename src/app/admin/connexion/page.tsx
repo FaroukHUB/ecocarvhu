@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { LoginForm } from "@/components/admin/LoginForm";
+import { ForgotPassword } from "@/components/admin/PasswordForms";
 
 export const metadata: Metadata = { title: "Connexion" };
 
@@ -21,13 +22,21 @@ export default function LoginPage({ searchParams }: PageProps<"/admin/connexion"
           <Refus searchParams={searchParams} />
         </Suspense>
         <LoginForm />
+        <ForgotPassword />
       </div>
     </div>
   );
 }
 
 async function Refus({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  const { refus } = await searchParams;
+  const { refus, lien } = await searchParams;
+  if (lien) {
+    return (
+      <p className="mt-5 rounded-xl bg-amber-50 p-3 text-sm text-amber-900">
+        Ce lien ne marche plus (il a expiré ou a déjà servi). Redemande-en un avec « Mot de passe oublié ? ».
+      </p>
+    );
+  }
   return refus ? (
     <p className="mt-5 rounded-xl bg-amber-50 p-3 text-sm text-amber-900">
       Ce compte n&apos;a pas encore accès à l&apos;espace de gestion.
